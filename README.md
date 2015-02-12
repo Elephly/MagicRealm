@@ -52,4 +52,12 @@ COMP3000 Term Project
     * Suit of Armor
     * Shield
 
+##Day Breakdown
+1. Birdsong: all players determine their moves for the day, each player has a limited number of action per day (see Phases)
+2. Sunrise: one die is rolled to determine what monsters are prowling
+3. Daylight: players take their turns in a random order (should not be the same day to day)
+4. Sunset: all clearing that contain a player "place" an ATTENTION chit in a "pile"
+5. Evening: ATTENTION chits are randomly selected, Characters in the selected clearing are able to rearrange belongings and trade with other players
+6. Midnight: all face up Map chits are returned to their positions and turned face down
+
 Hooray! a Readme file.
