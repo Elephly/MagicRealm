@@ -4,6 +4,9 @@ COMP3000 Term Project
 ##Rule Book
 [2nd edition](http://people.scs.carleton.ca/~jeanpier//304W15/magic%20realm/magicRealm2ed.pdf)
 
+###[Map for Iteration 1](http://i.imgur.com/TiyIbIQ.jpg)
+the buildings have been labeled for better clarity than the original
+
 ##Characters that we must support
 * Captain
  * AIM
