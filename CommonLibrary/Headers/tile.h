@@ -8,7 +8,7 @@
 //Abstract class, extend this with all different tile types
 class COMMONLIBRARY_EXPORT Tile {
 public:
-	virtual ~Tile();
+	Tile();
 
 private:
 	std::vector<Clearing> clearings;

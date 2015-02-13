@@ -8,7 +8,7 @@
 //Abstract class, extend this with all 3 clearing types
 class COMMONLIBRARY_EXPORT Clearing{
 public:
-	virtual ~Clearing();
+	Clearing();
 
 private:
 	std::vector<Character> characters;

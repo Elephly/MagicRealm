@@ -5,7 +5,7 @@
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Character{
 public:
-	virtual ~Character();
+	Character();
 };
 
 #endif // CHARACTER_H
