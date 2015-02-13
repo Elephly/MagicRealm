@@ -1,8 +1,9 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
+#include "commonlibrary_global.h"
 
 //Abstract class, extend this with all different Character types
-class Character{
+class  COMMONLIBRARY_EXPORT Character{
 public:
 	virtual ~Character();
 };
