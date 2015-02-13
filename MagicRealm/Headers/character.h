@@ -7,4 +7,4 @@ public:
 	~Character();
 };
 
-#endif
+#endif // CHARACTER_H
