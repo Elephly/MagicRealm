@@ -1,10 +1,10 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+//Abstract class, extend this with all different Character types
 class Character{
 public:
-	Character();
-	~Character();
+	virtual ~Character();
 };
 
 #endif // CHARACTER_H

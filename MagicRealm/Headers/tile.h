@@ -4,10 +4,10 @@
 #include "clearing.h"
 #include <vector>
 
+//Abstract class, extend this with all different tile types
 class Tile {
 public:
-	Tile();
-	~Tile();
+	virtual ~Tile();
 
 private:
 	std::vector<Clearing> clearings;
