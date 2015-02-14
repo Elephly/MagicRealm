@@ -5,6 +5,6 @@ ClientCommThread::ClientCommThread(QTcpSocket *socket) {
 }
 
 ClientCommThread::~ClientCommThread() {
-	clientConnection->close;
+	clientConnection->close();
 	free(clientConnection);
 }

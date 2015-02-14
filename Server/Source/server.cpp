@@ -1,19 +1,27 @@
 #include "server.h"
+#include <stdio.h>
 
-Server::Server(QObject *parent = 0, int port) : QObject(parent) {
+Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	myPort = port;
-	clientThreadList = new std::vector<ClientCommThread>;
-	incoming->listen(QHostAddress::Any, (quint16) myPort);
+	std::cout << "port is: " << myPort << std::endl;
+	clientThreadList = new std::vector<ClientCommThread *>;
+	incoming = new QTcpServer(parent);
+
+	QObject::connect(incoming, SIGNAL(newConnection()), this, SLOT(handleIncomingUsers()));
 }
 
 void Server::run() {
-	std::cout << "hello this is a test" << std::endl;
+	std::cout << "Starting up the server" << std::endl;
 
+	incoming->listen(QHostAddress::Any, (quint16) myPort);
+	std::cout << "listening for connections" << std::endl;
 }
 
 void Server::handleIncomingUsers() {
 	if(incoming->hasPendingConnections()) {
 		QTcpSocket *newClient = incoming->nextPendingConnection();
-		clientThreadList->push_back(new ClientCommThread(newClient));
+		ClientCommThread *newThread = new ClientCommThread(newClient);
+		// TODO Startup the new thread
+		clientThreadList->push_back(newThread);
 	}
 }

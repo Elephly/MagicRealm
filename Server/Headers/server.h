@@ -8,11 +8,14 @@
 #include "clientCommThread.h"
 
 class Server : public QObject{
+	Q_OBJECT
 public:
-	Server(QObject *parent, int port);
-	void handleIncomingUsers();
+	Server(int port, QObject *parent);
 public slots:
+	void handleIncomingUsers();
 	void run();
+signals:
+	void finished();
 private:
 	quint16 myPort;
 	QTcpServer *incoming;
