@@ -11,6 +11,8 @@ ServerCommThread::ServerCommThread(QString &hostIP,
 }
 
 ServerCommThread::~ServerCommThread() {
+	serverConnection->close();
+	free(serverConnection);
 }
 
 void ServerCommThread::updateFromServer() {
