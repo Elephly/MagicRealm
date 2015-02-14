@@ -10,6 +10,10 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	QObject::connect(incoming, SIGNAL(newConnection()), this, SLOT(handleIncomingUsers()));
 }
 
+Server::~Server() {
+
+}
+
 void Server::run() {
 	std::cout << "Starting up the server" << std::endl;
 
@@ -20,7 +24,7 @@ void Server::run() {
 void Server::handleIncomingUsers() {
 	if(incoming->hasPendingConnections()) {
 		QTcpSocket *newClient = incoming->nextPendingConnection();
-		ClientCommThread *newThread = new ClientCommThread(newClient);
+		ClientCommThread *newThread = new ClientCommThread(newClient, this);
 		// TODO Startup the new thread
 		clientThreadList->push_back(newThread);
 	}

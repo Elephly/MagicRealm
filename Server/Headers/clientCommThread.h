@@ -1,14 +1,15 @@
 #ifndef CLIENTCOMMTHREAD_H
 #define CLIENTCOMMTHREAD_H
 
-#include <qthread.h>
 #include <QtNetwork>
 
-class ClientCommThread : public QThread {
+class ClientCommThread : public QObject{
+	Q_OBJECT
 public:
-	ClientCommThread(QTcpSocket *);
+	ClientCommThread(QTcpSocket *socket, QObject *parent);
 	~ClientCommThread();
-
+public slots:
+	void readIncomingData();
 private:
 	QTcpSocket *clientConnection;
 };

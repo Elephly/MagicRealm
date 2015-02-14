@@ -11,6 +11,7 @@ class Server : public QObject{
 	Q_OBJECT
 public:
 	Server(int port, QObject *parent);
+	~Server();
 public slots:
 	void handleIncomingUsers();
 	void run();
