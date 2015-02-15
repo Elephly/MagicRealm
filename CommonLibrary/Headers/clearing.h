@@ -9,6 +9,7 @@
 
 //forward declare
 class Character;
+class Path;
 
 //Abstract class, extend this with all 3 clearing types
 class COMMONLIBRARY_EXPORT Clearing{
