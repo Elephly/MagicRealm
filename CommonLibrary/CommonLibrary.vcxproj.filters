@@ -37,6 +37,9 @@
     <ClInclude Include="Headers\tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\tile.cpp">
@@ -46,6 +49,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
