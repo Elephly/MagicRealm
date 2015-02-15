@@ -76,14 +76,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\board.h" />
     <ClInclude Include="Headers\character.h" />
     <ClInclude Include="Headers\clearing.h" />
     <ClInclude Include="Headers\commonlibrary_global.h" />
+    <ClInclude Include="Headers\equipment.h" />
+    <ClInclude Include="Headers\path.h" />
+    <ClInclude Include="Headers\shared.h" />
     <ClInclude Include="Headers\tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\board.cpp" />
     <ClCompile Include="Source\character.cpp" />
     <ClCompile Include="Source\clearing.cpp" />
+    <ClCompile Include="Source\path.cpp" />
     <ClCompile Include="Source\tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
