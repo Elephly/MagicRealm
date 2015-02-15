@@ -5,6 +5,7 @@
 #include "character.h"
 #include "shared.h"
 #include "commonlibrary_global.h"
+#include "path.h"
 
 //forward declare
 class Character;
@@ -16,6 +17,7 @@ public:
 
 private:
 	vector<Character> characters;
+	vector<Path> pathways;
 };
 
 #endif // CLEARING_H
