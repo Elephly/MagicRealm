@@ -19,7 +19,7 @@ private:
 	int gold;
 	Clearing *location;
 	CharAdvantages advantages[2];
-	std::vector<Equipment> *equipment;
+	vector<Equipment> *equipment;
 };
 
 #endif // CHARACTER_H

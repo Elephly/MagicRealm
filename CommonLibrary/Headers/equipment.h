@@ -2,6 +2,7 @@
 #define EQUIPMENT_H
 
 #include "commonlibrary_global.h"
+#include "shared.h"
 
 class COMMONLIBRARY_EXPORT Equipment {
 public:

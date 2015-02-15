@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "character.h"
+#include "shared.h"
 #include "commonlibrary_global.h"
 
 //forward declare
@@ -14,7 +15,7 @@ public:
 	Clearing();
 
 private:
-	std::vector<Character> characters;
+	vector<Character> characters;
 };
 
 #endif // CLEARING_H
