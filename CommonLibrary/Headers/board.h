@@ -9,7 +9,7 @@ class  COMMONLIBRARY_EXPORT Board{
 public:
 	Board();
 private:
-    std::unordered_map<Tile*, Tile[]> tiles;
+    std::unordered_map<Tile*, Tile**> tiles;
 };
 
 #endif // BOARD_H

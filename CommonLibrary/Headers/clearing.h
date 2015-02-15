@@ -5,6 +5,9 @@
 #include "character.h"
 #include "commonlibrary_global.h"
 
+//forward declare
+class Character;
+
 //Abstract class, extend this with all 3 clearing types
 class COMMONLIBRARY_EXPORT Clearing{
 public:

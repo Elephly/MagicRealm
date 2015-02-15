@@ -8,6 +8,6 @@ public:
 	Equipment();
 private:
 	int value;
-}
+};
 
 #endif // EQUIPMENT_H

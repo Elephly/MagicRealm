@@ -1,7 +1,7 @@
-#ifndef CHARACTERADVANTAGES_H
-#define CHARACTERADVANTAGES_H
+#ifndef SHARED_H
+#define SHARED_H
 
-#include "commonlibrary_global.h"
+enum COMMONLIBRARY_EXPORT Direction {NORTH, NORTHEAST, NORTHWEST, SOUTH, SOUTHEAST, SOUTHWEST};
 
 enum COMMONLIBRARY_EXPORT CharAdvantages
 {
@@ -17,4 +17,4 @@ enum COMMONLIBRARY_EXPORT CharAdvantages
 	FEAR
 };
 
-#endif // CHARACTERADVANTAGES_H
+#endif
