@@ -16,23 +16,29 @@ class Tile;
 class COMMONLIBRARY_EXPORT Clearing{
 public:
 	Clearing(int clNum, Tile* parentTile);
-    //~Clearing();
+    ~Clearing();
     /*
-    *   addCharacterToClearing
+    *   addCharacter
     *   in: The player's character to be added to the clearing.
     */
-    void addCharacterToClearing(Character* player);
+    void addCharacter(Character* player);
     /*
-    *   removeCharacterToClearing
+    *   removeCharacter
     *   in: The player's character to be remove to the clearing.
     */
-    void removeCharacterToClearing(Character* player);
+    void removeCharacter(Character* player);
 
     /*
-    *   chartPath
+    *   addPath
     *   in: Pointer to the path you wish to add to the clearing
     */
-    void chartPath(Path* newPath);
+    void addPath(Path* newPath);
+    /*
+    *   removePath
+    *   in: Pointer to the path you wish to remove from the clearing
+    */
+    void removePath(Path* oldPath);
+
 
     /*
     *   getClearingNum

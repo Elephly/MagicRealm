@@ -5,7 +5,15 @@ Clearing::Clearing(int clNum, Tile* parentTile) {
     myTile = parentTile;
 }
 
-void Clearing::addCharacterToClearing(Character* player)
+Clearing::~Clearing()
+{
+    //destroying the paths in the clearing.
+    pathways.clear();
+
+    //NOTE: not touching the characters, they should be destroyed later
+}
+
+void Clearing::addCharacter(Character* player)
 {
     //checking to see if the player is already in this clearing.
     for(vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it){
@@ -16,8 +24,31 @@ void Clearing::addCharacterToClearing(Character* player)
     }
     characters.push_back(player);
 }
+void Clearing::removeCharacter(Character* player)
+{
+    //checking to see if the player is already in this clearing.
+    for(vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it){
+        if(*it == player){
+            characters.erase(it);
+            return;
+        }
+    }
+    cout << "WARN: character not found in clearing" <<endl;
+}
 
-void Clearing::chartPath(Path* newPath)
+void Clearing::removePath(Path* oldPath)
+{
+    //checking to see if the player is already in this clearing.
+    for(vector<Path*>::iterator it = pathways.begin(); it != pathways.end(); ++it){
+        if(*it == oldPath){
+            pathways.erase(it);
+            return;
+        }
+    }
+    cout << "WARN: path not found in clearing" <<endl;
+}
+
+void Clearing::addPath(Path* newPath)
 {
     //checking to see if the player is already in this clearing.
     for(vector<Path*>::iterator it = pathways.begin(); it != pathways.end(); ++it){

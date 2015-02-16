@@ -12,6 +12,7 @@ class Clearing;
 class COMMONLIBRARY_EXPORT Path {
 public:
 	Path(Clearing *c1, Clearing *c2, bool isHidden);
+    ~Path();
     /*
     *   getBothEndPoints
     *   In/Out: 2 Clearing pointers(initially should be null) 

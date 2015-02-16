@@ -7,6 +7,14 @@ Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
 	clearing2 = c2;
 }
 
+Path::~Path()
+{
+    cout << "Destructor called for Path" << endl;
+    clearing1->removePath(this);
+    clearing2->removePath(this);
+
+}
+
 void Path::getBothEndPoints(Clearing* c1, Clearing* c2)
 {
     if(c1 == NULL || c2 == NULL)
