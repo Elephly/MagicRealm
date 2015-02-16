@@ -1,6 +1,8 @@
 #ifndef SHARED_H
 #define SHARED_H
 
+#include <iostream>
+
 using namespace std;
 
 enum COMMONLIBRARY_EXPORT Direction {SOUTH=0, SOUTHWEST, NORTHWEST, NORTH, NORTHEAST, SOUTHEAST};

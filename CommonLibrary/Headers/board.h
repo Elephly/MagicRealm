@@ -17,7 +17,8 @@ public:
     */
     void addTile(Tile*, Tile**);
 private:
-    unordered_map<Tile*, Tile**> tiles;
+    unordered_map<Tile*, Tile**> tile_paths;
+
 };
 
 #endif // BOARD_H
