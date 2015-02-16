@@ -1,5 +1,4 @@
 #include "server.h"
-#include <stdio.h>
 
 Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	myPort = port;

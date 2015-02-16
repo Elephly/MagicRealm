@@ -1,5 +1,4 @@
 #include "clientCommThread.h"
-#include <stdio.h>
 
 ClientCommThread::ClientCommThread(QTcpSocket *socket, QObject *parent) : QObject(parent) {
 	clientConnection = socket;
