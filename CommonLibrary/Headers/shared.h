@@ -27,6 +27,6 @@ enum COMMONLIBRARY_EXPORT CharacterTypes
 	Dwarf,
 	Elf,
 	Swordsman
-}
+};
 
 #endif

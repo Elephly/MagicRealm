@@ -46,25 +46,7 @@
     <ClInclude Include="Headers\equipment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Characters\character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Characters\captain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Characters\swordsman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Characters\amazon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Characters\dwarf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Characters\elf.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Characters\blackknight.h">
+    <ClInclude Include="Headers\character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -81,10 +63,7 @@
     <ClCompile Include="Source\path.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Characters\character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Characters\blackknight.cpp">
+    <ClCompile Include="Source\character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
