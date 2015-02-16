@@ -19,4 +19,14 @@ enum COMMONLIBRARY_EXPORT CharAdvantages
 	FEAR
 };
 
+enum COMMONLIBRARY_EXPORT CharacterTypes
+{
+	Amazon,
+	BlackKnight,
+	Captain,
+	Dwarf,
+	Elf,
+	Swordsman
+}
+
 #endif

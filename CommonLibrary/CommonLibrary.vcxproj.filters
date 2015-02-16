@@ -28,9 +28,6 @@
     <ClInclude Include="Headers\commonlibrary_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\clearing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -49,6 +46,27 @@
     <ClInclude Include="Headers\equipment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Characters\character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Characters\captain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Characters\swordsman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Characters\amazon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Characters\dwarf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Characters\elf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Characters\blackknight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\tile.cpp">
@@ -57,13 +75,16 @@
     <ClCompile Include="Source\clearing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\path.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Characters\character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Characters\blackknight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

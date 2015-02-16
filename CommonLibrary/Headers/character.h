@@ -6,6 +6,7 @@
 #include "shared.h"
 #include "equipment.h"
 #include <vector>
+#include <string>
 
 //forward declare
 class Clearing;
@@ -13,13 +14,14 @@ class Clearing;
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Character{
 public:
-	Character();
+	Character(CharacterTypes type);
 	int getGold();
 	vector<Equipment *>* getEquipment();
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);
-protected:
+private:
+	CharacterTypes myType;
 	int gold;
 	Clearing *location;
 	CharAdvantages advantages[2];
