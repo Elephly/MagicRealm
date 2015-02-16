@@ -15,7 +15,7 @@ class  COMMONLIBRARY_EXPORT Character{
 public:
 	Character();
 	int getGold();
-	vector<Equipment *> getEquipment();
+	vector<Equipment *>* getEquipment();
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);

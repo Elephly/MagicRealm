@@ -12,6 +12,10 @@ Clearing* Character::getCurrentLocation() {
 	return location;
 }
 
+vector<Equipment *>* Character::getEquipment() {
+	return equipment;
+}
+
 void  Character::moveToClearing(Clearing *destination) {
 	location = destination;
 }
