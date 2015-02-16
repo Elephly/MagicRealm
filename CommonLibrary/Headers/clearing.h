@@ -15,6 +15,7 @@ class Path;
 class COMMONLIBRARY_EXPORT Clearing{
 public:
 	Clearing();
+    void addCharacterToClearing(Character player);
 
 private:
 	vector<Character> characters;
