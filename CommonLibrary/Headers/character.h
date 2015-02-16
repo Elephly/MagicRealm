@@ -14,12 +14,16 @@ class Clearing;
 class  COMMONLIBRARY_EXPORT Character{
 public:
 	Character();
-
-private:
+	int getGold();
+	vector<Equipment *> getEquipment();
+	Clearing* getCurrentLocation();
+	void moveToClearing(Clearing *destination);
+	bool hasAdvantage(CharAdvantages);
+protected:
 	int gold;
 	Clearing *location;
 	CharAdvantages advantages[2];
-	vector<Equipment> *equipment;
+	vector<Equipment *> *equipment;
 };
 
 #endif // CHARACTER_H
