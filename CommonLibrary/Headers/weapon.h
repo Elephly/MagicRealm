@@ -9,6 +9,7 @@ public:
 	Weapon(WeaponType type);
 
 private:
+	bool active;
 	WeaponType type;
 	int length;
 	int sharpness;
