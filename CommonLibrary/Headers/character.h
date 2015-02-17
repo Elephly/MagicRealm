@@ -27,6 +27,14 @@ private:
 	Clearing *location;
 	CharAdvantages advantages[2];
 	vector<Equipment *> *equipment;
+
+	//private functions
+	void initAmazon();
+	void initBlackknight();
+	void initCaptain();
+	void initDwarf();
+	void initElf();
+	void initSwordsman();
 };
 
 #endif // CHARACTER_H
