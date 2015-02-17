@@ -2,6 +2,7 @@
 #define SHARED_H
 
 #include <iostream>
+#include "commonlibrary_global.h"
 
 using namespace std;
 
@@ -29,6 +30,37 @@ enum COMMONLIBRARY_EXPORT CharacterTypes
 	Dwarf,
 	Elf,
 	Swordsman
+};
+
+enum COMMONLIBRARY_EXPORT ArmorType
+{
+	Helmet,
+	Breastplate,
+	Shield,
+	Suit
+};
+
+enum COMMONLIBRARY_EXPORT WeaponType
+{
+	MediumBow,
+	LightBow,
+	CrossBow,
+	Spear,
+	Staff,
+	GreatSword,
+	BroadSword,
+	MorningStar,
+	GreatAxe,
+	ThrustingSword,
+	ShortSword,
+	Axe,
+	Mace
+};
+
+enum COMMONLIBRARY_EXPORT AttackType
+{
+	Missile,
+	Striking
 };
 
 #endif

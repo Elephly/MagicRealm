@@ -20,6 +20,7 @@ public:
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);
+
 private:
 	CharacterTypes myType;
 	int gold;

@@ -7,7 +7,9 @@
 class COMMONLIBRARY_EXPORT Equipment {
 public:
 	Equipment();
-private:
+
+protected:
+	char weightClass;
 	int value;
 };
 
