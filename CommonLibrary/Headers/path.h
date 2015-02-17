@@ -12,6 +12,7 @@ class Clearing;
 class COMMONLIBRARY_EXPORT Path {
 public:
 	Path(Clearing *c1, Clearing *c2, bool isHidden);
+    Path(Clearing *c1, bool isBorder);
     ~Path();
     /*
     *   getBothEndPoints
@@ -35,6 +36,7 @@ public:
 
 private:
 	bool hidden;
+    bool border;
 	Clearing *clearing1;
 	Clearing *clearing2;
 };

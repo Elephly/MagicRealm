@@ -10,8 +10,10 @@ Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
 Path::~Path()
 {
     cout << "Destructor called for Path" << endl;
-    clearing1->removePath(this);
-    clearing2->removePath(this);
+    if(clearing1)
+        clearing1->removePath(this);
+    if(clearing2)
+        clearing2->removePath(this);
 
 }
 
