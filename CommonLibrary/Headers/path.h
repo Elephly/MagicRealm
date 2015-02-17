@@ -14,7 +14,7 @@ public:
 	Path(Clearing *c1, Clearing *c2, bool isHidden);
 
     //for a path that leaves a tile (connects two tiles)
-    Path(Clearing *c1);
+    Path(Clearing *c1, Direction d);
     ~Path();
     /*
     *   getBothEndPoints
@@ -36,17 +36,24 @@ public:
     */
     bool isHidden();
 
-    bool isBorder();
     /*
     *   isBorder
     *   out: path is border or not.
     */
-    
+    bool isBorder();
+
+    /*
+    *   borderingSide()
+    *   out: the Side that it is bordering as a Direction
+    */
+    Direction borderingSide();
+
 private:
 	bool hidden;
     bool border;
 	Clearing *clearing1;
 	Clearing *clearing2;
+    Direction bordering;
 };
 
 #endif // PATH_H

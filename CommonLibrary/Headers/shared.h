@@ -6,7 +6,7 @@
 
 using namespace std;
 
-enum COMMONLIBRARY_EXPORT Direction {EDGE_A=0, EDGE_B, EDGE_C, EDGE_D, EDGE_E, EDGE_F};
+enum COMMONLIBRARY_EXPORT Direction {EDGE_NONE =-1, EDGE_A=0, EDGE_B, EDGE_C, EDGE_D, EDGE_E, EDGE_F};
 
 enum COMMONLIBRARY_EXPORT CharAdvantages
 {

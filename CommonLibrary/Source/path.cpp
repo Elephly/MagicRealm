@@ -6,16 +6,18 @@ Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
     border = false;
 	clearing1 = c1;
 	clearing2 = c2;
+    bordering = EDGE_NONE;
 }
 
 //for a path that leaves a tile.
-Path::Path(Clearing* c1)
+Path::Path(Clearing* c1, Direction dir)
 {
     //border paths cannot be secret passages or hidden paths
     hidden = false;
     border = true;
     clearing1 = c1;
     clearing2 = NULL;
+    bordering = dir;
 }
 
 Path::~Path()
@@ -49,4 +51,9 @@ bool Path::isHidden()
 bool Path::isBorder()
 {
     return border;
+}
+
+Direction Path::borderingSide()
+{
+    return bordering;
 }
