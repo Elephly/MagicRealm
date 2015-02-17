@@ -45,3 +45,8 @@ bool Path::isHidden()
 {
     return hidden;
 }
+
+bool Path::isBorder()
+{
+    return border;
+}

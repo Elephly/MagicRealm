@@ -36,6 +36,12 @@ public:
     */
     bool isHidden();
 
+    bool isBorder();
+    /*
+    *   isBorder
+    *   out: path is border or not.
+    */
+    
 private:
 	bool hidden;
     bool border;
