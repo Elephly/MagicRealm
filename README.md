@@ -79,4 +79,11 @@ the buildings have been labeled for better clarity than the original
 * belongings contribute to wards Fame and Notoriety, and must be owned at games end to count
 * Gold 
 
+##Communication for 1 day
+1. Server calculates how many actions each player has and lets the clients know
+2. Clients plan their moves using the activity numbers allotted
+3. Clients send their plans, 
+4. server waits for all then runs the day.
+5. Server sends out updates after each action stating what happened
+
 Hooray! a Readme file.
