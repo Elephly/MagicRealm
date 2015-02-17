@@ -63,4 +63,13 @@ enum COMMONLIBRARY_EXPORT AttackType
 	Striking
 };
 
+enum COMMONLIBRARY_EXPORT ActionType
+{
+	MoveAction,
+	SearchAction,
+	TradeAction,
+	HideAction,
+	PeerAction
+};
+
 #endif

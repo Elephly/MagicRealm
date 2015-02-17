@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\action.h" />
     <ClInclude Include="Headers\armor.h" />
     <ClInclude Include="Headers\board.h" />
     <ClInclude Include="Headers\character.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="Headers\commonlibrary_global.h" />
     <ClInclude Include="Headers\equipment.h" />
     <ClInclude Include="Headers\path.h" />
+    <ClInclude Include="Headers\recordedTurn.h" />
     <ClInclude Include="Headers\shared.h" />
     <ClInclude Include="Headers\tile.h" />
     <ClInclude Include="Headers\weapon.h" />
