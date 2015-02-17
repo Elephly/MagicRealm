@@ -63,4 +63,20 @@ the buildings have been labeled for better clarity than the original
 5. Evening: ATTENTION chits are randomly selected, Characters in the selected clearing are able to rearrange belongings and trade with other players
 6. Midnight: all face up Map chits are returned to their positions and turned face down
 
+
+##Victory Points
+* assign 0-5 points for each of the following categories
+   * Great Treasures
+      * multiply by 1
+   * Spells
+      * multiply by 2
+   * Fame
+      * multiply by 10
+   * Notoriety
+      * multiply by 20
+   * Gold
+      * multiply by 30
+* belongings contribute to wards Fame and Notoriety, and must be owned at games end to count
+* Gold 
+
 Hooray! a Readme file.
