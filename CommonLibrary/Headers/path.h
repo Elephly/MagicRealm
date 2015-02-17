@@ -12,7 +12,9 @@ class Clearing;
 class COMMONLIBRARY_EXPORT Path {
 public:
 	Path(Clearing *c1, Clearing *c2, bool isHidden);
-    Path(Clearing *c1, bool isBorder);
+
+    //for a path that leaves a tile (connects two tiles)
+    Path(Clearing *c1);
     ~Path();
     /*
     *   getBothEndPoints
