@@ -6,10 +6,10 @@
 #include "recordedTurn.h"
 #include <string>
 
-string COMMONLIBRARY_EXPORT serialzeAction(Action);
-Action COMMONLIBRARY_EXPORT deserializeAction(string);
+string* COMMONLIBRARY_EXPORT serialzeAction(Action*);
+Action* COMMONLIBRARY_EXPORT deserializeAction(string*);
 
-string COMMONLIBRARY_EXPORT serializeTurn(RecordedTurn);
-RecordedTurn COMMONLIBRARY_EXPORT deserializeTurn(string);
+string* COMMONLIBRARY_EXPORT serializeTurn(RecordedTurn*);
+RecordedTurn* COMMONLIBRARY_EXPORT deserializeTurn(string*);
 
 #endif // SERIALIZER_H
