@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "clientCommThread.h"
+#include "serverShared.h"
 
 class Server : public QObject{
 	Q_OBJECT

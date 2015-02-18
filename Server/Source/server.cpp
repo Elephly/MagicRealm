@@ -6,7 +6,10 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	clientThreadList = new std::vector<ClientCommThread *>;
 	incoming = new QTcpServer(parent);
 
-	QObject::connect(incoming, SIGNAL(newConnection()), this, SLOT(handleIncomingUsers()));
+	QObject::connect(incoming,
+		SIGNAL(newConnection()),
+		this,
+		SLOT(handleIncomingUsers()));
 }
 
 Server::~Server() {
@@ -21,10 +24,14 @@ void Server::run() {
 }
 
 void Server::handleIncomingUsers() {
+		
 	if(incoming->hasPendingConnections()) {
 		QTcpSocket *newClient = incoming->nextPendingConnection();
 		ClientCommThread *newThread = new ClientCommThread(newClient, this);
 		// TODO Startup the new thread
 		clientThreadList->push_back(newThread);
+	}
+	if (clientThreadList->size >= MAXPLAYERS) {
+		incoming->pauseAccepting();
 	}
 }
