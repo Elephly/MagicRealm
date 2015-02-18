@@ -10,6 +10,6 @@ public:
 private:
 	Clearing *targetClearing;
 	ActionType myAction;
-}
+};
 
 #endif // ACTION_H
