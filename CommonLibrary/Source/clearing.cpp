@@ -59,3 +59,9 @@ void Clearing::addPath(Path* newPath)
     }
     pathways.push_back(newPath);
 }
+
+string* Clearing::toString()
+{
+    string *tostring = new string(myTile->getName() +"!" +to_string(ID));
+    return tostring;
+}

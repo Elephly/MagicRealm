@@ -6,6 +6,7 @@
 #include "shared.h"
 #include "commonlibrary_global.h"
 #include "path.h"
+#include "tile.h"
 
 //forward declare
 class Character;
@@ -45,6 +46,10 @@ public:
     *   Out:    The number in the clearing
     */
     int getClearingNum();
+
+    //toStirng method, returns POINTER TO STRING
+    string* toString();
+
 
     //TODO: Add the get dwelling object here.
 

@@ -2,6 +2,7 @@
 #define SHARED_H
 
 #include <iostream>
+#include <string>
 #include "commonlibrary_global.h"
 
 using namespace std;

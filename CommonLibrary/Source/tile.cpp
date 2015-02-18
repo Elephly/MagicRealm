@@ -6,3 +6,7 @@ Tile::Tile(vector<Clearing*> *cl, Direction orient, string n) {
     name = n;
 
 }
+string Tile::getName()
+{
+    return name;
+}
