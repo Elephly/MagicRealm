@@ -3,10 +3,15 @@
 
 #include "shared.h"
 #include "clearing.h"
+#include "serializer.h"
 
-class COMMONLIBRARY_EXPORT Action {
+class COMMONLIBRARY_EXPORT Action : public Serializer {
 public:
-	Action();
+	Action(ActionType, Clearing*);
+	Action(string*);
+	Clearing* getTarget();
+	ActionType getAction();
+	virtual string* serialize();
 private:
 	Clearing *targetClearing;
 	ActionType myAction;

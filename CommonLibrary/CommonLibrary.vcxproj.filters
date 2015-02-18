@@ -61,6 +61,9 @@
     <ClInclude Include="Headers\action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\serializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\tile.cpp">
@@ -85,6 +88,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\equipment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\recordedTurn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
