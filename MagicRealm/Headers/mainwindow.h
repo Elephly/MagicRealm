@@ -15,6 +15,11 @@ public:
 private slots:
     void on_actionExit_triggered();
 
+	void on_menuPlayButton_clicked();
+	void on_menuQuitButton_clicked();
+
+	void on_gameQuitButton_clicked();
+
 private:
 	Ui::MainWindowClass ui;
 };
