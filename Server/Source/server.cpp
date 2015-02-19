@@ -33,6 +33,7 @@ void Server::handleIncomingUsers()  {
 		if (clientThreadList->size() >= MAXPLAYERS) {
 			std::cout << "new user has been rejected" << std::endl;
 			newClient->write(DECLINECONN);
+			newClient->close();
 		} else {
 			ClientCommThread *newThread = new ClientCommThread(newClient, this);
 			clientThreadList->push_back(newThread);
