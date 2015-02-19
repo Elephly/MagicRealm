@@ -10,3 +10,12 @@ string Tile::getName()
 {
     return name;
 }
+
+Clearing* Tile::getClearing(int clearingID)
+{
+    for(vector<Clearing*>::iterator it = clearings.begin(); it != clearings.end(); ++it){
+        if( (*it)->getClearingNum() == clearingID)
+            return *it;
+    }
+    return NULL;
+}

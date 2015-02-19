@@ -10,7 +10,18 @@ class COMMONLIBRARY_EXPORT Tile {
 public:
 	Tile(vector<Clearing*>* cls, Direction orient, string n);
 
+    /*
+    *   getName()
+    *   out:    The name of the Tile as a String
+    */
     string getName();
+
+    /*
+    *   getClearing
+    *   in: Id of the Clearing
+    *   out: Pointer to the clearing
+    */
+    Clearing* getClearing(int id);
 
 private:
 	vector<Clearing*> clearings;
