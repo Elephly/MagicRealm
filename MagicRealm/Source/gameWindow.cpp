@@ -5,6 +5,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
 	server = new ServerCommThread(this);
+	selectedCharacter = 0;
 }
 
 GameWindow::~GameWindow()
@@ -16,13 +17,13 @@ GameWindow::~GameWindow()
 	}
 }
 
-errno_t GameWindow::initialize(QString &hostIP)
+errno_t GameWindow::initialize(QString &hostIP, int character)
 {
 	errno_t err = 0;
 
-	ui.menuWidget->setVisible(false);
-	ui.loadingWidget->setVisible(true);
-	qApp->processEvents();
+	selectedCharacter = new Character((CharacterTypes)character);
+
+	changeScreenState(ui.loadingWidget);
 	
 	err = server->threadConnect(hostIP, GAMEPORT);
 	if (err)
@@ -41,9 +42,8 @@ errno_t GameWindow::initialize(QString &hostIP)
 		}
 		Sleep(1000);
 	}
-	
-	ui.loadingWidget->setVisible(false);
-	ui.gameWidget->setVisible(true);
+
+	changeScreenState(ui.gameWidget);
 
 	return err;
 }
@@ -53,9 +53,25 @@ errno_t GameWindow::cleanup()
 	errno_t err = 0;
 
 	err = server->threadDisconnect();
+
+	if (selectedCharacter != 0)
+	{
+		delete selectedCharacter;
+		selectedCharacter = 0;
+	}
 	
-	ui.menuWidget->setVisible(true);
-	ui.gameWidget->setVisible(false);
+	changeScreenState(ui.menuWidget);
 
 	return err;
+}
+
+
+void GameWindow::changeScreenState(QWidget* screen)
+{
+	ui.menuWidget->setVisible(false);
+	ui.loadingWidget->setVisible(false);
+	ui.characterSelectWidget->setVisible(false);
+	ui.gameWidget->setVisible(false);
+	screen->setVisible(true);
+	qApp->processEvents();
 }

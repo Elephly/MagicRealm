@@ -3,17 +3,23 @@
 #include <QMessageBox>
 #include <QInputDialog>
 
+QString MainWindow::characterDetailPaths[] = { ":/images/characterdetail/amazon.jpg",
+												":/images/characterdetail/black_knight.jpg",
+												":/images/characterdetail/captain.jpg",
+												":/images/characterdetail/dwarf.jpg",
+												":/images/characterdetail/elf.jpg",
+												":/images/characterdetail/swordsman.jpg" };
+
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
 	this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
 	ui.setupUi(this);
 	ui.statusBar->setSizeGripEnabled(false);
-	ui.menuWidget->setVisible(true);
-	ui.loadingWidget->setVisible(false);
-	ui.gameWidget->setVisible(false);
 
 	gameWindow = new GameWindow(this, ui);
+
+	gameWindow->changeScreenState(ui.menuWidget);
 }
 
 MainWindow::~MainWindow()
@@ -32,10 +38,20 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_menuPlayButton_clicked()
 {
+	gameWindow->changeScreenState(ui.characterSelectWidget);
+}
+
+void MainWindow::on_menuQuitButton_clicked()
+{
+	QApplication::quit();
+}
+
+void MainWindow::on_characterSelectButton_clicked()
+{
 	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
 	if (!hostIP.isEmpty())
 	{
-		if (gameWindow->initialize(hostIP))
+		if (gameWindow->initialize(hostIP, ui.characterListView->currentRow()))
 		{
 			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game.");
 			return;
@@ -43,9 +59,14 @@ void MainWindow::on_menuPlayButton_clicked()
 	}
 }
 
-void MainWindow::on_menuQuitButton_clicked()
+void MainWindow::on_characterQuitButton_clicked()
 {
-	QApplication::quit();
+	gameWindow->changeScreenState(ui.menuWidget);
+}
+
+void MainWindow::on_characterListView_currentRowChanged(int row)
+{
+	ui.characterDetailView->setPixmap(QPixmap(characterDetailPaths[row]));
 }
 
 void MainWindow::on_gameQuitButton_clicked()

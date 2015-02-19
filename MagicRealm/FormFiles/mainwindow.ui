@@ -222,118 +222,170 @@
       <height>409</height>
      </rect>
     </property>
-    <widget class="QListWidget" name="listWidget">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>256</width>
-       <height>221</height>
-      </rect>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,9">
+     <property name="leftMargin">
+      <number>40</number>
+     </property>
+     <property name="rightMargin">
+      <number>40</number>
      </property>
      <item>
-      <property name="text">
-       <string>Amazon</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Serif</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="icon">
-       <iconset resource="../Resources/mainwindow.qrc">
-        <normaloff>:/images/characters/amazon.png</normaloff>:/images/characters/amazon.png</iconset>
-      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="8,1">
+       <item>
+        <widget class="QListWidget" name="characterListView">
+         <property name="currentRow">
+          <number>0</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>Amazon</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Serif</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/mainwindow.qrc">
+            <normaloff>:/images/characters/amazon.png</normaloff>:/images/characters/amazon.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Black Knight</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Serif</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/mainwindow.qrc">
+            <normaloff>:/images/characters/black_knight.png</normaloff>:/images/characters/black_knight.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Captain</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Serif</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/mainwindow.qrc">
+            <normaloff>:/images/characters/captain.png</normaloff>:/images/characters/captain.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Dwarf</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Serif</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/mainwindow.qrc">
+            <normaloff>:/images/characters/dwarf.png</normaloff>:/images/characters/dwarf.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Elf</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Serif</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/mainwindow.qrc">
+            <normaloff>:/images/characters/elf.png</normaloff>:/images/characters/elf.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Swordsman</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Serif</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="icon">
+           <iconset resource="../Resources/mainwindow.qrc">
+            <normaloff>:/images/characters/swordsman.png</normaloff>:/images/characters/swordsman.png</iconset>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="characterSelectButton">
+           <property name="font">
+            <font>
+             <family>MS Serif</family>
+             <pointsize>18</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Select</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="characterQuitButton">
+           <property name="font">
+            <font>
+             <family>MS Serif</family>
+             <pointsize>18</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Quit</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
      <item>
-      <property name="text">
-       <string>Black Knight</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Serif</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="icon">
-       <iconset resource="../Resources/mainwindow.qrc">
-        <normaloff>:/images/characters/black_knight.png</normaloff>:/images/characters/black_knight.png</iconset>
-      </property>
+      <widget class="QLabel" name="characterDetailView">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="../Resources/mainwindow.qrc">:/images/characterdetail/amazon.jpg</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
-     <item>
-      <property name="text">
-       <string>Captain</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Serif</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="icon">
-       <iconset resource="../Resources/mainwindow.qrc">
-        <normaloff>:/images/characters/captain.png</normaloff>:/images/characters/captain.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Dwarf</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Serif</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="icon">
-       <iconset resource="../Resources/mainwindow.qrc">
-        <normaloff>:/images/characters/dwarf.png</normaloff>:/images/characters/dwarf.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Elf</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Serif</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="icon">
-       <iconset resource="../Resources/mainwindow.qrc">
-        <normaloff>:/images/characters/elf.png</normaloff>:/images/characters/elf.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Swordsman</string>
-      </property>
-      <property name="font">
-       <font>
-        <family>MS Serif</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="icon">
-       <iconset resource="../Resources/mainwindow.qrc">
-        <normaloff>:/images/characters/swordsman.png</normaloff>:/images/characters/swordsman.png</iconset>
-      </property>
-     </item>
-    </widget>
+    </layout>
    </widget>
    <zorder>menuWidget</zorder>
    <zorder>loadingWidget</zorder>
