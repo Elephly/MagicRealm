@@ -2,7 +2,7 @@
 
 ServerCommThread::ServerCommThread(QObject *parent) : QObject(parent) 
 {
-
+	serverConnection = 0;
 }
 
 ServerCommThread::~ServerCommThread()
