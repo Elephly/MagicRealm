@@ -32,12 +32,21 @@ void Game::setupGame()
     c2 = new Clearing(4, oakWoodsTile);
     c3 = new Clearing(5, oakWoodsTile);
     p = new Path(c1, c2, false);
-
+    p = new Path(c1, EDGE_B);
+    p = new Path(c3, EDGE_C);
+    p = new Path(c3, EDGE_D);
+    p = new Path(c1, EDGE_E);
+    p = new Path(c1, EDGE_F);
     gameBoard->addTile(oakWoodsTile);
 
     if(gameBoard->getTile("Oak Woods") != NULL)
         cout << "Tile Found!!!" << endl;
-    
+
+    cout << "Attempting to placing player1 in Oak Woods Clearing 2" <<endl;
+    p1->moveToClearing(c1);
+    string *resultString = p1->getCurrentLocation()->toString();
+    cout << "player1 moved to clearing: " << *resultString << endl;
+    delete resultString;
     //resetting the clearings
     p = NULL;
     c1 = NULL;
