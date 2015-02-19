@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "qapplication.h"
 #include <QMessageBox>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -30,13 +31,17 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_menuPlayButton_clicked()
 {
-	if (!gameWindow->initialize())
+	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
+	if (!hostIP.isEmpty())
 	{
-		QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game. Quitting.");
-		return;
+		if (gameWindow->initialize())
+		{
+			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game. Quitting.");
+			return;
+		}
+		ui.menuWidget->setVisible(false);
+		ui.gameWidget->setVisible(true);
 	}
-	ui.menuWidget->setVisible(false);
-	ui.gameWidget->setVisible(true);
 }
 
 void MainWindow::on_menuQuitButton_clicked()
