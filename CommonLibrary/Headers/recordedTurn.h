@@ -13,9 +13,9 @@ public:
 	RecordedTurn(string*);
 
 	/*
-	returns result code, 1 for ok, 0 for unable to add action
+	returns result code, true for ok, false for unable to add action
 	*/
-	int addAction(Action*, PhaseType);
+	bool addAction(Action*, PhaseType);
 	virtual string* serialize();
 private:
 	vector<Action*> *actions;

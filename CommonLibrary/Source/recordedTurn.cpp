@@ -11,14 +11,14 @@ RecordedTurn::RecordedTurn(string* serializedString) {
 	availablePhases = new map<PhaseType, int>();
 }
 
-int RecordedTurn::addAction(Action *action, PhaseType phase) {
-	int result = 0;
+bool RecordedTurn::addAction(Action *action, PhaseType phase) {
+	bool result = false;
 	map<PhaseType, int>::iterator myiter = availablePhases->find(phase);
 	if (myiter != availablePhases->end()) {
 		if (myiter->second > 0) {
 			actions->push_back(action);
 			myiter->second--;
-			result = 1;
+			result = true;
 		}
 	}
 
