@@ -34,7 +34,7 @@ RecordedTurn::RecordedTurn(string* serializedString) {
 		s1 = first.substr(0, delimPos);
 		s2 = first.substr(delimPos + 1);
 
-		availablePhases->insert(map<PhaseType, int>::value_type((PhaseType) atoi(s1.c_str()), (int) atoi(s2.c_str)));
+		availablePhases->insert(map<PhaseType, int>::value_type((PhaseType) atoi(s1.c_str()), (int) atoi(s2.c_str())));
 
 	} while(second.at(0) != '*');
 }
