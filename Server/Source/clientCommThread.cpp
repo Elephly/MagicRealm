@@ -13,3 +13,7 @@ ClientCommThread::~ClientCommThread() {
 void ClientCommThread::readIncomingData() {
 
 }
+
+void ClientCommThread::writeMessage(char *message) {
+	clientConnection->write(message);
+}

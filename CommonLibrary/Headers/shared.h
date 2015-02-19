@@ -1,6 +1,10 @@
 #ifndef SHARED_H
 #define SHARED_H
 
+#define GAMEPORT 42730
+#define DECLINECONN "connection declined"
+#define ACCEPTCONN "connection accepted"
+
 #include <iostream>
 #include <string>
 #include "commonlibrary_global.h"

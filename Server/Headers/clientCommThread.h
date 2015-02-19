@@ -8,6 +8,7 @@ class ClientCommThread : public QObject{
 public:
 	ClientCommThread(QTcpSocket *socket, QObject *parent);
 	~ClientCommThread();
+	void writeMessage(char* message);
 public slots:
 	void readIncomingData();
 private:

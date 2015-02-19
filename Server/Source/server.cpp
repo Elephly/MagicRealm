@@ -27,11 +27,12 @@ void Server::handleIncomingUsers() {
 		
 	if(incoming->hasPendingConnections()) {
 		QTcpSocket *newClient = incoming->nextPendingConnection();
-		ClientCommThread *newThread = new ClientCommThread(newClient, this);
-		// TODO Startup the new thread
-		clientThreadList->push_back(newThread);
-	}
-	if (clientThreadList->size >= MAXPLAYERS) {
-		incoming->pauseAccepting();
+		if (clientThreadList->size() >= MAXPLAYERS) {
+			newClient->write(DECLINECONN);
+		} else {
+			ClientCommThread *newThread = new ClientCommThread(newClient, this);
+			clientThreadList->push_back(newThread);
+			newThread->writeMessage(ACCEPTCONN);
+		}
 	}
 }
