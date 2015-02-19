@@ -1,5 +1,5 @@
 # MagicRealm
-COMP3000 Term Project
+COMP3004 Term Project
 
 ##Rule Book
 [2nd edition](http://people.scs.carleton.ca/~jeanpier//304W15/magic%20realm/magicRealm2ed.pdf)
