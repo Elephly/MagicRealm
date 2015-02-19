@@ -7,6 +7,8 @@ Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
 	clearing1 = c1;
 	clearing2 = c2;
     bordering = EDGE_NONE;
+    clearing1->addPath(this);
+    clearing2->addPath(this);
 }
 
 //for a path that leaves a tile.
@@ -18,6 +20,7 @@ Path::Path(Clearing* c1, Direction dir)
     clearing1 = c1;
     clearing2 = NULL;
     bordering = dir;
+    clearing1->addPath(this);
 }
 
 Path::~Path()

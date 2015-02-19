@@ -25,6 +25,7 @@ void Game::setupGame()
     Clearing* c3 = NULL;
     Clearing* c4 = NULL;
     Path* p = NULL;
+    string *resultString = NULL;
 
     //setting up the Oak Woods Tile
     Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
@@ -44,9 +45,18 @@ void Game::setupGame()
 
     cout << "Attempting to placing player1 in Oak Woods Clearing 2" <<endl;
     p1->moveToClearing(c1);
-    string *resultString = p1->getCurrentLocation()->toString();
+    resultString = p1->getCurrentLocation()->toString();
     cout << "player1 moved to clearing: " << *resultString << endl;
     delete resultString;
+    resultString = NULL;
+    
+    cout << "Attempting to move p1 to clearing 4" << endl;
+    if(moveRequest(p1, c2)){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
     //resetting the clearings
     p = NULL;
     c1 = NULL;
