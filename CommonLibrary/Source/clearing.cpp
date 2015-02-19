@@ -90,6 +90,6 @@ string* Clearing::toString()
 	s << VARDELIM;
 	s << ID;
 
-    string *tostring = &(s.str());
+    string *tostring = new string (s.str());
     return tostring;
 }
