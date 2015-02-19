@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 	ui.menuWidget->setVisible(true);
 	ui.gameWidget->setVisible(false);
 
-	gameWindow = new GameWindow(ui);
+	gameWindow = new GameWindow(this, ui);
 }
 
 MainWindow::~MainWindow()
@@ -36,7 +36,7 @@ void MainWindow::on_menuPlayButton_clicked()
 	{
 		if (gameWindow->initialize(hostIP))
 		{
-			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game. Quitting.");
+			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game.");
 			return;
 		}
 		ui.menuWidget->setVisible(false);
@@ -51,10 +51,13 @@ void MainWindow::on_menuQuitButton_clicked()
 
 void MainWindow::on_gameQuitButton_clicked()
 {
-	if (gameWindow->cleanup())
+	if (QMessageBox::question(ui.centralWidget, "Are you sure?", "Do you really want to quit?") == QMessageBox::Yes)
 	{
-		QMessageBox::about(ui.centralWidget, "Hello World!", "Hi!");
+		if (gameWindow->cleanup())
+		{
+			QMessageBox::about(ui.centralWidget, "Error", "Failed to cleanup game.");
+		}
+		ui.menuWidget->setVisible(true);
+		ui.gameWidget->setVisible(false);
 	}
-	ui.menuWidget->setVisible(true);
-	ui.gameWidget->setVisible(false);
 }

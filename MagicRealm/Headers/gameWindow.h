@@ -12,7 +12,7 @@
 class GameWindow : public QObject
 {
 public:
-	GameWindow(Ui::MainWindowClass mainWindow);
+	GameWindow(QObject* parent, Ui::MainWindowClass mainWindow);
 	~GameWindow();
 
 	errno_t initialize(QString &hostIP);
