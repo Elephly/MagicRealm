@@ -11,16 +11,21 @@ GameWindow::~GameWindow()
 
 }
 
-errno_t GameWindow::initialize()
+errno_t GameWindow::initialize(QString &hostIP)
 {
 	errno_t ret = 0;
 	
+	server = new ServerCommThread(hostIP, 0, this);
+
 	return ret;
 }
 
 errno_t GameWindow::cleanup()
 {
 	errno_t ret = 0;
+
+	delete server;
+	server = 0;
 
 	return ret;
 }

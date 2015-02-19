@@ -7,18 +7,20 @@
  */
 
 #include "ui_mainwindow.h"
+#include "serverCommThread.h"
 
-class GameWindow
+class GameWindow : public QObject
 {
 public:
 	GameWindow(Ui::MainWindowClass mainWindow);
 	~GameWindow();
 
-	errno_t initialize();
+	errno_t initialize(QString &hostIP);
 	errno_t cleanup();
 
 private:
 	Ui::MainWindowClass ui;
+	ServerCommThread* server;
 };
 
 #endif // GAMEWINDOW_H

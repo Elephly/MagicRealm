@@ -34,7 +34,7 @@ void MainWindow::on_menuPlayButton_clicked()
 	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
 	if (!hostIP.isEmpty())
 	{
-		if (gameWindow->initialize())
+		if (gameWindow->initialize(hostIP))
 		{
 			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game. Quitting.");
 			return;
