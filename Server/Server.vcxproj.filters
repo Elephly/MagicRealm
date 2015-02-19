@@ -71,5 +71,8 @@
     <ClInclude Include="Headers\serverShared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

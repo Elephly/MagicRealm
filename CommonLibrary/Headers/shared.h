@@ -6,6 +6,10 @@
 #define DECLINECONN "connection declined"
 #define ACCEPTCONN "connection accepted"
 
+#define CLASSDELIM "**"
+#define VARDELIM "^"
+#define LISTDELIM "+"
+
 #include <iostream>
 #include <string>
 #include "commonlibrary_global.h"
@@ -78,4 +82,10 @@ enum COMMONLIBRARY_EXPORT ActionType
 	PeerAction
 };
 
+enum COMMONLIBRARY_EXPORT PhaseType
+{
+	MovePhase,
+	BasicPhase,
+	SunlightPhase
+};
 #endif

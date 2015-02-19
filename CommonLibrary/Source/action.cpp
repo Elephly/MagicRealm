@@ -20,8 +20,9 @@ Action::Action(string* serializedString) {
 
 string* Action::serialize() {
 	ostringstream s;
-	s << "Action" << "**" << (int)myAction << "^" << targetClearing->toString();
-	string *myString = new string();
-	*myString = s.str();
+	s << "Action" << CLASSDELIM << (int)myAction << VARDELIM << targetClearing->toString();
+
+	s << CLASSDELIM;
+	string *myString = &(s.str());
 	return myString;
 }
