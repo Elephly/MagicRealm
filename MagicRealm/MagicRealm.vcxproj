@@ -98,6 +98,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\mainwindow.cpp" />
     <ClCompile Include="Source\serverCommThread.cpp" />
+    <ClCompile Include="Source\gameWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="FormFiles\mainwindow.ui">
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
+    <ClInclude Include="Headers\gameWindow.h" />
     <CustomBuild Include="Headers\serverCommThread.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing serverCommThread.h...</Message>

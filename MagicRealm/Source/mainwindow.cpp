@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "qapplication.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -9,20 +10,31 @@ MainWindow::MainWindow(QWidget *parent)
 	ui.statusBar->setSizeGripEnabled(false);
 	ui.menuWidget->setVisible(true);
 	ui.gameWidget->setVisible(false);
+
+	gameWindow = new GameWindow(ui);
 }
 
 MainWindow::~MainWindow()
 {
-	
+	delete gameWindow;
 }
 
 void MainWindow::on_actionExit_triggered()
 {
-    QApplication::quit();
+	if (QMessageBox::question(ui.centralWidget, "Are you sure?", "Do you really want to quit?") == QMessageBox::Yes)
+	{
+		gameWindow->cleanup();
+		QApplication::quit();
+	}
 }
 
 void MainWindow::on_menuPlayButton_clicked()
 {
+	if (!gameWindow->initialize())
+	{
+		QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game. Quitting.");
+		return;
+	}
 	ui.menuWidget->setVisible(false);
 	ui.gameWidget->setVisible(true);
 }
@@ -34,6 +46,10 @@ void MainWindow::on_menuQuitButton_clicked()
 
 void MainWindow::on_gameQuitButton_clicked()
 {
+	if (gameWindow->cleanup())
+	{
+		QMessageBox::about(ui.centralWidget, "Hello World!", "Hi!");
+	}
 	ui.menuWidget->setVisible(true);
 	ui.gameWidget->setVisible(false);
 }

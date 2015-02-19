@@ -37,7 +37,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="menuTitleLabel">
        <property name="font">
         <font>
          <family>MS Serif</family>
@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="menuButtonLayout">
        <property name="spacing">
         <number>8</number>
        </property>
@@ -124,19 +124,17 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_6" stretch="7,1">
      <item>
-      <widget class="QOpenGLWidget" name="gameView">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
+      <widget class="QGraphicsView" name="graphicsView"/>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+      <layout class="QHBoxLayout" name="gameButtonLayout" stretch="0,0">
        <item>
         <widget class="QPushButton" name="pushButton">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+          </font>
+         </property>
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -144,6 +142,11 @@
        </item>
        <item>
         <widget class="QPushButton" name="gameQuitButton">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+          </font>
+         </property>
          <property name="text">
           <string>Quit</string>
          </property>

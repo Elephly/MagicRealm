@@ -13,13 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QOpenGLWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
@@ -34,14 +34,14 @@ public:
     QWidget *centralWidget;
     QWidget *menuWidget;
     QVBoxLayout *verticalLayout_5;
-    QLabel *label;
-    QVBoxLayout *verticalLayout_4;
+    QLabel *menuTitleLabel;
+    QVBoxLayout *menuButtonLayout;
     QPushButton *menuPlayButton;
     QPushButton *menuQuitButton;
     QWidget *gameWidget;
     QVBoxLayout *verticalLayout_6;
-    QOpenGLWidget *gameView;
-    QHBoxLayout *horizontalLayout;
+    QGraphicsView *graphicsView;
+    QHBoxLayout *gameButtonLayout;
     QPushButton *pushButton;
     QPushButton *gameQuitButton;
     QMenuBar *menuBar;
@@ -71,22 +71,22 @@ public:
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        label = new QLabel(menuWidget);
-        label->setObjectName(QStringLiteral("label"));
+        menuTitleLabel = new QLabel(menuWidget);
+        menuTitleLabel->setObjectName(QStringLiteral("menuTitleLabel"));
         QFont font;
         font.setFamily(QStringLiteral("MS Serif"));
         font.setPointSize(36);
         font.setBold(true);
         font.setWeight(75);
-        label->setFont(font);
-        label->setAlignment(Qt::AlignCenter);
+        menuTitleLabel->setFont(font);
+        menuTitleLabel->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(label);
+        verticalLayout_5->addWidget(menuTitleLabel);
 
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setSpacing(8);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(300, 100, 300, 100);
+        menuButtonLayout = new QVBoxLayout();
+        menuButtonLayout->setSpacing(8);
+        menuButtonLayout->setObjectName(QStringLiteral("menuButtonLayout"));
+        menuButtonLayout->setContentsMargins(300, 100, 300, 100);
         menuPlayButton = new QPushButton(menuWidget);
         menuPlayButton->setObjectName(QStringLiteral("menuPlayButton"));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -99,7 +99,7 @@ public:
         font1.setPointSize(16);
         menuPlayButton->setFont(font1);
 
-        verticalLayout_4->addWidget(menuPlayButton);
+        menuButtonLayout->addWidget(menuPlayButton);
 
         menuQuitButton = new QPushButton(menuWidget);
         menuQuitButton->setObjectName(QStringLiteral("menuQuitButton"));
@@ -107,10 +107,10 @@ public:
         menuQuitButton->setSizePolicy(sizePolicy1);
         menuQuitButton->setFont(font1);
 
-        verticalLayout_4->addWidget(menuQuitButton);
+        menuButtonLayout->addWidget(menuQuitButton);
 
 
-        verticalLayout_5->addLayout(verticalLayout_4);
+        verticalLayout_5->addLayout(menuButtonLayout);
 
         gameWidget = new QWidget(centralWidget);
         gameWidget->setObjectName(QStringLiteral("gameWidget"));
@@ -119,28 +119,30 @@ public:
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
-        gameView = new QOpenGLWidget(gameWidget);
-        gameView->setObjectName(QStringLiteral("gameView"));
-        sizePolicy.setHeightForWidth(gameView->sizePolicy().hasHeightForWidth());
-        gameView->setSizePolicy(sizePolicy);
+        graphicsView = new QGraphicsView(gameWidget);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
 
-        verticalLayout_6->addWidget(gameView);
+        verticalLayout_6->addWidget(graphicsView);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        gameButtonLayout = new QHBoxLayout();
+        gameButtonLayout->setSpacing(6);
+        gameButtonLayout->setObjectName(QStringLiteral("gameButtonLayout"));
         pushButton = new QPushButton(gameWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
+        QFont font2;
+        font2.setFamily(QStringLiteral("MS Serif"));
+        pushButton->setFont(font2);
 
-        horizontalLayout->addWidget(pushButton);
+        gameButtonLayout->addWidget(pushButton);
 
         gameQuitButton = new QPushButton(gameWidget);
         gameQuitButton->setObjectName(QStringLiteral("gameQuitButton"));
+        gameQuitButton->setFont(font2);
 
-        horizontalLayout->addWidget(gameQuitButton);
+        gameButtonLayout->addWidget(gameQuitButton);
 
 
-        verticalLayout_6->addLayout(horizontalLayout);
+        verticalLayout_6->addLayout(gameButtonLayout);
 
         verticalLayout_6->setStretch(0, 7);
         verticalLayout_6->setStretch(1, 1);
@@ -168,7 +170,7 @@ public:
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "Magic Realm", 0));
         actionExit->setText(QApplication::translate("MainWindowClass", "Exit", 0));
         actionExit->setShortcut(QApplication::translate("MainWindowClass", "Ctrl+Q", 0));
-        label->setText(QApplication::translate("MainWindowClass", "Magic Realm", 0));
+        menuTitleLabel->setText(QApplication::translate("MainWindowClass", "Magic Realm", 0));
         menuPlayButton->setText(QApplication::translate("MainWindowClass", "Play", 0));
         menuQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
         pushButton->setText(QApplication::translate("MainWindowClass", "PushButton", 0));

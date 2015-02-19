@@ -3,6 +3,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_mainwindow.h"
+#include "shared.h"
+#include "gameWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -22,6 +24,7 @@ private slots:
 
 private:
 	Ui::MainWindowClass ui;
+	GameWindow* gameWindow;
 };
 
 #endif // MAINWINDOW_H
