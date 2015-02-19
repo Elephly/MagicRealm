@@ -40,6 +40,17 @@ public:
     */
     void removePath(Path* oldPath);
 
+    /*
+    *   getTile
+    *   Out:    Pointer to the clearing's tile
+    */
+    Tile* getTile();
+    
+    /*
+    *   getPaths
+    *   out:    vector of paths
+    */
+    vector<Path*>* getPaths();
 
     /*
     *   getClearingNum
@@ -55,10 +66,10 @@ public:
 
 private:
     //list of characters in a clearing.
-	vector<Character*> characters;
+	vector<Character*>* characters;
 
     //list of paths in a clearing.
-	vector<Path*> pathways;
+	vector<Path*>* pathways;
 
     //Tile the clearing is in.
     Tile* myTile;

@@ -20,11 +20,17 @@ private slots:
 	void on_menuPlayButton_clicked();
 	void on_menuQuitButton_clicked();
 
+	void on_characterSelectButton_clicked();
+	void on_characterQuitButton_clicked();
+	void on_characterListView_currentRowChanged(int row);
+
 	void on_gameQuitButton_clicked();
 
 private:
 	Ui::MainWindowClass ui;
 	GameWindow* gameWindow;
+
+	static QString characterDetailPaths[];
 };
 
 #endif // MAINWINDOW_H

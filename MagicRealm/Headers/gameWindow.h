@@ -8,6 +8,7 @@
 
 #include "ui_mainwindow.h"
 #include "serverCommThread.h"
+#include "character.h"
 
 class GameWindow : public QObject
 {
@@ -15,12 +16,16 @@ public:
 	GameWindow(QObject* parent, Ui::MainWindowClass mainWindow);
 	~GameWindow();
 
-	errno_t initialize(QString &hostIP);
+	errno_t initialize(QString &hostIP, int character);
 	errno_t cleanup();
+
+	void changeScreenState(QWidget* screen);
 
 private:
 	Ui::MainWindowClass ui;
 	ServerCommThread* server;
+	Character* selectedCharacter;
+
 };
 
 #endif // GAMEWINDOW_H
