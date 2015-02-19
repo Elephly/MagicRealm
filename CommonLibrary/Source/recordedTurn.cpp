@@ -6,7 +6,7 @@ RecordedTurn::RecordedTurn() {
 	availablePhases = new map<PhaseType, int>();
 }
 
-RecordedTurn::RecordedTurn(string* serializedString) {
+RecordedTurn::RecordedTurn(string* serializedString, Board* gameBoard) {
 	actions = new vector<Action*>();
 	availablePhases = new map<PhaseType, int>();
 
@@ -16,7 +16,7 @@ RecordedTurn::RecordedTurn(string* serializedString) {
 	do {
 		int delimPos = second.find(LISTDELIM);
 		first = second.substr(0, delimPos);
-		actions->push_back(new Action(&first));
+		actions->push_back(new Action(&first, gameBoard));
 
 		second = second.substr(delimPos + 1);
 	} while(second.at(0) != '^');

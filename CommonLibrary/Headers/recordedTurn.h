@@ -6,11 +6,12 @@
 #include <vector>
 #include <map>
 #include "serializer.h"
+#include "board.h"
 
 class COMMONLIBRARY_EXPORT RecordedTurn : public Serializer {
 public:
 	RecordedTurn();
-	RecordedTurn(string*);
+	RecordedTurn(string*, Board*);
 
 	/*
 	returns result code, true for ok, false for unable to add action
