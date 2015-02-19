@@ -21,6 +21,7 @@ void Server::run() {
 
 	incoming->listen(QHostAddress::Any, (quint16) myPort);
 	std::cout << "listening for connections" << std::endl;
+    game.setupGame();
     game.runGame();
 }
 

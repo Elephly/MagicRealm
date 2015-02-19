@@ -15,6 +15,7 @@ public:
 	Game();
     ~Game();
     void runGame();
+    void setupGame();
 private:
     Board* gameBoard;
     Character* p1;
