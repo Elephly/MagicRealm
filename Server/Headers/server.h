@@ -8,6 +8,7 @@
 #include "clientCommThread.h"
 #include "serverShared.h"
 #include "shared.h"
+#include "game.h"
 
 class Server : public QObject{
 	Q_OBJECT
@@ -23,6 +24,7 @@ private:
 	quint16 myPort;
 	QTcpServer *incoming;
 	std::vector<ClientCommThread *> *clientThreadList;
+    Game theGame;
 };
 
 #endif // SERVER_H

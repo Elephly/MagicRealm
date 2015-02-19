@@ -40,7 +40,7 @@ private:
     //name of the string
     string name;
 
-    Tile* adjacentTiles [6];
+    Tile* adjacentTiles [ADJACENT_LENGTH];
 };
 
 #endif // TILE_H
