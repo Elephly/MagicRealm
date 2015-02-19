@@ -24,7 +24,7 @@ private:
 	quint16 myPort;
 	QTcpServer *incoming;
 	std::vector<ClientCommThread *> *clientThreadList;
-    Game theGame;
+    Game game;
 };
 
 #endif // SERVER_H
