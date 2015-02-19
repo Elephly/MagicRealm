@@ -88,4 +88,14 @@ enum COMMONLIBRARY_EXPORT PhaseType
 	BasicPhase,
 	SunlightPhase
 };
+
+enum COMMONLIBRARY_EXPORT TimeOfDay
+{
+    BIRDSONG,
+    SUNRISE,
+    DAYLIGHT,
+    SUNSET,
+    EVENING,
+    MIDNIGHT,
+}
 #endif

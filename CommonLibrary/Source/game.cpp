@@ -121,3 +121,7 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
         return false;
     }
 }
+
+void Game::doTurn()
+{
+}
