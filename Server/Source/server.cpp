@@ -23,15 +23,18 @@ void Server::run() {
 	std::cout << "listening for connections" << std::endl;
 }
 
-void Server::handleIncomingUsers() {
+void Server::handleIncomingUsers()  {
+	std::cout << "new user incoming" << std::endl;
 		
 	if(incoming->hasPendingConnections()) {
 		QTcpSocket *newClient = incoming->nextPendingConnection();
 		if (clientThreadList->size() >= MAXPLAYERS) {
+			std::cout << "new user has been rejected" << std::endl;
 			newClient->write(DECLINECONN);
 		} else {
 			ClientCommThread *newThread = new ClientCommThread(newClient, this);
 			clientThreadList->push_back(newThread);
+			std::cout << "new user has been accepted" << std::endl;
 			newThread->writeMessage(ACCEPTCONN);
 		}
 	}
