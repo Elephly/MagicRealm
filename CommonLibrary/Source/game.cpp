@@ -64,3 +64,33 @@ void Game::runGame()
 {
     cout << "Game Run..." << endl;
 }
+
+bool Game::moveRequest(Character* player, Clearing* requestedClearing)
+{
+    Clearing* playerLoc = player->getCurrentLocation();
+    vector<Path*>* pathsAvailable = playerLoc->getPaths();
+    if(playerLoc == requestedClearing){
+        cout << "ERR: Player Requested the location they are already in" <<endl;
+        return false;
+    }
+    //TODO Check if Player Can move!!!!s
+    else if(playerLoc->getTile() != requestedClearing->getTile())
+    {
+        return false;
+        //do things that require border checking.
+    }
+    else //standard path checking
+    {
+        for(vector<Path*>::iterator it = pathsAvailable->begin(); it != pathsAvailable->end(); ++it){
+            if((*it)->getEnd(playerLoc) == requestedClearing){
+                //Found a path, we can move.
+                playerLoc->removeCharacter(player);
+                requestedClearing->addCharacter(player);
+                player->moveToClearing(requestedClearing);
+                return true;
+            }
+        }
+        cout << "Pathway from the players current clearing to requested could not be found" <<endl;
+        return false;
+    }
+}

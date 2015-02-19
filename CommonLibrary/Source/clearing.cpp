@@ -4,6 +4,8 @@
 Clearing::Clearing(int clNum, Tile* parentTile) {
 	ID= clNum;
     myTile = parentTile;
+    pathways = new vector<Path*>;
+    characters = new vector<Character*>;
     if(parentTile !=NULL)
         parentTile->addClearing(this);
     else
@@ -13,7 +15,9 @@ Clearing::Clearing(int clNum, Tile* parentTile) {
 Clearing::~Clearing()
 {
     //destroying the paths in the clearing.
-    pathways.clear();
+    pathways->clear();
+    delete pathways;
+    pathways = 0;
 
     //NOTE: not touching the characters, they should be destroyed later
 }
@@ -21,20 +25,20 @@ Clearing::~Clearing()
 void Clearing::addCharacter(Character* player)
 {
     //checking to see if the player is already in this clearing.
-    for(vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it){
+    for(vector<Character*>::iterator it = characters->begin(); it != characters->end(); ++it){
         if(*it == player){
             cout << "WARN: character already registered in clearing, not registering character" <<endl;
             return;
         }
     }
-    characters.push_back(player);
+    characters->push_back(player);
 }
 void Clearing::removeCharacter(Character* player)
 {
     //checking to see if the player is already in this clearing.
-    for(vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it){
+    for(vector<Character*>::iterator it = characters->begin(); it != characters->end(); ++it){
         if(*it == player){
-            characters.erase(it);
+            characters->erase(it);
             return;
         }
     }
@@ -44,9 +48,9 @@ void Clearing::removeCharacter(Character* player)
 void Clearing::removePath(Path* oldPath)
 {
     //checking to see if the player is already in this clearing.
-    for(vector<Path*>::iterator it = pathways.begin(); it != pathways.end(); ++it){
+    for(vector<Path*>::iterator it = pathways->begin(); it != pathways->end(); ++it){
         if(*it == oldPath){
-            pathways.erase(it);
+            pathways->erase(it);
             return;
         }
     }
@@ -56,18 +60,28 @@ void Clearing::removePath(Path* oldPath)
 void Clearing::addPath(Path* newPath)
 {
     //checking to see if the player is already in this clearing.
-    for(vector<Path*>::iterator it = pathways.begin(); it != pathways.end(); ++it){
+    for(vector<Path*>::iterator it = pathways->begin(); it != pathways->end(); ++it){
         if(*it == newPath){
             cout << "WARN: path already registered in clearing, not registering path" <<endl;
             return;
         }
     }
-    pathways.push_back(newPath);
+    pathways->push_back(newPath);
 }
 
 int Clearing::getClearingNum()
 {
     return ID;
+}
+
+Tile* Clearing::getTile()
+{
+    return myTile;
+}
+
+vector<Path*>* Clearing::getPaths()
+{
+    return pathways;
 }
 string* Clearing::toString()
 {

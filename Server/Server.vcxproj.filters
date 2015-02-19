@@ -52,18 +52,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_server.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Source\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Headers\clientCommThread.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Headers\server.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Headers\game.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
