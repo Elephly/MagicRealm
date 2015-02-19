@@ -7,7 +7,8 @@
 #include "Clearing.h"
 #include "Path.h"
 #include "Character.h"
-
+#include "action.h"
+#include "recordedTurn.h"
 
 class COMMONLIBRARY_EXPORT Game{
 
@@ -16,6 +17,7 @@ public:
     ~Game();
     void runGame();
     void setupGame();
+    void doTurn();
     /*
     *   MoveRequest
     *   In:     Pointer of the Character wishing to move
@@ -26,6 +28,8 @@ public:
 private:
     Board* gameBoard;
     Character* p1;
+    int day;
+    TimeOfDay currentTime;
 };
 
 #endif // GAME_H

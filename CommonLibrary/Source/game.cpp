@@ -44,14 +44,7 @@ void Game::setupGame()
         cout << "Tile Found!!!" << endl;
 
     cout << "Attempting to placing player1 in Oak Woods Clearing 2" <<endl;
-    p1->moveToClearing(c1);
-    resultString = p1->getCurrentLocation()->toString();
-    cout << "player1 moved to clearing: " << *resultString << endl;
-    delete resultString;
-    resultString = NULL;
-    
-    cout << "Attempting to move p1 to clearing 4" << endl;
-    if(moveRequest(p1, c2)){
+    if(moveRequest(p1, c1)){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;
@@ -73,18 +66,42 @@ void Game::setupGame()
 void Game::runGame()
 {
     cout << "Game Run..." << endl;
+    string *resultString = NULL;
+    Tile* theTile= gameBoard->getTile("Oak Woods");
+    cout << "Attempting to move p1 to clearing 4" << endl;
+    if(moveRequest(p1, theTile->getClearing(4))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
 }
 
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 {
-    Clearing* playerLoc = player->getCurrentLocation();
-    vector<Path*>* pathsAvailable = playerLoc->getPaths();
+    Clearing* playerLoc = NULL;
+    vector<Path*>* pathsAvailable =  NULL;
+    //checking to see our data is valid
+    if(requestedClearing == NULL){
+        cout << "ERR moveRequest: Requested clearing NULL" <<endl;
+        return false;
+    }
+    if (playerLoc == NULL){
+        requestedClearing->addCharacter(player);
+        player->moveToClearing(requestedClearing);
+        return true;
+    }
+    //data valid we can populate
+    playerLoc = player->getCurrentLocation();
+    pathsAvailable = playerLoc->getPaths();
+    
+    //going through possible cases of different types of move
     if(playerLoc == requestedClearing){
         cout << "ERR: Player Requested the location they are already in" <<endl;
         return false;
     }
     //TODO Check if Player Can move!!!!s
-    else if(playerLoc->getTile() != requestedClearing->getTile())
+    if(playerLoc->getTile() != requestedClearing->getTile())
     {
         return false;
         //do things that require border checking.
@@ -103,4 +120,8 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
         cout << "Pathway from the players current clearing to requested could not be found" <<endl;
         return false;
     }
+}
+
+void Game::doTurn()
+{
 }
