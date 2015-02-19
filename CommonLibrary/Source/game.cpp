@@ -16,8 +16,9 @@ Game::~Game()
     cout << "Game Destroyed" << endl;
 }
 
-void Game::setupGame()
+void Game::setupGame(bool cm)
 {
+    cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
 
     Clearing* c1 = NULL;

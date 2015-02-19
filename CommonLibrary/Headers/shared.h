@@ -97,5 +97,5 @@ enum COMMONLIBRARY_EXPORT TimeOfDay
     SUNSET,
     EVENING,
     MIDNIGHT,
-}
+};
 #endif

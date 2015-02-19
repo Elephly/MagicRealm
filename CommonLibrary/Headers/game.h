@@ -16,7 +16,7 @@ public:
 	Game();
     ~Game();
     void runGame();
-    void setupGame();
+    void setupGame(bool cm);
     void doTurn();
     /*
     *   MoveRequest
@@ -30,6 +30,7 @@ private:
     Character* p1;
     int day;
     TimeOfDay currentTime;
+    bool cheatMode;
 };
 
 #endif // GAME_H
