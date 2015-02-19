@@ -23,6 +23,14 @@ public:
     */
     Clearing* getClearing(int id);
 
+    /*
+    *   addAdjacentTile
+    *   in: Pointer of an adjacentTile
+        Runs through current list of tiles and determines if exists, or if already full
+    */
+    void addAdjacentTile(Tile* myTile);
+
+
 private:
 	vector<Clearing*> clearings;
 
@@ -31,6 +39,8 @@ private:
 
     //name of the string
     string name;
+
+    Tile* adjacentTiles [6];
 };
 
 #endif // TILE_H

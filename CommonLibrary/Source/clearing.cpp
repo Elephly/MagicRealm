@@ -60,6 +60,10 @@ void Clearing::addPath(Path* newPath)
     pathways.push_back(newPath);
 }
 
+int Clearing::getClearingNum()
+{
+    return ID;
+}
 string* Clearing::toString()
 {
     string *tostring = new string(myTile->getName() +"!" +to_string(ID));

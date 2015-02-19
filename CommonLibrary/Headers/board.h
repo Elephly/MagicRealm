@@ -12,27 +12,19 @@ public:
     /*
     *   addTile
     *   In:         Pointer to the tile you wish to add. 
-    *   *           Array of Tile Pointers of tiles that have paths between them. Assumed size 6, null for no path.
     *   Purpose:    To Add a tile to the map with its desired paths betwen other tiles.
     */
-    void addTile(Tile* newTile, Tile** adjArray);
+    void addTile(Tile* newTile);
 
     /*
     *   getTile
     *   in:     String of the tile name
     *   out:    Pointer to that tile.
     */
-    Tile* getTile(string);
+    Tile* getTile(string tName);
 
-    /*
-    *   getAdjacent
-    *   in:     Tile Pointer
-    *   out:    Array of adjacent tile pointers
-    */
-    Tile** getAdjacent(Tile*);
 private:
-    unordered_map<Tile*, Tile**> tilePaths;
-    unordered_map<string, Tile*> tileList;
+    vector<Tile*> tileList;
 
 };
 
