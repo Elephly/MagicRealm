@@ -23,6 +23,6 @@ string* Action::serialize() {
 	s << "Action" << CLASSDELIM << (int)myAction << VARDELIM << targetClearing->toString();
 
 	s << CLASSDELIM;
-	string *myString = &(s.str());
+	string *myString = new string(s.str());
 	return myString;
 }

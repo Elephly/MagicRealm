@@ -9,6 +9,34 @@ RecordedTurn::RecordedTurn() {
 RecordedTurn::RecordedTurn(string* serializedString) {
 	actions = new vector<Action*>();
 	availablePhases = new map<PhaseType, int>();
+
+	string second = *serializedString;
+	string first;
+	//create list of actions
+	do {
+		int delimPos = second.find(LISTDELIM);
+		first = second.substr(0, delimPos);
+		actions->push_back(new Action(&first));
+
+		second = second.substr(delimPos + 1);
+	} while(second.at(0) != '^');
+
+	second = second.substr(1);
+	first = "";
+	do {
+		int delimPos = second.find(LISTDELIM);
+		first = second.substr(0, delimPos);
+		// we have "key^value"
+		second = second.substr(delimPos + 1);
+		string s1;
+		string s2;
+		delimPos = first.find(VARDELIM);
+		s1 = first.substr(0, delimPos);
+		s2 = first.substr(delimPos + 1);
+
+		availablePhases->insert(map<PhaseType, int>::value_type((PhaseType) atoi(s1.c_str()), (int) atoi(s2.c_str)));
+
+	} while(second.at(0) != '*');
 }
 
 bool RecordedTurn::addAction(Action *action, PhaseType phase) {
@@ -42,6 +70,6 @@ string* RecordedTurn::serialize() {
 
 	s << CLASSDELIM;
 	
-	string *myString = &(s.str());
+	string *myString = new string(s.str());
 	return myString;
 }
