@@ -35,7 +35,7 @@ public:
     *   in: Pointer of an adjacentTile
         Runs through current list of tiles and determines if exists, or if already full
     */
-    void addAdjacentTile(Tile* myTile);
+    void addAdjacentTile(Tile* newTile);
 
 
 private:

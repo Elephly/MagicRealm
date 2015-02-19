@@ -51,18 +51,50 @@ void Game::setupGame(bool cm)
         delete resultString;
         resultString = NULL;
     }
-    //resetting the clearings
+    //resetting the clearings and paths
     p = NULL;
     c1 = NULL;
     c2 = NULL;
     c3 = NULL;
-    /* Adding More Tiles
+
     //setting up the Bad Valley Tile.
-    Tile* badValleyTile = new Tile();
+    Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley");
+    c1 = new Clearing(1, badValleyTile);
+    c2 = new Clearing(2, badValleyTile);
+    c3 = new Clearing(4, badValleyTile);
+    c4 = new Clearing(5, badValleyTile);
+
+    //regular paths
+    p = new Path(c1, c3, false);
+    p = new Path(c2, c4, false);
+
+    //border paths
+    p = new Path(c1, EDGE_F);
+    p = new Path(c2, EDGE_B);
+    p = new Path(c3, EDGE_C);
+    p = new Path(c3, EDGE_D);
+    p = new Path(c4, EDGE_E);
+
+    //resetting the clearings and paths
+    p = NULL;
+    c1 = NULL;
+    c2 = NULL;
+    c3 = NULL;
 
     //Setting up the Maple Woods Tile
-    Tile* mapleWoodsTile;
-    */
+    Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods");
+
+    c1 = new Clearing(2, mapleWoodsTile);
+    c2 = new Clearing(4, mapleWoodsTile);
+    c3 = new Clearing(5, mapleWoodsTile);
+
+    p = new Path(c1, c2, false);
+    
+    p = new Path(c1, EDGE_D);
+    p = new Path(c1, EDGE_E);
+    p = new Path(c2, EDGE_F);
+    p = new Path(c3, EDGE_B);
+    p = new Path(c3, EDGE_C);
 }
 void Game::runGame()
 {
@@ -95,13 +127,15 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     //data valid we can populate
     playerLoc = player->getCurrentLocation();
     pathsAvailable = playerLoc->getPaths();
+
+    //TODO Check if Player Can move!!!!
     
     //going through possible cases of different types of move
     if(playerLoc == requestedClearing){
         cout << "ERR: Player Requested the location they are already in" <<endl;
         return false;
     }
-    //TODO Check if Player Can move!!!!s
+    
     if(playerLoc->getTile() != requestedClearing->getTile())
     {
         return false;
@@ -111,7 +145,7 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     {
         for(vector<Path*>::iterator it = pathsAvailable->begin(); it != pathsAvailable->end(); ++it){
             if((*it)->getEnd(playerLoc) == requestedClearing){
-                //Found a path, we can move.
+                //Found a path, Check if .
                 playerLoc->removeCharacter(player);
                 requestedClearing->addCharacter(player);
                 player->moveToClearing(requestedClearing);
