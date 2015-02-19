@@ -20,12 +20,12 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{809bc2e6-0b39-4c17-a25d-3836627c425d}</UniqueIdentifier>
+      <UniqueIdentifier>{32c5d1c9-0143-4118-84c6-040e61db4964}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{482e6e91-c379-4a51-88e8-39cf4af58b2f}</UniqueIdentifier>
+      <UniqueIdentifier>{303c2c39-5740-4987-9aa4-5c7cfe5f3621}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -34,17 +34,11 @@
     <ClCompile Include="Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\server.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\clientCommThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_server.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_server.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="Source\server.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_clientCommThread.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -52,12 +46,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_clientCommThread.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_server.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_server.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Headers\server.h">
+    <CustomBuild Include="Headers\clientCommThread.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="Headers\clientCommThread.h">
+    <CustomBuild Include="Headers\server.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
