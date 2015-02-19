@@ -15,7 +15,7 @@ errno_t GameWindow::initialize(QString &hostIP)
 {
 	errno_t ret = 0;
 	
-	server = new ServerCommThread(hostIP, 0, this);
+	server = new ServerCommThread(hostIP, GAMEPORT, this);
 
 	return ret;
 }

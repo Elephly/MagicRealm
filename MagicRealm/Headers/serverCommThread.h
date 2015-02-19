@@ -2,6 +2,7 @@
 #define SERVERCOMMTHREAD_H
 
 #include <QtNetwork>
+#include "shared.h"
 
 class ServerCommThread : public QObject {
 	Q_OBJECT
