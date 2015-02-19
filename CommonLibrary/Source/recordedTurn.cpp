@@ -53,6 +53,10 @@ bool RecordedTurn::addAction(Action *action, PhaseType phase) {
 	return result;
 }
 
+void RecordedTurn::addPhase(PhaseType phase, int count = 1) {
+	(*availablePhases)[phase] += count;
+}
+
 string* RecordedTurn::serialize() {
 	ostringstream s;
 	s << "RecordedTurn" << CLASSDELIM;

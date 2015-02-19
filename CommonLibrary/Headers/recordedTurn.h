@@ -17,6 +17,7 @@ public:
 	returns result code, true for ok, false for unable to add action
 	*/
 	bool addAction(Action*, PhaseType);
+	void addPhase(PhaseType, int count = 1);
 	virtual string* serialize();
 private:
 	vector<Action*> *actions;
