@@ -47,7 +47,7 @@ public:
     */
     int getClearingNum();
 
-    //toStirng method, returns POINTER TO STRING
+    //toString method, returns POINTER TO STRING, MUST BE DELETED
     string* toString();
 
 
