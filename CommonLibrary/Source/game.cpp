@@ -75,6 +75,7 @@ void Game::setupGame(bool cm)
     p = new Path(c3, EDGE_D);
     p = new Path(c4, EDGE_E);
 
+    gameBoard->addTile(badValleyTile);
     //resetting the clearings and paths
     p = NULL;
     c1 = NULL;
@@ -95,6 +96,20 @@ void Game::setupGame(bool cm)
     p = new Path(c2, EDGE_F);
     p = new Path(c3, EDGE_B);
     p = new Path(c3, EDGE_C);
+
+    gameBoard->addTile(mapleWoodsTile);
+
+    //resetting the clearings and paths
+    p = NULL;
+    c1 = NULL;
+    c2 = NULL;
+    c3 = NULL;
+
+    //setting up adjacent stuff
+    oakWoodsTile->addAdjacentTile(badValleyTile);
+    oakWoodsTile->addAdjacentTile(mapleWoodsTile);
+
+    badValleyTile->addAdjacentTile(mapleWoodsTile);
 }
 void Game::runGame()
 {
