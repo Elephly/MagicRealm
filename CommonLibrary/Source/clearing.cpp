@@ -1,4 +1,5 @@
 #include "clearing.h"
+#include <sstream>
 
 Clearing::Clearing(int clNum, Tile* parentTile) {
 	ID= clNum;
@@ -70,6 +71,11 @@ int Clearing::getClearingNum()
 }
 string* Clearing::toString()
 {
-    string *tostring = new string(myTile->getName() +"^" +to_string(ID));
+	ostringstream s;
+	s << myTile->getName();
+	s << VARDELIM;
+	s << ID;
+
+    string *tostring = &(s.str());
     return tostring;
 }
