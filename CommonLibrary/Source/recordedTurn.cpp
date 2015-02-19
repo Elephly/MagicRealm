@@ -53,7 +53,7 @@ bool RecordedTurn::addAction(Action *action, PhaseType phase) {
 	return result;
 }
 
-void RecordedTurn::addPhase(PhaseType phase, int count = 1) {
+void RecordedTurn::addPhase(PhaseType phase, int count) {
 	(*availablePhases)[phase] += count;
 }
 
