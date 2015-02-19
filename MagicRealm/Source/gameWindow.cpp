@@ -4,6 +4,7 @@
 GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
+	gameScene = ui.graphicsView->scene();
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
 }
@@ -42,6 +43,8 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 		}
 		Sleep(1000);
 	}
+	
+
 
 	changeScreenState(ui.gameWidget);
 

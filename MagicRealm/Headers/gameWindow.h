@@ -23,9 +23,9 @@ public:
 
 private:
 	Ui::MainWindowClass ui;
+	QGraphicsScene* gameScene;
 	ServerCommThread* server;
 	Character* selectedCharacter;
-
 };
 
 #endif // GAMEWINDOW_H
