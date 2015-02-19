@@ -1,6 +1,7 @@
 #include "character.h"
 #include "weapon.h"
 #include "armor.h"
+#include <sstream>
 
 Character::Character(CharacterTypes type) {
 	myType = type;
@@ -46,6 +47,15 @@ bool Character::hasAdvantage(CharAdvantages testAdvantage) {
 	}
 
 	return result;
+}
+
+string* Character::serialize() {
+	stringstream s;
+	s << "Character";
+	s << CLASSDELIM;
+	s << myType;
+
+	return new string(s.str());
 }
 
 //Character inits

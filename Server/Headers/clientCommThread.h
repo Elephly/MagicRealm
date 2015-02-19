@@ -8,11 +8,12 @@ class ClientCommThread : public QObject{
 public:
 	ClientCommThread(QTcpSocket *socket, QObject *parent);
 	~ClientCommThread();
-	void writeMessage(char* message);
+	void writeMessage(QString* message);
 public slots:
 	void readIncomingData();
 private:
 	QTcpSocket *clientConnection;
+	quint16 blocksize;
 };
 
 #endif // CLIENTCOMMTHREAD_H

@@ -38,7 +38,7 @@ void Server::handleIncomingUsers()  {
 			ClientCommThread *newThread = new ClientCommThread(newClient, this);
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
-			newThread->writeMessage(ACCEPTCONN);
+			newThread->writeMessage(new QString(ACCEPTCONN));
 		}
 	}
 }

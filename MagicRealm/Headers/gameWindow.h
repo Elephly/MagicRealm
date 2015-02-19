@@ -10,6 +10,9 @@
 #include "serverCommThread.h"
 #include "character.h"
 
+//Forward decl
+class ServerCommThread;
+
 class GameWindow : public QObject
 {
 public:
@@ -20,6 +23,7 @@ public:
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
+	Character* getSelectedChar();
 
 private:
 	Ui::MainWindowClass ui;

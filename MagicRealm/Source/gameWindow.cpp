@@ -78,3 +78,7 @@ void GameWindow::changeScreenState(QWidget* screen)
 	screen->setVisible(true);
 	qApp->processEvents();
 }
+
+Character* GameWindow::getSelectedChar() {
+	return selectedCharacter;
+}

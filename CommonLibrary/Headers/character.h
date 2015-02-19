@@ -5,6 +5,7 @@
 #include "clearing.h"
 #include "shared.h"
 #include "equipment.h"
+#include "serializer.h"
 #include <vector>
 #include <string>
 
@@ -12,7 +13,7 @@
 class Clearing;
 
 //Abstract class, extend this with all different Character types
-class  COMMONLIBRARY_EXPORT Character{
+class  COMMONLIBRARY_EXPORT Character : public Serializer{
 public:
 	Character(CharacterTypes type);
 	int getGold();
@@ -20,6 +21,7 @@ public:
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);
+	virtual string* serialize();
 
 private:
 	CharacterTypes myType;

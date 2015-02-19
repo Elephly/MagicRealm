@@ -3,11 +3,15 @@
 
 #include <QtNetwork>
 #include "shared.h"
+#include "gameWindow.h"
+
+//forward decl
+class GameWindow;
 
 class ServerCommThread : public QObject {
 	Q_OBJECT
 public:
-	ServerCommThread(QObject *parent);
+	ServerCommThread(GameWindow *parent);
 	~ServerCommThread();
 
 	errno_t threadConnect(QString &hostIP, quint16 hostPort);
@@ -20,6 +24,8 @@ public slots:
 
 private:
 	QTcpSocket *serverConnection;
+	quint16 blocksize;
+	GameWindow *windowParent;
 };
 
 #endif // SERVERCOMMTHREAD_H
