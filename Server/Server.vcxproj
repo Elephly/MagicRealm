@@ -89,6 +89,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Source\clientCommThread.cpp" />
+    <ClCompile Include="Source\game.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\server.cpp" />
   </ItemGroup>
@@ -117,6 +118,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\game.h" />
     <ClInclude Include="Headers\serverShared.h" />
   </ItemGroup>
   <ItemGroup>

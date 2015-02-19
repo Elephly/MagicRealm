@@ -52,6 +52,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_server.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Source\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Headers\clientCommThread.h">
@@ -63,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\serverShared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
