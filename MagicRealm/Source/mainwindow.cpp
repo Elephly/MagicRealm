@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 	ui.setupUi(this);
 	ui.statusBar->setSizeGripEnabled(false);
 	ui.menuWidget->setVisible(true);
+	ui.loadingWidget->setVisible(false);
 	ui.gameWidget->setVisible(false);
 
 	gameWindow = new GameWindow(this, ui);
@@ -39,8 +40,6 @@ void MainWindow::on_menuPlayButton_clicked()
 			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game.");
 			return;
 		}
-		ui.menuWidget->setVisible(false);
-		ui.gameWidget->setVisible(true);
 	}
 }
 
@@ -57,7 +56,5 @@ void MainWindow::on_gameQuitButton_clicked()
 		{
 			QMessageBox::about(ui.centralWidget, "Error", "Failed to cleanup game.");
 		}
-		ui.menuWidget->setVisible(true);
-		ui.gameWidget->setVisible(false);
 	}
 }

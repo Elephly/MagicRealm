@@ -44,6 +44,11 @@ public:
     QHBoxLayout *gameButtonLayout;
     QPushButton *pushButton;
     QPushButton *gameQuitButton;
+    QWidget *loadingWidget;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
+    QLabel *loadingLoadingLabel;
+    QLabel *loadingProgLabel;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -146,6 +151,40 @@ public:
 
         verticalLayout_6->setStretch(0, 7);
         verticalLayout_6->setStretch(1, 1);
+        loadingWidget = new QWidget(centralWidget);
+        loadingWidget->setObjectName(QStringLiteral("loadingWidget"));
+        loadingWidget->setGeometry(QRect(0, 0, 800, 409));
+        verticalLayout_2 = new QVBoxLayout(loadingWidget);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(9, 165, -1, 165);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        loadingLoadingLabel = new QLabel(loadingWidget);
+        loadingLoadingLabel->setObjectName(QStringLiteral("loadingLoadingLabel"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("MS Serif"));
+        font3.setPointSize(20);
+        loadingLoadingLabel->setFont(font3);
+        loadingLoadingLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(loadingLoadingLabel);
+
+        loadingProgLabel = new QLabel(loadingWidget);
+        loadingProgLabel->setObjectName(QStringLiteral("loadingProgLabel"));
+        QFont font4;
+        font4.setFamily(QStringLiteral("MS Serif"));
+        font4.setPointSize(28);
+        loadingProgLabel->setFont(font4);
+        loadingProgLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(loadingProgLabel);
+
+
+        verticalLayout_2->addLayout(verticalLayout);
+
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -175,6 +214,8 @@ public:
         menuQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
         pushButton->setText(QApplication::translate("MainWindowClass", "PushButton", 0));
         gameQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
+        loadingLoadingLabel->setText(QApplication::translate("MainWindowClass", "Loading", 0));
+        loadingProgLabel->setText(QApplication::translate("MainWindowClass", "...", 0));
         menuFile->setTitle(QApplication::translate("MainWindowClass", "File", 0));
     } // retranslateUi
 

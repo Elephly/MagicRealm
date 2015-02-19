@@ -13,6 +13,8 @@ public:
 	errno_t threadConnect(QString &hostIP, quint16 hostPort);
 	errno_t threadDisconnect();
 
+	bool isConnected();
+
 public slots:
 	void updateFromServer();
 

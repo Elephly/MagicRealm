@@ -35,6 +35,13 @@ errno_t ServerCommThread::threadDisconnect()
 	return err;
 }
 
+bool ServerCommThread::isConnected()
+{
+	// TODO: FIX ME!!
+	// How do we tell if a connection is made? This doesn't seem to work at all.
+	return (serverConnection->state() == QAbstractSocket::ConnectedState || serverConnection->isValid());
+}
+
 void ServerCommThread::updateFromServer()
 {
 
