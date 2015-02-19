@@ -3,7 +3,7 @@
 #include "commonlibrary_global.h"
 #include "tile.h"
 #include "shared.h"
-#include <unordered_map>
+#include <vector>
 
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Board{
