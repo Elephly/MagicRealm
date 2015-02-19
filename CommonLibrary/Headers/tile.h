@@ -8,7 +8,8 @@
 //Abstract class, extend this with all different tile types
 class COMMONLIBRARY_EXPORT Tile {
 public:
-	Tile(vector<Clearing*>* cls, Direction orient, string n);
+	Tile(Direction orient, string n);
+    ~Tile();
 
     /*
     *   getName()
@@ -24,6 +25,12 @@ public:
     Clearing* getClearing(int id);
 
     /*
+    *   addClearing
+    *   in: new Clearing Pointer
+    */
+    void addClearing(Clearing* newClearing);
+
+    /*
     *   addAdjacentTile
     *   in: Pointer of an adjacentTile
         Runs through current list of tiles and determines if exists, or if already full
@@ -32,7 +39,7 @@ public:
 
 
 private:
-	vector<Clearing*> clearings;
+	vector<Clearing*>* clearings;
 
     //The offset of a rotated tile, the standard is SOUTH(0), when the name of the tile is orientated correctly.
     Direction orientation;

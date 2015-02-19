@@ -3,6 +3,10 @@
 Clearing::Clearing(int clNum, Tile* parentTile) {
 	ID= clNum;
     myTile = parentTile;
+    if(parentTile !=NULL)
+        parentTile->addClearing(this);
+    else
+        cout << "WARN: Parent Tile NULL" <<endl;
 }
 
 Clearing::~Clearing()
@@ -66,6 +70,6 @@ int Clearing::getClearingNum()
 }
 string* Clearing::toString()
 {
-    string *tostring = new string(myTile->getName() +"!" +to_string(ID));
+    string *tostring = new string(myTile->getName() +"^" +to_string(ID));
     return tostring;
 }
