@@ -113,9 +113,9 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 
     //setting up the Oak Woods Tile
     Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
-    c1 = new Clearing(2, oakWoodsTile);
-    c2 = new Clearing(4, oakWoodsTile);
-    c3 = new Clearing(5, oakWoodsTile);
+    c1 = new Clearing(2, oakWoodsTile, WOODS);
+    c2 = new Clearing(4, oakWoodsTile, WOODS);
+    c3 = new Clearing(5, oakWoodsTile, WOODS);
     p = new Path(c1, c2, false);
     p = new Path(c1, EDGE_B);
     p = new Path(c3, EDGE_C);
@@ -135,10 +135,10 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 
     //setting up the Bad Valley Tile.
     Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley");
-    c1 = new Clearing(1, badValleyTile);
-    c2 = new Clearing(2, badValleyTile);
-    c3 = new Clearing(4, badValleyTile);
-    c4 = new Clearing(5, badValleyTile);
+    c1 = new Clearing(1, badValleyTile, WOODS);
+    c2 = new Clearing(2, badValleyTile, WOODS);
+    c3 = new Clearing(4, badValleyTile, WOODS);
+    c4 = new Clearing(5, badValleyTile, WOODS);
 
     //regular paths
     p = new Path(c1, c3, false);
@@ -161,9 +161,9 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
     //Setting up the Maple Woods Tile
     Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods");
 
-    c1 = new Clearing(2, mapleWoodsTile);
-    c2 = new Clearing(4, mapleWoodsTile);
-    c3 = new Clearing(5, mapleWoodsTile);
+    c1 = new Clearing(2, mapleWoodsTile, WOODS);
+    c2 = new Clearing(4, mapleWoodsTile, WOODS);
+    c3 = new Clearing(5, mapleWoodsTile, WOODS);
 
     p = new Path(c1, c2, false);
     
@@ -208,6 +208,11 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 	queue<Tile*> incompleteTiles;
 	incompleteTiles.push(currTile);
 
+	qreal xOffset = 1;
+	qreal yOffset = 3;
+	qreal xTileOffset = pixmap.width() - xOffset;
+	qreal yTileOffset = pixmap.height() - yOffset;
+
 	while (!incompleteTiles.empty())
 	{
 		currTile = incompleteTiles.front();
@@ -225,22 +230,22 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 				switch (side)
 				{
 				case 0:
-					pos = QPointF(0, locations[currTile].y() + pixmap.height());
+					pos = QPointF(0, locations[currTile].y() + yTileOffset);
 					break;
 				case 1:
-					pos = QPointF(locations[currTile].x() - (pixmap.width() * 0.75), locations[currTile].y() + (pixmap.height() / 2));
+					pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
 					break;
 				case 2:
-					pos = QPointF(locations[currTile].x() - (pixmap.width() * 0.75), locations[currTile].y() - (pixmap.height() / 2));
+					pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
 					break;
 				case 3:
-					pos = QPointF(0, locations[currTile].y() - pixmap.height());
+					pos = QPointF(0, locations[currTile].y() - yTileOffset);
 					break;
 				case 4:
-					pos = QPointF(locations[currTile].x() + (pixmap.width() * 0.75), locations[currTile].y() - (pixmap.height() / 2));
+					pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
 					break;
 				case 5:
-					pos = QPointF(locations[currTile].x() + (pixmap.width() * 0.75), locations[currTile].y() + (pixmap.height() / 2));
+					pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
 					break;
 				default:
 					pos = QPointF(0, 0);
