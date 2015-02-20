@@ -8,7 +8,7 @@ Tile::Tile( Direction orient, string n)
     
     //setting up adjacent tiles as null
     for(int i =0; i <ADJACENT_LENGTH; i++)
-        adjacentTiles[i] = NULL;
+        connectedTiles[i] = NULL;
 
 }
 
@@ -28,26 +28,26 @@ Direction Tile::getOrientation()
     return orientation;
 }
 
-Tile* Tile::getAdjacent(Direction edge)
+Tile* Tile::getConnected(Direction edge)
 {
     if(edge >= 0 && edge < 6)
-        return adjacentTiles[edge];
+        return connectedTiles[edge];
     else
         return NULL;
 }
 
 //LUKE: I know this is horribly optimized although I do not think this should be much of an issue
-void Tile::addAdjacentTile(Tile* newTile)
+void Tile::addConnectedTile(Tile* newTile, Direction edge)
 {
     for(int i =0; i<ADJACENT_LENGTH; i++){
         //when we hit null we have iterated over all current adjacent tiles
-        if(adjacentTiles[i] == NULL){
-            adjacentTiles[i] = newTile;
-            newTile->addAdjacentTile(this);
+        if(connectedTiles[i] == NULL){
+            connectedTiles[i] = newTile;
+            newTile->addConnectedTile(this, edge);
             return;
         }
         //tile already been added, not doing anything
-        if(adjacentTiles[i] == newTile){
+        if(connectedTiles[i] == newTile){
             return;
         }
 

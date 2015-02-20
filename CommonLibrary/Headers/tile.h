@@ -21,7 +21,7 @@ public:
     *   getAdjacentTiles
     *   out:   Tile Adjacent to that edge
     */
-    Tile* getAdjacent(Direction edge);
+    Tile* getConnected(Direction edge);
     
     /*
     *   getOrientation
@@ -49,23 +49,24 @@ public:
     void addClearing(Clearing* newClearing);
 
     /*
-    *   addAdjacentTile
-    *   in: Pointer of an adjacentTile
-        Runs through current list of tiles and determines if exists, or if already full
+    *   addConnectedTile
+    *   in:         Pointer of an adjacentTile
+        in:         Edge that the path is on.
+        Purpose:    Runs through current list of tiles and determines if exists, or if already full
     */
-    void addAdjacentTile(Tile* newTile);
+    void addConnectedTile(Tile* newTile, Direction edge);
 
 
 private:
 	vector<Clearing*>* clearings;
 
-    //The offset of a rotated tile, the standard is SOUTH(0), when the name of the tile is orientated correctly.
+    //The offset of a rotated tile, the standard is EDGE_A(0), when the name of the tile is orientated correctly.
     Direction orientation;
 
     //name of the string
     string name;
 
-    Tile* adjacentTiles [ADJACENT_LENGTH];
+    Tile* connectedTiles [ADJACENT_LENGTH];
 };
 
 #endif // TILE_H
