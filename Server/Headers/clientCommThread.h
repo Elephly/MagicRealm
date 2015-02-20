@@ -2,17 +2,23 @@
 #define CLIENTCOMMTHREAD_H
 
 #include <QtNetwork>
+#include "shared.h"
+#include "server.h"
+
+class Server;
 
 class ClientCommThread : public QObject{
 	Q_OBJECT
 public:
-	ClientCommThread(QTcpSocket *socket, QObject *parent);
+	ClientCommThread(QTcpSocket *socket, Server *parent);
 	~ClientCommThread();
-	void writeMessage(QString* message);
+	void writeMessage(QString *message);
+	void writeMessage(string *message);
 public slots:
 	void readIncomingData();
 private:
 	QTcpSocket *clientConnection;
+	Server *parent;
 	quint16 blocksize;
 };
 

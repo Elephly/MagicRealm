@@ -82,3 +82,7 @@ void ServerCommThread::writeMessage(QString *message) {
 
 	serverConnection->write(block);
 }
+
+void ServerCommThread::writeMessage(string *message) {
+	writeMessage(new QString(message->c_str()));
+}

@@ -1,6 +1,7 @@
 #include "clientCommThread.h"
 
-ClientCommThread::ClientCommThread(QTcpSocket *socket, QObject *parent) : QObject(parent) {
+ClientCommThread::ClientCommThread(QTcpSocket *socket, Server *parent) : QObject(parent) {
+	this->parent = parent;
 	blocksize = 0;
 	clientConnection = socket;
 	connect(clientConnection, SIGNAL(readyRead()), this, SLOT(readIncomingData()));
@@ -50,4 +51,8 @@ void ClientCommThread::writeMessage(QString *message) {
 	out << (quint16)(block.size() - sizeof(quint16));
 
 	clientConnection->write(block);
+}
+
+void ClientCommThread::writeMessage(string *message) {
+	writeMessage(new QString(message->c_str()));
 }

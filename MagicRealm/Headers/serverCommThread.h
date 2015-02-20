@@ -16,7 +16,8 @@ public:
 
 	errno_t threadConnect(QString &hostIP, quint16 hostPort);
 	errno_t threadDisconnect();
-	void writeMessage(QString* message);
+	void writeMessage(QString *message);
+	void writeMessage(string *message);
 
 	bool isConnected();
 

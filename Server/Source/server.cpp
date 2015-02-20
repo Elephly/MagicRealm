@@ -1,7 +1,7 @@
 #include "server.h"
 #include "action.h"
 #include "recordedTurn.h"
-#include "clearing.h"
+#include "clearing.h
 
 Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	myPort = port;

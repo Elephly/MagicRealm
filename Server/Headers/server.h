@@ -10,6 +10,8 @@
 #include "shared.h"
 #include "game.h"
 
+class ClientCommThread;
+
 class Server : public QObject{
 	Q_OBJECT
 public:
