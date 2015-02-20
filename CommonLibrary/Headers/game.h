@@ -35,6 +35,11 @@ private:
     */
     bool moveBetweenTileRequest(Character* player, Clearing* requestedClearing);
 
+    /*
+    *   setupTiles
+    *   Purpose:    Populates the board with tiles.
+    */
+    void setupTiles();
     Board* gameBoard;
     Character* p1;
     int day;

@@ -20,7 +20,13 @@ void Game::setupGame(bool cm)
 {
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
+    setupTiles();
+    cout << "Finished Setup..." <<endl <<endl;
+}
 
+void Game::setupTiles()
+{
+    cout << "Arranging Tiles..." <<endl;
     Clearing* c1 = NULL;
     Clearing* c2 = NULL;
     Clearing* c3 = NULL;
@@ -110,7 +116,6 @@ void Game::setupGame(bool cm)
         delete resultString;
         resultString = NULL;
     }
-    cout << "Finished Setup..." <<endl <<endl;
 }
 void Game::runGame()
 {
