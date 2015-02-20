@@ -44,13 +44,6 @@ void Game::setupGame(bool cm)
     if(gameBoard->getTile("Oak Woods") != NULL)
         cout << "Tile Found!!!" << endl;
 
-    cout << "Attempting to placing player1 in Oak Woods Clearing 2" <<endl;
-    if(moveRequest(p1, c1)){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
     //resetting the clearings and paths
     p = NULL;
     c1 = NULL;
@@ -110,19 +103,54 @@ void Game::setupGame(bool cm)
     oakWoodsTile->addAdjacentTile(mapleWoodsTile);
 
     badValleyTile->addAdjacentTile(mapleWoodsTile);
-}
-void Game::runGame()
-{
-    cout << "Game Run..." << endl;
-    string *resultString = NULL;
-    Tile* theTile= gameBoard->getTile("Oak Woods");
-    cout << "Attempting to move p1 to clearing 4" << endl;
-    if(moveRequest(p1, theTile->getClearing(4))){
+
+    //plopping character
+    cout << "Placing Character in Bad Valley Clearing #5..." <<endl <<endl;
+    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(5))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;
         resultString = NULL;
     }
+    cout << "Finished Setup..." <<endl <<endl;
+}
+void Game::runGame()
+{
+    cout << "Game Run..." << endl;
+    string *resultString = NULL;
+    Tile* theTile= gameBoard->getTile("Bad Valley");
+
+    resultString = p1->getCurrentLocation()->toString();
+    cout << "player1 starts at: " << *resultString << endl;
+
+    delete resultString;
+    resultString = NULL;
+    cout << "#1: Attempting to move p1 to clearing 4 (Should Fail)" << endl;
+    if(moveRequest(p1, theTile->getClearing(4))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved INCORRECTLY TO: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
+    else{
+        cout << "Player Correctly rejected from moving" <<endl;
+    }
+
+    cout << "#2: Attempting to move p1 to clearing 2 (Should Pass)" << endl;
+    if(moveRequest(p1, theTile->getClearing(2))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
+
+    //moving to different tiles
+    /*if(moveRequest(p1, theTile->getClearing(4))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }*/
 }
 
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
@@ -130,18 +158,28 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     Clearing* playerLoc = NULL;
     vector<Path*>* pathsAvailable =  NULL;
     //checking to see our data is valid
+    if(player == NULL){
+        cout << "ERR Game::moveRequest: Player is NULL" << endl;
+        return false;
+    }
+    //valid player can get Location
+    playerLoc = player->getCurrentLocation();
     if(requestedClearing == NULL){
-        cout << "ERR moveRequest: Requested clearing NULL" <<endl;
+        cout << "ERR Game::moveRequest: Requested clearing NULL" <<endl;
         return false;
     }
     if (playerLoc == NULL){
+        cout << "TRACK Game::moveRequest: Player Loc NULL" <<endl;
         requestedClearing->addCharacter(player);
         player->moveToClearing(requestedClearing);
         return true;
     }
     //data valid we can populate
-    playerLoc = player->getCurrentLocation();
     pathsAvailable = playerLoc->getPaths();
+    if(pathsAvailable == NULL){
+        cout << "ERR Game::moveRequest: pathsAvailable is Null" <<endl;
+        return false;
+    }
 
     //TODO Check if Player Can move!!!!
     

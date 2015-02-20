@@ -6,6 +6,7 @@
 Character::Character(CharacterTypes type) {
 	myType = type;
 	gold = 10;
+    location = NULL;
 	equipment = new vector<Equipment*>();
 	switch (type) {
 	case Amazon: initAmazon();
