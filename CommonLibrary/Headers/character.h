@@ -11,12 +11,13 @@
 
 //forward declare
 class Clearing;
+class Board;
 
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Character : public Serializer{
 public:
 	Character(CharacterTypes type);
-	Character(string* serialString);
+	Character(string* serialString, Board* board);
 	int getGold();
 	vector<Equipment *>* getEquipment();
 	Clearing* getCurrentLocation();
