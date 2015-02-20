@@ -111,7 +111,7 @@ errno_t GameWindow::initializeGame(int character)
 	selectedCharacter = new Character((CharacterTypes)character);
 
 	QString serializedCharacter;
-	serializedCharacter = QString("CharacterType%1%2").arg(CLASSDELIM, (CharacterTypes)character);
+	serializedCharacter = QString("CharacterType%1%2").arg(CLASSDELIM, character);
 	server->writeMessage(&serializedCharacter);
 	
 	gameScene = new QGraphicsScene();
