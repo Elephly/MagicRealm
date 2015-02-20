@@ -2,7 +2,7 @@
 #define SHARED_H
 
 #define GAMEPORT 42730
-#define ADJACENT_LENGTH 6
+#define CONNECTED_LENGTH 6
 #define DECLINECONN "connection declined"
 #define ACCEPTCONN "connection accepted"
 

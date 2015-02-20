@@ -94,7 +94,7 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 	item->setPos(0, 0);
 	item->setRotation((370 / 6) * ((int)currentTile->getOrientation()));
 	
-	for (int i = 0; i < ADJACENT_LENGTH; i++)
+	for (int i = 0; i < CONNECTED_LENGTH; i++)
 	{
 		
 	}

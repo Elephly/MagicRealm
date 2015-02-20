@@ -59,7 +59,7 @@ private:
     //name of the string
     string name;
 
-    Tile* connectedTiles [ADJACENT_LENGTH];
+    Tile* connectedTiles [CONNECTED_LENGTH];
 };
 
 #endif // TILE_H
