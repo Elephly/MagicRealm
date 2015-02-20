@@ -109,6 +109,10 @@ errno_t GameWindow::initializeGame(int character)
 	changeScreenState(ui.loadingWidget);
 
 	selectedCharacter = new Character((CharacterTypes)character);
+
+	QString serializedCharacter;
+	serializedCharacter = QString("CharacterType%1%2").arg(CLASSDELIM, (CharacterTypes)character);
+	server->writeMessage(&serializedCharacter);
 	
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
