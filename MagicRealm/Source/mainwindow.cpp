@@ -57,7 +57,15 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_menuPlayButton_clicked()
 {
-	gameWindow->changeScreenState(ui.characterSelectWidget);
+	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
+	if (!hostIP.isEmpty())
+	{
+		if (gameWindow->initializeConnection(hostIP))
+		{
+			QMessageBox::about(ui.centralWidget, "Error", "Failed to connect to host.");
+			return;
+		}
+	}
 }
 
 void MainWindow::on_menuQuitButton_clicked()
@@ -67,14 +75,10 @@ void MainWindow::on_menuQuitButton_clicked()
 
 void MainWindow::on_characterSelectButton_clicked()
 {
-	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
-	if (!hostIP.isEmpty())
+	if (gameWindow->initializeGame(ui.characterListView->currentRow()))
 	{
-		if (gameWindow->initialize(hostIP, ui.characterListView->currentRow()))
-		{
-			QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game.");
-			return;
-		}
+		QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game.");
+		return;
 	}
 }
 

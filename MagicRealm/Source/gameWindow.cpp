@@ -72,17 +72,16 @@ GameWindow::~GameWindow()
 	}
 }
 
-errno_t GameWindow::initialize(QString &hostIP, int character)
+errno_t GameWindow::initializeConnection(QString &hostIP)
 {
 	errno_t err = 0;
-
-	selectedCharacter = new Character((CharacterTypes)character);
 
 	changeScreenState(ui.loadingWidget);
 	
 	err = server->threadConnect(hostIP, GAMEPORT);
 	if (err)
 	{
+		cleanup();
 		return err;
 	}
 
@@ -97,211 +96,103 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 		}
 		Sleep(1000);
 	}
+
+	changeScreenState(ui.characterSelectWidget);
+
+	return err;
+}
+
+errno_t GameWindow::initializeGame(int character)
+{
+	errno_t err = 0;
+
+	changeScreenState(ui.loadingWidget);
+
+	selectedCharacter = new Character((CharacterTypes)character);
 	
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
 	
-	///////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////
-	// must receive board from server
-	// but for now...this
 	Board* gameBoard = new Board();
-    Clearing* c1 = NULL;
-    Clearing* c2 = NULL;
-    Clearing* c3 = NULL;
-    Clearing* c4 = NULL;
-    Clearing* c5 = NULL;
-    Clearing* c6 = NULL;
-    Path* p = NULL;
-    string *resultString = NULL;
-
-	Tile* borderLandTile = new Tile (EDGE_F, "Border Land");
-	c1 = new Clearing(1, borderLandTile, WOODS);
-	c2 = new Clearing(2, borderLandTile, WOODS);
-	c3 = new Clearing(3, borderLandTile, WOODS);
-	c4 = new Clearing(4, borderLandTile, CAVES);
-	c5 = new Clearing(5, borderLandTile, CAVES);
-	c6 = new Clearing(6, borderLandTile, CAVES);
-	p = new Path(c1, EDGE_B);
-	p = new Path(c1, EDGE_D);
-	p = new Path(c1, c6, false);
-	p = new Path(c2, EDGE_A);
-	p = new Path(c2, EDGE_E);
-	p = new Path(c2, c3, false);
-	//p = new Path(c3, c2, false);
-	p = new Path(c3, c5, false);
-	p = new Path(c3, c6, false);
-	p = new Path(c4, EDGE_F);
-	p = new Path(c4, c5, true);
-	p = new Path(c4, c6, false);
-	p = new Path(c5, EDGE_C);
-	//p = new Path(c5, c3, false);
-	//p = new Path(c5, c4, true);
-	//p = new Path(c6, c1, false);
-	//p = new Path(c6, c3, false);
-	//p = new Path(c6, c4, false);
-	gameBoard->addTile(borderLandTile);
-
-    //resetting the clearings and paths
-    p = NULL;
-    c1 = NULL;
-    c2 = NULL;
-    c3 = NULL;
-    c4 = NULL;
-    c5 = NULL;
-    c6 = NULL;
-
-    //setting up the Oak Woods Tile
-    Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
-    c1 = new Clearing(2, oakWoodsTile, WOODS);
-    c2 = new Clearing(4, oakWoodsTile, WOODS);
-    c3 = new Clearing(5, oakWoodsTile, WOODS);
-    p = new Path(c1, c2, false);
-    p = new Path(c2, EDGE_B);
-    p = new Path(c3, EDGE_C);
-    p = new Path(c3, EDGE_D);
-    p = new Path(c1, EDGE_E);
-    p = new Path(c1, EDGE_F);
-    gameBoard->addTile(oakWoodsTile);
-
-    //resetting the clearings and paths
-    p = NULL;
-    c1 = NULL;
-    c2 = NULL;
-    c3 = NULL;
-
-    //setting up the Bad Valley Tile.
-    Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley");
-    c1 = new Clearing(1, badValleyTile, WOODS);
-    c2 = new Clearing(2, badValleyTile, WOODS);
-    c3 = new Clearing(4, badValleyTile, WOODS);
-    c4 = new Clearing(5, badValleyTile, WOODS);
-
-    //regular paths
-    p = new Path(c1, c3, false);
-    p = new Path(c2, c4, false);
-
-    //border paths
-    p = new Path(c1, EDGE_F);
-    p = new Path(c2, EDGE_B);
-    p = new Path(c3, EDGE_C);
-    p = new Path(c3, EDGE_D);
-    p = new Path(c4, EDGE_E);
-
-    gameBoard->addTile(badValleyTile);
-    //resetting the clearings and paths
-    p = NULL;
-    c1 = NULL;
-    c2 = NULL;
-    c3 = NULL;
-
-    //Setting up the Maple Woods Tile
-    Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods");
-
-    c1 = new Clearing(2, mapleWoodsTile, WOODS);
-    c2 = new Clearing(4, mapleWoodsTile, WOODS);
-    c3 = new Clearing(5, mapleWoodsTile, WOODS);
-
-    p = new Path(c1, c2, false);
-    
-    p = new Path(c1, EDGE_D);
-    p = new Path(c1, EDGE_E);
-    p = new Path(c2, EDGE_F);
-    p = new Path(c3, EDGE_B);
-    p = new Path(c3, EDGE_C);
-
-    gameBoard->addTile(mapleWoodsTile);
-
-    //resetting the clearings and paths
-    p = NULL;
-    c1 = NULL;
-    c2 = NULL;
-    c3 = NULL;
-
-    //setting up adjacent stuff
-	borderLandTile->addConnectedTile(oakWoodsTile, EDGE_A);
-	borderLandTile->addConnectedTile(badValleyTile, EDGE_B);
-    oakWoodsTile->addConnectedTile(badValleyTile, EDGE_D);
-    oakWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_C);
-
-	///////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////
 
 	Tile* currTile = gameBoard->getTile("Border Land");
-	selectTile(currTile);
-
-	QPixmap pixmap = tileImages()[currTile->getName()];
-	QGraphicsItem* item = new TileGraphicsItem(pixmap, currTile, this);
-	item->setPos(0, 0);
-	item->setRotation((360 / 6) * ((int)currTile->getOrientation()));
-	item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
-	
-	gameScene->addItem(item);
-
-	unordered_set<Tile*> visitedTiles;
-	visitedTiles.insert(currTile);
-
-	QMap<Tile*, QPointF> locations;
-	locations.insert(currTile, QPointF(0, 0));
-
-	queue<Tile*> incompleteTiles;
-	incompleteTiles.push(currTile);
-
-	qreal xOffset = 1;
-	qreal yOffset = 3;
-	qreal xTileOffset = pixmap.width() - xOffset;
-	qreal yTileOffset = pixmap.height() - yOffset;
-
-	while (!incompleteTiles.empty())
+	if (currTile)
 	{
-		currTile = incompleteTiles.front();
-		incompleteTiles.pop();
-		for (int i = 0; i < CONNECTED_LENGTH; i++)
+		selectTile(currTile);
+
+		QPixmap pixmap = tileImages()[currTile->getName()];
+		QGraphicsItem* item = new TileGraphicsItem(pixmap, currTile, this);
+		item->setPos(0, 0);
+		item->setRotation((360 / 6) * ((int)currTile->getOrientation()));
+		item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
+	
+		gameScene->addItem(item);
+
+		unordered_set<Tile*> visitedTiles;
+		visitedTiles.insert(currTile);
+
+		QMap<Tile*, QPointF> locations;
+		locations.insert(currTile, QPointF(0, 0));
+
+		queue<Tile*> incompleteTiles;
+		incompleteTiles.push(currTile);
+
+		qreal xOffset = 1;
+		qreal yOffset = 3;
+		qreal xTileOffset = pixmap.width() - xOffset;
+		qreal yTileOffset = pixmap.height() - yOffset;
+
+		while (!incompleteTiles.empty())
 		{
-			Tile* newTile = currTile->getConnected((Direction)i);
-			if ((newTile != 0) && (visitedTiles.find(newTile) == visitedTiles.end()))
+			currTile = incompleteTiles.front();
+			incompleteTiles.pop();
+			for (int i = 0; i < CONNECTED_LENGTH; i++)
 			{
-				QPixmap pixmap = tileImages()[newTile->getName()];
-				QGraphicsItem* item = new TileGraphicsItem(pixmap, newTile, this);
-
-				int side = ((int)(currTile->getOrientation()) + i) % 6;
-				QPointF pos;
-				switch (side)
+				Tile* newTile = currTile->getConnected((Direction)i);
+				if ((newTile != 0) && (visitedTiles.find(newTile) == visitedTiles.end()))
 				{
-				case 0:
-					pos = QPointF(locations[currTile].x(), locations[currTile].y() + yTileOffset);
-					break;
-				case 1:
-					pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
-					break;
-				case 2:
-					pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
-					break;
-				case 3:
-					pos = QPointF(locations[currTile].x(), locations[currTile].y() - yTileOffset);
-					break;
-				case 4:
-					pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
-					break;
-				case 5:
-					pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
-					break;
-				default:
-					pos = QPointF(0, 0);
-					break;
+					QPixmap pixmap = tileImages()[newTile->getName()];
+					QGraphicsItem* item = new TileGraphicsItem(pixmap, newTile, this);
+
+					int side = ((int)(currTile->getOrientation()) + i) % 6;
+					QPointF pos;
+					switch (side)
+					{
+					case 0:
+						pos = QPointF(locations[currTile].x(), locations[currTile].y() + yTileOffset);
+						break;
+					case 1:
+						pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
+						break;
+					case 2:
+						pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
+						break;
+					case 3:
+						pos = QPointF(locations[currTile].x(), locations[currTile].y() - yTileOffset);
+						break;
+					case 4:
+						pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
+						break;
+					case 5:
+						pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
+						break;
+					default:
+						pos = QPointF(0, 0);
+						break;
+					}
+					item->setPos(pos);
+
+					item->setRotation((360 / 6) * ((int)newTile->getOrientation()));
+					item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
+
+					gameScene->addItem(item);
+
+					incompleteTiles.push(newTile);
+					visitedTiles.insert(newTile);
+					locations.insert(newTile, pos);
 				}
-				item->setPos(pos);
-
-				item->setRotation((360 / 6) * ((int)newTile->getOrientation()));
-				item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
-
-				gameScene->addItem(item);
-
-				incompleteTiles.push(newTile);
-				visitedTiles.insert(newTile);
-				locations.insert(newTile, pos);
-			}
-		}		
+			}		
+		}
 	}
 
 	changeScreenState(ui.gameWidget);

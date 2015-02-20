@@ -21,7 +21,8 @@ public:
 	GameWindow(QObject* parent, Ui::MainWindowClass mainWindow);
 	~GameWindow();
 
-	errno_t initialize(QString &hostIP, int character);
+	errno_t initializeConnection(QString &hostIP);
+	errno_t initializeGame(int character);
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
