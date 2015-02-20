@@ -13,7 +13,7 @@ QString MainWindow::characterDetailPaths[] = { ":/images/characterdetail/amazon.
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
-	this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
+	//this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
 	ui.setupUi(this);
 	ui.statusBar->setSizeGripEnabled(false);
 
@@ -25,6 +25,25 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
 	delete gameWindow;
+}
+
+void MainWindow::resizeEvent(QResizeEvent* event)
+{
+	QMainWindow::resizeEvent(event);
+	
+	QRect geo = ui.centralWidget->geometry();
+
+	// Dont know WHY this bit is necessary...but it is.
+	// Without it, the bottom gets chopped off.
+	int h = geo.height();
+	geo.setY(0);
+	geo.setHeight(h);
+	///////////////////////////////////////////////////
+
+	ui.menuWidget->setGeometry(geo);
+	ui.loadingWidget->setGeometry(geo);
+	ui.characterSelectWidget->setGeometry(geo);
+	ui.gameWidget->setGeometry(geo);
 }
 
 void MainWindow::on_actionExit_triggered()

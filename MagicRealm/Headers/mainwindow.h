@@ -15,6 +15,8 @@ public:
 	~MainWindow();
 
 private slots:
+	void resizeEvent(QResizeEvent* event);
+
     void on_actionExit_triggered();
 
 	void on_menuPlayButton_clicked();
