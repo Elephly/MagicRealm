@@ -35,13 +35,6 @@ public:
     *   out: Pointer to the clearing
     */
     Clearing* getClearing(int id);
-
-    /*
-    *   getClearing
-    *   in: Id of the Clearing
-    *   out: Pointer to the clearing
-    */
-    Clearing* getClearing(int id);
     /*
     *   addClearing
     *   in: new Clearing Pointer

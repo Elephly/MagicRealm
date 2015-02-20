@@ -99,10 +99,8 @@ void Game::setupGame(bool cm)
     c3 = NULL;
 
     //setting up adjacent stuff
-    oakWoodsTile->addAdjacentTile(badValleyTile);
-    oakWoodsTile->addAdjacentTile(mapleWoodsTile);
-
-    badValleyTile->addAdjacentTile(mapleWoodsTile);
+    oakWoodsTile->addConnectedTile(badValleyTile, EDGE_D);
+    oakWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_C);
 
     //plopping character
     cout << "Placing Character in Bad Valley Clearing #4..." <<endl <<endl;
