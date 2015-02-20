@@ -130,9 +130,8 @@ void Game::runGame()
         delete resultString;
         resultString = NULL;
     }
-    else{
+    else
         cout << "Player Correctly rejected from moving (TEST FAILED)" <<endl;
-    }
 
     cout << "#2: Attempting to move p1 to clearing 1 (Should Pass)" << endl;
     if(moveRequest(p1, theTile->getClearing(1))){
@@ -149,6 +148,27 @@ void Game::runGame()
         delete resultString;
         resultString = NULL;
     }
+
+    //moving to another tile
+    if(moveRequest(p1, gameBoard->getTile("Maple Woods")->getClearing(5))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
+    cout << "player1 moved to Oak Woods Clearing 4 (Should fail): " << endl;
+    //moving to another tile
+    if(moveRequest(p1, gameBoard->getTile("Oak Woods")->getClearing(4)))
+        cout << "Move Passed THIS SHOULD NEVER BE VISIBLE"<< endl;
+    else
+        cout << "Move Failed (Test Passed)"<< endl;
+    
+    cout << "player1 moved to Bad Valley Clearing 1 (Should fail): " << endl;
+    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(1)))
+        cout << "Move Passed THIS SHOULD NEVER BE VISIBLE"<< endl;
+    else
+        cout << "Move Failed (Test Passed)"<< endl;
+
 }
 
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
@@ -213,14 +233,31 @@ bool Game::moveBetweenTileRequest(Character* player, Clearing* requestedClearing
 {
     //determining if the player is connected.
     Clearing* connectedClearing = player->getCurrentLocation()->getTile()->getConnectedClearing(requestedClearing->getTile());
+    Clearing* targetClearing = requestedClearing->getTile()->getConnectedClearing(player->getCurrentLocation()->getTile());
     if(connectedClearing != NULL){
-        cout << "TRACK: Tiles are Connected. "<< endl;
-        string* resultString = connectedClearing->toString();
-        cout << "The Connected Clearing is: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
+        if(player->getCurrentLocation() == connectedClearing){
+            if(targetClearing == requestedClearing && targetClearing!= NULL){
+                cout << "Move Request Passed, moving player.." <<endl;
+                connectedClearing->removeCharacter(player);
+                requestedClearing->addCharacter(player);
+                player->moveToClearing(requestedClearing);
+                return true;
+            }
+            else{
+                cout << "ERR: Game::moveBetweenTileRequest Clearing Requested is not the Clearing connected to the Player's Clearing! (or not connected at all)" <<endl;
+                return false;
+            }
+        }
+        else{
+            cout << "ERR: Game::moveBetweenTileRequest Player is not in the connectedClearing" <<endl;
+            return false;
+        }
     }
-    return false;
+    else{
+        cout << "ERR: Game::moveBetweenTileRequest Player is not in a ConnectingClearing to the requestedClearing" <<endl;
+        return false;
+    }
+    
 }
 void Game::doTurn()
 {
