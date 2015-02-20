@@ -14,6 +14,7 @@
 class Character;
 class Path;
 class Tile;
+class Board;
 
 //Abstract class, extend this with all 3 clearing types
 class COMMONLIBRARY_EXPORT Clearing : public Serializer {

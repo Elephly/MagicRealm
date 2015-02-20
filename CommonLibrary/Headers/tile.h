@@ -7,6 +7,8 @@
 #include "path.h"
 #include "serializer.h"
 
+class Board;
+
 //Abstract class, extend this with all different tile types
 class COMMONLIBRARY_EXPORT Tile : public Serializer {
 public:

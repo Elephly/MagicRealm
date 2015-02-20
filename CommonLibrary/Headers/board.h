@@ -6,6 +6,9 @@
 #include <vector>
 #include "serializer.h"
 
+class Clearing;
+class Tile;
+
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Board : public Serializer {
 public:
