@@ -6,6 +6,8 @@
  * Responsible for graphically representing game state
  */
 
+#include <QMap>
+
 #include "ui_mainwindow.h"
 #include "serverCommThread.h"
 #include "character.h"
@@ -24,6 +26,8 @@ public:
 
 	void changeScreenState(QWidget* screen);
 	Character* getSelectedChar();
+
+	static QMap<std::string, QPixmap> tileImages();
 
 private:
 	Ui::MainWindowClass ui;
