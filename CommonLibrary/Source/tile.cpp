@@ -41,8 +41,16 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
 {
     int oppEdge = 0;
     int boardEdge = 0;
+    int targetEdge = 0;
 
-
+    switch(boardEdge){
+                case 0:     targetEdge = 3; break;
+                case 1:     targetEdge = 4; break;
+                case 2:     targetEdge = 5; break;
+                case 3:     targetEdge = 0; break;
+                case 4:     targetEdge = 1; break;
+                case 5:     targetEdge = 2; break;
+                }
     for(int i =0; i<CONNECTED_LENGTH; i++){
         //when we hit null we have iterated over all current adjacent tiles
         if(connectedTiles[i] == NULL){
@@ -52,43 +60,9 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
             boardEdge = (edge+orientation) % 6;
             for(int i=0; i<CONNECTED_LENGTH; i++){
                 oppEdge = (i+newTile->getOrientation()) % 6;
-                switch(boardEdge){
-                case 0:
-                    if(oppEdge == 3){
-                        newTile->addConnectedTile(this, (Direction) oppEdge);
-                        return;
-                    }
-                    break;
-                case 1:
-                    if(oppEdge == 4){
-                        newTile->addConnectedTile(this, (Direction) oppEdge);
-                        return;
-                    }
-                    break;
-                case 2:
-                    if(oppEdge == 5){
-                        newTile->addConnectedTile(this, (Direction) oppEdge);
-                        return;
-                    }
-                    break;
-                case 3:
-                    if(oppEdge == 0){
-                        newTile->addConnectedTile(this, (Direction) oppEdge);
-                        return;
-                    }
-                    break;
-                case 4:
-                    if(oppEdge == 1){
-                        newTile->addConnectedTile(this,  (Direction) oppEdge);
-                        return;
-                    }
-                    break;
-                case 5:
-                    if(oppEdge == 2){
-                        newTile->addConnectedTile(this, (Direction) oppEdge);
-                        return;
-                    }
-                    break;
+                if(oppEdge == targetEdge){
+                    newTile->addConnectedTile(this, (Direction) oppEdge);
+                    return;
                 }
             }
 
