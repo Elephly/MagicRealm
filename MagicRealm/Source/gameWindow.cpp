@@ -1,7 +1,7 @@
-#include <QGraphicsItem>
-
 #include "gameWindow.h"
+
 #include "board.h"
+#include "tileGraphicsItem.h"
 
 #include <queue>
 #include <unordered_set>
@@ -59,6 +59,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 {
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
+	selectedTile = 0;
 }
 
 GameWindow::~GameWindow()
@@ -225,10 +226,11 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 	///////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////
 
-	Tile* currTile = gameBoard->getTile("Bad Valley");
+	Tile* currTile = gameBoard->getTile("Border Land");
+	selectTile(currTile);
 
 	QPixmap pixmap = tileImages()[currTile->getName()];
-	QGraphicsItem* item = new QGraphicsPixmapItem(pixmap);
+	QGraphicsItem* item = new TileGraphicsItem(pixmap, currTile, this);
 	item->setPos(0, 0);
 	item->setRotation((360 / 6) * ((int)currTile->getOrientation()));
 	item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
@@ -259,7 +261,7 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 			if ((newTile != 0) && (visitedTiles.find(newTile) == visitedTiles.end()))
 			{
 				QPixmap pixmap = tileImages()[newTile->getName()];
-				QGraphicsItem* item = new QGraphicsPixmapItem(pixmap);
+				QGraphicsItem* item = new TileGraphicsItem(pixmap, newTile, this);
 
 				int side = ((int)(currTile->getOrientation()) + i) % 6;
 				QPointF pos;
@@ -334,6 +336,18 @@ void GameWindow::changeScreenState(QWidget* screen)
 	qApp->processEvents();
 }
 
-Character* GameWindow::getSelectedChar() {
+Character* GameWindow::getSelectedChar()
+{
 	return selectedCharacter;
+}
+
+void GameWindow::selectTile(Tile* tile)
+{
+	selectedTile = tile;
+	updateTileInfoPane(selectedTile);
+}
+
+void GameWindow::updateTileInfoPane(Tile* tile)
+{
+	ui.gameTileInformationBrowser->setText(QString(tile->getName().c_str()));
 }

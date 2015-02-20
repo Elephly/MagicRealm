@@ -26,6 +26,8 @@ public:
 
 	void changeScreenState(QWidget* screen);
 	Character* getSelectedChar();
+	void selectTile(Tile* tile);
+	void updateTileInfoPane(Tile* tile);
 
 	static QMap<std::string, QPixmap> tileImages();
 
@@ -34,6 +36,7 @@ private:
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
 	Character* selectedCharacter;
+	Tile* selectedTile;
 };
 
 #endif // GAMEWINDOW_H

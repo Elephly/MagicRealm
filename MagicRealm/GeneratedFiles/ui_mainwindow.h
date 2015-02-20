@@ -51,7 +51,7 @@ public:
     QPushButton *gameHideActionButton;
     QPushButton *gamePeerActionButton;
     QPushButton *gameQuitButton;
-    QTextBrowser *tileInformationBrowser;
+    QTextBrowser *gameTileInformationBrowser;
     QWidget *loadingWidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *loadingLabelLayout;
@@ -61,7 +61,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *characterSelectorLayout;
     QListWidget *characterListView;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *characterSelectorButtonsLayout;
     QPushButton *characterSelectButton;
     QPushButton *characterQuitButton;
     QLabel *characterDetailView;
@@ -216,14 +216,14 @@ public:
 
         horizontalLayout_3->addLayout(gameViewLayout);
 
-        tileInformationBrowser = new QTextBrowser(gameWidget);
-        tileInformationBrowser->setObjectName(QStringLiteral("tileInformationBrowser"));
+        gameTileInformationBrowser = new QTextBrowser(gameWidget);
+        gameTileInformationBrowser->setObjectName(QStringLiteral("gameTileInformationBrowser"));
         QFont font4;
         font4.setFamily(QStringLiteral("MS Serif"));
         font4.setPointSize(14);
-        tileInformationBrowser->setFont(font4);
+        gameTileInformationBrowser->setFont(font4);
 
-        horizontalLayout_3->addWidget(tileInformationBrowser);
+        horizontalLayout_3->addWidget(gameTileInformationBrowser);
 
         horizontalLayout_3->setStretch(0, 7);
         horizontalLayout_3->setStretch(1, 3);
@@ -312,9 +312,9 @@ public:
 
         characterSelectorLayout->addWidget(characterListView);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        characterSelectorButtonsLayout = new QHBoxLayout();
+        characterSelectorButtonsLayout->setSpacing(6);
+        characterSelectorButtonsLayout->setObjectName(QStringLiteral("characterSelectorButtonsLayout"));
         characterSelectButton = new QPushButton(characterSelectWidget);
         characterSelectButton->setObjectName(QStringLiteral("characterSelectButton"));
         QFont font8;
@@ -322,16 +322,16 @@ public:
         font8.setPointSize(18);
         characterSelectButton->setFont(font8);
 
-        horizontalLayout->addWidget(characterSelectButton);
+        characterSelectorButtonsLayout->addWidget(characterSelectButton);
 
         characterQuitButton = new QPushButton(characterSelectWidget);
         characterQuitButton->setObjectName(QStringLiteral("characterQuitButton"));
         characterQuitButton->setFont(font8);
 
-        horizontalLayout->addWidget(characterQuitButton);
+        characterSelectorButtonsLayout->addWidget(characterQuitButton);
 
 
-        characterSelectorLayout->addLayout(horizontalLayout);
+        characterSelectorLayout->addLayout(characterSelectorButtonsLayout);
 
         characterSelectorLayout->setStretch(0, 8);
         characterSelectorLayout->setStretch(1, 1);
@@ -387,7 +387,7 @@ public:
         gameHideActionButton->setText(QString());
         gamePeerActionButton->setText(QString());
         gameQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
-        tileInformationBrowser->setHtml(QApplication::translate("MainWindowClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        gameTileInformationBrowser->setHtml(QApplication::translate("MainWindowClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
