@@ -4,6 +4,7 @@
 #include "clearing.h"
 #include "shared.h"
 #include <vector>
+#include "path.h"
 
 //Abstract class, extend this with all different tile types
 class COMMONLIBRARY_EXPORT Tile {
@@ -50,10 +51,11 @@ public:
     void addConnectedTile(Tile* newTile, Direction edge);
 
     /*
-    *   isConnected
-    *   in:         Pointer to the tile you wish to check is on connected array.
+    *   getEdge
+    *   in:         Pointer to the tile that is on the connected list
+        out:        Clearing that the path to the edge is connected to, null if nothing
     */
-    bool isConnected(Tile* newTile);
+    Clearing* getConnectedClearing(Tile* aTile);
 
 
 private:
@@ -61,6 +63,9 @@ private:
 
     //The offset of a rotated tile, the standard is EDGE_A(0), when the name of the tile is orientated correctly.
     Direction orientation;
+    
+    //helper to determine if something is connected
+    Direction findConnectingEdge(Tile *aTile);
 
     //name of the string
     string name;

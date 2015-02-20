@@ -211,8 +211,14 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 
 bool Game::moveBetweenTileRequest(Character* player, Clearing* requestedClearing)
 {
-    if(player->getCurrentLocation()->getTile()->isConnected(requestedClearing->getTile())){
+    //determining if the player is connected.
+    Clearing* connectedClearing = player->getCurrentLocation()->getTile()->getConnectedClearing(requestedClearing->getTile());
+    if(connectedClearing != NULL){
         cout << "TRACK: Tiles are Connected. "<< endl;
+        string* resultString = connectedClearing->toString();
+        cout << "The Connected Clearing is: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
     }
     return false;
 }

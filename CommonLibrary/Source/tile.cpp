@@ -47,7 +47,7 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
         cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile passed in was Null" <<endl;
 
     }
-    if(isConnected(newTile)){
+    if(findConnectingEdge(newTile) != EDGE_NONE){
         cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile already exists in Connected Array" <<endl;
         return;
     }
@@ -95,11 +95,33 @@ Clearing* Tile::getClearing(int clearingID)
     return NULL;
 }
 
-bool Tile::isConnected(Tile* aTile)
+Clearing* Tile::getConnectedClearing(Tile* aTile)
+{
+    vector <Path*> * paths = NULL;
+    Direction connectedEdge = findConnectingEdge(aTile);
+    if(connectedEdge !=EDGE_NONE){
+        for(vector<Clearing*>::iterator it = clearings->begin(); it != clearings->end(); ++it)
+        {
+            paths = (*it)->getPaths();
+            for(vector<Path*>::iterator iter = paths->begin(); iter != paths->end(); ++iter){
+                if((*iter)->borderingSide() == connectedEdge){
+                    return (*iter)->getEnd(NULL);
+                }
+            }
+        }
+        return NULL;
+    }
+    else{
+        cout << "WARN: Tile::getConnectedClearing Tile is not connected" <<endl;
+        return NULL;
+    }
+}
+
+Direction Tile::findConnectingEdge(Tile* aTile)
 {
     for(int i=0; i<CONNECTED_LENGTH; i++){
         if(aTile == connectedTiles[i])
-            return true;
+            return (Direction) i;
     }
-    return false;
+    return EDGE_NONE;
 }
