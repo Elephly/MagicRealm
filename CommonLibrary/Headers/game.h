@@ -26,6 +26,15 @@ public:
     */
     bool moveRequest(Character* player, Clearing* requestedClearing);
 private:
+    /*
+    *   moveBetweenTileRequest
+    *   in:         pointer of player
+                    requested clearing pointer
+    *   out:        boolean whether or not the move was successful
+    *   Purpose:    To help the moveRequest moving between border paths to different tiles.
+    */
+    bool moveBetweenTileRequest(Character* player, Clearing* requestedClearing);
+
     Board* gameBoard;
     Character* p1;
     int day;

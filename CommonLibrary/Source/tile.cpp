@@ -23,6 +23,18 @@ string Tile::getName()
     return name;
 }
 
+Direction Tile::getOrientation()
+{
+    return orientation;
+}
+
+Tile* Tile::getAdjacent(Direction edge)
+{
+    if(edge >= 0 && edge < 6)
+        return adjacentTiles[edge];
+    else
+        return NULL;
+}
 
 //LUKE: I know this is horribly optimized although I do not think this should be much of an issue
 void Tile::addAdjacentTile(Tile* newTile)

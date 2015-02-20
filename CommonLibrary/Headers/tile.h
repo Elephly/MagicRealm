@@ -18,12 +18,30 @@ public:
     string getName();
 
     /*
+    *   getAdjacentTiles
+    *   out:   Tile Adjacent to that edge
+    */
+    Tile* getAdjacent(Direction edge);
+    
+    /*
+    *   getOrientation
+    *   out:    Direction enum of the orientation
+    */
+    Direction getOrientation();
+
+    /*
     *   getClearing
     *   in: Id of the Clearing
     *   out: Pointer to the clearing
     */
     Clearing* getClearing(int id);
 
+    /*
+    *   getClearing
+    *   in: Id of the Clearing
+    *   out: Pointer to the clearing
+    */
+    Clearing* getClearing(int id);
     /*
     *   addClearing
     *   in: new Clearing Pointer

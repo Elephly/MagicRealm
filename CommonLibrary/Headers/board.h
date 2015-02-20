@@ -26,7 +26,6 @@ public:
 
 private:
     vector<Tile*>* tileList;
-
 };
 
 #endif // BOARD_H

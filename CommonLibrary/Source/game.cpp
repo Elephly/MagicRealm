@@ -105,8 +105,8 @@ void Game::setupGame(bool cm)
     badValleyTile->addAdjacentTile(mapleWoodsTile);
 
     //plopping character
-    cout << "Placing Character in Bad Valley Clearing #5..." <<endl <<endl;
-    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(5))){
+    cout << "Placing Character in Bad Valley Clearing #4..." <<endl <<endl;
+    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(4))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;
@@ -125,8 +125,8 @@ void Game::runGame()
 
     delete resultString;
     resultString = NULL;
-    cout << "#1: Attempting to move p1 to clearing 4 (Should Fail)" << endl;
-    if(moveRequest(p1, theTile->getClearing(4))){
+    cout << "#1: Attempting to move p1 to clearing 5 (Should Fail)" << endl;
+    if(moveRequest(p1, theTile->getClearing(5))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved INCORRECTLY TO: " << *resultString << endl;
         delete resultString;
@@ -136,8 +136,8 @@ void Game::runGame()
         cout << "Player Correctly rejected from moving (TEST FAILED)" <<endl;
     }
 
-    cout << "#2: Attempting to move p1 to clearing 2 (Should Pass)" << endl;
-    if(moveRequest(p1, theTile->getClearing(2))){
+    cout << "#2: Attempting to move p1 to clearing 1 (Should Pass)" << endl;
+    if(moveRequest(p1, theTile->getClearing(1))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;
@@ -145,12 +145,12 @@ void Game::runGame()
     }
 
     //moving to different tiles
-    /*if(moveRequest(p1, theTile->getClearing(4))){
+    if(moveRequest(p1, gameBoard->getTile("Oak Woods")->getClearing(5))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;
         resultString = NULL;
-    }*/
+    }
 }
 
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
@@ -191,7 +191,8 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     
     if(playerLoc->getTile() != requestedClearing->getTile())
     {
-        return false;
+        cout << "TRACK: Player Requested the location in another tile.." <<endl;
+        return moveBetweenTileRequest(player, requestedClearing);
         //do things that require border checking.
     }
     else //standard path checking
@@ -210,6 +211,10 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     }
 }
 
+bool Game::moveBetweenTileRequest(Character* player, Clearing* requestedClearing)
+{
+    return false;
+}
 void Game::doTurn()
 {
 }
