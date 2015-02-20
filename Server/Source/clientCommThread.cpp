@@ -29,9 +29,10 @@ void ClientCommThread::readIncomingData() {
 	QString serverData;
 	in >> serverData;
 	qDebug() << serverData;
-	if (serverData.contains(QString("RecordedTurn**"))) {
+
+	if (serverData.contains(QRegExp("^RecordedTurn"))) {
 		//Client has sent recorded turn
-	} else if (serverData.contains(QString("Character**"))) {
+	} else if (serverData.contains(QRegExp("^Character"))) {
 		//do fancy things
 		//Client has sent us a character selection
 	}
