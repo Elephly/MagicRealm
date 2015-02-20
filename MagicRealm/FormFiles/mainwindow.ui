@@ -389,8 +389,8 @@
    </widget>
    <zorder>menuWidget</zorder>
    <zorder>loadingWidget</zorder>
-   <zorder>gameWidget</zorder>
    <zorder>characterSelectWidget</zorder>
+   <zorder>gameWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

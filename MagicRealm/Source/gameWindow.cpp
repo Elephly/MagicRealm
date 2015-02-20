@@ -4,8 +4,7 @@
 #include "board.h"
 
 #include <queue>
-#include <set>
-#include <stack>
+#include <unordered_set>
 
 #include <Windows.h>
 
@@ -194,7 +193,7 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 	
 	gameScene->addItem(item);
 
-	set<Tile*> visitedTiles;
+	unordered_set<Tile*> visitedTiles;
 	visitedTiles.insert(currTile);
 
 	QMap<Tile*, QPointF> locations;

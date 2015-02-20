@@ -283,8 +283,8 @@ public:
         MainWindowClass->setCentralWidget(centralWidget);
         menuWidget->raise();
         loadingWidget->raise();
-        gameWidget->raise();
         characterSelectWidget->raise();
+        gameWidget->raise();
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 800, 21));
