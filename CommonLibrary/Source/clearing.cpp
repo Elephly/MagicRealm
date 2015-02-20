@@ -14,6 +14,28 @@ Clearing::Clearing(int clNum, Tile* parentTile, ClearingType ct) {
         cout << "WARN: Parent Tile NULL" <<endl;
 }
 
+Clearing::Clearing(string* serialString, Board* board) {
+
+	int pos = serialString->find(CLASSDELIM);
+	string first = serialString->substr(0, pos);
+	string second = serialString->substr(pos + 2);
+
+	pos = second.find(VARDELIM);
+	first = second.substr(0, pos);
+	second = second.substr(pos + 1);
+	int num = atoi(first.c_str());
+
+	pos = second.find(VARDELIM);
+	first = second.substr(0, pos);
+	second = second.substr(pos + 1);
+	string tile = first;
+
+	ClearingType t = (ClearingType) atoi(second.c_str());
+
+	Clearing(num, board->getTile(tile), t);
+
+}
+
 Clearing::~Clearing()
 {
     //destroying the paths in the clearing.

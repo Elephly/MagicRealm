@@ -13,6 +13,21 @@ Tile::Tile( Direction orient, string n)
 
 }
 
+Tile::Tile(string* serialString) {
+	clearings = new vector<Clearing*>;
+	int pos = serialString->find(CLASSDELIM);
+	string second = serialString->substr(pos + 2);
+	string first;
+
+	pos = second.find(VARDELIM);
+	first = second.substr(0, pos);
+	second = second.substr(pos + 1);
+
+	Direction o = (Direction) atoi(first.c_str());
+	 
+	Tile(o, second);
+}
+
 Tile::~Tile()
 {
     clearings->clear();
@@ -135,13 +150,6 @@ string* Tile::serialize() {
 	s << orientation;
 	s << VARDELIM;
 	s << name;
-	s << VARDELIM;
-
-	//list of clearings
-	for (vector<Clearing*>::iterator it = clearings->begin(); it != clearings->end(); ++it) {
-		s << *((*it)->serialize());
-		s << LISTDELIM;
-	}
 
 	return new string(s.str());
 }

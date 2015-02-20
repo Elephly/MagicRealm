@@ -8,6 +8,7 @@
 #include "path.h"
 #include "tile.h"
 #include "serializer.h"
+#include "board.h"
 
 //forward declare
 class Character;
@@ -18,7 +19,7 @@ class Tile;
 class COMMONLIBRARY_EXPORT Clearing : public Serializer {
 public:
 	Clearing(int clNum, Tile* parentTile, ClearingType ct);
-	Clearing(string* serialString);
+	Clearing(string* serialString, Board* board);
     ~Clearing();
     /*
     *   addCharacter
