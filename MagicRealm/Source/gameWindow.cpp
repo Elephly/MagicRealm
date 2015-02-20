@@ -98,9 +98,11 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
 	
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
-
+	
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
 	// must receive board from server
-	//but for now...thisClearing* c1 = NULL;
+	// but for now...this
 	Board* gameBoard = new Board();
     Clearing* c1 = NULL;
     Clearing* c2 = NULL;
@@ -184,7 +186,11 @@ errno_t GameWindow::initialize(QString &hostIP, int character)
     oakWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_C);
 
 	Tile* currTile = gameBoard->getTile("Oak Woods");
-	
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
+
+	//Tile* currTile = gameBoard->getTile("Border Land");
+
 	QPixmap pixmap = tileImages()[currTile->getName()];
 	QGraphicsItem* item = new QGraphicsPixmapItem(pixmap);
 	item->setPos(0, 0);
