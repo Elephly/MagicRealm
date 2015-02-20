@@ -197,7 +197,7 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     {
         for(vector<Path*>::iterator it = pathsAvailable->begin(); it != pathsAvailable->end(); ++it){
             if((*it)->getEnd(playerLoc) == requestedClearing){
-                //Found a path, Check if .
+                //Found a path, Check if.
                 playerLoc->removeCharacter(player);
                 requestedClearing->addCharacter(player);
                 player->moveToClearing(requestedClearing);
@@ -211,6 +211,9 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 
 bool Game::moveBetweenTileRequest(Character* player, Clearing* requestedClearing)
 {
+    if(player->getCurrentLocation()->getTile()->isConnected(requestedClearing->getTile())){
+        cout << "TRACK: Tiles are Connected. "<< endl;
+    }
     return false;
 }
 void Game::doTurn()

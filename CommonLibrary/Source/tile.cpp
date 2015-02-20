@@ -43,31 +43,37 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
     int boardEdge = 0;
     int targetEdge = 0;
 
-    for(int i =0; i<CONNECTED_LENGTH; i++){
-        //when we hit null we have iterated over all current adjacent tiles
-        if(connectedTiles[i] == NULL){
-            connectedTiles[i] = newTile;
-            
-            //calculating the opposite edge to set to adjacent
-            boardEdge = (edge+orientation) % 6;
-            for(int i=0; i<CONNECTED_LENGTH; i++){
-                oppEdge = (i+newTile->getOrientation()) % 6;
-                if(oppEdge == ((boardEdge +3) % 6)){
-                    newTile->addConnectedTile(this, (Direction) oppEdge);
-                    return;
-                }
-            }
-
-            newTile->addConnectedTile(this, edge);
-            return;
-        }
-        //tile already been added, not doing anything
-        if(connectedTiles[i] == newTile){
-            return;
-        }
+    if(newTile == NULL){
+        cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile passed in was Null" <<endl;
 
     }
-    cout << "WARN Tile::addAdjacentTile: Tile not Added, AdjacentTile Array already full" <<endl; 
+    if(isConnected(newTile)){
+        cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile already exists in Connected Array" <<endl;
+        return;
+    }
+    
+    if(edge < EDGE_A || edge > EDGE_F){
+        cout << "ERR Tile::addConnectedTile edge out of bounds" <<endl;
+        return;
+    }
+    //when we hit null we have iterated over all current adjacent tiles
+    if(connectedTiles[edge] == NULL){
+        connectedTiles[edge] = newTile;
+            
+        //calculating the opposite edge to set to adjacent
+        boardEdge = (edge+orientation) % 6;
+        for(int i=0; i<CONNECTED_LENGTH; i++){
+            oppEdge = (i+newTile->getOrientation()) % 6;
+            if(oppEdge == ((boardEdge +3) % 6)){
+                newTile->addConnectedTile(this, (Direction) oppEdge);
+                return;
+            }
+        }
+    }
+    else{
+        cout << "WARN Tile::addAdjacentTile: Tile not Added, ConnectedTile Array already has a Tile at that edge" <<endl;
+        return;
+    }    
 }
 
 void Tile::addClearing(Clearing* newClearing)
@@ -87,4 +93,13 @@ Clearing* Tile::getClearing(int clearingID)
             return *it;
     }
     return NULL;
+}
+
+bool Tile::isConnected(Tile* aTile)
+{
+    for(int i=0; i<CONNECTED_LENGTH; i++){
+        if(aTile == connectedTiles[i])
+            return true;
+    }
+    return false;
 }
