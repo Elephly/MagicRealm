@@ -11,6 +11,10 @@ Action::Action(string* serializedString, Board *gameBoard) {
 
 	string var1 = serializedString->substr(0, delimPos);
 	string var2 = serializedString->substr(delimPos + 2); //+2 due to length of CLASSDELIM
+
+	delimPos = var2.find(VARDELIM);
+	var1 = var2.substr(0, delimPos);
+	var2 = var2.substr(delimPos + 1);
 	myAction = (ActionType) atoi(var1.c_str());
 
 	delimPos = var2.find(VARDELIM);
@@ -30,7 +34,7 @@ Clearing* Action::getTarget() {
 
 string* Action::serialize() {
 	ostringstream s;
-	s << "Action" << CLASSDELIM << (int)myAction << VARDELIM << targetClearing->toString();
+	s << "Action" << CLASSDELIM << (int)myAction << VARDELIM << *(targetClearing->toString());
 
 	string *myString = new string(s.str());
 	return myString;
