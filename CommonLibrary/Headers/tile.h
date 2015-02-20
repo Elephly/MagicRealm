@@ -49,6 +49,12 @@ public:
     */
     void addConnectedTile(Tile* newTile, Direction edge);
 
+    /*
+    *   isConnected
+    *   in:         Pointer to the tile you wish to check is on connected array.
+    */
+    bool isConnected(Tile* newTile);
+
 
 private:
 	vector<Clearing*>* clearings;
