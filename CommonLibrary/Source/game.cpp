@@ -31,8 +31,49 @@ void Game::setupTiles()
     Clearing* c2 = NULL;
     Clearing* c3 = NULL;
     Clearing* c4 = NULL;
+    Clearing* c5 = NULL;
+    Clearing* c6 = NULL;
     Path* p = NULL;
     string *resultString = NULL;
+
+	Tile* borderLandTile = new Tile (EDGE_F, "Border Land");
+	c1 = new Clearing(1, borderLandTile, WOODS);
+	c2 = new Clearing(2, borderLandTile, WOODS);
+	c3 = new Clearing(3, borderLandTile, WOODS);
+	c4 = new Clearing(4, borderLandTile, CAVES);
+	c5 = new Clearing(5, borderLandTile, CAVES);
+	c6 = new Clearing(6, borderLandTile, CAVES);
+	p = new Path(c1, EDGE_B);
+	p = new Path(c1, EDGE_D);
+	p = new Path(c1, c6, false);
+	p = new Path(c2, EDGE_A);
+	p = new Path(c2, EDGE_E);
+	p = new Path(c2, c3, false);
+	//p = new Path(c3, c2, false);
+	p = new Path(c3, c5, false);
+	p = new Path(c3, c6, false);
+	p = new Path(c4, EDGE_F);
+	p = new Path(c4, c5, true);
+	p = new Path(c4, c6, false);
+	p = new Path(c5, EDGE_C);
+	//p = new Path(c5, c3, false);
+	//p = new Path(c5, c4, true);
+	//p = new Path(c6, c1, false);
+	//p = new Path(c6, c3, false);
+	//p = new Path(c6, c4, false);
+	gameBoard->addTile(borderLandTile);
+	
+    if(gameBoard->getTile("Border Land") != NULL)
+        cout << "Tile Found!!!" << endl;
+
+    //resetting the clearings and paths
+    p = NULL;
+    c1 = NULL;
+    c2 = NULL;
+    c3 = NULL;
+    c4 = NULL;
+    c5 = NULL;
+    c6 = NULL;
 
     //setting up the Oak Woods Tile
     Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
@@ -40,15 +81,12 @@ void Game::setupTiles()
     c2 = new Clearing(4, oakWoodsTile, WOODS);
     c3 = new Clearing(5, oakWoodsTile, WOODS);
     p = new Path(c1, c2, false);
-    p = new Path(c1, EDGE_B);
+    p = new Path(c2, EDGE_B);
     p = new Path(c3, EDGE_C);
     p = new Path(c3, EDGE_D);
     p = new Path(c1, EDGE_E);
     p = new Path(c1, EDGE_F);
     gameBoard->addTile(oakWoodsTile);
-
-    if(gameBoard->getTile("Oak Woods") != NULL)
-        cout << "Tile Found!!!" << endl;
 
     //resetting the clearings and paths
     p = NULL;
@@ -105,6 +143,8 @@ void Game::setupTiles()
     c3 = NULL;
 
     //setting up adjacent stuff
+	borderLandTile->addConnectedTile(oakWoodsTile, EDGE_A);
+	borderLandTile->addConnectedTile(badValleyTile, EDGE_B);
     oakWoodsTile->addConnectedTile(badValleyTile, EDGE_D);
     oakWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_C);
 
