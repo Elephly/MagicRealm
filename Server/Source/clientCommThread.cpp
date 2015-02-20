@@ -26,13 +26,14 @@ void ClientCommThread::readIncomingData() {
 		qDebug() << "bytes avail too small (less than block size)";
 		return;
 	}
-	QString serverData;
-	in >> serverData;
-	qDebug() << serverData;
+	QString clientData;
+	in >> clientData;
+	qDebug() << clientData;
 
-	if (serverData.contains(QRegExp("^RecordedTurn"))) {
+	if (clientData.contains(QRegExp("^RecordedTurn"))) {
 		//Client has sent recorded turn
-	} else if (serverData.contains(QRegExp("^Character"))) {
+		//mark player as ready and execute if all ready
+	} else if (clientData.contains(QRegExp("^Character"))) {
 		//do fancy things
 		//Client has sent us a character selection
 	}
