@@ -30,9 +30,9 @@ void Game::setupGame(bool cm)
 
     //setting up the Oak Woods Tile
     Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
-    c1 = new Clearing(2, oakWoodsTile);
-    c2 = new Clearing(4, oakWoodsTile);
-    c3 = new Clearing(5, oakWoodsTile);
+    c1 = new Clearing(2, oakWoodsTile, WOODS);
+    c2 = new Clearing(4, oakWoodsTile, WOODS);
+    c3 = new Clearing(5, oakWoodsTile, WOODS);
     p = new Path(c1, c2, false);
     p = new Path(c1, EDGE_B);
     p = new Path(c3, EDGE_C);
@@ -52,10 +52,10 @@ void Game::setupGame(bool cm)
 
     //setting up the Bad Valley Tile.
     Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley");
-    c1 = new Clearing(1, badValleyTile);
-    c2 = new Clearing(2, badValleyTile);
-    c3 = new Clearing(4, badValleyTile);
-    c4 = new Clearing(5, badValleyTile);
+    c1 = new Clearing(1, badValleyTile, WOODS);
+    c2 = new Clearing(2, badValleyTile, WOODS);
+    c3 = new Clearing(4, badValleyTile, WOODS);
+    c4 = new Clearing(5, badValleyTile, WOODS);
 
     //regular paths
     p = new Path(c1, c3, false);
@@ -78,9 +78,9 @@ void Game::setupGame(bool cm)
     //Setting up the Maple Woods Tile
     Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods");
 
-    c1 = new Clearing(2, mapleWoodsTile);
-    c2 = new Clearing(4, mapleWoodsTile);
-    c3 = new Clearing(5, mapleWoodsTile);
+    c1 = new Clearing(2, mapleWoodsTile, WOODS);
+    c2 = new Clearing(4, mapleWoodsTile, WOODS);
+    c3 = new Clearing(5, mapleWoodsTile, WOODS);
 
     p = new Path(c1, c2, false);
     

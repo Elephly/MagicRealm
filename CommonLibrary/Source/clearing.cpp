@@ -1,7 +1,9 @@
 #include "clearing.h"
 #include <sstream>
 
-Clearing::Clearing(int clNum, Tile* parentTile) {
+Clearing::Clearing(int clNum, Tile* parentTile, ClearingType ct) {
+
+    myType = ct;
 	ID= clNum;
     myTile = parentTile;
     pathways = new vector<Path*>;
@@ -92,4 +94,9 @@ string* Clearing::toString()
 
     string *tostring = new string (s.str());
     return tostring;
+}
+
+ClearingType Clearing::getClearingType()
+{
+    return myType;
 }

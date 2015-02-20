@@ -16,7 +16,7 @@ class Tile;
 //Abstract class, extend this with all 3 clearing types
 class COMMONLIBRARY_EXPORT Clearing{
 public:
-	Clearing(int clNum, Tile* parentTile);
+	Clearing(int clNum, Tile* parentTile, ClearingType ct);
     ~Clearing();
     /*
     *   addCharacter
@@ -58,6 +58,12 @@ public:
     */
     int getClearingNum();
 
+    /*
+    *   getClearingType
+    *   Out:    The Type of Clearing
+    */
+    ClearingType getClearingType();
+
     //toString method, returns POINTER TO STRING, MUST BE DELETED
     string* toString();
 
@@ -77,6 +83,7 @@ private:
     //clearing number  
     int ID;
 
+    ClearingType myType;
     //TODO: Add Dwelling object here!!!!!
 };
 

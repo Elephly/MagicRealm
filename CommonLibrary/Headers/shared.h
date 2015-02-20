@@ -105,6 +105,13 @@ enum COMMONLIBRARY_EXPORT TimeOfDay
     DAYLIGHT,
     SUNSET,
     EVENING,
-    MIDNIGHT,
+    MIDNIGHT
+};
+
+enum COMMONLIBRARY_EXPORT ClearingType
+{
+    WOODS,
+    CAVES,
+    MOUNTAIN
 };
 #endif
