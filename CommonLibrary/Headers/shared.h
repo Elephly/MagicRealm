@@ -84,7 +84,8 @@ enum COMMONLIBRARY_EXPORT AttackType
 
 enum COMMONLIBRARY_EXPORT ActionType
 {
-	MoveAction,
+	NoAction=-1,
+	MoveAction=0,
 	SearchAction,
 	TradeAction,
 	HideAction,

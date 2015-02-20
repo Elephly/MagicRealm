@@ -156,10 +156,15 @@ public:
         QFont font2;
         font2.setFamily(QStringLiteral("MS Serif"));
         gameMoveActionButton->setFont(font2);
+        gameMoveActionButton->setAutoFillBackground(true);
+        gameMoveActionButton->setStyleSheet(QStringLiteral(""));
         QIcon icon;
         icon.addFile(QStringLiteral(":/images/actions/move.gif"), QSize(), QIcon::Normal, QIcon::Off);
         gameMoveActionButton->setIcon(icon);
         gameMoveActionButton->setIconSize(QSize(32, 32));
+        gameMoveActionButton->setAutoDefault(false);
+        gameMoveActionButton->setDefault(false);
+        gameMoveActionButton->setFlat(false);
 
         gameButtonLayout->addWidget(gameMoveActionButton);
 

@@ -60,6 +60,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
 	selectedTile = 0;
+	selectedAction = NoAction;
 }
 
 GameWindow::~GameWindow()
@@ -345,9 +346,31 @@ void GameWindow::selectTile(Tile* tile)
 {
 	selectedTile = tile;
 	updateTileInfoPane(selectedTile);
+	switch (selectedAction)
+	{
+	case NoAction:
+		break;
+	case MoveAction:
+		break;
+	case SearchAction:
+		break;
+	case TradeAction:
+		break;
+	case HideAction:
+		break;
+	case PeerAction:
+		break;
+	default:
+		break;
+	}
 }
 
 void GameWindow::updateTileInfoPane(Tile* tile)
 {
 	ui.gameTileInformationBrowser->setText(QString(tile->getName().c_str()));
+}
+
+void GameWindow::selectAction(ActionType action)
+{
+	selectedAction = action;
 }
