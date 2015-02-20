@@ -347,7 +347,7 @@ p, li { white-space: pre-wrap; }
       <number>40</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="characterSelectorLayout" stretch="8,1">
+      <layout class="QVBoxLayout" name="characterSelectorLayout" stretch="8,0,1">
        <item>
         <widget class="QListWidget" name="characterListView">
          <property name="currentRow">
@@ -458,6 +458,25 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="characterCheatModeCheckBox">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cheat Mode</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="characterSelectorButtonsLayout">
          <item>
           <widget class="QPushButton" name="characterSelectButton">
@@ -506,8 +525,8 @@ p, li { white-space: pre-wrap; }
    </widget>
    <zorder>menuWidget</zorder>
    <zorder>loadingWidget</zorder>
-   <zorder>characterSelectWidget</zorder>
    <zorder>gameWidget</zorder>
+   <zorder>characterSelectWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

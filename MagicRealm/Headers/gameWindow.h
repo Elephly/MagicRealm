@@ -23,7 +23,7 @@ public:
 	~GameWindow();
 
 	errno_t initializeConnection(QString &hostIP);
-	errno_t initializeGame(int character);
+	errno_t initializeGame(int character, bool cheatMode);
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);

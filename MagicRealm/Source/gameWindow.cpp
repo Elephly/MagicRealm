@@ -103,7 +103,7 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	return err;
 }
 
-errno_t GameWindow::initializeGame(int character)
+errno_t GameWindow::initializeGame(int character, bool cheatMode)
 {
 	errno_t err = 0;
 
@@ -118,7 +118,7 @@ errno_t GameWindow::initializeGame(int character)
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
 	
-	game->setupGame(false, selectedCharacter);
+	game->setupGame(cheatMode, selectedCharacter);
 	Board* gameBoard = game->getBoard();
 
 	Tile* currTile = gameBoard->getTile("Border Land");
@@ -216,12 +216,6 @@ errno_t GameWindow::cleanup()
 	{
 		delete game;
 		game = 0;
-	}
-
-	if (selectedCharacter != 0)
-	{
-		delete selectedCharacter;
-		selectedCharacter = 0;
 	}
 	
 	changeScreenState(ui.menuWidget);
