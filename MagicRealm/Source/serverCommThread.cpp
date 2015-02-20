@@ -62,17 +62,19 @@ void ServerCommThread::updateFromServer()
 	}
 	QString serverData;
 	in >> serverData;
-	qDebug() <<serverData;
+	qDebug() << serverData;
 
-	//if (serverData.compare(QString(ACCEPTCONN))) {
+	if (serverData.compare(QString(ACCEPTCONN)) == 0) {
 		QByteArray block;
 		QDataStream out(&block, QIODevice::WriteOnly);
 		out << (quint16)0;
-		out << windowParent->getSelectedChar()->serialize();
+		out << QString(windowParent->getSelectedChar()->serialize()->c_str());
 		out.device()->seek(0);
 		out << (quint16)(block.size() - sizeof(quint16));
 
 		serverConnection->write(block);
-	//}
+	} else if (serverData.contains(QString("RecrodedTurn**"))) {
+		//Server wants us to record a turn
+	}
 	blocksize = 0;
 }

@@ -56,7 +56,8 @@ string* Character::serialize() {
 	s << CLASSDELIM;
 	s << myType;
 
-	return new string(s.str());
+	string *myString = new string(s.str());
+	return myString;
 }
 
 //Character inits

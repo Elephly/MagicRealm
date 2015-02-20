@@ -20,6 +20,7 @@ void ClientCommThread::readIncomingData() {
 			return;
 		}
 		in >> blocksize;
+		qDebug() << blocksize;
 	}
 	if (clientConnection->bytesAvailable() < blocksize) {
 		qDebug() << "bytes avail too small (less than block size)";
@@ -28,6 +29,12 @@ void ClientCommThread::readIncomingData() {
 	QString serverData;
 	in >> serverData;
 	qDebug() << serverData;
+	if (serverData.contains(QString("RecordedTurn**"))) {
+		//Client has sent recorded turn
+	} else if (serverData.contains(QString("Character**"))) {
+		//do fancy things
+		//Client has sent us a character selection
+	}
 
 	blocksize = 0;
 }
