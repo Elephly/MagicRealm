@@ -4,11 +4,13 @@
 #include "tile.h"
 #include "shared.h"
 #include <vector>
+#include "serializer.h"
 
 //Abstract class, extend this with all different Character types
-class  COMMONLIBRARY_EXPORT Board{
+class  COMMONLIBRARY_EXPORT Board : public Serializer {
 public:
 	Board();
+	Board(string* serialString);
     //TODO BOARD DESTRUCTOR
     /*
     *   addTile
@@ -23,6 +25,8 @@ public:
     *   out:    Pointer to that tile.
     */
     Tile* getTile(string tName);
+
+	virtual string* serialize();
 
 private:
     vector<Tile*>* tileList;

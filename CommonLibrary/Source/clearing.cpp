@@ -100,3 +100,16 @@ ClearingType Clearing::getClearingType()
 {
     return myType;
 }
+
+string* Clearing::serialize() {
+	stringstream s;
+	s << "Clearing";
+	s << CLASSDELIM;
+	s << ID;
+	s << VARDELIM;
+	s << myTile->getName();
+	s << VARDELIM;
+	s << myType;
+
+	return new string(s.str());
+}

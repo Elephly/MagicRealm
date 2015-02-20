@@ -20,7 +20,6 @@ void ClientCommThread::readIncomingData() {
 			return;
 		}
 		in >> blocksize;
-		qDebug() << blocksize;
 	}
 	if (clientConnection->bytesAvailable() < blocksize) {
 		qDebug() << "bytes avail too small (less than block size)";

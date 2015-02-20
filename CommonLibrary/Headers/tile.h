@@ -5,11 +5,13 @@
 #include "shared.h"
 #include <vector>
 #include "path.h"
+#include "serializer.h"
 
 //Abstract class, extend this with all different tile types
-class COMMONLIBRARY_EXPORT Tile {
+class COMMONLIBRARY_EXPORT Tile : public Serializer {
 public:
 	Tile(Direction orient, string n);
+	Tile(string* serialString);
     ~Tile();
 
     /*
@@ -57,6 +59,8 @@ public:
     */
     Clearing* getConnectedClearing(Tile* aTile);
 
+
+	virtual string* serialize();
 
 private:
 	vector<Clearing*>* clearings;

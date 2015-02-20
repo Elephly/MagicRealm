@@ -7,6 +7,7 @@
 #include "commonlibrary_global.h"
 #include "path.h"
 #include "tile.h"
+#include "serializer.h"
 
 //forward declare
 class Character;
@@ -14,9 +15,10 @@ class Path;
 class Tile;
 
 //Abstract class, extend this with all 3 clearing types
-class COMMONLIBRARY_EXPORT Clearing{
+class COMMONLIBRARY_EXPORT Clearing : public Serializer {
 public:
 	Clearing(int clNum, Tile* parentTile, ClearingType ct);
+	Clearing(string* serialString);
     ~Clearing();
     /*
     *   addCharacter
@@ -69,6 +71,8 @@ public:
 
 
     //TODO: Add the get dwelling object here.
+
+	virtual string* serialize();
 
 private:
     //list of characters in a clearing.

@@ -1,4 +1,5 @@
 #include "path.h"
+#include <sstream>
 
 
 Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
@@ -59,4 +60,21 @@ bool Path::isBorder()
 Direction Path::borderingSide()
 {
     return bordering;
+}
+
+string* Path::serialize() {
+	stringstream s;
+	s << "Path";
+	s << CLASSDELIM;
+	s << *(clearing1->toString());
+	s << VARDELIM;
+	s << *(clearing2->toString());
+	s << VARDELIM;
+	s << hidden;
+	s << VARDELIM;
+	s << border;
+	s << VARDELIM;
+	s << bordering;
+
+	return new string(s.str());
 }

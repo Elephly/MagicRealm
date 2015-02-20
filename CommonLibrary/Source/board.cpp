@@ -1,4 +1,5 @@
 #include "board.h"
+#include <sstream>
 
 Board::Board() {
 	//whole lotta nothing
@@ -27,5 +28,15 @@ Tile* Board::getTile(string tName)
     return NULL;
 }
 
+string* Board::serialize() {
+	stringstream s;
+	s << "Board";
+	s << CLASSDELIM;
 
+	for (vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it) {
+		s << *((*it)->serialize());
+		s << LISTDELIM;
+	}
 
+	return new string(s.str());
+}

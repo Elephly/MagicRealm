@@ -1,4 +1,5 @@
 #include "tile.h"
+#include <sstream>
 
 Tile::Tile( Direction orient, string n)
 {
@@ -124,4 +125,23 @@ Direction Tile::findConnectingEdge(Tile* aTile)
             return (Direction) i;
     }
     return EDGE_NONE;
+}
+
+//Tile**orientation^name^clearing1+clearing2+
+string* Tile::serialize() {
+	stringstream s;
+	s << "Tile";
+	s << CLASSDELIM;
+	s << orientation;
+	s << VARDELIM;
+	s << name;
+	s << VARDELIM;
+
+	//list of clearings
+	for (vector<Clearing*>::iterator it = clearings->begin(); it != clearings->end(); ++it) {
+		s << *((*it)->serialize());
+		s << LISTDELIM;
+	}
+
+	return new string(s.str());
 }

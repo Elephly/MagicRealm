@@ -16,6 +16,7 @@ class Clearing;
 class  COMMONLIBRARY_EXPORT Character : public Serializer{
 public:
 	Character(CharacterTypes type);
+	Character(string* serialString);
 	int getGold();
 	vector<Equipment *>* getEquipment();
 	Clearing* getCurrentLocation();

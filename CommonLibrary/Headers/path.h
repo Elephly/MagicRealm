@@ -4,14 +4,16 @@
 #include "commonlibrary_global.h"
 #include "shared.h"
 #include "clearing.h"
+#include "serializer.h"
 
 //forward declare
 class Clearing;
 
 
-class COMMONLIBRARY_EXPORT Path {
+class COMMONLIBRARY_EXPORT Path : public Serializer{
 public:
 	Path(Clearing *c1, Clearing *c2, bool isHidden);
+	Path(string* serialString);
 
     //for a path that leaves a tile (connects two tiles)
     Path(Clearing *c1, Direction d);
@@ -47,6 +49,8 @@ public:
     *   out: the Side that it is bordering as a Direction
     */
     Direction borderingSide();
+
+	virtual string* serialize();
 
 private:
 	bool hidden;
