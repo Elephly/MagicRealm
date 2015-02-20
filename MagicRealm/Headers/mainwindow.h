@@ -25,7 +25,12 @@ private slots:
 	void on_characterSelectButton_clicked();
 	void on_characterQuitButton_clicked();
 	void on_characterListView_currentRowChanged(int row);
-
+	
+	void on_gameMoveActionButton_clicked();
+	void on_gameSearchActionButton_clicked();
+	void on_gameTradeActionButton_clicked();
+	void on_gameHideActionButton_clicked();
+	void on_gamePeerActionButton_clicked();
 	void on_gameQuitButton_clicked();
 
 private:

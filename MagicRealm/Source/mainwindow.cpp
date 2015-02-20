@@ -88,6 +88,31 @@ void MainWindow::on_characterListView_currentRowChanged(int row)
 	ui.characterDetailView->setPixmap(QPixmap(characterDetailPaths[row]));
 }
 
+void MainWindow::on_gameMoveActionButton_clicked()
+{
+
+}
+
+void MainWindow::on_gameSearchActionButton_clicked()
+{
+
+}
+
+void MainWindow::on_gameTradeActionButton_clicked()
+{
+
+}
+
+void MainWindow::on_gameHideActionButton_clicked()
+{
+
+}
+
+void MainWindow::on_gamePeerActionButton_clicked()
+{
+
+}
+
 void MainWindow::on_gameQuitButton_clicked()
 {
 	if (QMessageBox::question(ui.centralWidget, "Are you sure?", "Do you really want to quit?") == QMessageBox::Yes)

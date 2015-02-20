@@ -122,37 +122,139 @@
       <height>409</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_6" stretch="7,1">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="7,3">
      <item>
-      <widget class="QGraphicsView" name="graphicsView"/>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="gameButtonLayout" stretch="0,0">
+      <layout class="QVBoxLayout" name="gameViewLayout">
        <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="font">
-          <font>
-           <family>MS Serif</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-        </widget>
+        <widget class="QGraphicsView" name="graphicsView"/>
        </item>
        <item>
-        <widget class="QPushButton" name="gameQuitButton">
-         <property name="font">
-          <font>
-           <family>MS Serif</family>
-          </font>
-         </property>
-         <property name="text">
-          <string>Quit</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="gameButtonLayout" stretch="0,0,0,0,0,0">
+         <item>
+          <widget class="QPushButton" name="gameMoveActionButton">
+           <property name="font">
+            <font>
+             <family>MS Serif</family>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../Resources/mainwindow.qrc">
+             <normaloff>:/images/actions/move.gif</normaloff>:/images/actions/move.gif</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gameSearchActionButton">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../Resources/mainwindow.qrc">
+             <normaloff>:/images/actions/search.gif</normaloff>:/images/actions/search.gif</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gameTradeActionButton">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../Resources/mainwindow.qrc">
+             <normaloff>:/images/actions/trade.gif</normaloff>:/images/actions/trade.gif</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gameHideActionButton">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../Resources/mainwindow.qrc">
+             <normaloff>:/images/actions/hide.gif</normaloff>:/images/actions/hide.gif</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gamePeerActionButton">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../Resources/mainwindow.qrc">
+             <normaloff>:/images/actions/peer.gif</normaloff>:/images/actions/peer.gif</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="gameQuitButton">
+           <property name="font">
+            <font>
+             <family>MS Serif</family>
+             <pointsize>22</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Quit</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QTextBrowser" name="tileInformationBrowser">
+       <property name="font">
+        <font>
+         <family>MS Serif</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -176,7 +278,7 @@
       <number>165</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="loadingLabelLayout">
        <item>
         <widget class="QLabel" name="loadingLoadingLabel">
          <property name="font">
@@ -230,7 +332,7 @@
       <number>40</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="8,1">
+      <layout class="QVBoxLayout" name="characterSelectorLayout" stretch="8,1">
        <item>
         <widget class="QListWidget" name="characterListView">
          <property name="currentRow">
