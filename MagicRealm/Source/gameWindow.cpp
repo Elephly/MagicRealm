@@ -59,6 +59,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 {
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
+	game = new Game();
 	selectedTile = 0;
 	selectedAction = NoAction;
 }
@@ -117,7 +118,8 @@ errno_t GameWindow::initializeGame(int character)
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
 	
-	Board* gameBoard = new Board();
+	game->setupGame(false, selectedCharacter);
+	Board* gameBoard = game->getBoard();
 
 	Tile* currTile = gameBoard->getTile("Border Land");
 	if (currTile)
@@ -209,6 +211,12 @@ errno_t GameWindow::cleanup()
 	errno_t err = 0;
 
 	err = server->threadDisconnect();
+
+	if (game != 0)
+	{
+		delete game;
+		game = 0;
+	}
 
 	if (selectedCharacter != 0)
 	{

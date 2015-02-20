@@ -16,8 +16,9 @@ public:
 	Game();
     ~Game();
     void runGame();
-    void setupGame(bool cm);
+    void setupGame(bool cm, Character* p);
     void doTurn();
+	Board* getBoard();
     /*
     *   MoveRequest
     *   In:     Pointer of the Character wishing to move

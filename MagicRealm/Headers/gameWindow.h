@@ -10,6 +10,7 @@
 
 #include "ui_mainwindow.h"
 #include "serverCommThread.h"
+#include "game.h"
 #include "character.h"
 
 //Forward decl
@@ -37,7 +38,9 @@ private:
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
+	
 	Character* selectedCharacter;
+	Game* game;
 	Tile* selectedTile;
 	ActionType selectedAction;
 };

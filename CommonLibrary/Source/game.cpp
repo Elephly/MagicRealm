@@ -2,23 +2,29 @@
 
 Game::Game()
 {
-    p1 = new Character(Elf);
     gameBoard = new Board();
     cout << "Game Initialized" <<endl;
 }
 
 Game::~Game()
 {
-    delete p1;
-    delete gameBoard;
-    p1 = NULL;
-    gameBoard = NULL;
+	if (p1 != 0)
+	{
+		delete p1;
+		p1 = NULL;
+	}
+	if (gameBoard != 0)
+	{
+		delete gameBoard;
+		gameBoard = NULL;
+	}
     cout << "Game Destroyed" << endl;
 }
 
-void Game::setupGame(bool cm)
+void Game::setupGame(bool cm, Character* p)
 {
     cheatMode = cm;
+	p1 = p;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
     cout << "Finished Setup..." <<endl <<endl;
@@ -157,6 +163,12 @@ void Game::setupTiles()
         resultString = NULL;
     }
 }
+
+Board* Game::getBoard()
+{
+	return gameBoard;
+}
+
 void Game::runGame()
 {
     cout << "Game Run..." << endl;
