@@ -2,15 +2,24 @@
 #define TILEGRAPHICSITEM_H
 
 #include <QGraphicsItem>
+#include "gameWindow.h"
+#include "tile.h"
 
-class TileGraphicsItem : public QGraphicsItem
+class TileGraphicsItem : public QGraphicsPixmapItem
 {
 public:
-	TileGraphicsItem(QPixmap pixmap);
+	TileGraphicsItem(QPixmap pixmap, Tile* tile, GameWindow* container);
 	~TileGraphicsItem();
 
-private:
+protected:
+	void mousePressEvent(QGraphicsSceneMouseEvent *event);
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *evernt);
 
+private:
+	Tile* myTile;
+	GameWindow* myContainer;
 };
 
 #endif //TILEGRAPHICSITEM_H

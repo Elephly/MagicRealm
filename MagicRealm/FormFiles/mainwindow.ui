@@ -137,6 +137,12 @@
              <family>MS Serif</family>
             </font>
            </property>
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -149,6 +155,15 @@
              <width>32</width>
              <height>32</height>
             </size>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+           <property name="default">
+            <bool>false</bool>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -240,7 +255,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QTextBrowser" name="tileInformationBrowser">
+      <widget class="QTextBrowser" name="gameTileInformationBrowser">
        <property name="font">
         <font>
          <family>MS Serif</family>
@@ -443,7 +458,7 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="characterSelectorButtonsLayout">
          <item>
           <widget class="QPushButton" name="characterSelectButton">
            <property name="font">
