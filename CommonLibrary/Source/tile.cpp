@@ -65,7 +65,7 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
         for(int i=0; i<CONNECTED_LENGTH; i++){
             oppEdge = (i+newTile->getOrientation()) % 6;
             if(oppEdge == ((boardEdge +3) % 6)){
-                newTile->addConnectedTile(this, (Direction) oppEdge);
+                newTile->addConnectedTile(this, (Direction) i);
                 return;
             }
         }
