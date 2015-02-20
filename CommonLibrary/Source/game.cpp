@@ -133,7 +133,7 @@ void Game::runGame()
         resultString = NULL;
     }
     else{
-        cout << "Player Correctly rejected from moving" <<endl;
+        cout << "Player Correctly rejected from moving (TEST FAILED)" <<endl;
     }
 
     cout << "#2: Attempting to move p1 to clearing 2 (Should Pass)" << endl;

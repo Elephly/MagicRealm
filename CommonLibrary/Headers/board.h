@@ -9,13 +9,14 @@
 class  COMMONLIBRARY_EXPORT Board{
 public:
 	Board();
+    //TODO BOARD DESTRUCTOR
     /*
     *   addTile
     *   In:         Pointer to the tile you wish to add. 
     *   Purpose:    To Add a tile to the map with its desired paths betwen other tiles.
     */
     void addTile(Tile* newTile);
-
+    
     /*
     *   getTile
     *   in:     String of the tile name
@@ -24,7 +25,7 @@ public:
     Tile* getTile(string tName);
 
 private:
-    vector<Tile*> tileList;
+    vector<Tile*>* tileList;
 
 };
 
