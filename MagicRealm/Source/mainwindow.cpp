@@ -75,12 +75,7 @@ void MainWindow::on_menuQuitButton_clicked()
 
 void MainWindow::on_characterSelectButton_clicked()
 {
-	
-	if (gameWindow->initializeGame(ui.characterListView->currentRow(), ui.characterCheatModeCheckBox->isChecked()))
-	{
-		QMessageBox::about(ui.centralWidget, "Error", "Failed to initialize game.");
-		return;
-	}
+	gameWindow->requestCharacter((CharacterTypes)ui.characterListView->currentRow());
 }
 
 void MainWindow::on_characterQuitButton_clicked()
