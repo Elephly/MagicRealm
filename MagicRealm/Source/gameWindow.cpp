@@ -131,6 +131,10 @@ void GameWindow::requestCharacter(CharacterTypes character)
 	server->writeMessage(&serializedCharacter);
 }
 
+void GameWindow::addCharacterToGame(QString &newCharacter) {
+	game->addPlayer(new Character(new string(newCharacter.toUtf8().constData()), game->getBoard()));
+}
+
 errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 {
 	if (!characterRequestAccepted)

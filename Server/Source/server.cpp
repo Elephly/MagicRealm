@@ -77,9 +77,11 @@ void Server::characterUnavail(CharacterTypes type, int clientID) {
 	} else {
 		s2 << true;
 		selectedCharacters[(int) type] = true;
+		game.addPlayer(type);
 		for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
 			it != clientThreadList->end(); ++it) {
 				(*it)->writeMessage(new string(s.str()));
+				(*it)->writeMessage(game.getPlayer(type)->serialize());
 		}
 	}
 	string *message = new string(s2.str());;

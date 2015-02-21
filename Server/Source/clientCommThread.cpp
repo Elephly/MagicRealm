@@ -40,6 +40,7 @@ void ClientCommThread::readIncomingData() {
 			clientData = clientData.remove(0, pos + 2);
 			qDebug() << "substr data: " << clientData;
 			CharacterTypes data = (CharacterTypes)clientData.toInt();
+			myCharacter = data;
 			characterSelected(data, clientID);
 		}
 	} while(true);

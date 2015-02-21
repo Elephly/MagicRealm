@@ -15,7 +15,6 @@ class Board;
 class Path;
 
 
-//Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Character : public Serializer{
 public:
 	Character(CharacterTypes type);

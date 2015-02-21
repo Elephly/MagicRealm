@@ -77,6 +77,8 @@ void ServerCommThread::updateFromServer()
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			bool ok = (bool) serverData.remove(0, pos+2).toInt();
 			windowParent->initializeGame(ok);
+		} else if (serverData.contains(QRegExp("^Character"))) {
+			windowParent->addCharacterToGame(new Character(new string(serverData.toUtf8().constData())));
 		}
 		blocksize = 0;
 	} while(true);

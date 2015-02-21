@@ -14,6 +14,7 @@ public:
 	~ClientCommThread();
 	void writeMessage(QString *message);
 	void writeMessage(string *message);
+
 public slots:
 	void readIncomingData();
 signals:
@@ -23,6 +24,7 @@ private:
 	Server *parent;
 	quint16 blocksize;
 	int clientID;
+	CharacterTypes myCharacter;
 };
 
 #endif // CLIENTCOMMTHREAD_H

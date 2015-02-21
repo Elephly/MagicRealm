@@ -37,6 +37,7 @@ public:
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
 	void requestCharacter(CharacterTypes character);
+	void addCharacterToGame(QString &newCharacter);
 
 private:
 	QMap<std::string, QPixmap*>* tileImages;
