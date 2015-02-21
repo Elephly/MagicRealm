@@ -71,6 +71,8 @@ public:
     //toString method, returns POINTER TO STRING, MUST BE DELETED
     string* toString();
 
+	const vector<Character*>* getCharacters();
+
 
     //TODO: Add the get dwelling object here.
 

@@ -23,6 +23,8 @@ public:
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);
+	CharacterTypes getType();
+	static char* getTypeString(CharacterTypes t);
 	virtual string* serialize();
 
 private:

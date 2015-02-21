@@ -123,6 +123,11 @@ ClearingType Clearing::getClearingType()
     return myType;
 }
 
+const vector<Character*>* Clearing::getCharacters()
+{
+	return characters;
+}
+
 string* Clearing::serialize() {
 	stringstream s;
 	s << "Clearing";

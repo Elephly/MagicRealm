@@ -96,41 +96,31 @@ void MainWindow::on_characterListView_currentRowChanged(int row)
 void MainWindow::on_gameMoveActionButton_clicked()
 {
 	gameWindow->selectAction(MoveAction);
-	changeAction(ui.gameMoveActionButton);
+	ui.gameMoveActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gameSearchActionButton_clicked()
 {
 	gameWindow->selectAction(SearchAction);
-	changeAction(ui.gameSearchActionButton);
+	ui.gameSearchActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gameTradeActionButton_clicked()
 {
 	gameWindow->selectAction(TradeAction);
-	changeAction(ui.gameTradeActionButton);
+	ui.gameTradeActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gameHideActionButton_clicked()
 {
 	gameWindow->selectAction(HideAction);
-	changeAction(ui.gameHideActionButton);
+	ui.gameHideActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gamePeerActionButton_clicked()
 {
 	gameWindow->selectAction(PeerAction);
-	changeAction(ui.gamePeerActionButton);
-}
-
-void MainWindow::changeAction(QPushButton* selected)
-{
-	ui.gameMoveActionButton->setStyleSheet("");
-	ui.gameSearchActionButton->setStyleSheet("");
-	ui.gameTradeActionButton->setStyleSheet("");
-	ui.gameHideActionButton->setStyleSheet("");
-	ui.gamePeerActionButton->setStyleSheet("");
-	selected->setStyleSheet("background-color: rgb(250, 255, 187);");
+	ui.gamePeerActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gameQuitButton_clicked()

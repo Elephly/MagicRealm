@@ -75,6 +75,39 @@ bool Character::hasAdvantage(CharAdvantages testAdvantage) {
 	return result;
 }
 
+CharacterTypes Character::getType()
+{
+	return myType;
+}
+
+char* Character::getTypeString(CharacterTypes t)
+{
+	switch (t)
+	{
+	case Amazon:
+		return "Amazon";
+		break;
+	case BlackKnight:
+		return "Black Knight";
+		break;
+	case Captain:
+		return "Captain";
+		break;
+	case Dwarf:
+		return "Dwarf";
+		break;
+	case Elf:
+		return "Elf";
+		break;
+	case Swordsman:
+		return "Swordsman";
+		break;
+	default:
+		return "?";
+		break;
+	}
+}
+
 string* Character::serialize() {
 	stringstream s;
 	s << "Character";

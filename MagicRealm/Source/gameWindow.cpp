@@ -3,6 +3,8 @@
 #include "board.h"
 #include "tileGraphicsItem.h"
 
+#include <QMessageBox>
+
 #include <queue>
 #include <unordered_set>
 
@@ -242,31 +244,69 @@ Character* GameWindow::getSelectedChar()
 void GameWindow::selectTile(Tile* tile)
 {
 	selectedTile = tile;
-	updateTileInfoPane(selectedTile);
 
 	switch (selectedAction)
 	{
 	case NoAction:
-		break;
+		{
+			break;
+		}
 	case MoveAction:
-		break;
+		{
+			Clearing* currentClearing = selectedCharacter->getCurrentLocation();
+			if (currentClearing->getTile() == selectedTile)
+			{
+
+			}
+			else
+			{
+				Clearing* destination = currentClearing->getTile()->getConnectedClearing(selectedTile);
+				if (game->moveRequest(selectedCharacter, destination))
+				{
+					QMessageBox::about(ui.centralWidget, "Woops", "That destination is out of reach.");
+				}
+			}
+			break;
+		}
 	case SearchAction:
-		break;
+		{
+			break;
+		}
 	case TradeAction:
-		break;
+		{
+			break;
+		}
 	case HideAction:
-		break;
+		{
+			break;
+		}
 	case PeerAction:
-		break;
+		{
+			break;
+		}
 	default:
-		break;
+		{
+			break;
+		}
 	}
+
+	updateTileInfoPane(selectedTile);
+
+	selectAction(NoAction);
 }
 
 void GameWindow::updateTileInfoPane(Tile* tile)
 {
+	QFont font = QFont("MS Serif", 26);
+	font.setBold(true);
+	font.setUnderline(true);
+	ui.gameTileInformationBrowser->setCurrentFont(font);
 	ui.gameTileInformationBrowser->setText(QString(tile->getName().c_str()));
 
+	font.setPointSize(18);
+	font.setUnderline(false);
+	ui.gameTileInformationBrowser->setCurrentFont(font);
+	ui.gameTileInformationBrowser->append("\nClearings");
 	for (int i = 1; i < CONNECTED_LENGTH+1; i++)
 	{
 		Clearing* c = selectedTile->getClearing(i);
@@ -288,8 +328,23 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 				break;
 			}
 			QString clearingInfo;
-			clearingInfo.sprintf("\nClearing %d: %s", c->getClearingNum(), type);
+			clearingInfo.sprintf("Clearing %d: %s", c->getClearingNum(), type);
+			font.setPointSize(16);
+			font.setBold(false);
+			ui.gameTileInformationBrowser->setCurrentFont(font);
 			ui.gameTileInformationBrowser->append(clearingInfo);
+
+			vector<Character*> chrs = *c->getCharacters();
+			ui.gameTileInformationBrowser->append("Players:");
+			font.setPointSize(12);
+			font.setBold(true);
+			ui.gameTileInformationBrowser->setCurrentFont(font);
+			for (vector<Character*>::iterator chr  = chrs.begin(); chr != chrs.end(); ++chr)
+			{
+				QString charString;
+				charString.sprintf("  - %s", Character::getTypeString((*chr)->getType()));
+				ui.gameTileInformationBrowser->append(charString);
+			}
 		}
 	}
 }
@@ -297,4 +352,10 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 void GameWindow::selectAction(ActionType action)
 {
 	selectedAction = action;
+	
+	ui.gameMoveActionButton->setStyleSheet("");
+	ui.gameSearchActionButton->setStyleSheet("");
+	ui.gameTradeActionButton->setStyleSheet("");
+	ui.gameHideActionButton->setStyleSheet("");
+	ui.gamePeerActionButton->setStyleSheet("");
 }
