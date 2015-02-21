@@ -6,7 +6,6 @@ ServerCommThread::ServerCommThread(GameWindow *parent) : QObject(parent)
 	connected = 0;
 	blocksize = 0;
 	windowParent = parent;
-	serverConnection = NULL;
 }
 
 ServerCommThread::~ServerCommThread()
