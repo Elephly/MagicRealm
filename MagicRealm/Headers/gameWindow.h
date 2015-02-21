@@ -29,7 +29,7 @@ public:
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
-	Character* getSelectedChar();
+	CharacterTypes getSelectedChar();
 	void selectTile(Tile* tile);
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
@@ -50,7 +50,7 @@ private:
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
 	
-	Character* selectedCharacter;
+	CharacterTypes selectedCharacter;
 	Game* game;
 	Tile* selectedTile;
 	ActionType selectedAction;

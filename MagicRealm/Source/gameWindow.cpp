@@ -21,7 +21,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	tileGraphicsItems = new QMap<Tile*, QGraphicsItem*>();
 	ui.graphicsView->scale(0.5, 0.5);
 	server = new ServerCommThread(this);
-	selectedCharacter = 0;
+	selectedCharacter = (CharacterTypes) 0;
 	game = 0;
 	selectedTile = 0;
 	selectedAction = NoAction;
@@ -152,7 +152,7 @@ void GameWindow::requestCharacter(CharacterTypes character)
 		ui.loadingMessageLabel->setText("--Waiting for character acknowledgement--");
 		changeScreenState(ui.loadingWidget);
 
-		selectedCharacter = new Character((CharacterTypes)character);
+		selectedCharacter = character;
 	
 		QString serializedCharacter;
 		serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);
@@ -170,11 +170,6 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 	if (!characterRequestAccepted)
 	{
 		changeScreenState(ui.characterSelectWidget);
-		if (selectedCharacter != 0)
-		{
-			delete selectedCharacter;
-			selectedCharacter = 0;
-		}
 		QMessageBox::about(ui.centralWidget, "Error", "Character taken.");
 		return 1;
 	}
@@ -289,12 +284,6 @@ errno_t GameWindow::cleanup()
 	errno_t err = 0;
 
 	err = server->threadDisconnect();
-	
-	if (selectedCharacter != 0)
-	{
-		delete selectedCharacter;
-		selectedCharacter = 0;
-	}
 
 	if (game != 0)
 	{
@@ -322,7 +311,7 @@ void GameWindow::changeScreenState(QWidget* screen)
 	qApp->processEvents();
 }
 
-Character* GameWindow::getSelectedChar()
+CharacterTypes GameWindow::getSelectedChar()
 {
 	return selectedCharacter;
 }
@@ -446,7 +435,7 @@ void GameWindow::selectAction(ActionType action)
 
 void GameWindow::move()
 {
-	Clearing* currentClearing = selectedCharacter->getCurrentLocation();
+	Clearing* currentClearing = game->getPlayer(selectedCharacter)->getCurrentLocation();
 	vector<Path*> availablePaths = *currentClearing->getPaths();
 	QList<Clearing*> adjacentClearings;
 	for (vector<Path*>::iterator it = availablePaths.begin(); it != availablePaths.end(); ++it)
@@ -469,7 +458,7 @@ void GameWindow::move()
 	if (destIndex != -1)
 	{
 		Clearing* dest = adjacentClearings.at(destIndex);
-		game->moveRequest(selectedCharacter, dest);
+		game->moveRequest(game->getPlayer(selectedCharacter), dest);
 		updateTileInfoPane(dest->getTile());
 	}
 	delete dlg;
