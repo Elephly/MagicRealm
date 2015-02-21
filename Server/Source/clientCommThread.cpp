@@ -15,32 +15,34 @@ ClientCommThread::~ClientCommThread() {
 
 void ClientCommThread::readIncomingData() {
 	qDebug() << "message from client";
-	QDataStream in(clientConnection);
-	if (blocksize == 0) {
-		if (clientConnection->bytesAvailable() < (int)sizeof(quint16)) {
-			qDebug() << "bytes avail too small (less than int size)";
+	do {
+		QDataStream in(clientConnection);
+		if (blocksize == 0) {
+			if (clientConnection->bytesAvailable() < (int)sizeof(quint16)) {
+				qDebug() << "bytes avail too small (less than int size)";
+				return;
+			}
+			in >> blocksize;
+		}
+		if (clientConnection->bytesAvailable() < blocksize) {
+			qDebug() << "bytes avail too small (less than block size)";
 			return;
 		}
-		in >> blocksize;
-	}
-	if (clientConnection->bytesAvailable() < blocksize) {
-		qDebug() << "bytes avail too small (less than block size)";
-		return;
-	}
-	QString clientData;
-	in >> clientData;
-	qDebug() << clientData;
+		QString clientData;
+		in >> clientData;
+		qDebug() << clientData;
 
-	if (clientData.contains(QRegExp("^RecordedTurn"))) {
-		//Client has sent recorded turn
-		//mark player as ready and execute if all ready
-	} else if (clientData.contains(QRegExp("^CharacterType"))) {
-		int pos = clientData.indexOf(QString(CLASSDELIM));
-		clientData = clientData.remove(0, pos + 2);
-		qDebug() << "substr data: " << clientData;
-		CharacterTypes data = (CharacterTypes)clientData.toInt();
-		characterSelected(data, clientID);
-	}
+		if (clientData.contains(QRegExp("^RecordedTurn"))) {
+			//Client has sent recorded turn
+			//mark player as ready and execute if all ready
+		} else if (clientData.contains(QRegExp("^CharacterType"))) {
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			clientData = clientData.remove(0, pos + 2);
+			qDebug() << "substr data: " << clientData;
+			CharacterTypes data = (CharacterTypes)clientData.toInt();
+			characterSelected(data, clientID);
+		}
+	} while(true);
 
 	blocksize = 0;
 }
