@@ -68,6 +68,8 @@ void ServerCommThread::updateFromServer()
 		writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
 	} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
 		//Server wants us to record a turn
+	} else if (serverData.contains(QRegExp("^CharacterType"))) {
+		//Server has listed a character as taken
 	}
 	blocksize = 0;
 }

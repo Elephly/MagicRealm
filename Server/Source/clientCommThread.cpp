@@ -37,9 +37,6 @@ void ClientCommThread::readIncomingData() {
 		int pos = clientData.indexOf(QString(CLASSDELIM));
 		CharacterTypes data = (CharacterTypes)clientData.remove(pos + 2).toInt();
 		characterSelected(data);
-	} else if (clientData.contains(QRegExp("^Character"))) {
-		//do fancy things
-		//Client has sent us a character selection
 	}
 
 	blocksize = 0;
