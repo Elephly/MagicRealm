@@ -600,15 +600,24 @@ void Game::runGame()
 
 bool Game::addPlayer(CharacterTypes newPlayerType)
 {
-    if(!getPlayer(newPlayerType)){
+    if(getPlayer(newPlayerType)){
         cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
         return false;
     }
     //Character doesnt yet exist, Creating new Character
     Character* newPlayer = new Character(newPlayerType);
-
+    return addPlayer(newPlayer);
     //Adding character to the array.
+    
+}
+
+bool Game::addPlayer(Character* newPlayer)
+{
     for(int i=0; i<MAXPLAYERS; i++){
+        if(players[i] == newPlayer){
+            cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
+            return false;
+        }
         if(!players[i]){
             players[i] = newPlayer;
             return true;

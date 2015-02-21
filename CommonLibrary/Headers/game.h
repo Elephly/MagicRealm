@@ -21,10 +21,16 @@ public:
 
     /*
     *   addPlayer
-    *   in:     Character point to be added to the array
+    *   in:     CharacterType to be added to the array
     *   out:    successfully added or not (list full)
     */
     bool addPlayer(CharacterTypes newPlayerType);
+    /*
+    *   addPlayer
+    *   in:     Character pointer to be added to the array
+    *   out:    successfully added or not (list full)
+    */
+    bool addPlayer(Character* newPlayer);
 
     /*
     *   removePlayer
