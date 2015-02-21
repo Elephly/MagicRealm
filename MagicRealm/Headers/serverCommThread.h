@@ -14,7 +14,7 @@ public:
 	ServerCommThread(GameWindow *parent);
 	~ServerCommThread();
 
-	errno_t threadConnect(QString &hostIP, quint16 hostPort);
+	errno_t threadConnect(QString &hostIP, quint16 hostPort = GAMEPORT);
 	errno_t threadDisconnect();
 	void writeMessage(QString *message);
 	void writeMessage(string *message);
