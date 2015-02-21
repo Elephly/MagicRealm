@@ -33,7 +33,7 @@ void Game::setupGame(bool cm)
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
-    string * resultString;
+    placePlayers();
 
     //TODO PLOP CHARACTERS IN THEIR APPROPRIATE POSITIONS
 
@@ -568,6 +568,26 @@ void Game::setupTiles()
     p = new Path(awfulValleyTile->getClearing(2), lindenWoodsTile->getClearing(5), false);
 }
 
+void Game::placePlayers()
+{
+    for(int i=0; i<MAXPLAYERS; i++){
+        //no more players to loop through.
+        if(!players[i]){
+            break;
+        }
+
+        //place player in starting location depending on type
+        switch(players[i]->getType()){
+        case Amazon:
+	    case BlackKnight:
+      	case Captain:
+	    case Dwarf:
+	    case Elf:
+	    case Swordsman:
+            moveRequest(players[i], gameBoard->getTile("Border Lands")->getClearing(1));
+        }
+    }
+}
 Board* Game::getBoard()
 {
 	return gameBoard;
@@ -580,15 +600,24 @@ void Game::runGame()
 
 bool Game::addPlayer(CharacterTypes newPlayerType)
 {
-    if(!getPlayer(newPlayerType)){
+    if(getPlayer(newPlayerType)){
         cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
         return false;
     }
     //Character doesnt yet exist, Creating new Character
     Character* newPlayer = new Character(newPlayerType);
-
+    return addPlayer(newPlayer);
     //Adding character to the array.
+    
+}
+
+bool Game::addPlayer(Character* newPlayer)
+{
     for(int i=0; i<MAXPLAYERS; i++){
+        if(players[i] == newPlayer){
+            cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
+            return false;
+        }
         if(!players[i]){
             players[i] = newPlayer;
             return true;
