@@ -90,19 +90,28 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	}
 
 	int i = 0;
-	while (!server->isConnected())
-	{
-		if (i++ >= 10)
-		{
-			cleanup();
-			return 1;
-		}
-		Sleep(1000);
-	}
+	//NOTE does not work. best way to perform this is have a connected SLOT. 
+	//connected SLOT is connectedToServer(), called by signal connected()
+	//
+	//while (!server->isConnected())
+	//{
+	//	if (i++ >= 10)
+	//	{
+	//		cleanup();
+	//		return 1;
+	//	}
+	//	Sleep(1000);
+	//}
 
-	changeScreenState(ui.characterSelectWidget);
+	//changeScreenState(ui.characterSelectWidget);
 
 	return err;
+}
+
+//not getting called...
+void GameWindow::connectedToServer() {
+	qDebug() << "client is connected to server, signal";
+	changeScreenState(ui.characterSelectWidget);
 }
 
 errno_t GameWindow::initializeGame(int character, bool cheatMode)

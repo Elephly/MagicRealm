@@ -35,6 +35,9 @@ public:
 
 	static QMap<std::string, QPixmap> tileImages();
 
+public slots:
+	void connectedToServer();
+
 private:
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;

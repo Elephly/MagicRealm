@@ -19,8 +19,10 @@ errno_t ServerCommThread::threadConnect(QString &hostIP, quint16 hostPort)
 	errno_t err = 0;
 
 	serverConnection = new QTcpSocket(this);
-	serverConnection->connectToHost(hostIP, hostPort);
+	connect(serverConnection, SIGNAL(QTcpSocket::connected()),
+		windowParent, SLOT(GameWindow::connectedToServer()));
 	connect(serverConnection, SIGNAL(readyRead()), this, SLOT(updateFromServer()));
+	serverConnection->connectToHost(hostIP, hostPort);
 
 	return err;
 }
@@ -65,7 +67,8 @@ void ServerCommThread::updateFromServer()
 
 	if (serverData.compare(QString(ACCEPTCONN)) == 0) {
 		connected = true;
-		writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
+		serverConnected();
+		//writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
 	} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
 		//Server wants us to record a turn
 	} else if (serverData.contains(QRegExp("^CharacterType"))) {
