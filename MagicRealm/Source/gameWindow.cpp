@@ -136,6 +136,11 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 	if (!characterRequestAccepted)
 	{
 		changeScreenState(ui.characterSelectWidget);
+		if (selectedCharacter != 0)
+		{
+			delete selectedCharacter;
+			selectedCharacter = 0;
+		}
 		QMessageBox::about(ui.centralWidget, "Error", "Character taken.");
 		return 1;
 	}
@@ -239,6 +244,12 @@ errno_t GameWindow::cleanup()
 	errno_t err = 0;
 
 	err = server->threadDisconnect();
+	
+	if (selectedCharacter != 0)
+	{
+		delete selectedCharacter;
+		selectedCharacter = 0;
+	}
 
 	if (game != 0)
 	{
