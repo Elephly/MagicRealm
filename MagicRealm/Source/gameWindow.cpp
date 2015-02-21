@@ -13,8 +13,12 @@
 GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
+	characterImages = new QMap<CharacterTypes, QPixmap*>();
+	loadCharacterImages();
+	characterGraphicsItems = new QMap<CharacterTypes, QGraphicsItem*>();
 	tileImages = new QMap<std::string, QPixmap*>();
-	initializeTiles();
+	loadTileImages();
+	tileGraphicsItems = new QMap<Tile*, QGraphicsItem*>();
 	ui.graphicsView->scale(0.5, 0.5);
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
@@ -31,6 +35,14 @@ GameWindow::~GameWindow()
 		server = 0;
 	}
 
+	if (tileGraphicsItems != 0)
+	{
+		qDeleteAll(*tileGraphicsItems);
+		tileGraphicsItems->clear();
+		delete tileGraphicsItems;
+		tileGraphicsItems = 0;
+	}
+
 	if (tileImages != 0)
 	{
 		qDeleteAll(*tileImages);
@@ -40,7 +52,17 @@ GameWindow::~GameWindow()
 	}
 }
 
-void GameWindow::initializeTiles()
+void GameWindow::loadCharacterImages()
+{
+	characterImages->insert(Amazon, new QPixmap(":/images/characters/amazon.png"));
+	characterImages->insert(BlackKnight, new QPixmap(":/images/characters/black_knight.png"));
+	characterImages->insert(Captain, new QPixmap(":/images/characters/captain.png"));
+	characterImages->insert(Dwarf, new QPixmap(":/images/characters/dwarf.png"));
+	characterImages->insert(Elf, new QPixmap(":/images/characters/elf.png"));
+	characterImages->insert(Swordsman, new QPixmap(":/images/characters/swordsman.png"));
+}
+
+void GameWindow::loadTileImages()
 {
 	tileImages->insert("Awful Valley", new QPixmap(":/images/tiles/awfulvalley1.gif"));
 	tileImages->insert("Awful Valley Enchanted", new QPixmap(":/images/tiles/awfulvalley-e1.gif"));
@@ -89,6 +111,8 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	errno_t err = 0;
 
 	changeScreenState(ui.loadingWidget);
+	
+	game = new Game();
 	
 	err = server->threadConnect(hostIP, GAMEPORT);
 	if (err)
@@ -156,8 +180,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 	errno_t err = 0;
 
 	gameScene = new QGraphicsScene();
-	
-	game = new Game();
+
 	game->setupGame(false);
 	Board* gameBoard = game->getBoard();
 
@@ -171,7 +194,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 		item->setPos(0, 0);
 		item->setRotation((360 / 6) * ((int)currTile->getOrientation()));
 		item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
-	
+		
 		gameScene->addItem(item);
 
 		unordered_set<Tile*> visitedTiles;
@@ -190,6 +213,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 
 		while (!incompleteTiles.empty())
 		{
+			tileGraphicsItems->insert(currTile, item);
 			currTile = incompleteTiles.front();
 			incompleteTiles.pop();
 			for (int i = 0; i < CONNECTED_LENGTH; i++)
@@ -239,6 +263,15 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 				}
 			}		
 		}
+	}
+	for (int i = 0; i <= Swordsman; i++)
+	{
+		QPixmap pxmap = *(*characterImages)[(CharacterTypes)i];
+		QGraphicsItem* item = new QGraphicsPixmapItem(pxmap);
+		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
+		characterGraphicsItems->insert((CharacterTypes)i, item);
+		updateCharacterLocation(game->getPlayer((CharacterTypes)i));
+		gameScene->addItem(item);
 	}
 	
 	ui.graphicsView->setScene(gameScene);
@@ -388,7 +421,10 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 
 void GameWindow::updateCharacterLocation(Character* character)
 {
-
+	Clearing* currClearing = character->getCurrentLocation();
+	Tile* currTile = currClearing->getTile();
+	QGraphicsItem* charItem = characterGraphicsItems[character->getType];
+	charItem->setX((*tileGraphicsItems)[currTile]->x());
 }
 
 void GameWindow::selectAction(ActionType action)

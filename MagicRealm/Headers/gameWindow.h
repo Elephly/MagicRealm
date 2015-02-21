@@ -22,7 +22,8 @@ public:
 	GameWindow(QObject* parent, Ui::MainWindowClass mainWindow);
 	~GameWindow();
 	
-	void initializeTiles();
+	void loadCharacterImages();
+	void loadTileImages();
 	errno_t initializeConnection(QString &hostIP);
 	errno_t initializeGame(bool charcterRequestAccepted);
 	errno_t cleanup();
@@ -41,7 +42,10 @@ public:
 	void addCharacterToGame(QString &newCharacter);
 
 private:
+	QMap<CharacterTypes, QPixmap*>* characterImages;
+	QMap<CharacterTypes, QGraphicsItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
+	QMap<Tile*, QGraphicsItem*>* tileGraphicsItems;
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
