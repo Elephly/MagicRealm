@@ -92,16 +92,14 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	return err;
 }
 
-//not getting called...
-void GameWindow::connectedToServer() {
+void GameWindow::connectedToServer()
+{
 	qDebug() << "client is connected to server, signal";
 	changeScreenState(ui.characterSelectWidget);
 }
 
-errno_t GameWindow::initializeGame(int character, bool cheatMode)
+void GameWindow::requestCharacter(CharacterTypes character)
 {
-	errno_t err = 0;
-
 	changeScreenState(ui.loadingWidget);
 
 	selectedCharacter = new Character((CharacterTypes)character);
@@ -109,12 +107,25 @@ errno_t GameWindow::initializeGame(int character, bool cheatMode)
 	QString serializedCharacter;
 	serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);
 	server->writeMessage(&serializedCharacter);
-	
+}
+
+
+
+errno_t GameWindow::initializeGame(bool characterRequestAccepted)
+{
+	if (!characterRequestAccepted)
+	{
+		changeScreenState(ui.characterSelectWidget);
+		QMessageBox::about(ui.centralWidget, "Error", "Character taken.");
+	}
+
+	errno_t err = 0;
+
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
 	
 	game = new Game();
-	game->setupGame(cheatMode, selectedCharacter);
+	game->setupGame(false, selectedCharacter);
 	Board* gameBoard = game->getBoard();
 
 	Tile* currTile = gameBoard->getTile("Border Land");

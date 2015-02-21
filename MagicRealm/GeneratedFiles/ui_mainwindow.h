@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -62,7 +61,6 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *characterSelectorLayout;
     QListWidget *characterListView;
-    QCheckBox *characterCheatModeCheckBox;
     QHBoxLayout *characterSelectorButtonsLayout;
     QPushButton *characterSelectButton;
     QPushButton *characterQuitButton;
@@ -319,13 +317,6 @@ public:
 
         characterSelectorLayout->addWidget(characterListView);
 
-        characterCheatModeCheckBox = new QCheckBox(characterSelectWidget);
-        characterCheatModeCheckBox->setObjectName(QStringLiteral("characterCheatModeCheckBox"));
-        characterCheatModeCheckBox->setFont(font4);
-        characterCheatModeCheckBox->setIconSize(QSize(16, 16));
-
-        characterSelectorLayout->addWidget(characterCheatModeCheckBox);
-
         characterSelectorButtonsLayout = new QHBoxLayout();
         characterSelectorButtonsLayout->setSpacing(6);
         characterSelectorButtonsLayout->setObjectName(QStringLiteral("characterSelectorButtonsLayout"));
@@ -348,7 +339,7 @@ public:
         characterSelectorLayout->addLayout(characterSelectorButtonsLayout);
 
         characterSelectorLayout->setStretch(0, 8);
-        characterSelectorLayout->setStretch(2, 1);
+        characterSelectorLayout->setStretch(1, 1);
 
         horizontalLayout_2->addLayout(characterSelectorLayout);
 
@@ -364,8 +355,8 @@ public:
         MainWindowClass->setCentralWidget(centralWidget);
         menuWidget->raise();
         loadingWidget->raise();
-        characterSelectWidget->raise();
         gameWidget->raise();
+        characterSelectWidget->raise();
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 800, 21));
@@ -425,7 +416,6 @@ public:
         ___qlistwidgetitem5->setText(QApplication::translate("MainWindowClass", "Swordsman", 0));
         characterListView->setSortingEnabled(__sortingEnabled);
 
-        characterCheatModeCheckBox->setText(QApplication::translate("MainWindowClass", "Cheat Mode", 0));
         characterSelectButton->setText(QApplication::translate("MainWindowClass", "Select", 0));
         characterQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
         characterDetailView->setText(QString());

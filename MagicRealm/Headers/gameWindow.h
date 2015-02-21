@@ -23,7 +23,7 @@ public:
 	~GameWindow();
 
 	errno_t initializeConnection(QString &hostIP);
-	errno_t initializeGame(int character, bool cheatMode);
+	errno_t initializeGame(bool charcterRequestAccepted);
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
@@ -35,6 +35,7 @@ public:
 
 	static QMap<std::string, QPixmap> tileImages();
 	void connectedToServer();
+	void requestCharacter(CharacterTypes character);
 
 private:
 	Ui::MainWindowClass ui;
