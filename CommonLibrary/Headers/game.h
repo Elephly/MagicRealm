@@ -16,7 +16,7 @@ public:
 	Game();
     ~Game();
     void runGame();
-    void setupGame(bool cm, Character* p);
+    void setupGame(bool cm, Character* p = new Character(Elf));
     void doTurn();
 	Board* getBoard();
     /*

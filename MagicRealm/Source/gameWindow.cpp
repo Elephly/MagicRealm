@@ -94,7 +94,6 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	{
 		if (i++ >= 10)
 		{
-			ui.loadingWidget->setVisible(false);
 			cleanup();
 			return 1;
 		}
@@ -255,21 +254,6 @@ void GameWindow::selectTile(Tile* tile)
 		}
 	case MoveAction:
 		{
-			/*
-			Clearing* currentClearing = selectedCharacter->getCurrentLocation();
-			if (currentClearing->getTile() == selectedTile)
-			{
-
-			}
-			else
-			{
-				Clearing* destination = selectedTile->getConnectedClearing(currentClearing->getTile());
-				if (!game->moveRequest(selectedCharacter, destination))
-				{
-					QMessageBox::about(ui.centralWidget, "Woops", "That destination is out of reach.");
-				}
-			}
-			*/
 			break;
 		}
 	case SearchAction:

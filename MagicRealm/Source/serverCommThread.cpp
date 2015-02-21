@@ -3,6 +3,7 @@
 ServerCommThread::ServerCommThread(GameWindow *parent) : QObject(parent) 
 {
 	serverConnection = 0;
+	connected = 0;
 	blocksize = 0;
 	windowParent = parent;
 	serverConnection = NULL;
@@ -40,9 +41,7 @@ errno_t ServerCommThread::threadDisconnect()
 
 bool ServerCommThread::isConnected()
 {
-	// TODO: FIX ME!!
-	// How do we tell if a connection is made? This doesn't seem to work at all.
-	return (serverConnection->state() == QAbstractSocket::ConnectedState || serverConnection->isValid());
+	return connected;
 }
 
 void ServerCommThread::updateFromServer()
@@ -65,6 +64,7 @@ void ServerCommThread::updateFromServer()
 	qDebug() << serverData;
 
 	if (serverData.compare(QString(ACCEPTCONN)) == 0) {
+		connected = true;
 		writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
 	} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
 		//Server wants us to record a turn

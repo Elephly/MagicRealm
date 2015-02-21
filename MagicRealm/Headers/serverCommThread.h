@@ -26,6 +26,7 @@ public slots:
 
 private:
 	QTcpSocket *serverConnection;
+	bool connected;
 	quint16 blocksize;
 	GameWindow *windowParent;
 };
