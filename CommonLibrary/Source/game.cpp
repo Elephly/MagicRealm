@@ -27,6 +27,18 @@ void Game::setupGame(bool cm, Character* p)
 	p1 = p;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
+    string * resultString;
+
+    //plopping character
+    cout << "Placing Character in Bad Valley Clearing #4..." <<endl <<endl;
+    if(moveRequest(p1, gameBoard->getTile("Border Land")->getClearing(1))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
+
+
     cout << "Finished Setup..." <<endl <<endl;
 }
 
@@ -42,6 +54,7 @@ void Game::setupTiles()
     Path* p = NULL;
     string *resultString = NULL;
 
+    //creating borderland tile and clearings and INTERNAL paths
 	Tile* borderLandTile = new Tile (EDGE_F, "Border Land");
 	c1 = new Clearing(1, borderLandTile, WOODS);
 	c2 = new Clearing(2, borderLandTile, WOODS);
@@ -49,24 +62,12 @@ void Game::setupTiles()
 	c4 = new Clearing(4, borderLandTile, CAVES);
 	c5 = new Clearing(5, borderLandTile, CAVES);
 	c6 = new Clearing(6, borderLandTile, CAVES);
-	p = new Path(c1, EDGE_B);
-	p = new Path(c1, EDGE_D);
 	p = new Path(c1, c6, false);
-	p = new Path(c2, EDGE_A);
-	p = new Path(c2, EDGE_E);
 	p = new Path(c2, c3, false);
-	//p = new Path(c3, c2, false);
 	p = new Path(c3, c5, false);
 	p = new Path(c3, c6, false);
-	p = new Path(c4, EDGE_F);
 	p = new Path(c4, c5, true);
 	p = new Path(c4, c6, false);
-	p = new Path(c5, EDGE_C);
-	//p = new Path(c5, c3, false);
-	//p = new Path(c5, c4, true);
-	//p = new Path(c6, c1, false);
-	//p = new Path(c6, c3, false);
-	//p = new Path(c6, c4, false);
 	gameBoard->addTile(borderLandTile);
 	
     if(gameBoard->getTile("Border Land") != NULL)
@@ -81,17 +82,12 @@ void Game::setupTiles()
     c5 = NULL;
     c6 = NULL;
 
-    //setting up the Oak Woods Tile
+    //setting up the Oak Woods Tile and INTERNAL PATHS
     Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
     c1 = new Clearing(2, oakWoodsTile, WOODS);
     c2 = new Clearing(4, oakWoodsTile, WOODS);
     c3 = new Clearing(5, oakWoodsTile, WOODS);
     p = new Path(c1, c2, false);
-    p = new Path(c2, EDGE_B);
-    p = new Path(c3, EDGE_C);
-    p = new Path(c3, EDGE_D);
-    p = new Path(c1, EDGE_E);
-    p = new Path(c1, EDGE_F);
     gameBoard->addTile(oakWoodsTile);
 
     //resetting the clearings and paths
@@ -100,7 +96,7 @@ void Game::setupTiles()
     c2 = NULL;
     c3 = NULL;
 
-    //setting up the Bad Valley Tile.
+    //setting up the Bad Valley Tile. and INTERNAL PATHS
     Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley");
     c1 = new Clearing(1, badValleyTile, WOODS);
     c2 = new Clearing(2, badValleyTile, WOODS);
@@ -111,13 +107,6 @@ void Game::setupTiles()
     p = new Path(c1, c3, false);
     p = new Path(c2, c4, false);
 
-    //border paths
-    p = new Path(c1, EDGE_F);
-    p = new Path(c2, EDGE_B);
-    p = new Path(c3, EDGE_C);
-    p = new Path(c3, EDGE_D);
-    p = new Path(c4, EDGE_E);
-
     gameBoard->addTile(badValleyTile);
     //resetting the clearings and paths
     p = NULL;
@@ -125,7 +114,7 @@ void Game::setupTiles()
     c2 = NULL;
     c3 = NULL;
 
-    //Setting up the Maple Woods Tile
+    //Setting up the Maple Woods Tile and INTERNAL PATHS
     Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods");
 
     c1 = new Clearing(2, mapleWoodsTile, WOODS);
@@ -133,12 +122,6 @@ void Game::setupTiles()
     c3 = new Clearing(5, mapleWoodsTile, WOODS);
 
     p = new Path(c1, c2, false);
-    
-    p = new Path(c1, EDGE_D);
-    p = new Path(c1, EDGE_E);
-    p = new Path(c2, EDGE_F);
-    p = new Path(c3, EDGE_B);
-    p = new Path(c3, EDGE_C);
 
     gameBoard->addTile(mapleWoodsTile);
 
@@ -148,20 +131,15 @@ void Game::setupTiles()
     c2 = NULL;
     c3 = NULL;
 
-    //setting up adjacent stuff
-	borderLandTile->addConnectedTile(oakWoodsTile, EDGE_A);
-	borderLandTile->addConnectedTile(badValleyTile, EDGE_B);
+    //setting up connected stuff and connected paths.	
+    borderLandTile->addConnectedTile(oakWoodsTile, EDGE_A);
+    p = new Path(borderLandTile->getClearing(2), oakWoodsTile->getClearing(2), false);
+    borderLandTile->addConnectedTile(badValleyTile, EDGE_B);
+    p = new Path(borderLandTile->getClearing(1), badValleyTile->getClearing(5), false);
     oakWoodsTile->addConnectedTile(badValleyTile, EDGE_D);
+    p = new Path(oakWoodsTile->getClearing(5), badValleyTile->getClearing(1), false);
     oakWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_C);
-
-    //plopping character
-    cout << "Placing Character in Bad Valley Clearing #4..." <<endl <<endl;
-    if(moveRequest(p1, gameBoard->getTile("Border Land")->getClearing(1))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
+    p = new Path(oakWoodsTile->getClearing(5), mapleWoodsTile->getClearing(5), false);
 }
 
 Board* Game::getBoard()
@@ -173,14 +151,14 @@ void Game::runGame()
 {
     cout << "Game Run..." << endl;
     string *resultString = NULL;
-    Tile* theTile= gameBoard->getTile("Bad Valley");
+    Tile* theTile= gameBoard->getTile("Border Land");
 
     resultString = p1->getCurrentLocation()->toString();
     cout << "player1 starts at: " << *resultString << endl;
 
     delete resultString;
     resultString = NULL;
-    cout << "#1: Attempting to move p1 to clearing 5 (Should Fail)" << endl;
+    cout << "#1: Attempting to move p1 to clearing 6 (Should Fail)" << endl;
     if(moveRequest(p1, theTile->getClearing(5))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved INCORRECTLY TO: " << *resultString << endl;
@@ -190,7 +168,15 @@ void Game::runGame()
     else
         cout << "Player Correctly rejected from moving (TEST FAILED)" <<endl;
 
-    cout << "#2: Attempting to move p1 to clearing 1 (Should Pass)" << endl;
+    cout << "#2: Attempting to move p1 to clearing 6 (Should Pass)" << endl;
+    if(moveRequest(p1, theTile->getClearing(6))){
+        resultString = p1->getCurrentLocation()->toString();
+        cout << "player1 moved to clearing: " << *resultString << endl;
+        delete resultString;
+        resultString = NULL;
+    }
+
+    cout << "#2: Attempting to move p1 to back clearing 1 (Should Pass)" << endl;
     if(moveRequest(p1, theTile->getClearing(1))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
@@ -199,29 +185,22 @@ void Game::runGame()
     }
 
     //moving to different tiles
-    if(moveRequest(p1, gameBoard->getTile("Oak Woods")->getClearing(5))){
+    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(5))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;
         resultString = NULL;
     }
 
+    cout << "player1 moved to Oak Woods Clearing 5 (Should fail): " << endl;
     //moving to another tile
-    if(moveRequest(p1, gameBoard->getTile("Maple Woods")->getClearing(5))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
-    cout << "player1 moved to Oak Woods Clearing 4 (Should fail): " << endl;
-    //moving to another tile
-    if(moveRequest(p1, gameBoard->getTile("Oak Woods")->getClearing(4)))
+    if(moveRequest(p1, gameBoard->getTile("Oak Woods")->getClearing(5)))
         cout << "Move Passed THIS SHOULD NEVER BE VISIBLE"<< endl;
     else
         cout << "Move Failed (Test Passed)"<< endl;
     
-    cout << "player1 moved to Bad Valley Clearing 1 (Should fail): " << endl;
-    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(1)))
+    cout << "player1 moved to One they already in " << endl;
+    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(5)))
         cout << "Move Passed THIS SHOULD NEVER BE VISIBLE"<< endl;
     else
         cout << "Move Failed (Test Passed)"<< endl;
@@ -263,13 +242,6 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
         cout << "ERR: Player Requested the location they are already in" <<endl;
         return false;
     }
-    
-    if(playerLoc->getTile() != requestedClearing->getTile())
-    {
-        cout << "TRACK: Player Requested the location in another tile.." <<endl;
-        return moveBetweenTileRequest(player, requestedClearing);
-        //do things that require border checking.
-    }
     else //standard path checking
     {
         for(vector<Path*>::iterator it = pathsAvailable->begin(); it != pathsAvailable->end(); ++it){
@@ -286,36 +258,6 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     }
 }
 
-bool Game::moveBetweenTileRequest(Character* player, Clearing* requestedClearing)
-{
-    //determining if the player is connected.
-    Clearing* connectedClearing = player->getCurrentLocation()->getTile()->getConnectedClearing(requestedClearing->getTile());
-    Clearing* targetClearing = requestedClearing->getTile()->getConnectedClearing(player->getCurrentLocation()->getTile());
-    if(connectedClearing != NULL){
-        if(player->getCurrentLocation() == connectedClearing){
-            if(targetClearing == requestedClearing && targetClearing!= NULL){
-                cout << "Move Request Passed, moving player.." <<endl;
-                connectedClearing->removeCharacter(player);
-                requestedClearing->addCharacter(player);
-                player->moveToClearing(requestedClearing);
-                return true;
-            }
-            else{
-                cout << "ERR: Game::moveBetweenTileRequest Clearing Requested is not the Clearing connected to the Player's Clearing! (or not connected at all)" <<endl;
-                return false;
-            }
-        }
-        else{
-            cout << "ERR: Game::moveBetweenTileRequest Player is not in the connectedClearing" <<endl;
-            return false;
-        }
-    }
-    else{
-        cout << "ERR: Game::moveBetweenTileRequest Player is not in a ConnectingClearing to the requestedClearing" <<endl;
-        return false;
-    }
-    
-}
 void Game::doTurn()
 {
 }
