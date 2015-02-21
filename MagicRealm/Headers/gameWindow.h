@@ -34,8 +34,6 @@ public:
 	void move();
 
 	static QMap<std::string, QPixmap> tileImages();
-
-public slots:
 	void connectedToServer();
 
 private:
