@@ -122,13 +122,17 @@ void GameWindow::updateAvailableCharacters(int removeCharacter)
 
 void GameWindow::requestCharacter(CharacterTypes character)
 {
-	changeScreenState(ui.loadingWidget);
+	if (character >= Amazon && character <= Swordsman)
+	{
+		changeScreenState(ui.loadingWidget);
 
-	selectedCharacter = new Character((CharacterTypes)character);
+		selectedCharacter = new Character((CharacterTypes)character);
 	
-	QString serializedCharacter;
-	serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);
-	server->writeMessage(&serializedCharacter);
+		QString serializedCharacter;
+		serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);
+		qDebug() << serializedCharacter;
+		server->writeMessage(&serializedCharacter);
+	}
 }
 
 errno_t GameWindow::initializeGame(bool characterRequestAccepted)
