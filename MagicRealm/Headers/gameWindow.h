@@ -35,6 +35,7 @@ public:
 
 	static QMap<std::string, QPixmap> tileImages();
 	void connectedToServer();
+	void updateAvailableCharacters(int removeCharacter);
 	void requestCharacter(CharacterTypes character);
 
 private:
