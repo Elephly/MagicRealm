@@ -423,7 +423,7 @@ void GameWindow::updateCharacterLocation(Character* character)
 {
 	Clearing* currClearing = character->getCurrentLocation();
 	Tile* currTile = currClearing->getTile();
-	QGraphicsItem* charItem = characterGraphicsItems[character->getType];
+	QGraphicsItem* charItem = (*characterGraphicsItems)[character->getType()];
 	charItem->setX((*tileGraphicsItems)[currTile]->x());
 }
 
