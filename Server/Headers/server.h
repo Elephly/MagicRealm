@@ -7,7 +7,6 @@
 #include <sstream>
 #include <vector>
 #include "clientCommThread.h"
-#include "serverShared.h"
 #include "shared.h"
 #include "game.h"
 
