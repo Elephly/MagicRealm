@@ -21,7 +21,7 @@ public:
 public slots:
 	void handleIncomingUsers();
 	void run();
-	void characterUnavail(CharacterTypes type);
+	void characterUnavail(CharacterTypes type, int clientID);
 signals:
 	void finished();
 private:

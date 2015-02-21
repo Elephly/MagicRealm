@@ -57,9 +57,10 @@ void Server::handleIncomingUsers()  {
 			newClient->write(DECLINECONN);
 			newClient->close();
 		} else {
-			ClientCommThread *newThread = new ClientCommThread(newClient, this);
-			connect(newThread, SIGNAL(characterSelected(CharacterTypes)),
-				this, SLOT(characterUnavail(CharacterTypes)));
+			ClientCommThread *newThread = new ClientCommThread(newClient, this,
+				clientThreadList->size());
+			connect(newThread, SIGNAL(characterSelected(CharacterTypes, int)),
+				this, SLOT(characterUnavail(CharacterTypes, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			newThread->writeMessage(new QString(ACCEPTCONN));
@@ -78,14 +79,27 @@ void Server::handleIncomingUsers()  {
 	}
 }
 
-void Server::characterUnavail(CharacterTypes type) {
+void Server::characterUnavail(CharacterTypes type, int clientID) {
 	stringstream s;
 	s << "CharacterType";
 	s << CLASSDELIM;
 	s << type;
-	selectedCharacters[(int) type] = true;
-	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
-		it != clientThreadList->end(); ++it) {
-			(*it)->writeMessage(new string(s.str()));
+	
+	stringstream s2;
+	s2 << "Selection";
+	s2 << CLASSDELIM;
+
+	//check if character is in use
+	if (selectedCharacters[(int) type]) {
+		s2 << false;
+	} else {
+		s2 << true;
+		selectedCharacters[(int) type] = true;
+		for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
+			it != clientThreadList->end(); ++it) {
+				(*it)->writeMessage(new string(s.str()));
+		}
 	}
+	string *message = new string(s.str());;
+	clientThreadList->at(clientID)->writeMessage(message);
 }

@@ -10,18 +10,19 @@ class Server;
 class ClientCommThread : public QObject{
 	Q_OBJECT
 public:
-	ClientCommThread(QTcpSocket *socket, Server *parent);
+	ClientCommThread(QTcpSocket *socket, Server *parent, int id);
 	~ClientCommThread();
 	void writeMessage(QString *message);
 	void writeMessage(string *message);
 public slots:
 	void readIncomingData();
 signals:
-	void characterSelected(CharacterTypes type);
+	void characterSelected(CharacterTypes type, int id);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;
 	quint16 blocksize;
+	int clientID;
 };
 
 #endif // CLIENTCOMMTHREAD_H
