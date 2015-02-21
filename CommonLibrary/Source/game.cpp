@@ -575,61 +575,6 @@ Board* Game::getBoard()
 void Game::runGame()
 {
     cout << "Game Run..." << endl;
-    string *resultString = NULL;
-    Tile* theTile= gameBoard->getTile("Border Land");
-
-    resultString = p1->getCurrentLocation()->toString();
-    cout << "player1 starts at: " << *resultString << endl;
-
-    delete resultString;
-    resultString = NULL;
-    cout << "#1: Attempting to move p1 to clearing 6 (Should Fail)" << endl;
-    if(moveRequest(p1, theTile->getClearing(5))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved INCORRECTLY TO: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
-    else
-        cout << "Player Correctly rejected from moving (TEST FAILED)" <<endl;
-
-    cout << "#2: Attempting to move p1 to clearing 6 (Should Pass)" << endl;
-    if(moveRequest(p1, theTile->getClearing(6))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
-
-    cout << "#2: Attempting to move p1 to back clearing 1 (Should Pass)" << endl;
-    if(moveRequest(p1, theTile->getClearing(1))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
-
-    //moving to different tiles
-    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(5))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
-
-    cout << "player1 moved to Oak Woods Clearing 5 (Should fail): " << endl;
-    //moving to another tile
-    if(moveRequest(p1, gameBoard->getTile("Oak Woods")->getClearing(5)))
-        cout << "Move Passed THIS SHOULD NEVER BE VISIBLE"<< endl;
-    else
-        cout << "Move Failed (Test Passed)"<< endl;
-    
-    cout << "player1 moved to One they already in " << endl;
-    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(5)))
-        cout << "Move Passed THIS SHOULD NEVER BE VISIBLE"<< endl;
-    else
-        cout << "Move Failed (Test Passed)"<< endl;
-
 }
 
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
