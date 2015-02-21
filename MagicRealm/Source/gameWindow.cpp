@@ -313,7 +313,7 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 	ui.gameTileInformationBrowser->append("\nClearings");
 	for (int i = 1; i < CONNECTED_LENGTH+1; i++)
 	{
-		Clearing* c = selectedTile->getClearing(i);
+		Clearing* c = tile->getClearing(i);
 		if (c != 0)
 		{
 			char* type;
@@ -369,26 +369,31 @@ void GameWindow::move()
 {
 	Clearing* currentClearing = selectedCharacter->getCurrentLocation();
 	vector<Path*> availablePaths = *currentClearing->getPaths();
-	QList<Clearing*>* adjacentClearings = new QList<Clearing*>();
+	QList<Clearing*> adjacentClearings;
 	for (vector<Path*>::iterator it = availablePaths.begin(); it != availablePaths.end(); ++it)
 	{
 		Path* p = *it;
 		Clearing* end = p->getEnd(currentClearing);
 		if (end != NULL)
 		{
-			adjacentClearings->append(end);
+			adjacentClearings.append(end);
 		}
 	}
 
 	AvailableMovesDialog* dlg = new AvailableMovesDialog(ui.centralWidget);
-	for (Clearing* c : *adjacentClearings)
+	for (Clearing* c : adjacentClearings)
 	{
 		QString option;
 		dlg->addOption(option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum()));
 	}
-	dlg->exec();
+	int destIndex = dlg->exec();
+	if (destIndex != -1)
+	{
+		Clearing* dest = adjacentClearings.at(destIndex);
+		game->moveRequest(selectedCharacter, dest);
+		updateTileInfoPane(dest->getTile());
+	}
 	delete dlg;
-	delete adjacentClearings;
 
 	selectAction(NoAction);
 }

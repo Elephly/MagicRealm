@@ -48,10 +48,21 @@ void AvailableMovesDialog::enableMoveButton()
 
 void AvailableMovesDialog::move()
 {
+	int ret;
+	for (int i = 0; i < options->count(); i++)
+	{
+		if (options->at(i)->isChecked())
+		{
+			ret = i;
+			break;
+		}
+	}
+	setResult(ret);
 	close();
 }
 
 void AvailableMovesDialog::cancel()
 {
+	setResult(-1);
 	close();
 }
