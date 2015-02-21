@@ -59,6 +59,7 @@ QMap<std::string, QPixmap> GameWindow::tileImages()
 GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
+	ui.graphicsView->scale(0.75, 0.75);
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
 	game = new Game();
@@ -189,7 +190,7 @@ errno_t GameWindow::initializeGame(int character, bool cheatMode)
 						break;
 					}
 					item->setPos(pos);
-
+					
 					item->setRotation((360 / 6) * ((int)newTile->getOrientation()));
 					item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
 
@@ -260,8 +261,8 @@ void GameWindow::selectTile(Tile* tile)
 			}
 			else
 			{
-				Clearing* destination = currentClearing->getTile()->getConnectedClearing(selectedTile);
-				if (game->moveRequest(selectedCharacter, destination))
+				Clearing* destination = selectedTile->getConnectedClearing(currentClearing->getTile());
+				if (!game->moveRequest(selectedCharacter, destination))
 				{
 					QMessageBox::about(ui.centralWidget, "Woops", "That destination is out of reach.");
 				}
@@ -345,6 +346,7 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 				charString.sprintf("  - %s", Character::getTypeString((*chr)->getType()));
 				ui.gameTileInformationBrowser->append(charString);
 			}
+			ui.gameTileInformationBrowser->append("");
 		}
 	}
 }
