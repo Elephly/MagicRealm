@@ -290,6 +290,8 @@ void Game::setupTiles()
     p = new Path(c1, c4, false);
     p = new Path(c2, c5, false);
     
+    gameBoard->addTile(darkValleyTile);
+
     p = NULL;
     c1 = NULL;
     c2 = NULL;
