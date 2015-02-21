@@ -98,6 +98,12 @@ void GameWindow::connectedToServer()
 	changeScreenState(ui.characterSelectWidget);
 }
 
+void GameWindow::updateAvailableCharacters(int removeCharacter)
+{
+	Qt::ItemFlags flags = ui.characterListView->item(removeCharacter)->flags();
+	ui.characterListView->item(removeCharacter)->setFlags((flags & ~Qt::ItemIsSelectable & ~Qt::ItemIsUserCheckable & ~Qt::ItemIsEnabled));
+}
+
 void GameWindow::requestCharacter(CharacterTypes character)
 {
 	changeScreenState(ui.loadingWidget);
@@ -109,14 +115,13 @@ void GameWindow::requestCharacter(CharacterTypes character)
 	server->writeMessage(&serializedCharacter);
 }
 
-
-
 errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 {
 	if (!characterRequestAccepted)
 	{
 		changeScreenState(ui.characterSelectWidget);
 		QMessageBox::about(ui.centralWidget, "Error", "Character taken.");
+		return 1;
 	}
 
 	errno_t err = 0;
