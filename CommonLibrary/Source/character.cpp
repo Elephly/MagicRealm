@@ -4,6 +4,27 @@
 #include <sstream>
 
 Character::Character(CharacterTypes type) {
+	init(type);
+}
+
+Character::Character(string* serialString) {
+	knownPaths = new vector <Path*>;
+    int pos = serialString->find(CLASSDELIM);
+	string first = serialString->substr(0, pos);
+	string second = serialString->substr(pos + 2);
+
+	pos = second.find(VARDELIM);
+	first = second.substr(0, pos);
+	second= second.substr(pos + 1);
+	init((CharacterTypes) atoi(first.c_str()));
+
+	pos = second.find(VARDELIM);
+	first = second.substr(0, pos);
+	second = second.substr(pos + 1);
+	gold = atoi(second.c_str());
+}
+
+void Character::init(CharacterTypes type) {
 	myType = type;
 	gold = 10;
     location = NULL;
@@ -23,32 +44,6 @@ Character::Character(CharacterTypes type) {
 	case Swordsman: initSwordsman();
 		break;
 	}
-}
-
-Character::Character(string* serialString, Board* board) {
-	knownPaths = new vector <Path*>;
-    int pos = serialString->find(CLASSDELIM);
-	string first = serialString->substr(0, pos);
-	string second = serialString->substr(pos + 2);
-
-	pos = second.find(VARDELIM);
-	first = second.substr(0, pos);
-	second= second.substr(pos + 1);
-	Character((CharacterTypes) atoi(first.c_str()));
-
-	pos = second.find(VARDELIM);
-	first = second.substr(0, pos);
-	second = second.substr(pos + 1);
-	gold = atoi(second.c_str());
-
-	pos = second.find(VARDELIM);
-	first = second.substr(0, pos);
-	second = second.substr(pos + 1);
-
-	pos = second.find(VARDELIM);
-	second = second.substr(pos = 1);
-
-	location = board->getTile(first)->getClearing((int)atoi(second.c_str()));
 }
 
 int Character::getGold() {
@@ -134,8 +129,6 @@ string* Character::serialize() {
 	s << myType;
 	s << VARDELIM;
 	s << gold;
-	s << VARDELIM;
-	s << location->toString();
 	//TODO serialize character equipment
 
 	string *myString = new string(s.str());

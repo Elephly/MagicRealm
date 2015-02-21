@@ -18,7 +18,7 @@ class Path;
 class  COMMONLIBRARY_EXPORT Character : public Serializer{
 public:
 	Character(CharacterTypes type);
-	Character(string* serialString, Board* board);
+	Character(string* serialString);
 	int getGold();
 	vector<Equipment *>* getEquipment();
 	Clearing* getCurrentLocation();
@@ -50,6 +50,7 @@ private:
     vector<Path *>* knownPaths;
 
 	//private functions
+	void init(CharacterTypes);
 	void initAmazon();
 	void initBlackknight();
 	void initCaptain();

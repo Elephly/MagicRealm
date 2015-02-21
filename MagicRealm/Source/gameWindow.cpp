@@ -136,7 +136,7 @@ void GameWindow::requestCharacter(CharacterTypes character)
 }
 
 void GameWindow::addCharacterToGame(QString &newCharacter) {
-	game->addPlayer(new Character(new string(newCharacter.toUtf8().constData()), game->getBoard()));
+	game->addPlayer(new Character(new string(newCharacter.toUtf8().constData())));
 }
 
 errno_t GameWindow::initializeGame(bool characterRequestAccepted)
