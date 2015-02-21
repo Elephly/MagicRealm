@@ -56,6 +56,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *loadingLabelLayout;
     QLabel *loadingLoadingLabel;
+    QLabel *loadingMessageLabel;
     QLabel *loadingProgLabel;
     QWidget *characterSelectWidget;
     QHBoxLayout *horizontalLayout_2;
@@ -239,7 +240,7 @@ public:
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(9, 165, -1, 165);
+        verticalLayout_2->setContentsMargins(9, 145, -1, 145);
         loadingLabelLayout = new QVBoxLayout();
         loadingLabelLayout->setSpacing(6);
         loadingLabelLayout->setObjectName(QStringLiteral("loadingLabelLayout"));
@@ -253,12 +254,22 @@ public:
 
         loadingLabelLayout->addWidget(loadingLoadingLabel);
 
-        loadingProgLabel = new QLabel(loadingWidget);
-        loadingProgLabel->setObjectName(QStringLiteral("loadingProgLabel"));
+        loadingMessageLabel = new QLabel(loadingWidget);
+        loadingMessageLabel->setObjectName(QStringLiteral("loadingMessageLabel"));
         QFont font6;
         font6.setFamily(QStringLiteral("MS Serif"));
-        font6.setPointSize(28);
-        loadingProgLabel->setFont(font6);
+        font6.setPointSize(22);
+        loadingMessageLabel->setFont(font6);
+        loadingMessageLabel->setAlignment(Qt::AlignCenter);
+
+        loadingLabelLayout->addWidget(loadingMessageLabel);
+
+        loadingProgLabel = new QLabel(loadingWidget);
+        loadingProgLabel->setObjectName(QStringLiteral("loadingProgLabel"));
+        QFont font7;
+        font7.setFamily(QStringLiteral("MS Serif"));
+        font7.setPointSize(28);
+        loadingProgLabel->setFont(font7);
         loadingProgLabel->setAlignment(Qt::AlignCenter);
 
         loadingLabelLayout->addWidget(loadingProgLabel);
@@ -280,38 +291,38 @@ public:
         characterListView = new QListWidget(characterSelectWidget);
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        QFont font7;
-        font7.setFamily(QStringLiteral("MS Serif"));
-        font7.setPointSize(16);
-        font7.setBold(true);
-        font7.setWeight(75);
+        QFont font8;
+        font8.setFamily(QStringLiteral("MS Serif"));
+        font8.setPointSize(16);
+        font8.setBold(true);
+        font8.setWeight(75);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(characterListView);
-        __qlistwidgetitem->setFont(font7);
+        __qlistwidgetitem->setFont(font8);
         __qlistwidgetitem->setIcon(icon5);
         QIcon icon6;
         icon6.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(characterListView);
-        __qlistwidgetitem1->setFont(font7);
+        __qlistwidgetitem1->setFont(font8);
         __qlistwidgetitem1->setIcon(icon6);
         QIcon icon7;
         icon7.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(characterListView);
-        __qlistwidgetitem2->setFont(font7);
+        __qlistwidgetitem2->setFont(font8);
         __qlistwidgetitem2->setIcon(icon7);
         QIcon icon8;
         icon8.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(characterListView);
-        __qlistwidgetitem3->setFont(font7);
+        __qlistwidgetitem3->setFont(font8);
         __qlistwidgetitem3->setIcon(icon8);
         QIcon icon9;
         icon9.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(characterListView);
-        __qlistwidgetitem4->setFont(font7);
+        __qlistwidgetitem4->setFont(font8);
         __qlistwidgetitem4->setIcon(icon9);
         QIcon icon10;
         icon10.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(characterListView);
-        __qlistwidgetitem5->setFont(font7);
+        __qlistwidgetitem5->setFont(font8);
         __qlistwidgetitem5->setIcon(icon10);
         characterListView->setObjectName(QStringLiteral("characterListView"));
 
@@ -322,16 +333,16 @@ public:
         characterSelectorButtonsLayout->setObjectName(QStringLiteral("characterSelectorButtonsLayout"));
         characterSelectButton = new QPushButton(characterSelectWidget);
         characterSelectButton->setObjectName(QStringLiteral("characterSelectButton"));
-        QFont font8;
-        font8.setFamily(QStringLiteral("MS Serif"));
-        font8.setPointSize(18);
-        characterSelectButton->setFont(font8);
+        QFont font9;
+        font9.setFamily(QStringLiteral("MS Serif"));
+        font9.setPointSize(18);
+        characterSelectButton->setFont(font9);
 
         characterSelectorButtonsLayout->addWidget(characterSelectButton);
 
         characterQuitButton = new QPushButton(characterSelectWidget);
         characterQuitButton->setObjectName(QStringLiteral("characterQuitButton"));
-        characterQuitButton->setFont(font8);
+        characterQuitButton->setFont(font9);
 
         characterSelectorButtonsLayout->addWidget(characterQuitButton);
 
@@ -354,9 +365,9 @@ public:
         horizontalLayout_2->setStretch(1, 9);
         MainWindowClass->setCentralWidget(centralWidget);
         menuWidget->raise();
-        loadingWidget->raise();
         gameWidget->raise();
         characterSelectWidget->raise();
+        loadingWidget->raise();
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 800, 21));
@@ -398,6 +409,7 @@ public:
 "</style></head><body style=\" font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
         loadingLoadingLabel->setText(QApplication::translate("MainWindowClass", "Loading", 0));
+        loadingMessageLabel->setText(QString());
         loadingProgLabel->setText(QApplication::translate("MainWindowClass", "...", 0));
 
         const bool __sortingEnabled = characterListView->isSortingEnabled();

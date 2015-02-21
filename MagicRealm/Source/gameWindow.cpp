@@ -110,6 +110,7 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 {
 	errno_t err = 0;
 
+	ui.loadingMessageLabel->setText("--Connecting to server--");
 	changeScreenState(ui.loadingWidget);
 	
 	game = new Game();
@@ -148,6 +149,7 @@ void GameWindow::requestCharacter(CharacterTypes character)
 {
 	if (character >= Amazon && character <= Swordsman)
 	{
+		ui.loadingMessageLabel->setText("--Waiting for character acknowledgement--");
 		changeScreenState(ui.loadingWidget);
 
 		selectedCharacter = new Character((CharacterTypes)character);
@@ -264,6 +266,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 			}		
 		}
 	}
+	
 	for (int i = 0; i <= Swordsman; i++)
 	{
 		QPixmap pxmap = *(*characterImages)[(CharacterTypes)i];
@@ -273,6 +276,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 		updateCharacterLocation(game->getPlayer((CharacterTypes)i));
 		gameScene->addItem(item);
 	}
+	
 	
 	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
@@ -421,10 +425,12 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 
 void GameWindow::updateCharacterLocation(Character* character)
 {
+	/*
 	Clearing* currClearing = character->getCurrentLocation();
 	Tile* currTile = currClearing->getTile();
 	QGraphicsItem* charItem = (*characterGraphicsItems)[character->getType()];
 	charItem->setX((*tileGraphicsItems)[currTile]->x());
+	*/
 }
 
 void GameWindow::selectAction(ActionType action)

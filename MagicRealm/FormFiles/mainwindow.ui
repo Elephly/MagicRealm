@@ -287,10 +287,10 @@ p, li { white-space: pre-wrap; }
       <number>9</number>
      </property>
      <property name="topMargin">
-      <number>165</number>
+      <number>145</number>
      </property>
      <property name="bottomMargin">
-      <number>165</number>
+      <number>145</number>
      </property>
      <item>
       <layout class="QVBoxLayout" name="loadingLabelLayout">
@@ -304,6 +304,22 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="text">
           <string>Loading</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="loadingMessageLabel">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -505,9 +521,9 @@ p, li { white-space: pre-wrap; }
     </layout>
    </widget>
    <zorder>menuWidget</zorder>
-   <zorder>loadingWidget</zorder>
    <zorder>gameWidget</zorder>
    <zorder>characterSelectWidget</zorder>
+   <zorder>loadingWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

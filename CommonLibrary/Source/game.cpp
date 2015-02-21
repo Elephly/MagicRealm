@@ -595,7 +595,7 @@ void Game::placePlayers()
 	    case Dwarf:
 	    case Elf:
 	    case Swordsman:
-            moveRequest(players[i], gameBoard->getTile("Border Lands")->getClearing(1));
+            moveRequest(players[i], gameBoard->getTile("Border Land")->getClearing(1));
         }
     }
 }
