@@ -624,6 +624,21 @@ void Game::removePlayer(Character* oldPlayer)
     }
 }
 
+Character* Game::getPlayer(CharacterTypes charType)
+{
+    for(int i=0; i<MAXPLAYERS; i++){
+        if(players[i] == NULL){
+            cout << "ERR: Game::getPlayer player not found, returning null" <<endl;
+            return NULL;
+        }
+        if(players[i]->getType() == charType)
+            return players[i];
+    }
+    //only get here if the player list is full
+    cout << "ERR: Game::getPlayer player not found(looped through full array), returning null" <<endl;
+    return NULL;
+}
+
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 {
     Clearing* playerLoc = NULL;

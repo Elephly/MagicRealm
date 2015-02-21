@@ -32,6 +32,12 @@ public:
     */
     void removePlayer(Character* oldPlayer);
 
+    /*
+    *   getPlayer
+    *   returns the player object playing that CharacterType
+    */
+    Character* getPlayer(CharacterTypes charType);
+
 	Board* getBoard();
     /*
     *   MoveRequest
