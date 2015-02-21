@@ -65,6 +65,11 @@ private:
     *   Purpose: Sets the players
     */
     void placePlayers();
+    /*
+    *   plopDwellings
+    *   Purpose: place Dwellings
+    */
+    void plopDwellings();
     Board* gameBoard;
     Character* players[MAXPLAYERS];
     int day;

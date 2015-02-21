@@ -33,6 +33,7 @@ void Game::setupGame(bool cm)
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
+    plopDwellings();
     placePlayers();
 
     //TODO PLOP CHARACTERS IN THEIR APPROPRIATE POSITIONS
@@ -568,8 +569,18 @@ void Game::setupTiles()
     p = new Path(awfulValleyTile->getClearing(2), lindenWoodsTile->getClearing(5), false);
 }
 
+void Game::plopDwellings()
+{
+    cout << "Placing Dwellings.." <<endl;
+    gameBoard->addDwelling(new Dwelling("Guard", gameBoard->getTile("Dark Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling("House", gameBoard->getTile("Curst Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling("Chapel", gameBoard->getTile("Awful Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling("Inn", gameBoard->getTile("Bad Valley")->getClearing(5), false));
+}
+
 void Game::placePlayers()
 {
+    cout << "Placing Players..." <<endl;
     for(int i=0; i<MAXPLAYERS; i++){
         //no more players to loop through.
         if(!players[i]){
