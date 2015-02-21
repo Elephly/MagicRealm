@@ -386,6 +386,11 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 	}
 }
 
+void GameWindow::updateCharacterLocation(Character* character)
+{
+
+}
+
 void GameWindow::selectAction(ActionType action)
 {
 	selectedAction = action;

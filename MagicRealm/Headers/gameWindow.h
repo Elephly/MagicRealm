@@ -31,6 +31,7 @@ public:
 	Character* getSelectedChar();
 	void selectTile(Tile* tile);
 	void updateTileInfoPane(Tile* tile);
+	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
 	void move();
 

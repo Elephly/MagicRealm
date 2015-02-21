@@ -29,14 +29,14 @@ void TileGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 	if(isUnderMouse())
 	{
-		setZValue(1);
+		setZValue(0.1);
 		setScale(1.05);
 	}
 }
 
 void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-	setZValue(1);
+	setZValue(0.1);
 	setScale(1.05);
 }
 
