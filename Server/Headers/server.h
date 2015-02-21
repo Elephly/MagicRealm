@@ -4,6 +4,7 @@
 #include <QtNetwork>
 #include <QtCore>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "clientCommThread.h"
 #include "serverShared.h"
@@ -20,12 +21,14 @@ public:
 public slots:
 	void handleIncomingUsers();
 	void run();
+	void characterUnavail(CharacterTypes type);
 signals:
 	void finished();
 private:
 	quint16 myPort;
 	QTcpServer *incoming;
 	std::vector<ClientCommThread *> *clientThreadList;
+	bool selectedCharacters[MAXPLAYERS];
     Game game;
 };
 

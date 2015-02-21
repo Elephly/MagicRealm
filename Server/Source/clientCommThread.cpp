@@ -33,6 +33,10 @@ void ClientCommThread::readIncomingData() {
 	if (clientData.contains(QRegExp("^RecordedTurn"))) {
 		//Client has sent recorded turn
 		//mark player as ready and execute if all ready
+	} else if (clientData.contains(QRegExp("^CharacterType"))) {
+		int pos = clientData.indexOf(QString(CLASSDELIM));
+		CharacterTypes data = (CharacterTypes)clientData.remove(pos + 2).toInt();
+		characterSelected(data);
 	} else if (clientData.contains(QRegExp("^Character"))) {
 		//do fancy things
 		//Client has sent us a character selection

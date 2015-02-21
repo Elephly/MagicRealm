@@ -16,6 +16,8 @@ public:
 	void writeMessage(string *message);
 public slots:
 	void readIncomingData();
+signals:
+	void characterSelected(CharacterTypes type);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;

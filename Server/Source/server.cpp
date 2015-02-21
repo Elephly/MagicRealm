@@ -1,13 +1,14 @@
 #include "server.h"
-#include "action.h"
-#include "recordedTurn.h"
-#include "clearing.h
 
 Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	myPort = port;
 	std::cout << "port is: " << myPort << std::endl;
 	clientThreadList = new std::vector<ClientCommThread *>;
 	incoming = new QTcpServer(parent);
+
+	for (int i = 0; i < MAXPLAYERS; ++i) {
+		selectedCharacters[i] = false;
+	}
 
 	QObject::connect(incoming,
 		SIGNAL(newConnection()),
@@ -57,9 +58,34 @@ void Server::handleIncomingUsers()  {
 			newClient->close();
 		} else {
 			ClientCommThread *newThread = new ClientCommThread(newClient, this);
+			connect(newThread, SIGNAL(characterSelected(CharacterTypes)),
+				this, SLOT(characterUnavail(CharacterTypes)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			newThread->writeMessage(new QString(ACCEPTCONN));
+
+			//Inform new player of currently selected characters
+			for (int i = 0; i < MAXPLAYERS; ++i) {
+				if (selectedCharacters[i]) {
+					stringstream s;
+					s << "CharacterType";
+					s << CLASSDELIM;
+					s << i;
+					newThread->writeMessage(new string(s.str()));
+				}
+			}
 		}
+	}
+}
+
+void Server::characterUnavail(CharacterTypes type) {
+	stringstream s;
+	s << "CharacterType";
+	s << CLASSDELIM;
+	s << type;
+	selectedCharacters[(int) type] = true;
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
+		it != clientThreadList->end(); ++it) {
+			(*it)->writeMessage(new string(s.str()));
 	}
 }
