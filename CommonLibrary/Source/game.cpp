@@ -578,6 +578,52 @@ void Game::runGame()
     cout << "Game Run..." << endl;
 }
 
+bool Game::addPlayer(Character* newPlayer)
+{
+    for(int i=0; i<MAXPLAYERS; i++){
+        if(!players[i]){
+            players[i] = newPlayer;
+            return true;
+        }
+        if(players[i] == newPlayer){
+            cout << "WARN: Game::addPlayer attempted to add a player already in the list." <<endl;
+            return false;
+        }
+    }
+    cout << "WARN: Game::addPlayer Did not add the player, player list full" <<endl;
+    return false;
+}
+
+void Game::removePlayer(Character* oldPlayer)
+{
+    int playerIndex = -1;
+    int lastIndex = MAXPLAYERS-1;
+    for(int i=0; i<MAXPLAYERS; i++){
+        if(!players[i]){
+            lastIndex = i-1;
+            break;
+        }
+        if(players[i] == oldPlayer){
+            playerIndex = i;
+        }
+    }
+    if(playerIndex == -1)
+        cout << "ERR: Game::removePlayer Player was not found" <<endl;
+    //removing at the end of the current players in the array.
+    if(playerIndex == lastIndex){
+        delete players[playerIndex];
+        players[playerIndex] = NULL;
+    }
+    //player is found, and its not the last player in the array.
+    else{
+        delete players[playerIndex];
+        //setting the last player to the old players location
+        players[playerIndex] = players[lastIndex];
+        //now that the last player is moved, we can reduce the size of the array by removing the old lastIndex position (since its a duplicate)
+        players[lastIndex] = NULL;
+    }
+}
+
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 {
     Clearing* playerLoc = NULL;

@@ -18,6 +18,20 @@ public:
     void runGame();
     void setupGame(bool cm);
     void doTurn();
+
+    /*
+    *   addPlayer
+    *   in:     Character point to be added to the array
+    *   out:    successfully added or not (list full)
+    */
+    bool addPlayer(Character* newPlayer);
+
+    /*
+    *   removePlayer
+    *   in:     Character point to be removed AND DESTROYED.
+    */
+    void removePlayer(Character* oldPlayer);
+
 	Board* getBoard();
     /*
     *   MoveRequest
