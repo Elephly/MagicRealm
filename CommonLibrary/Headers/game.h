@@ -24,13 +24,13 @@ public:
     *   in:     Character point to be added to the array
     *   out:    successfully added or not (list full)
     */
-    bool addPlayer(Character* newPlayer);
+    bool addPlayer(CharacterTypes newPlayerType);
 
     /*
     *   removePlayer
     *   in:     Character point to be removed AND DESTROYED.
     */
-    void removePlayer(Character* oldPlayer);
+    void removePlayer(CharacterTypes oldPlayerType);
 
     /*
     *   getPlayer

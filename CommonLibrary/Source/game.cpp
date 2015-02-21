@@ -578,24 +578,33 @@ void Game::runGame()
     cout << "Game Run..." << endl;
 }
 
-bool Game::addPlayer(Character* newPlayer)
+bool Game::addPlayer(CharacterTypes newPlayerType)
 {
+    if(!getPlayer(newPlayerType)){
+        cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
+        return false;
+    }
+    //Character doesnt yet exist, Creating new Character
+    Character* newPlayer = new Character(newPlayerType);
+
+    //Adding character to the array.
     for(int i=0; i<MAXPLAYERS; i++){
         if(!players[i]){
             players[i] = newPlayer;
             return true;
-        }
-        if(players[i] == newPlayer){
-            cout << "WARN: Game::addPlayer attempted to add a player already in the list." <<endl;
-            return false;
         }
     }
     cout << "WARN: Game::addPlayer Did not add the player, player list full" <<endl;
     return false;
 }
 
-void Game::removePlayer(Character* oldPlayer)
+void Game::removePlayer(CharacterTypes oldPlayerType)
 {
+    Character* oldPlayer = getPlayer(oldPlayerType);
+    if(!oldPlayer){
+        cout << "ERR: Game::removePlayer Player was not found (from Get)" <<endl;
+        return;
+    }
     int playerIndex = -1;
     int lastIndex = MAXPLAYERS-1;
     for(int i=0; i<MAXPLAYERS; i++){
