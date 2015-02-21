@@ -53,6 +53,11 @@ private:
     *   Purpose:    Populates the board with tiles.
     */
     void setupTiles();
+    /*
+    *   placePlayers
+    *   Purpose: Sets the players
+    */
+    void placePlayers();
     Board* gameBoard;
     Character* players[MAXPLAYERS];
     int day;
