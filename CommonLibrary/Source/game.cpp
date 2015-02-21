@@ -625,13 +625,13 @@ bool Game::addPlayer(CharacterTypes newPlayerType)
 bool Game::addPlayer(Character* newPlayer)
 {
     for(int i=0; i<MAXPLAYERS; i++){
-        if(players[i] == newPlayer){
-            cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
-            return false;
-        }
         if(!players[i]){
             players[i] = newPlayer;
             return true;
+        }
+        if(players[i] == newPlayer){
+            cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
+            return false;
         }
     }
     cout << "WARN: Game::addPlayer Did not add the player, player list full" <<endl;
