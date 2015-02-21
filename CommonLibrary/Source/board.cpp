@@ -4,6 +4,7 @@
 Board::Board() {
 	//whole lotta nothing
     tileList = new vector <Tile*>;
+    dwellingList = new vector<Dwelling*>;
 }
 
 void Board::addTile(Tile* newTile)
@@ -28,6 +29,27 @@ Tile* Board::getTile(string tName)
     return NULL;
 }
 
+void Board::addDwelling(Dwelling* newDwelling)
+{
+     for(vector<Dwelling*>::iterator it = dwellingList->begin(); it != dwellingList->end(); ++it){
+        if((*it)->getName() == newDwelling->getName()){
+            cout << "WARN: Dwelling already in List not adding dwelling" <<endl;
+            return;
+        }
+    }
+    //tile not found so we can addTile.
+    dwellingList->push_back(newDwelling);
+}
+
+Dwelling* Board::getDwelling(string dName)
+{
+    for(vector<Dwelling*>::iterator it = dwellingList->begin(); it != dwellingList->end(); ++it){
+        if((*it)->getName() == dName)
+            return *it;
+    }
+    //Tile String not found.
+    return NULL;
+}
 string* Board::serialize() {
 	stringstream s;
 	s << "Board";

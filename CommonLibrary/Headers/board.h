@@ -5,6 +5,7 @@
 #include "shared.h"
 #include <vector>
 #include "serializer.h"
+#include "dwelling.h"
 
 class Clearing;
 class Tile;
@@ -23,6 +24,20 @@ public:
     void addTile(Tile* newTile);
     
     /*
+    *   addDwelling
+    *   In:         Pointer to the dwelling you wish to add. 
+    *   Purpose:    To Add a dwelling to the map.
+    */
+    void addDwelling(Dwelling* newDwelling);
+
+    /*
+    *   getDwelling
+    *   in:     String of the Dwelling name
+    *   out:    Pointer to that dwelling.
+    */
+    Dwelling* getDwelling(string dName);
+
+    /*
     *   getTile
     *   in:     String of the tile name
     *   out:    Pointer to that tile.
@@ -33,6 +48,7 @@ public:
 
 private:
     vector<Tile*>* tileList;
+    vector<Dwelling*>* dwellingList;
 };
 
 #endif // BOARD_H

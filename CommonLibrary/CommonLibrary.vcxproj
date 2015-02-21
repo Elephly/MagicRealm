@@ -82,6 +82,7 @@
     <ClInclude Include="Headers\character.h" />
     <ClInclude Include="Headers\clearing.h" />
     <ClInclude Include="Headers\commonlibrary_global.h" />
+    <ClInclude Include="Headers\dwelling.h" />
     <ClInclude Include="Headers\equipment.h" />
     <ClInclude Include="Headers\game.h" />
     <ClInclude Include="Headers\path.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="Source\board.cpp" />
     <ClCompile Include="Source\character.cpp" />
     <ClCompile Include="Source\clearing.cpp" />
+    <ClCompile Include="Source\dwelling.cpp" />
     <ClCompile Include="Source\equipment.cpp" />
     <ClCompile Include="Source\game.cpp" />
     <ClCompile Include="Source\path.cpp" />

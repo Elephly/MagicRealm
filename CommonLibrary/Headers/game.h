@@ -9,6 +9,7 @@
 #include "Character.h"
 #include "action.h"
 #include "recordedTurn.h"
+#include "dwelling.h"
 
 class COMMONLIBRARY_EXPORT Game{
 
