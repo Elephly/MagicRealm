@@ -36,8 +36,10 @@ void ClientCommThread::readIncomingData() {
 		//mark player as ready and execute if all ready
 	} else if (clientData.contains(QRegExp("^CharacterType"))) {
 		int pos = clientData.indexOf(QString(CLASSDELIM));
-		CharacterTypes data = (CharacterTypes)clientData.remove(pos + 2).toInt();
-		characterSelected(data);
+		clientData = clientData.remove(0, pos + 2);
+		qDebug() << "substr data: " << clientData;
+		CharacterTypes data = (CharacterTypes)clientData.toInt();
+		characterSelected(data, clientID);
 	}
 
 	blocksize = 0;

@@ -72,8 +72,8 @@ void ServerCommThread::updateFromServer()
 		//Server has listed a character as taken
 	} else if (serverData.contains(QRegExp("^Selection"))) {
 		int pos = serverData.indexOf(QString(CLASSDELIM));
-		bool ok = (bool) serverData.remove(pos+2).toInt();
-		//call gamewindow function
+		bool ok = (bool) serverData.remove(0, pos+2).toInt();
+		windowParent->initializeGame(ok);
 	}
 	blocksize = 0;
 }

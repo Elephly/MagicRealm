@@ -100,6 +100,6 @@ void Server::characterUnavail(CharacterTypes type, int clientID) {
 				(*it)->writeMessage(new string(s.str()));
 		}
 	}
-	string *message = new string(s.str());;
+	string *message = new string(s2.str());;
 	clientThreadList->at(clientID)->writeMessage(message);
 }
