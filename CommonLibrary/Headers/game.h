@@ -34,7 +34,7 @@ private:
     */
     void setupTiles();
     Board* gameBoard;
-    Character* players[6];
+    Character* players[MAXPLAYERS];
     int day;
     TimeOfDay currentTime;
     bool cheatMode;

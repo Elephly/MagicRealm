@@ -2,13 +2,24 @@
 
 Game::Game()
 {
+    //initalizing players list
+    for(int i=0; i < MAXPLAYERS; i ++)
+        players[i] = NULL;
+
     gameBoard = new Board();
     cout << "Game Initialized" <<endl;
 }
 
 Game::~Game()
 {
-	//TODO REMOVE PLAYER ARRAY
+	for(int i=0; i < MAXPLAYERS; i++)
+    {
+        if(players[i]){
+            delete players[i];
+            players[i] = NULL;
+        }
+    }
+    
 	if (gameBoard != 0)
 	{
 		delete gameBoard;
