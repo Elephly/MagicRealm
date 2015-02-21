@@ -31,6 +31,7 @@ public:
 	void selectTile(Tile* tile);
 	void updateTileInfoPane(Tile* tile);
 	void selectAction(ActionType action);
+	void move();
 
 	static QMap<std::string, QPixmap> tileImages();
 

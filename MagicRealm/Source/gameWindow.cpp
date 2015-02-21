@@ -1,7 +1,7 @@
 #include "gameWindow.h"
 
-#include "board.h"
 #include "tileGraphicsItem.h"
+#include "availableMovesDialog.h"
 
 #include <QMessageBox>
 
@@ -62,7 +62,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	ui.graphicsView->scale(0.75, 0.75);
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
-	game = new Game();
+	game = 0;
 	selectedTile = 0;
 	selectedAction = NoAction;
 }
@@ -121,6 +121,7 @@ errno_t GameWindow::initializeGame(int character, bool cheatMode)
 	gameScene = new QGraphicsScene();
 	ui.graphicsView->setScene(gameScene);
 	
+	game = new Game();
 	game->setupGame(cheatMode, selectedCharacter);
 	Board* gameBoard = game->getBoard();
 
@@ -254,6 +255,7 @@ void GameWindow::selectTile(Tile* tile)
 		}
 	case MoveAction:
 		{
+			/*
 			Clearing* currentClearing = selectedCharacter->getCurrentLocation();
 			if (currentClearing->getTile() == selectedTile)
 			{
@@ -267,6 +269,7 @@ void GameWindow::selectTile(Tile* tile)
 					QMessageBox::about(ui.centralWidget, "Woops", "That destination is out of reach.");
 				}
 			}
+			*/
 			break;
 		}
 	case SearchAction:
@@ -360,4 +363,32 @@ void GameWindow::selectAction(ActionType action)
 	ui.gameTradeActionButton->setStyleSheet("");
 	ui.gameHideActionButton->setStyleSheet("");
 	ui.gamePeerActionButton->setStyleSheet("");
+}
+
+void GameWindow::move()
+{
+	Clearing* currentClearing = selectedCharacter->getCurrentLocation();
+	vector<Path*> availablePaths = *currentClearing->getPaths();
+	QList<Clearing*>* adjacentClearings = new QList<Clearing*>();
+	for (vector<Path*>::iterator it = availablePaths.begin(); it != availablePaths.end(); ++it)
+	{
+		Path* p = *it;
+		Clearing* end = p->getEnd(currentClearing);
+		if (end != NULL)
+		{
+			adjacentClearings->append(end);
+		}
+	}
+
+	AvailableMovesDialog* dlg = new AvailableMovesDialog(ui.centralWidget);
+	for (Clearing* c : *adjacentClearings)
+	{
+		QString option;
+		dlg->addOption(option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum()));
+	}
+	dlg->exec();
+	delete dlg;
+	delete adjacentClearings;
+
+	selectAction(NoAction);
 }

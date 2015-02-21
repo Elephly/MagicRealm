@@ -22,4 +22,4 @@ private:
 	GameWindow* myContainer;
 };
 
-#endif //TILEGRAPHICSITEM_H
+#endif // TILEGRAPHICSITEM_H

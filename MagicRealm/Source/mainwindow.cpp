@@ -97,6 +97,7 @@ void MainWindow::on_gameMoveActionButton_clicked()
 {
 	gameWindow->selectAction(MoveAction);
 	ui.gameMoveActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
+	gameWindow->move();
 }
 
 void MainWindow::on_gameSearchActionButton_clicked()
