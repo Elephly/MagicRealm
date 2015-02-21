@@ -9,6 +9,7 @@
 
 class Clearing;
 class Tile;
+class Dwelling;
 
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Board : public Serializer {
