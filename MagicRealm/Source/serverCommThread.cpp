@@ -69,7 +69,9 @@ void ServerCommThread::updateFromServer()
 	} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
 		//Server wants us to record a turn
 	} else if (serverData.contains(QRegExp("^CharacterType"))) {
-		//Server has listed a character as taken
+		int pos = serverData.indexOf(QString(CLASSDELIM));
+		int character = serverData.remove(pos+2).toInt();
+		windowParent->updateAvailableCharacters(character);
 	} else if (serverData.contains(QRegExp("^Selection"))) {
 		int pos = serverData.indexOf(QString(CLASSDELIM));
 		bool ok = (bool) serverData.remove(0, pos+2).toInt();
