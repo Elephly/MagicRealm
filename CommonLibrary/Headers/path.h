@@ -15,7 +15,8 @@ public:
 	Path(Clearing *c1, Clearing *c2, bool isHidden);
 	Path(string* serialString);
 
-    //for a path that leaves a tile (connects two tiles)
+    //for a path that leaves a tile (connects two tiles)]
+    //DEPRECIATED
     Path(Clearing *c1, Direction d);
     ~Path();
     /*
