@@ -10,56 +10,12 @@
 
 #include <Windows.h>
 
-QMap<std::string, QPixmap> GameWindow::tileImages()
-{
-	QMap<std::string, QPixmap> map;
-	map.insert("Awful Valley", QPixmap(":/images/tiles/awfulvalley1.gif"));
-	map.insert("Awful Valley Enchanted", QPixmap(":/images/tiles/awfulvalley-e1.gif"));
-	map.insert("Bad Valley", QPixmap(":/images/tiles/badvalley1.gif"));
-	map.insert("Bad Valley Echanted", QPixmap(":/images/tiles/badvalley-e1.gif"));
-	map.insert("Border Land", QPixmap(":/images/tiles/borderland1.gif"));
-	map.insert("Border Land Echanted", QPixmap(":/images/tiles/borderland-e1.gif"));
-	map.insert("Cavern", QPixmap(":/images/tiles/cavern1.gif"));
-	map.insert("Cavern Echanted", QPixmap(":/images/tiles/cavern-e1.gif"));
-	map.insert("Caves", QPixmap(":/images/tiles/caves1.gif"));
-	map.insert("Caves Echanted", QPixmap(":/images/tiles/caves-e1.gif"));
-	map.insert("Cliff", QPixmap(":/images/tiles/cliff1.gif"));
-	map.insert("Cliff Echanted", QPixmap(":/images/tiles/cliff-e1.gif"));
-	map.insert("Crag", QPixmap(":/images/tiles/crag1.gif"));
-	map.insert("Crag Echanted", QPixmap(":/images/tiles/crag-e1.gif"));
-	map.insert("Curst Valley", QPixmap(":/images/tiles/curstvalley1.gif"));
-	map.insert("Curst Valley Echanted", QPixmap(":/images/tiles/curstvalley-e1.gif"));
-	map.insert("Dark Valley", QPixmap(":/images/tiles/darkvalley1.gif"));
-	map.insert("Dark Valley Echanted", QPixmap(":/images/tiles/darkvalley-e1.gif"));
-	map.insert("Deep Woods", QPixmap(":/images/tiles/deepwoods1.gif"));
-	map.insert("Deep Woods Echanted", QPixmap(":/images/tiles/deepwoods-e1.gif"));
-	map.insert("Evil Valley", QPixmap(":/images/tiles/evilvalley1.gif"));
-	map.insert("Evil Valley Echanted", QPixmap(":/images/tiles/evilvalley-e1.gif"));
-	map.insert("High Pass", QPixmap(":/images/tiles/highpass1.gif"));
-	map.insert("High Pass Echanted", QPixmap(":/images/tiles/highpass-e1.gif"));
-	map.insert("Ledges", QPixmap(":/images/tiles/ledges1.gif"));
-	map.insert("Ledges Echanted", QPixmap(":/images/tiles/ledges-e1.gif"));
-	map.insert("Linden Woods", QPixmap(":/images/tiles/lindenwoods1.gif"));
-	map.insert("Linden Woods Echanted", QPixmap(":/images/tiles/lindenwoods-e1.gif"));
-	map.insert("Maple Woods", QPixmap(":/images/tiles/maplewoods1.gif"));
-	map.insert("Maple Woods Echanted", QPixmap(":/images/tiles/maplewoods-e1.gif"));
-	map.insert("Mountain", QPixmap(":/images/tiles/mountain1.gif"));
-	map.insert("Mountain Echanted", QPixmap(":/images/tiles/mountain-e1.gif"));
-	map.insert("Nut Woods", QPixmap(":/images/tiles/nutwoods1.gif"));
-	map.insert("Nut Woods Echanted", QPixmap(":/images/tiles/nutwoods-e1.gif"));
-	map.insert("Oak Woods", QPixmap(":/images/tiles/oakwoods1.gif"));
-	map.insert("Oak Woods Echanted", QPixmap(":/images/tiles/oakwoods-e1.gif"));
-	map.insert("Pine Woods", QPixmap(":/images/tiles/pinewoods1.gif"));
-	map.insert("Pine Woods Echanted", QPixmap(":/images/tiles/pinewoods-e1.gif"));
-	map.insert("Ruins", QPixmap(":/images/tiles/ruins1.gif"));
-	map.insert("Ruins Echanted", QPixmap(":/images/tiles/ruins-e1.gif"));
-	return map;
-}
-
 GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
-	ui.graphicsView->scale(0.75, 0.75);
+	tileImages = new QMap<std::string, QPixmap*>();
+	initializeTiles();
+	ui.graphicsView->scale(0.5, 0.5);
 	server = new ServerCommThread(this);
 	selectedCharacter = 0;
 	game = 0;
@@ -74,6 +30,58 @@ GameWindow::~GameWindow()
 		delete server;
 		server = 0;
 	}
+
+	if (tileImages != 0)
+	{
+		qDeleteAll(*tileImages);
+		tileImages->clear();
+		delete tileImages;
+		tileImages = 0;
+	}
+}
+
+void GameWindow::initializeTiles()
+{
+	tileImages->insert("Awful Valley", new QPixmap(":/images/tiles/awfulvalley1.gif"));
+	tileImages->insert("Awful Valley Enchanted", new QPixmap(":/images/tiles/awfulvalley-e1.gif"));
+	tileImages->insert("Bad Valley", new QPixmap(":/images/tiles/badvalley1.gif"));
+	tileImages->insert("Bad Valley Echanted", new QPixmap(":/images/tiles/badvalley-e1.gif"));
+	tileImages->insert("Border Land", new QPixmap(":/images/tiles/borderland1.gif"));
+	tileImages->insert("Border Land Echanted", new QPixmap(":/images/tiles/borderland-e1.gif"));
+	tileImages->insert("Cavern", new QPixmap(":/images/tiles/cavern1.gif"));
+	tileImages->insert("Cavern Echanted", new QPixmap(":/images/tiles/cavern-e1.gif"));
+	tileImages->insert("Caves", new QPixmap(":/images/tiles/caves1.gif"));
+	tileImages->insert("Caves Echanted", new QPixmap(":/images/tiles/caves-e1.gif"));
+	tileImages->insert("Cliff", new QPixmap(":/images/tiles/cliff1.gif"));
+	tileImages->insert("Cliff Echanted", new QPixmap(":/images/tiles/cliff-e1.gif"));
+	tileImages->insert("Crag", new QPixmap(":/images/tiles/crag1.gif"));
+	tileImages->insert("Crag Echanted", new QPixmap(":/images/tiles/crag-e1.gif"));
+	tileImages->insert("Curst Valley", new QPixmap(":/images/tiles/curstvalley1.gif"));
+	tileImages->insert("Curst Valley Echanted", new QPixmap(":/images/tiles/curstvalley-e1.gif"));
+	tileImages->insert("Dark Valley", new QPixmap(":/images/tiles/darkvalley1.gif"));
+	tileImages->insert("Dark Valley Echanted", new QPixmap(":/images/tiles/darkvalley-e1.gif"));
+	tileImages->insert("Deep Woods", new QPixmap(":/images/tiles/deepwoods1.gif"));
+	tileImages->insert("Deep Woods Echanted", new QPixmap(":/images/tiles/deepwoods-e1.gif"));
+	tileImages->insert("Evil Valley", new QPixmap(":/images/tiles/evilvalley1.gif"));
+	tileImages->insert("Evil Valley Echanted", new QPixmap(":/images/tiles/evilvalley-e1.gif"));
+	tileImages->insert("High Pass", new QPixmap(":/images/tiles/highpass1.gif"));
+	tileImages->insert("High Pass Echanted", new QPixmap(":/images/tiles/highpass-e1.gif"));
+	tileImages->insert("Ledges", new QPixmap(":/images/tiles/ledges1.gif"));
+	tileImages->insert("Ledges Echanted", new QPixmap(":/images/tiles/ledges-e1.gif"));
+	tileImages->insert("Linden Woods", new QPixmap(":/images/tiles/lindenwoods1.gif"));
+	tileImages->insert("Linden Woods Echanted", new QPixmap(":/images/tiles/lindenwoods-e1.gif"));
+	tileImages->insert("Maple Woods", new QPixmap(":/images/tiles/maplewoods1.gif"));
+	tileImages->insert("Maple Woods Echanted", new QPixmap(":/images/tiles/maplewoods-e1.gif"));
+	tileImages->insert("Mountain", new QPixmap(":/images/tiles/mountain1.gif"));
+	tileImages->insert("Mountain Echanted", new QPixmap(":/images/tiles/mountain-e1.gif"));
+	tileImages->insert("Nut Woods", new QPixmap(":/images/tiles/nutwoods1.gif"));
+	tileImages->insert("Nut Woods Echanted", new QPixmap(":/images/tiles/nutwoods-e1.gif"));
+	tileImages->insert("Oak Woods", new QPixmap(":/images/tiles/oakwoods1.gif"));
+	tileImages->insert("Oak Woods Echanted", new QPixmap(":/images/tiles/oakwoods-e1.gif"));
+	tileImages->insert("Pine Woods", new QPixmap(":/images/tiles/pinewoods1.gif"));
+	tileImages->insert("Pine Woods Echanted", new QPixmap(":/images/tiles/pinewoods-e1.gif"));
+	tileImages->insert("Ruins", new QPixmap(":/images/tiles/ruins1.gif"));
+	tileImages->insert("Ruins Echanted", new QPixmap(":/images/tiles/ruins-e1.gif"));
 }
 
 errno_t GameWindow::initializeConnection(QString &hostIP)
@@ -127,7 +135,6 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 	errno_t err = 0;
 
 	gameScene = new QGraphicsScene();
-	ui.graphicsView->setScene(gameScene);
 	
 	game = new Game();
 	game->setupGame(false, selectedCharacter);
@@ -138,7 +145,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 	{
 		selectTile(currTile);
 
-		QPixmap pixmap = tileImages()[currTile->getName()];
+		QPixmap pixmap = *(*tileImages)[currTile->getName()];
 		QGraphicsItem* item = new TileGraphicsItem(pixmap, currTile, this);
 		item->setPos(0, 0);
 		item->setRotation((360 / 6) * ((int)currTile->getOrientation()));
@@ -169,7 +176,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 				Tile* newTile = currTile->getConnected((Direction)i);
 				if ((newTile != 0) && (visitedTiles.find(newTile) == visitedTiles.end()))
 				{
-					QPixmap pixmap = tileImages()[newTile->getName()];
+					QPixmap pixmap = *(*tileImages)[newTile->getName()];
 					QGraphicsItem* item = new TileGraphicsItem(pixmap, newTile, this);
 
 					int side = ((int)(currTile->getOrientation()) + i) % 6;
@@ -212,7 +219,8 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 			}		
 		}
 	}
-
+	
+	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
 
 	return err;

@@ -21,7 +21,8 @@ class GameWindow : public QObject
 public:
 	GameWindow(QObject* parent, Ui::MainWindowClass mainWindow);
 	~GameWindow();
-
+	
+	void initializeTiles();
 	errno_t initializeConnection(QString &hostIP);
 	errno_t initializeGame(bool charcterRequestAccepted);
 	errno_t cleanup();
@@ -33,12 +34,12 @@ public:
 	void selectAction(ActionType action);
 	void move();
 
-	static QMap<std::string, QPixmap> tileImages();
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
 	void requestCharacter(CharacterTypes character);
 
 private:
+	QMap<std::string, QPixmap*>* tileImages;
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
