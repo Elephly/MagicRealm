@@ -109,10 +109,13 @@ void GameWindow::requestCharacter(CharacterTypes character)
 	changeScreenState(ui.loadingWidget);
 
 	selectedCharacter = new Character((CharacterTypes)character);
-
+	/*
 	QString serializedCharacter;
 	serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);
 	server->writeMessage(&serializedCharacter);
+	*/
+	//temp removal of server dependency
+	initializeGame(true);
 }
 
 errno_t GameWindow::initializeGame(bool characterRequestAccepted)
