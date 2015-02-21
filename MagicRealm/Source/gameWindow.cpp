@@ -243,6 +243,7 @@ void GameWindow::selectTile(Tile* tile)
 {
 	selectedTile = tile;
 	updateTileInfoPane(selectedTile);
+
 	switch (selectedAction)
 	{
 	case NoAction:
@@ -265,6 +266,32 @@ void GameWindow::selectTile(Tile* tile)
 void GameWindow::updateTileInfoPane(Tile* tile)
 {
 	ui.gameTileInformationBrowser->setText(QString(tile->getName().c_str()));
+
+	for (int i = 1; i < CONNECTED_LENGTH+1; i++)
+	{
+		Clearing* c = selectedTile->getClearing(i);
+		if (c != 0)
+		{
+			char* type;
+			switch (c->getClearingType())
+			{
+			case WOODS:
+				type = "Woods";
+				break;
+			case CAVES:
+				type = "Caves";
+				break;
+			case MOUNTAIN:
+				type = "Mountain";
+				break;
+			default:
+				break;
+			}
+			QString clearingInfo;
+			clearingInfo.sprintf("\nClearing %d: %s", c->getClearingNum(), type);
+			ui.gameTileInformationBrowser->append(clearingInfo);
+		}
+	}
 }
 
 void GameWindow::selectAction(ActionType action)

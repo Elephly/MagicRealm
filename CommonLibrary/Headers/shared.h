@@ -115,4 +115,5 @@ enum COMMONLIBRARY_EXPORT ClearingType
     CAVES,
     MOUNTAIN
 };
+
 #endif
