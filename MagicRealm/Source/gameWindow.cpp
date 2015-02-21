@@ -89,22 +89,6 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 		return err;
 	}
 
-	int i = 0;
-	//NOTE does not work. best way to perform this is have a connected SLOT. 
-	//connected SLOT is connectedToServer(), called by signal connected()
-	//
-	//while (!server->isConnected())
-	//{
-	//	if (i++ >= 10)
-	//	{
-	//		cleanup();
-	//		return 1;
-	//	}
-	//	Sleep(1000);
-	//}
-
-	//changeScreenState(ui.characterSelectWidget);
-
 	return err;
 }
 
@@ -123,7 +107,7 @@ errno_t GameWindow::initializeGame(int character, bool cheatMode)
 	selectedCharacter = new Character((CharacterTypes)character);
 
 	QString serializedCharacter;
-	serializedCharacter = QString("CharacterType%1%2").arg(CLASSDELIM, character);
+	serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);
 	server->writeMessage(&serializedCharacter);
 	
 	gameScene = new QGraphicsScene();
@@ -234,7 +218,6 @@ errno_t GameWindow::cleanup()
 
 	return err;
 }
-
 
 void GameWindow::changeScreenState(QWidget* screen)
 {
