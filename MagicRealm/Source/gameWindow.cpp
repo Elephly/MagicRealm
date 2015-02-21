@@ -103,6 +103,14 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 void GameWindow::connectedToServer()
 {
 	qDebug() << "client is connected to server, signal";
+	for (int i = 0; i < ui.characterListView->count(); i++)
+	{
+		if (ui.characterListView->item(i)->flags() & Qt::ItemIsUserCheckable)
+		{
+			ui.characterListView->setCurrentRow(i);
+			break;
+		}
+	}
 	changeScreenState(ui.characterSelectWidget);
 }
 
@@ -245,10 +253,15 @@ errno_t GameWindow::cleanup()
 
 void GameWindow::changeScreenState(QWidget* screen)
 {
+	ui.menuWidget->setEnabled(false);
+	ui.loadingWidget->setEnabled(false);
+	ui.characterSelectWidget->setEnabled(false);
+	ui.gameWidget->setEnabled(false);
 	ui.menuWidget->setVisible(false);
 	ui.loadingWidget->setVisible(false);
 	ui.characterSelectWidget->setVisible(false);
 	ui.gameWidget->setVisible(false);
+	screen->setEnabled(true);
 	screen->setVisible(true);
 	qApp->processEvents();
 }
