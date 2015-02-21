@@ -8,11 +8,7 @@ Game::Game()
 
 Game::~Game()
 {
-	if (p1 != 0)
-	{
-		delete p1;
-		p1 = NULL;
-	}
+	//TODO REMOVE PLAYER ARRAY
 	if (gameBoard != 0)
 	{
 		delete gameBoard;
@@ -21,22 +17,14 @@ Game::~Game()
     cout << "Game Destroyed" << endl;
 }
 
-void Game::setupGame(bool cm, Character* p)
+void Game::setupGame(bool cm)
 {
     cheatMode = cm;
-	p1 = p;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
     string * resultString;
 
-    //plopping character
-    cout << "Placing Character in Bad Valley Clearing #4..." <<endl <<endl;
-    if(moveRequest(p1, gameBoard->getTile("Border Land")->getClearing(1))){
-        resultString = p1->getCurrentLocation()->toString();
-        cout << "player1 moved to clearing: " << *resultString << endl;
-        delete resultString;
-        resultString = NULL;
-    }
+    //TODO PLOP CHARACTERS IN THEIR APPROPRIATE POSITIONS
 
 
     cout << "Finished Setup..." <<endl <<endl;

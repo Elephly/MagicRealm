@@ -16,7 +16,7 @@ public:
 	Game();
     ~Game();
     void runGame();
-    void setupGame(bool cm, Character* p = new Character(Elf));
+    void setupGame(bool cm);
     void doTurn();
 	Board* getBoard();
     /*
@@ -34,7 +34,7 @@ private:
     */
     void setupTiles();
     Board* gameBoard;
-    Character* p1;
+    Character* players[6];
     int day;
     TimeOfDay currentTime;
     bool cheatMode;
