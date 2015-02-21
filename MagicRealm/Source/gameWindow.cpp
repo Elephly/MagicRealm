@@ -137,7 +137,7 @@ errno_t GameWindow::initializeGame(bool characterRequestAccepted)
 	gameScene = new QGraphicsScene();
 	
 	game = new Game();
-	game->setupGame(false, selectedCharacter);
+	game->setupGame(false);
 	Board* gameBoard = game->getBoard();
 
 	Tile* currTile = gameBoard->getTile("Border Land");

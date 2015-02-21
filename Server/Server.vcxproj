@@ -117,9 +117,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\serverShared.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.vcxproj">
       <Project>{d6ff91ce-35aa-455c-b69d-e8a4a00ceb02}</Project>
     </ProjectReference>
