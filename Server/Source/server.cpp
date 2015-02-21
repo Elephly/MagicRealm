@@ -57,6 +57,12 @@ void Server::handleIncomingUsers()  {
 					newThread->writeMessage(new string(s.str()));
 				}
 			}
+			for (int i = 0; i < MAXPLAYERS; ++i) {
+				Character *character = game.getPlayer((CharacterTypes) i);
+				if (character != NULL) {
+					newThread->writeMessage(character->serialize());
+				}
+			}
 		}
 	}
 }
