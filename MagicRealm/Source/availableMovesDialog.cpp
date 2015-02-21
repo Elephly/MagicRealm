@@ -57,12 +57,10 @@ void AvailableMovesDialog::move()
 			break;
 		}
 	}
-	setResult(ret);
-	close();
+	done(ret);
 }
 
 void AvailableMovesDialog::cancel()
 {
-	setResult(-1);
-	close();
+	done(-1);
 }

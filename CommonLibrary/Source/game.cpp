@@ -156,7 +156,7 @@ void Game::setupTiles()
 
     //plopping character
     cout << "Placing Character in Bad Valley Clearing #4..." <<endl <<endl;
-    if(moveRequest(p1, gameBoard->getTile("Bad Valley")->getClearing(4))){
+    if(moveRequest(p1, gameBoard->getTile("Border Land")->getClearing(1))){
         resultString = p1->getCurrentLocation()->toString();
         cout << "player1 moved to clearing: " << *resultString << endl;
         delete resultString;

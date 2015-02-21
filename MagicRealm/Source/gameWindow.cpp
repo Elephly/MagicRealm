@@ -374,7 +374,7 @@ void GameWindow::move()
 	{
 		Path* p = *it;
 		Clearing* end = p->getEnd(currentClearing);
-		if (end != NULL)
+		if (end != NULL && (!p->isHidden() /*|| player knows about hidden path */))
 		{
 			adjacentClearings.append(end);
 		}
