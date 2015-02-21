@@ -54,7 +54,7 @@ void ClientCommThread::writeMessage(QString *message) {
 	out.device()->seek(0);
 	out << (quint16)(block.size() - sizeof(quint16));
 
-	clientConnection->write(block);
+	qDebug() << clientConnection->write(block);
 }
 
 void ClientCommThread::writeMessage(string *message) {

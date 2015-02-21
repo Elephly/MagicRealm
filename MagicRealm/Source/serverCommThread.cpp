@@ -46,38 +46,40 @@ bool ServerCommThread::isConnected()
 void ServerCommThread::updateFromServer()
 {
 	qDebug() << "data from server";
-	QDataStream in(serverConnection);
-	if (blocksize == 0) {
-		if (serverConnection->bytesAvailable() < (int)sizeof(quint16)) {
-			qDebug() << "bytes avail too small (less than int size)";
+	do {
+		QDataStream in(serverConnection);
+		if (blocksize == 0) {
+			if (serverConnection->bytesAvailable() < (int)sizeof(quint16)) {
+				qDebug() << "bytes avail too small (less than int size)";
+				return;
+			}
+			in >> blocksize;
+		}
+		if (serverConnection->bytesAvailable() < blocksize) {
+			qDebug() << "bytes avail too small (less than block size)";
 			return;
 		}
-		in >> blocksize;
-	}
-	if (serverConnection->bytesAvailable() < blocksize) {
-		qDebug() << "bytes avail too small (less than block size)";
-		return;
-	}
-	QString serverData;
-	in >> serverData;
-	qDebug() << serverData;
+		QString serverData;
+		in >> serverData;
+		qDebug() << serverData;
 
-	if (serverData.compare(QString(ACCEPTCONN)) == 0) {
-		connected = true;
-		windowParent->connectedToServer();
-		//writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
-	} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
-		//Server wants us to record a turn
-	} else if (serverData.contains(QRegExp("^CharacterType"))) {
-		int pos = serverData.indexOf(QString(CLASSDELIM));
-		int character = serverData.remove(0, pos+2).toInt();
-		windowParent->updateAvailableCharacters(character);
-	} else if (serverData.contains(QRegExp("^Selection"))) {
-		int pos = serverData.indexOf(QString(CLASSDELIM));
-		bool ok = (bool) serverData.remove(0, pos+2).toInt();
-		windowParent->initializeGame(ok);
-	}
-	blocksize = 0;
+		if (serverData.compare(QString(ACCEPTCONN)) == 0) {
+			connected = true;
+			windowParent->connectedToServer();
+			//writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
+		} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
+			//Server wants us to record a turn
+		} else if (serverData.contains(QRegExp("^CharacterType"))) {
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			int character = serverData.remove(0, pos+2).toInt();
+			windowParent->updateAvailableCharacters(character);
+		} else if (serverData.contains(QRegExp("^Selection"))) {
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			bool ok = (bool) serverData.remove(0, pos+2).toInt();
+			windowParent->initializeGame(ok);
+		}
+		blocksize = 0;
+	} while(true);
 }
 
 void ServerCommThread::writeMessage(QString *message) {
