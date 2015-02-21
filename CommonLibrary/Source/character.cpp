@@ -7,6 +7,7 @@ Character::Character(CharacterTypes type) {
 	myType = type;
 	gold = 10;
     location = NULL;
+    knownPaths = new vector <Path*>;
 	equipment = new vector<Equipment*>();
 	switch (type) {
 	case Amazon: initAmazon();
@@ -25,7 +26,8 @@ Character::Character(CharacterTypes type) {
 }
 
 Character::Character(string* serialString, Board* board) {
-	int pos = serialString->find(CLASSDELIM);
+	knownPaths = new vector <Path*>;
+    int pos = serialString->find(CLASSDELIM);
 	string first = serialString->substr(0, pos);
 	string second = serialString->substr(pos + 2);
 
@@ -78,6 +80,23 @@ bool Character::hasAdvantage(CharAdvantages testAdvantage) {
 CharacterTypes Character::getType()
 {
 	return myType;
+}
+
+bool Character::isDiscovered(Path* aPath)
+{
+    return false;
+}
+
+void Character::addPath(Path* discoveredPath)
+{
+    //checking to see if the path is already in this list.
+    for(vector<Path*>::iterator it = knownPaths->begin(); it != knownPaths->end(); ++it){
+        if(*it == discoveredPath){
+            cout << "WARN: Path already known to Character, not adding to list" <<endl;
+            return;
+        }
+    }
+    knownPaths->push_back(discoveredPath);
 }
 
 char* Character::getTypeString(CharacterTypes t)
