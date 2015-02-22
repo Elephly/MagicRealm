@@ -403,9 +403,9 @@ void GameWindow::updateCharacterInfoPane()
 	ui.gameCharacterInformationBrowser->setCurrentFont(font);
 
 	QString characterInfo;
-	Clearing* loc = character->getCurrentLocation();
-	characterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
-	ui.gameCharacterInformationBrowser->append(characterInfo);
+	//Clearing* loc = character->getCurrentLocation();
+	//characterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
+	//ui.gameCharacterInformationBrowser->append(characterInfo);
 	
 	characterInfo.sprintf("\nGold: %d", character->getGold());
 	ui.gameCharacterInformationBrowser->append(characterInfo);
@@ -463,10 +463,12 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 
 void GameWindow::updateCharacterLocation(Character* character)
 {
+	/*
 	Clearing* currClearing = character->getCurrentLocation();
 	Tile* currTile = currClearing->getTile();
 	QGraphicsItem* charItem = (*characterGraphicsItems)[character->getType()];
 	charItem->setX((*tileGraphicsItems)[currTile]->x());
+	*/
 }
 
 void GameWindow::selectAction(ActionType action)
