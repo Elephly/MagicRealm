@@ -515,7 +515,13 @@ void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 		gameStarted = true;
 		initializeGame();
 	}
-	Clearing* clearing;
+	string second(clearingString.toUtf8().constData());
+
+	int pos = second.find(VARDELIM);
+	int id = atoi(second.substr(0, pos).c_str());
+	second = second.substr(pos + 1);
+
+	Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
 	//parse clearingString;
 	game->move(game->getPlayer(character), clearing);
 }
