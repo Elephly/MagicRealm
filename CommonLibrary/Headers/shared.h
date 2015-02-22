@@ -127,4 +127,11 @@ enum COMMONLIBRARY_EXPORT DwellingType
 	INN
 };
 
+enum COMMONLIBRARY_EXPORT TreasureType
+{
+	SMALL,
+    LARGE,
+    GREAT
+};
+
 #endif

@@ -1,9 +1,10 @@
 #include "treasure.h"
 
-Treasure::Treasure(string n, int value)
+Treasure::Treasure(string n, int value, TreasureType t)
 {
     name = n;
     goldValue = value;
+    type = t;
 }
 
 string Treasure::getName()
@@ -14,4 +15,9 @@ string Treasure::getName()
 int Treasure::getWorth()
 {
     return goldValue;
+}
+
+TreasureType Treasure::getType()
+{
+    return type;
 }

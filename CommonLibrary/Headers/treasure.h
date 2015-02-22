@@ -6,13 +6,15 @@
 
 class COMMONLIBRARY_EXPORT Treasure{
 public:
-    Treasure(string n, int value);
+    Treasure(string n, int value, TreasureType t);
     string getName();
     int getWorth();
+    TreasureType getType();
 
 private:
     string name;
     int goldValue;
+    TreasureType type;
 };
 
 
