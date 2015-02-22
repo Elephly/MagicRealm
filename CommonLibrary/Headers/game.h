@@ -10,6 +10,11 @@
 #include "action.h"
 #include "recordedTurn.h"
 #include "dwelling.h"
+#include "chit.h"
+#include "sound.h"
+#include "warning.h"
+#include "site.h"
+#include "treasure.h"
 
 class COMMONLIBRARY_EXPORT Game{
 
