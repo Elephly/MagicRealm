@@ -202,11 +202,14 @@ errno_t GameWindow::initializeGame()
 		QGraphicsItem* item = new QGraphicsPixmapItem(pxmap);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
 		characterGraphicsItems->insert((CharacterType)i, item);
-		//updateCharacterLocation(game->getPlayer((CharacterType)i));
+		item->setVisible(false);
+		Character* character = game->getPlayer((CharacterType)i);
+		if (character != 0)
+		{
+			updateCharacterLocation(character);
+		}
 		gameScene->addItem(item);
 	}
-	
-	updateCharacterInfoPane();
 	
 	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
@@ -405,9 +408,9 @@ void GameWindow::updateCharacterInfoPane()
 	ui.gameCharacterInformationBrowser->setCurrentFont(font);
 
 	QString characterInfo;
-	//Clearing* loc = character->getCurrentLocation();
-	//characterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
-	//ui.gameCharacterInformationBrowser->append(characterInfo);
+	Clearing* loc = character->getCurrentLocation();
+	characterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
+	ui.gameCharacterInformationBrowser->append(characterInfo);
 	
 	characterInfo.sprintf("\nGold: %d", character->getGold());
 	ui.gameCharacterInformationBrowser->append(characterInfo);
@@ -440,8 +443,17 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 		if (c != 0)
 		{
 			QString clearingInfo;
-			clearingInfo.sprintf("Clearing %d: %s", c->getClearingNum(), 
-				Clearing::getTypeString(c->getClearingType()));
+			Dwelling* d = c->getDwelling();
+			if (d != 0)
+			{
+				clearingInfo.sprintf("Clearing %d: %s\n%s", c->getClearingNum(), 
+					Clearing::getTypeString(c->getClearingType()), c->getDwelling()->getName().c_str());
+			}
+			else
+			{
+				clearingInfo.sprintf("Clearing %d: %s", c->getClearingNum(), 
+					Clearing::getTypeString(c->getClearingType()));
+			}
 			font.setPointSize(16);
 			font.setBold(false);
 			ui.gameTileInformationBrowser->setCurrentFont(font);
@@ -465,12 +477,17 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 
 void GameWindow::updateCharacterLocation(Character* character)
 {
-	/*
 	Clearing* currClearing = character->getCurrentLocation();
-	Tile* currTile = currClearing->getTile();
-	QGraphicsItem* charItem = (*characterGraphicsItems)[character->getType()];
-	charItem->setX((*tileGraphicsItems)[currTile]->x());
-	*/
+	if (currClearing != 0)
+	{
+		Tile* currTile = currClearing->getTile();
+		if (currTile != 0)
+		{
+			QGraphicsItem* charItem = (*characterGraphicsItems)[character->getType()];
+			charItem->setX((*tileGraphicsItems)[currTile]->x());
+			charItem->setVisible(true);
+		}
+	}
 }
 
 void GameWindow::selectAction(ActionType action)
@@ -531,8 +548,13 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 	second = second.substr(0, pos);
 
 	Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
-
+	
 	game->move(game->getPlayer(character), clearing);
+	if (gameStarted)
+	{
+		updateCharacterInfoPane();
+		updateCharacterLocation(game->getPlayer((CharacterType)character));
+	}
 }
 
 void GameWindow::doTurn(QString &turnString)
