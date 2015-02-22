@@ -26,6 +26,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	game = 0;
 	selectedTile = 0;
 	selectedAction = NoAction;
+	myTurn = NULL;
 }
 
 GameWindow::~GameWindow()
@@ -525,8 +526,8 @@ void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 	string second(clearingString.toUtf8().constData());
 
 	int pos = second.find(VARDELIM);
-	int id = atoi(second.substr(0, pos).c_str());
-	second = second.substr(pos + 1);
+	int id = atoi(second.substr(pos + 1).c_str());
+	second = second.substr(0, pos);
 
 	Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
 	//parse clearingString;
@@ -536,11 +537,11 @@ void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 void GameWindow::doTurn(QString &turnString)
 {
 	string *s = new string(turnString.toUtf8().constData());
-	if (myTurn != 0)
+	if (myTurn != NULL)
 	{
 		delete myTurn;
 		myTurn = 0;
 	}
-	myTurn = new RecordedTurn(s, game->getBoard());
+	myTurn = new RecordedTurn(s);
 	delete s;
 }

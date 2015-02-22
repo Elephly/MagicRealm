@@ -11,6 +11,7 @@
 class COMMONLIBRARY_EXPORT RecordedTurn : public Serializer {
 public:
 	RecordedTurn();
+	RecordedTurn(string*);
 	RecordedTurn(string*, Board*);
 
 	/*

@@ -67,6 +67,7 @@ void Server::handleIncomingUsers()  {
 					newThread->writeMessage(character->serialize());
 				}
 			}
+			//todo send player locations to new players
 		}
 	}
 }
