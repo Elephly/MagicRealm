@@ -54,6 +54,8 @@ public:
     QPushButton *gameQuitButton;
     QTabWidget *informationTabWidget;
     QWidget *characterInfoTab;
+    QVBoxLayout *verticalLayout_3;
+    QTextBrowser *gameCharacterInformationBrowser;
     QWidget *tileInfoTab;
     QVBoxLayout *verticalLayout;
     QTextBrowser *gameTileInformationBrowser;
@@ -128,7 +130,7 @@ public:
         font1.setFamily(QStringLiteral("MS Serif"));
         font1.setPointSize(16);
         menuPlayButton->setFont(font1);
-        menuPlayButton->setToolTipDuration(3);
+        menuPlayButton->setToolTipDuration(-1);
 
         menuButtonLayout->addWidget(menuPlayButton);
 
@@ -237,6 +239,16 @@ public:
         informationTabWidget->setIconSize(QSize(32, 32));
         characterInfoTab = new QWidget();
         characterInfoTab->setObjectName(QStringLiteral("characterInfoTab"));
+        verticalLayout_3 = new QVBoxLayout(characterInfoTab);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        gameCharacterInformationBrowser = new QTextBrowser(characterInfoTab);
+        gameCharacterInformationBrowser->setObjectName(QStringLiteral("gameCharacterInformationBrowser"));
+
+        verticalLayout_3->addWidget(gameCharacterInformationBrowser);
+
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/images/actions/cache.gif"), QSize(), QIcon::Normal, QIcon::On);
         informationTabWidget->addTab(characterInfoTab, icon5, QString());
@@ -257,7 +269,7 @@ public:
         verticalLayout->addWidget(gameTileInformationBrowser);
 
         QIcon icon6;
-        icon6.addFile(QStringLiteral(":/images/tab/record.gif"), QSize(), QIcon::Normal, QIcon::On);
+        icon6.addFile(QStringLiteral(":/images/tiles/questionmark.gif"), QSize(), QIcon::Normal, QIcon::Off);
         informationTabWidget->addTab(tileInfoTab, icon6, QString());
 
         horizontalLayout_3->addWidget(informationTabWidget);
@@ -461,7 +473,7 @@ public:
         actionExit->setShortcut(QApplication::translate("MainWindowClass", "Ctrl+Q", 0));
         menuTitleLabel->setText(QApplication::translate("MainWindowClass", "Magic Realm", 0));
 #ifndef QT_NO_TOOLTIP
-        menuPlayButton->setToolTip(QApplication::translate("MainWindowClass", "shelly", 0));
+        menuPlayButton->setToolTip(QApplication::translate("MainWindowClass", "SHELLY", 0));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_WHATSTHIS
         menuPlayButton->setWhatsThis(QString());
@@ -484,12 +496,14 @@ public:
         informationTabWidget->setStatusTip(QString());
 #endif // QT_NO_STATUSTIP
         informationTabWidget->setTabText(informationTabWidget->indexOf(characterInfoTab), QString());
+        informationTabWidget->setTabToolTip(informationTabWidget->indexOf(characterInfoTab), QApplication::translate("MainWindowClass", "Character Info", 0));
         gameTileInformationBrowser->setHtml(QApplication::translate("MainWindowClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
         informationTabWidget->setTabText(informationTabWidget->indexOf(tileInfoTab), QString());
+        informationTabWidget->setTabToolTip(informationTabWidget->indexOf(tileInfoTab), QApplication::translate("MainWindowClass", "Tile Info", 0));
         loadingLoadingLabel->setText(QApplication::translate("MainWindowClass", "Loading", 0));
         loadingMessageLabel->setText(QString());
         loadingProgLabel->setText(QApplication::translate("MainWindowClass", "...", 0));

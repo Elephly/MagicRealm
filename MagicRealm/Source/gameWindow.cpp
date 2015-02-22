@@ -178,6 +178,8 @@ void GameWindow::characterRequestAcknowledged(bool accepted)
 	serializedStartLocation.sprintf("SpawnLocation%s%d", CLASSDELIM, startLocation);
 	qDebug() << serializedStartLocation;
 	server->writeMessage(&serializedStartLocation);
+
+	initializeGame();
 }
 
 void GameWindow::addCharacterToGame(QString &newCharacter) {
@@ -191,10 +193,32 @@ errno_t GameWindow::initializeGame()
 	gameScene = new QGraphicsScene();
 
 	game->setupGame(false);
+
+	initializeTiles();
+	//drawTiles();
+	
+	for (int i = 0; i <= Swordsman; i++)
+	{
+		QPixmap pxmap = *(*characterImages)[(CharacterTypes)i];
+		QGraphicsItem* item = new QGraphicsPixmapItem(pxmap);
+		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
+		characterGraphicsItems->insert((CharacterTypes)i, item);
+		updateCharacterLocation(game->getPlayer((CharacterTypes)i));
+		gameScene->addItem(item);
+	}
+	
+	
+	ui.graphicsView->setScene(gameScene);
+	changeScreenState(ui.gameWidget);
+
+	return err;
+}
+
+errno_t GameWindow::initializeTiles()
+{
 	Board* gameBoard = game->getBoard();
 
-	Tile* currTile = gameBoard->getTile("Border Land");
-	if (currTile)
+	Tile* currTile = gameBoard->getTile("Border Land");if (currTile != 0)
 	{
 		selectTile(currTile);
 
@@ -272,23 +296,97 @@ errno_t GameWindow::initializeGame()
 				}
 			}		
 		}
+		return 0;
 	}
-	
-	for (int i = 0; i <= Swordsman; i++)
-	{
-		QPixmap pxmap = *(*characterImages)[(CharacterTypes)i];
-		QGraphicsItem* item = new QGraphicsPixmapItem(pxmap);
-		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
-		characterGraphicsItems->insert((CharacterTypes)i, item);
-		updateCharacterLocation(game->getPlayer((CharacterTypes)i));
-		gameScene->addItem(item);
-	}
-	
-	
-	ui.graphicsView->setScene(gameScene);
-	changeScreenState(ui.gameWidget);
+	return 1;
+}
 
-	return err;
+errno_t GameWindow::drawTiles()
+{
+	Board* gameBoard = game->getBoard();
+
+	Tile* currTile = gameBoard->getTile("Border Land");
+	if (currTile != 0)
+	{
+		selectTile(currTile);
+
+		QPixmap pixmap = *(*tileImages)[currTile->getName()];
+		QGraphicsItem* item = new TileGraphicsItem(pixmap, currTile, this);
+		item->setPos(0, 0);
+		item->setRotation((360 / 6) * ((int)currTile->getOrientation()));
+		item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
+		
+		gameScene->addItem(item);
+
+		unordered_set<Tile*> visitedTiles;
+		visitedTiles.insert(currTile);
+
+		QMap<Tile*, QPointF> locations;
+		locations.insert(currTile, QPointF(0, 0));
+
+		queue<Tile*> incompleteTiles;
+		incompleteTiles.push(currTile);
+
+		qreal xOffset = 1;
+		qreal yOffset = 3;
+		qreal xTileOffset = pixmap.width() - xOffset;
+		qreal yTileOffset = pixmap.height() - yOffset;
+
+		while (!incompleteTiles.empty())
+		{
+			tileGraphicsItems->insert(currTile, item);
+			currTile = incompleteTiles.front();
+			incompleteTiles.pop();
+			for (int i = 0; i < CONNECTED_LENGTH; i++)
+			{
+				Tile* newTile = currTile->getConnected((Direction)i);
+				if ((newTile != 0) && (visitedTiles.find(newTile) == visitedTiles.end()))
+				{
+					QPixmap pixmap = *(*tileImages)[newTile->getName()];
+					QGraphicsItem* item = new TileGraphicsItem(pixmap, newTile, this);
+
+					int side = ((int)(currTile->getOrientation()) + i) % 6;
+					QPointF pos;
+					switch (side)
+					{
+					case 0:
+						pos = QPointF(locations[currTile].x(), locations[currTile].y() + yTileOffset);
+						break;
+					case 1:
+						pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
+						break;
+					case 2:
+						pos = QPointF(locations[currTile].x() - (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
+						break;
+					case 3:
+						pos = QPointF(locations[currTile].x(), locations[currTile].y() - yTileOffset);
+						break;
+					case 4:
+						pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() - (yTileOffset / 2));
+						break;
+					case 5:
+						pos = QPointF(locations[currTile].x() + (xTileOffset * 0.75), locations[currTile].y() + (yTileOffset / 2));
+						break;
+					default:
+						pos = QPointF(0, 0);
+						break;
+					}
+					item->setPos(pos);
+					
+					item->setRotation((360 / 6) * ((int)newTile->getOrientation()));
+					item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
+
+					gameScene->addItem(item);
+
+					incompleteTiles.push(newTile);
+					visitedTiles.insert(newTile);
+					locations.insert(newTile, pos);
+				}
+			}		
+		}
+		return 0;
+	}
+	return 1;
 }
 
 errno_t GameWindow::cleanup()

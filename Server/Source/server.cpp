@@ -131,7 +131,7 @@ We have received a recorded turn for the given client
 */
 void Server::recordedTurn(QString &turn, int clientID) {
 	string *s = new string(turn.toUtf8().constData());
-	RecordedTurn *turn = new RecordedTurn(s, game.getBoard());
+	RecordedTurn *recTurn = new RecordedTurn(s, game.getBoard());
 	receivedRecTurn[clientID] = true;
 	//todo store this somewhere
 }
@@ -158,7 +158,7 @@ void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 	}
 	if (player->hasAdvantage(REPUTATION)) {
 		for (int i = 0; i < MAXDWELLINGS; ++i) {
-			if (player->getCurrentLocation() == game.getDwelling((DwellingType) i)->getLocation) {
+			if (player->getCurrentLocation() == game.getDwelling((DwellingType) i)->getLocation()) {
 				turn.addPhase(BasicPhase);
 			}
 		}

@@ -26,6 +26,10 @@ public:
 	void loadTileImages();
 	errno_t initializeConnection(QString &hostIP);
 	errno_t initializeGame();
+	errno_t initializeTiles();
+	errno_t initializePlayers();
+	errno_t drawTiles();
+	errno_t drawPlayers();
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
