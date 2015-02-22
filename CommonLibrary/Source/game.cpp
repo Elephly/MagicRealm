@@ -44,6 +44,10 @@ void Game::setupGame(bool cm)
     cout << "Finished Setup..." <<endl <<endl;
 }
 
+void Game::dealChits()
+{
+
+}
 void Game::setupTiles()
 {
     cout << "Arranging Tiles..." <<endl;
