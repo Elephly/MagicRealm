@@ -42,6 +42,10 @@ void ClientCommThread::readIncomingData() {
 			CharacterTypes data = (CharacterTypes)clientData.toInt();
 			myCharacter = data;
 			characterSelected(data, clientID);
+		} else if (clientData.contains("^SpawnLocation")) {
+			int pos = clientData.indexOf(CLASSDELIM);
+			DwellingType data = (DwellingType) clientData.remove(0, pos + 2).toInt();
+			spawnSelected(data, clientID);
 		}
 	} while(true);
 
@@ -62,4 +66,8 @@ void ClientCommThread::writeMessage(QString *message) {
 
 void ClientCommThread::writeMessage(string *message) {
 	writeMessage(new QString(message->c_str()));
+}
+
+CharacterTypes ClientCommThread::getMyCharacter() {
+	return myCharacter;
 }

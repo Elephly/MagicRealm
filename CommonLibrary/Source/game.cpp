@@ -34,7 +34,7 @@ void Game::setupGame(bool cm)
     cout << "Setting Up Game..." <<endl;
     setupTiles();
     plopDwellings();
-    placePlayers();
+    //placePlayers();
 
     //TODO PLOP CHARACTERS IN THEIR APPROPRIATE POSITIONS
 

@@ -43,6 +43,8 @@ void Server::handleIncomingUsers()  {
 				clientThreadList->size());
 			connect(newThread, SIGNAL(characterSelected(CharacterTypes, int)),
 				this, SLOT(characterUnavail(CharacterTypes, int)));
+			connect(newThread, SIGNAL(spawnSelected(DwellingType, int)),
+				this, SLOT(setSpawn(DwellingType, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			newThread->writeMessage(new QString(ACCEPTCONN));
@@ -84,12 +86,38 @@ void Server::characterUnavail(CharacterTypes type, int clientID) {
 		s2 << true;
 		selectedCharacters[(int) type] = true;
 		game.addPlayer(type);
-		for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
-			it != clientThreadList->end(); ++it) {
-				(*it)->writeMessage(new string(s.str()));
-				(*it)->writeMessage(game.getPlayer(type)->serialize());
-		}
+		writeMessageAllClients(new string(s.str()));
+		writeMessageAllClients(game.getPlayer(type)->serialize());
 	}
 	string *message = new string(s2.str());;
 	clientThreadList->at(clientID)->writeMessage(message);
+}
+
+void Server::setSpawn(DwellingType type, int clientID) {
+	moveCharacter(game.getPlayer(clientThreadList->at(clientID)->getMyCharacter()),
+		game.getDwelling(type)->getLocation());
+}
+
+void Server::moveCharacter(Character *character, Clearing *dest) {
+	game.moveRequest(character, dest);
+
+	stringstream s;
+
+	s << "MoveCharacter";
+	s << CLASSDELIM;
+	s << character->getType();
+	s << VARDELIM;
+	s << dest->toString();
+	writeMessageAllClients(new string(s.str()));
+}
+
+void Server::writeMessageAllClients(string *message) {
+	writeMessageAllClients(new QString(message->c_str()));
+}
+
+void Server::writeMessageAllClients(QString *message) {
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
+		it != clientThreadList->end(); ++it) {
+			(*it)->writeMessage(message);
+	}
 }

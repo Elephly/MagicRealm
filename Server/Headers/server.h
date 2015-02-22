@@ -20,6 +20,7 @@ public:
 public slots:
 	void handleIncomingUsers();
 	void run();
+	void setSpawn(DwellingType type, int clientID);
 	void characterUnavail(CharacterTypes type, int clientID);
 signals:
 	void finished();
@@ -29,6 +30,10 @@ private:
 	std::vector<ClientCommThread *> *clientThreadList;
 	bool selectedCharacters[MAXPLAYERS];
     Game game;
+
+	void moveCharacter(Character*, Clearing*);
+	void writeMessageAllClients(string*);
+	void writeMessageAllClients(QString*);
 };
 
 #endif // SERVER_H

@@ -15,10 +15,13 @@ public:
 	void writeMessage(QString *message);
 	void writeMessage(string *message);
 
+	CharacterTypes getMyCharacter();
+
 public slots:
 	void readIncomingData();
 signals:
 	void characterSelected(CharacterTypes type, int id);
+	void spawnSelected(DwellingType type, int id);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;
