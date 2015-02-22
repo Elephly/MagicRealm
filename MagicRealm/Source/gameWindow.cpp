@@ -162,19 +162,30 @@ void GameWindow::requestCharacter(CharacterTypes character, DwellingType startLo
 	}
 }
 
+void GameWindow::characterRequestAcknowledged(bool accepted)
+{
+	if (!accepted)
+	{
+		changeScreenState(ui.characterSelectWidget);
+		QMessageBox::about(ui.centralWidget, "Error", "Character taken.");
+		return;
+	}
+
+	ui.loadingMessageLabel->setText("--Waiting for game to begin--");
+	changeScreenState(ui.loadingWidget);
+
+	QString serializedStartLocation;
+	serializedStartLocation.sprintf("SpawnLocation%s%d", CLASSDELIM, startLocation);
+	qDebug() << serializedStartLocation;
+	server->writeMessage(&serializedStartLocation);
+}
+
 void GameWindow::addCharacterToGame(QString &newCharacter) {
 	game->addPlayer(new Character(new string(newCharacter.toUtf8().constData())));
 }
 
-errno_t GameWindow::initializeGame(bool characterRequestAccepted)
+errno_t GameWindow::initializeGame()
 {
-	if (!characterRequestAccepted)
-	{
-		changeScreenState(ui.characterSelectWidget);
-		QMessageBox::about(ui.centralWidget, "Error", "Character taken.");
-		return 1;
-	}
-
 	errno_t err = 0;
 
 	gameScene = new QGraphicsScene();

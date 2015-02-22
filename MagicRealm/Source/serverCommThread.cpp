@@ -76,7 +76,7 @@ void ServerCommThread::updateFromServer()
 		} else if (serverData.contains(QRegExp("^Selection"))) {
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			bool ok = (bool) serverData.remove(0, pos+2).toInt();
-			windowParent->initializeGame(ok);
+			windowParent->characterRequestAcknowledged(ok);
 		} else if (serverData.contains(QRegExp("^Character"))) {
 			windowParent->addCharacterToGame(serverData);
 		}

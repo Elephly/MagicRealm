@@ -75,8 +75,24 @@ void MainWindow::on_menuQuitButton_clicked()
 
 void MainWindow::on_characterSelectButton_clicked()
 {
-	gameWindow->requestCharacter((CharacterTypes)ui.characterListView->currentRow(),
-		(DwellingType)ui.characterStartLocationListView->currentRow());
+	DwellingType startLoc;
+	if (ui.characterStartLocationListView->currentItem()->text() == Dwelling::getTypeString(CHAPEL))
+	{
+		startLoc = CHAPEL;
+	}
+	else if (ui.characterStartLocationListView->currentItem()->text() == Dwelling::getTypeString(GUARD))
+	{
+		startLoc = GUARD;
+	}
+	else if (ui.characterStartLocationListView->currentItem()->text() == Dwelling::getTypeString(HOUSE))
+	{
+		startLoc = HOUSE;
+	}
+	else if (ui.characterStartLocationListView->currentItem()->text() == Dwelling::getTypeString(INN))
+	{
+		startLoc = INN;
+	}
+	gameWindow->requestCharacter((CharacterTypes)ui.characterListView->currentRow(), startLoc);
 }
 
 void MainWindow::on_characterQuitButton_clicked()

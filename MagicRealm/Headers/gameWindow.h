@@ -25,7 +25,7 @@ public:
 	void loadCharacterImages();
 	void loadTileImages();
 	errno_t initializeConnection(QString &hostIP);
-	errno_t initializeGame(bool charcterRequestAccepted);
+	errno_t initializeGame();
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
@@ -39,6 +39,7 @@ public:
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
 	void requestCharacter(CharacterTypes character, DwellingType startLoc);
+	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
 
 private:
