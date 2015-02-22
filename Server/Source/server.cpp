@@ -180,17 +180,18 @@ void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 //Determine what monsters are prwoling
 void Server::sunrise() {
 	int roll = game.rollDice();
+    daylight();
 }
 
 //play player turns in random order
 void Server::daylight() {
-
+    evening();
 }
 
 //randomly select clearings with players in them
 //player can rearrange belongings (not needed for iter 1)
 void Server::evening() {
-
+    midnight();
 }
 
 //reset all face up mapchits
