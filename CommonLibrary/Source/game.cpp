@@ -749,6 +749,29 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
     }
 }
 
+void Game::move(Character* player, Clearing* requestedClearing)
+{
+    Clearing* playerLoc;
+     if(player == NULL){
+        cout << "ERR Game::moveRequest: Player is NULL" << endl;
+    }
+    //valid player can get Location
+    playerLoc = player->getCurrentLocation();
+    if(requestedClearing == NULL){
+        cout << "ERR Game::moveRequest: Requested clearing NULL" <<endl;
+    }
+    else if (playerLoc == NULL){
+        cout << "TRACK Game::moveRequest: Player Loc NULL" <<endl;
+        requestedClearing->addCharacter(player);
+        player->moveToClearing(requestedClearing);
+    }
+    else{
+        playerLoc->removeCharacter(player);
+        requestedClearing->addCharacter(player);
+        player->moveToClearing(requestedClearing);
+    }
+}
+
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {
 	// I realize that the dwellings array is setup such that each DwellingType

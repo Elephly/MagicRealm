@@ -54,6 +54,13 @@ public:
     */
     bool moveRequest(Character* player, Clearing* requestedClearing);
 
+    /*
+    *   move
+    *   Pointer of the Character wishing to move
+    *   Pointer of Clearing they wish to move to
+    */
+    void move(Character* player, Clearing* requestedClearing);
+
 	/*
 	*	getDwelling
 	*	In:		DwellingType for requested Dwelling
