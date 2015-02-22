@@ -39,7 +39,7 @@ public:
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
 	void moveAction();
-	void moveTo(Clearing* clearing);
+	void moveTo(CharacterTypes character, Clearing* clearing);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);

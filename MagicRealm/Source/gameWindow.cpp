@@ -507,10 +507,9 @@ void GameWindow::moveAction()
 	selectAction(NoAction);
 }
 
-void GameWindow::moveTo(Clearing* c)
+void GameWindow::moveTo(CharacterTypes character, Clearing* clearing)
 {
-	game->move(game->getPlayer(selectedCharacter), c);
-	updateTileInfoPane(c->getTile());
+	game->move(game->getPlayer(character), clearing);
 }
 
 void GameWindow::doTurn(QString &turnString)
