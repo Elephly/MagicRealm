@@ -410,7 +410,14 @@ void GameWindow::updateCharacterInfoPane()
 	characterInfo.sprintf("\nGold: %d", character->getGold());
 	ui.gameCharacterInformationBrowser->append(characterInfo);
 
-	//character->getEquipment();
+	ui.gameCharacterInformationBrowser->append("\nEquipment:");
+	vector<Equipment*>* equipment = character->getEquipment();
+	/*
+	for (vector<Equipment*>::iterator it = equipment->begin(); it != equipment->end(); ++it)
+	{
+		characterInfo.sprintf("  - %s", (*it)->
+	}
+	*/
 }
 
 void GameWindow::updateTileInfoPane(Tile* tile)
