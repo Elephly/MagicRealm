@@ -420,6 +420,7 @@ public:
         retranslateUi(MainWindowClass);
 
         characterListView->setCurrentRow(0);
+        characterStartLocationListView->setCurrentRow(0);
 
 
         QMetaObject::connectSlotsByName(MainWindowClass);

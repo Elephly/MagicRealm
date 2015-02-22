@@ -478,4 +478,7 @@ void GameWindow::move()
 	selectAction(NoAction);
 }
 
-void GameWindow::doTurn();
+void GameWindow::doTurn()
+{
+
+}
