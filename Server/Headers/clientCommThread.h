@@ -22,6 +22,7 @@ public slots:
 signals:
 	void characterSelected(CharacterTypes type, int id);
 	void spawnSelected(DwellingType type, int id);
+	void incomingTurn(QString &turn, int id);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;
