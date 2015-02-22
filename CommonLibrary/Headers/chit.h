@@ -3,6 +3,7 @@
 
 #include "shared.h"
 #include "commonlibrary_global.h"
+#include "treasure.h"
 
 class COMMONLIBRARY_EXPORT Chit {
 public:
@@ -14,6 +15,8 @@ public:
     *   Purpose:    to make the chit not hidden
     */
     void unhide();
+
+    virtual Treasure* loot(int location);
 
 protected:
     string name;

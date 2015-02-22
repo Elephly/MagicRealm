@@ -149,7 +149,59 @@ void Game::dealChits()
     smallTreasure.push_back(new Treasure("Toadstool Ring", 5, SMALL));
     smallTreasure.push_back(new Treasure("Vial of Healing", 5, SMALL));
     smallTreasure.push_back(new Treasure("Withered Claw", 5, SMALL));
+
+    //Hoard Treasure setup
+    
+    setupSite(HOARD, &largeTreasure, &smallTreasure);
+
+    //Lair Treasure setup
+
+    //Altar Treasure setup
+
+    //Shrine Treasure setup
+
+    //Pool Treasure setup
+
+    //Vault treasure setup
+
+    //Cairns treasure setup
+    
+    //Statue treasure setup
 }
+
+Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm)
+{
+    string name = "";
+    int numLarge = 0;
+    int numSmall = 0;
+
+    switch(sType){
+    case HOARD:
+        name = "Hoard";
+        numLarge = 5;
+        numSmall = 4;
+        break;
+    case LAIR:
+        name = "Lair";
+        numLarge = 3;
+        numSmall = 4;
+        break;
+    case ALTAR:
+        name = "Altar";
+        numLarge = 4;
+        break;
+    case SHRINE:
+    case POOL:
+    case VAULT:
+    case CAIRNS:
+    case STATUE:
+    default:
+        cout << "Err: Game::setupSite site unrecognized" <<endl;
+        return NULL;
+    }
+    return NULL;
+}
+
 void Game::setupTiles()
 {
     cout << "Arranging Tiles..." <<endl;

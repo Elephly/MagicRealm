@@ -20,3 +20,8 @@ void Chit::unhide()
 {
     hidden = true;
 }
+
+Treasure* Chit::loot(int location)
+{
+    return NULL;
+}

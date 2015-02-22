@@ -134,5 +134,4 @@ enum COMMONLIBRARY_EXPORT TreasureType
     LARGE,
     GREAT
 };
-
 #endif
