@@ -26,6 +26,7 @@ public:
 	bool hasAdvantage(CharAdvantages);
 	CharacterTypes getType();
 	static char* getTypeString(CharacterTypes t);
+	static vector<DwellingType>* getStartLocations(CharacterTypes t);
 	virtual string* serialize();
 
     /*

@@ -86,6 +86,15 @@ void MainWindow::on_characterQuitButton_clicked()
 void MainWindow::on_characterListView_currentRowChanged(int row)
 {
 	ui.characterDetailView->setPixmap(QPixmap(characterDetailPaths[row]));
+	ui.characterStartLocationListView->clear();
+	vector<DwellingType>* startLocations = Character::getStartLocations((CharacterTypes)row);
+	for (vector<DwellingType>::iterator it = startLocations->begin(); it != startLocations->end(); ++it)
+	{
+		DwellingType dwelling = *it;
+		ui.characterStartLocationListView->addItem(Dwelling::getTypeString(dwelling));
+	}
+	ui.characterStartLocationListView->setCurrentRow(0);
+	delete startLocations;
 }
 
 void MainWindow::on_gameMoveActionButton_clicked()

@@ -117,4 +117,12 @@ enum COMMONLIBRARY_EXPORT ClearingType
     MOUNTAIN
 };
 
+enum COMMONLIBRARY_EXPORT DwellingType
+{
+	CHAPEL,
+	GUARD,
+	HOUSE,
+	INN
+};
+
 #endif

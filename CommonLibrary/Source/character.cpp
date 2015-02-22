@@ -122,6 +122,38 @@ char* Character::getTypeString(CharacterTypes t)
 	}
 }
 
+vector<DwellingType>* Character::getStartLocations(CharacterTypes t)
+{
+	vector<DwellingType>* out = new vector<DwellingType>();
+	switch (t)
+	{
+	case Amazon:
+		out->push_back(INN);
+		break;
+	case BlackKnight:
+		out->push_back(INN);
+		break;
+	case Captain:
+		out->push_back(INN);
+		out->push_back(HOUSE);
+		out->push_back(GUARD);
+		break;
+	case Dwarf:
+		out->push_back(INN);
+		out->push_back(GUARD);
+		break;
+	case Elf:
+		out->push_back(INN);
+		break;
+	case Swordsman:
+		out->push_back(INN);
+		break;
+	default:
+		break;
+	}
+	return out;
+}
+
 string* Character::serialize() {
 	stringstream s;
 	s << "Character";

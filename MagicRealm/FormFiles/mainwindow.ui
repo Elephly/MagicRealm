@@ -356,16 +356,42 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,9">
+     <property name="spacing">
+      <number>20</number>
+     </property>
      <property name="leftMargin">
-      <number>40</number>
+      <number>30</number>
      </property>
      <property name="rightMargin">
-      <number>40</number>
+      <number>30</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="characterSelectorLayout" stretch="8,1">
+      <layout class="QVBoxLayout" name="characterSelectorLayout" stretch="1,8,1,4,1">
+       <item>
+        <widget class="QLabel" name="characterSelectCharacterLabel">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+           <pointsize>18</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Characters</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QListWidget" name="characterListView">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="currentRow">
           <number>0</number>
          </property>
@@ -474,6 +500,36 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="characterSelectStartLocationsLabel">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Start Locations</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="characterStartLocationListView">
+         <property name="font">
+          <font>
+           <family>MS Serif</family>
+           <pointsize>12</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <item>
+          <property name="text">
+           <string>Inn</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="characterSelectorButtonsLayout">
          <item>
           <widget class="QPushButton" name="characterSelectButton">
@@ -521,9 +577,9 @@ p, li { white-space: pre-wrap; }
     </layout>
    </widget>
    <zorder>menuWidget</zorder>
+   <zorder>loadingWidget</zorder>
    <zorder>gameWidget</zorder>
    <zorder>characterSelectWidget</zorder>
-   <zorder>loadingWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

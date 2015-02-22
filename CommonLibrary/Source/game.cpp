@@ -572,10 +572,10 @@ void Game::setupTiles()
 void Game::plopDwellings()
 {
     cout << "Placing Dwellings.." <<endl;
-    gameBoard->addDwelling(new Dwelling("Guard", gameBoard->getTile("Dark Valley")->getClearing(5), false));
-    gameBoard->addDwelling(new Dwelling("House", gameBoard->getTile("Curst Valley")->getClearing(5), false));
-    gameBoard->addDwelling(new Dwelling("Chapel", gameBoard->getTile("Awful Valley")->getClearing(5), false));
-    gameBoard->addDwelling(new Dwelling("Inn", gameBoard->getTile("Bad Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling(GUARD, gameBoard->getTile("Dark Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling(HOUSE, gameBoard->getTile("Curst Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling(CHAPEL, gameBoard->getTile("Awful Valley")->getClearing(5), false));
+    gameBoard->addDwelling(new Dwelling(INN, gameBoard->getTile("Bad Valley")->getClearing(5), false));
 }
 
 void Game::placePlayers()
