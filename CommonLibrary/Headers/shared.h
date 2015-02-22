@@ -43,9 +43,10 @@ enum COMMONLIBRARY_EXPORT CharAdvantages
 	FEAR
 };
 
-enum COMMONLIBRARY_EXPORT CharacterTypes
+enum COMMONLIBRARY_EXPORT CharacterType
 {
-	Amazon,
+	NullCharacter=-1,
+	Amazon=0,
 	BlackKnight,
 	Captain,
 	Dwarf,

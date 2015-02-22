@@ -14,15 +14,15 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
 	gameStarted = false;
-	characterImages = new QMap<CharacterTypes, QPixmap*>();
+	characterImages = new QMap<CharacterType, QPixmap*>();
 	loadCharacterImages();
-	characterGraphicsItems = new QMap<CharacterTypes, QGraphicsItem*>();
+	characterGraphicsItems = new QMap<CharacterType, QGraphicsItem*>();
 	tileImages = new QMap<std::string, QPixmap*>();
 	loadTileImages();
 	tileGraphicsItems = new QMap<Tile*, QGraphicsItem*>();
 	ui.graphicsView->scale(0.5, 0.5);
 	server = new ServerCommThread(this);
-	selectedCharacter = (CharacterTypes) 0;
+	selectedCharacter = NullCharacter;
 	game = 0;
 	selectedTile = 0;
 	selectedAction = NoAction;
@@ -149,7 +149,7 @@ void GameWindow::updateAvailableCharacters(int removeCharacter)
 	ui.characterListView->item(removeCharacter)->setFlags((flags & ~Qt::ItemIsSelectable & ~Qt::ItemIsUserCheckable & ~Qt::ItemIsEnabled));
 }
 
-void GameWindow::requestCharacter(CharacterTypes character, DwellingType startLoc)
+void GameWindow::requestCharacter(CharacterType character, DwellingType startLoc)
 {
 	if (character >= Amazon && character <= Swordsman)
 	{
@@ -198,11 +198,11 @@ errno_t GameWindow::initializeGame()
 	
 	for (int i = 0; i <= Swordsman; i++)
 	{
-		QPixmap pxmap = *(*characterImages)[(CharacterTypes)i];
+		QPixmap pxmap = *(*characterImages)[(CharacterType)i];
 		QGraphicsItem* item = new QGraphicsPixmapItem(pxmap);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
-		characterGraphicsItems->insert((CharacterTypes)i, item);
-		//updateCharacterLocation(game->getPlayer((CharacterTypes)i));
+		characterGraphicsItems->insert((CharacterType)i, item);
+		//updateCharacterLocation(game->getPlayer((CharacterType)i));
 		gameScene->addItem(item);
 	}
 	
@@ -343,7 +343,7 @@ void GameWindow::changeScreenState(QWidget* screen)
 	qApp->processEvents();
 }
 
-CharacterTypes GameWindow::getSelectedChar()
+CharacterType GameWindow::getSelectedChar()
 {
 	return selectedCharacter;
 }
@@ -515,9 +515,9 @@ void GameWindow::moveAction()
 	selectAction(NoAction);
 }
 
-void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
+void GameWindow::moveTo(CharacterType character, QString& clearingString)
 {
-	if (!gameStarted)
+	if (!gameStarted && (selectedCharacter != NullCharacter))
 	{
 		gameStarted = true;
 		initializeGame();

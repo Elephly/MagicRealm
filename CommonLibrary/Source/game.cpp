@@ -721,7 +721,7 @@ void Game::runGame()
     cout << "Game Run..." << endl;
 }
 
-bool Game::addPlayer(CharacterTypes newPlayerType)
+bool Game::addPlayer(CharacterType newPlayerType)
 {
     if(getPlayer(newPlayerType)){
         cout << "ERR: Game::addPlayer attempted to add a player already in the list." <<endl;
@@ -750,7 +750,7 @@ bool Game::addPlayer(Character* newPlayer)
     return false;
 }
 
-void Game::removePlayer(CharacterTypes oldPlayerType)
+void Game::removePlayer(CharacterType oldPlayerType)
 {
     Character* oldPlayer = getPlayer(oldPlayerType);
     if(!oldPlayer){
@@ -785,7 +785,7 @@ void Game::removePlayer(CharacterTypes oldPlayerType)
     }
 }
 
-Character* Game::getPlayer(CharacterTypes charType)
+Character* Game::getPlayer(CharacterType charType)
 {
     for(int i=0; i<MAXPLAYERS; i++){
         if(players[i] == NULL){

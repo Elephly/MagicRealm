@@ -41,8 +41,8 @@ void Server::handleIncomingUsers()  {
 		} else {
 			ClientCommThread *newThread = new ClientCommThread(newClient, this,
 				clientThreadList->size());
-			connect(newThread, SIGNAL(characterSelected(CharacterTypes, int)),
-				this, SLOT(characterUnavail(CharacterTypes, int)));
+			connect(newThread, SIGNAL(characterSelected(CharacterType, int)),
+				this, SLOT(characterUnavail(CharacterType, int)));
 			connect(newThread, SIGNAL(spawnSelected(DwellingType, int)),
 				this, SLOT(setSpawn(DwellingType, int)));
 			connect(newThread, SIGNAL(incomingTurn(QString&, int)), 
@@ -62,7 +62,7 @@ void Server::handleIncomingUsers()  {
 				}
 			}
 			for (int i = 0; i < MAXPLAYERS; ++i) {
-				Character *character = game.getPlayer((CharacterTypes) i);
+				Character *character = game.getPlayer((CharacterType) i);
 				if (character != NULL) {
 					newThread->writeMessage(character->serialize());
 					stringstream s;
@@ -79,7 +79,7 @@ void Server::handleIncomingUsers()  {
 	}
 }
 
-void Server::characterUnavail(CharacterTypes type, int clientID) {
+void Server::characterUnavail(CharacterType type, int clientID) {
 	stringstream s;
 	s << "CharacterType";
 	s << CLASSDELIM;

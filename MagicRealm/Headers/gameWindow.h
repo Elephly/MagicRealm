@@ -31,33 +31,33 @@ public:
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
-	CharacterTypes getSelectedChar();
+	CharacterType getSelectedChar();
 	void selectTile(Tile* tile);
 	void updateCharacterInfoPane();
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
 	void moveAction();
-	void moveTo(CharacterTypes character, QString& clearingString);
+	void moveTo(CharacterType character, QString& clearingString);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
-	void requestCharacter(CharacterTypes character, DwellingType startLoc);
+	void requestCharacter(CharacterType character, DwellingType startLoc);
 	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
 	void doTurn(QString&);
 
 private:
 	bool gameStarted;
-	QMap<CharacterTypes, QPixmap*>* characterImages;
-	QMap<CharacterTypes, QGraphicsItem*>* characterGraphicsItems;
+	QMap<CharacterType, QPixmap*>* characterImages;
+	QMap<CharacterType, QGraphicsItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
 	QMap<Tile*, QGraphicsItem*>* tileGraphicsItems;
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
 	
-	CharacterTypes selectedCharacter;
+	CharacterType selectedCharacter;
 	DwellingType startLocation;
 	Game* game;
 	Tile* selectedTile;

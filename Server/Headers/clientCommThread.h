@@ -15,12 +15,12 @@ public:
 	void writeMessage(QString *message);
 	void writeMessage(string *message);
 
-	CharacterTypes getMyCharacter();
+	CharacterType getMyCharacter();
 
 public slots:
 	void readIncomingData();
 signals:
-	void characterSelected(CharacterTypes type, int id);
+	void characterSelected(CharacterType type, int id);
 	void spawnSelected(DwellingType type, int id);
 	void incomingTurn(QString &turn, int id);
 private:
@@ -28,7 +28,7 @@ private:
 	Server *parent;
 	quint16 blocksize;
 	int clientID;
-	CharacterTypes myCharacter;
+	CharacterType myCharacter;
 };
 
 #endif // CLIENTCOMMTHREAD_H

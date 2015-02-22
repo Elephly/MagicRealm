@@ -3,7 +3,7 @@
 #include "armor.h"
 #include <sstream>
 
-Character::Character(CharacterTypes type) {
+Character::Character(CharacterType type) {
     hidden = false;
 	init(type);
 }
@@ -17,7 +17,7 @@ Character::Character(string* serialString) {
 	pos = second.find(VARDELIM);
 	first = second.substr(0, pos);
 	second= second.substr(pos + 1);
-	init((CharacterTypes) atoi(first.c_str()));
+	init((CharacterType) atoi(first.c_str()));
 
 	pos = second.find(VARDELIM);
 	first = second.substr(0, pos);
@@ -25,7 +25,7 @@ Character::Character(string* serialString) {
 	gold = atoi(second.c_str());
 }
 
-void Character::init(CharacterTypes type) {
+void Character::init(CharacterType type) {
 	myType = type;
 	gold = 10;
     location = NULL;
@@ -73,7 +73,7 @@ bool Character::hasAdvantage(CharAdvantages testAdvantage) {
 	return result;
 }
 
-CharacterTypes Character::getType()
+CharacterType Character::getType()
 {
 	return myType;
 }
@@ -105,7 +105,7 @@ void Character::toggleHide()
     hidden = !hidden;
 }
 
-char* Character::getTypeString(CharacterTypes t)
+char* Character::getTypeString(CharacterType t)
 {
 	switch (t)
 	{
@@ -133,7 +133,7 @@ char* Character::getTypeString(CharacterTypes t)
 	}
 }
 
-vector<DwellingType>* Character::getStartLocations(CharacterTypes t)
+vector<DwellingType>* Character::getStartLocations(CharacterType t)
 {
 	vector<DwellingType>* out = new vector<DwellingType>();
 	switch (t)
