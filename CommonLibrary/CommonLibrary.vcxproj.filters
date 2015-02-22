@@ -82,6 +82,9 @@
     <ClInclude Include="Headers\chit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\treasure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\tile.cpp">
@@ -130,6 +133,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\warning.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\treasure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
