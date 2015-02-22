@@ -38,7 +38,7 @@ public:
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
-	void requestCharacter(CharacterTypes character);
+	void requestCharacter(CharacterTypes character, DwellingType startLoc);
 	void addCharacterToGame(QString &newCharacter);
 
 private:
@@ -51,6 +51,7 @@ private:
 	ServerCommThread* server;
 	
 	CharacterTypes selectedCharacter;
+	DwellingType startLocation;
 	Game* game;
 	Tile* selectedTile;
 	ActionType selectedAction;

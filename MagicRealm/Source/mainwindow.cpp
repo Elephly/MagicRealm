@@ -75,7 +75,8 @@ void MainWindow::on_menuQuitButton_clicked()
 
 void MainWindow::on_characterSelectButton_clicked()
 {
-	gameWindow->requestCharacter((CharacterTypes)ui.characterListView->currentRow());
+	gameWindow->requestCharacter((CharacterTypes)ui.characterListView->currentRow(),
+		(DwellingType)ui.characterStartLocationListView->currentRow());
 }
 
 void MainWindow::on_characterQuitButton_clicked()

@@ -572,10 +572,18 @@ void Game::setupTiles()
 void Game::plopDwellings()
 {
     cout << "Placing Dwellings.." <<endl;
-    gameBoard->addDwelling(new Dwelling(GUARD, gameBoard->getTile("Dark Valley")->getClearing(5), false));
-    gameBoard->addDwelling(new Dwelling(HOUSE, gameBoard->getTile("Curst Valley")->getClearing(5), false));
-    gameBoard->addDwelling(new Dwelling(CHAPEL, gameBoard->getTile("Awful Valley")->getClearing(5), false));
-    gameBoard->addDwelling(new Dwelling(INN, gameBoard->getTile("Bad Valley")->getClearing(5), false));
+	Dwelling* chapel = new Dwelling(CHAPEL, gameBoard->getTile("Awful Valley")->getClearing(5), false);
+	dwellings[0] = chapel;
+    gameBoard->addDwelling(chapel);
+	Dwelling* guard = new Dwelling(GUARD, gameBoard->getTile("Dark Valley")->getClearing(5), false);
+	dwellings[1] = guard;
+    gameBoard->addDwelling(guard);
+	Dwelling* house = new Dwelling(HOUSE, gameBoard->getTile("Curst Valley")->getClearing(5), false);
+	dwellings[2] = house;
+    gameBoard->addDwelling(house);
+	Dwelling* inn = new Dwelling(INN, gameBoard->getTile("Bad Valley")->getClearing(5), false);
+	dwellings[3] = inn;
+    gameBoard->addDwelling(inn);
 }
 
 void Game::placePlayers()
@@ -737,6 +745,21 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
         cout << "Pathway from the players current clearing to requested could not be found" <<endl;
         return false;
     }
+}
+
+Dwelling* Game::getDwelling(DwellingType dwellingType)
+{
+	// I realize that the dwellings array is setup such that each DwellingType
+	// value maps onto its proper corresponding array index, but this way
+	// is safer I believe.
+	for (int i = 0; i < MAXDWELLINGS; i++)
+	{
+		if (dwellings[i]->getType() == dwellingType)
+		{
+			return dwellings[i];
+		}
+	}
+	return NULL;
 }
 
 void Game::doTurn()

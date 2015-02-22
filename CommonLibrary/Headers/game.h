@@ -53,6 +53,13 @@ public:
     *   Out:    boolean whether move was successful or not
     */
     bool moveRequest(Character* player, Clearing* requestedClearing);
+
+	/*
+	*	getDwelling
+	*	In:		DwellingType for requested Dwelling
+	*	Out:	Pointer of requester Dwelling
+	*/
+	Dwelling* getDwelling(DwellingType dwellingType);
 private:
 
     /*
@@ -75,6 +82,7 @@ private:
     int day;
     TimeOfDay currentTime;
     bool cheatMode;
+	Dwelling* dwellings[MAXDWELLINGS];
 };
 
 #endif // GAME_H

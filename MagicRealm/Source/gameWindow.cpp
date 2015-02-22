@@ -145,7 +145,7 @@ void GameWindow::updateAvailableCharacters(int removeCharacter)
 	ui.characterListView->item(removeCharacter)->setFlags((flags & ~Qt::ItemIsSelectable & ~Qt::ItemIsUserCheckable & ~Qt::ItemIsEnabled));
 }
 
-void GameWindow::requestCharacter(CharacterTypes character)
+void GameWindow::requestCharacter(CharacterTypes character, DwellingType startLoc)
 {
 	if (character >= Amazon && character <= Swordsman)
 	{
@@ -153,6 +153,7 @@ void GameWindow::requestCharacter(CharacterTypes character)
 		changeScreenState(ui.loadingWidget);
 
 		selectedCharacter = character;
+		startLocation = startLoc;
 	
 		QString serializedCharacter;
 		serializedCharacter.sprintf("CharacterType%s%d", CLASSDELIM, character);

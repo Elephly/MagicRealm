@@ -6,6 +6,7 @@
 #define DECLINECONN "connection declined"
 #define ACCEPTCONN "connection accepted"
 #define MAXPLAYERS 6
+#define MAXDWELLINGS 4
 
 #define CLASSDELIM "**"
 #define VARDELIM "^"
