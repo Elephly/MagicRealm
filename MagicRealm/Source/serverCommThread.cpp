@@ -78,6 +78,9 @@ void ServerCommThread::updateFromServer()
 			windowParent->characterRequestAcknowledged(ok);
 		} else if (serverData.contains(QRegExp("^Character"))) {
 			windowParent->addCharacterToGame(serverData);
+		} else if (serverData.contains(QRegExp("^MoveCharacter"))) {
+			//character type
+			//clearing string
 		}
 		blocksize = 0;
 	} while(true);

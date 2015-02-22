@@ -111,7 +111,7 @@ void Server::moveCharacter(Character *character, Clearing *dest) {
 	s << CLASSDELIM;
 	s << character->getType();
 	s << VARDELIM;
-	s << dest->toString();
+	s << *(dest->toString());
 	writeMessageAllClients(new string(s.str()));
 }
 
@@ -179,7 +179,7 @@ void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 
 //Determine what monsters are prwoling
 void Server::sunrise() {
-
+	int roll = game.rollDice();
 }
 
 //play player turns in random order
