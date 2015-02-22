@@ -39,7 +39,7 @@ public:
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
 	void moveAction();
-	void moveTo(CharacterTypes character, Clearing* clearing);
+	void moveTo(CharacterTypes character, QString& clearingString);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
