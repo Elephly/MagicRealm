@@ -47,9 +47,9 @@ void ClientCommThread::readIncomingData() {
 			DwellingType data = (DwellingType) clientData.remove(0, pos + 2).toInt();
 			spawnSelected(data, clientID);
 		}
+		blocksize = 0;
 	} while(true);
 
-	blocksize = 0;
 }
 
 void ClientCommThread::writeMessage(QString *message) {
