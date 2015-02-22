@@ -522,6 +522,9 @@ p, li { white-space: pre-wrap; }
            <bold>false</bold>
           </font>
          </property>
+         <property name="currentRow">
+          <number>0</number>
+         </property>
          <item>
           <property name="text">
            <string>Inn</string>
