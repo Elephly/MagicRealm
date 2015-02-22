@@ -6,6 +6,9 @@ TileGraphicsItem::TileGraphicsItem(QPixmap pixmap, Tile* tile, GameWindow* conta
 	setZValue(0);
 	setAcceptHoverEvents(true);
 
+	myWidth = pixmap.width();
+	myHeight = pixmap.height();
+
 	myTile = tile;
 	myContainer = container;
 }
@@ -44,4 +47,14 @@ void TileGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
 	setZValue(0);
 	setScale(1);
+}
+
+int TileGraphicsItem::width()
+{
+	return myWidth;
+}
+
+int TileGraphicsItem::height()
+{
+	return myHeight;
 }
