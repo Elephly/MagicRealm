@@ -579,12 +579,16 @@ void Game::plopDwellings()
 {
     cout << "Placing Dwellings.." <<endl;
     Dwelling* chapel = gameBoard->getTile("Awful Valley")->getClearing(5)->buildDwelling(CHAPEL);
+	cout << chapel << endl;
     gameBoard->addDwelling(chapel);
 	Dwelling* guard = gameBoard->getTile("Dark Valley")->getClearing(5)->buildDwelling(GUARD);
+	cout  << guard << endl;
     gameBoard->addDwelling(guard);
 	Dwelling* house = gameBoard->getTile("Curst Valley")->getClearing(5)->buildDwelling(HOUSE);
+	cout << house << endl;
     gameBoard->addDwelling(house);
 	Dwelling* inn = gameBoard->getTile("Bad Valley")->getClearing(5)->buildDwelling(INN);
+	cout << inn << endl;
     gameBoard->addDwelling(inn);
 }
 

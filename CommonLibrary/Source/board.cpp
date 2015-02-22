@@ -31,10 +31,11 @@ Tile* Board::getTile(string tName)
 
 void Board::addDwelling(Dwelling* newDwelling)
 {
-     for(vector<Dwelling*>::iterator it = dwellingList->begin(); it != dwellingList->end(); ++it){
-        if((*it)->getName() == newDwelling->getName()){
-            cout << "WARN: Dwelling already in List not adding dwelling" <<endl;
-            return;
+	for(vector<Dwelling*>::iterator it = dwellingList->begin(); it != dwellingList->end(); ++it){
+		cout << (*it)->getType() << " vs " << newDwelling->getType() << endl;
+		if((*it)->getType() == newDwelling->getType()){
+			cout << "WARN: Dwelling already in List not adding dwelling" <<endl;
+			return;
         }
     }
     //tile not found so we can addTile.
