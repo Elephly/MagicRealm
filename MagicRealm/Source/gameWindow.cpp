@@ -39,7 +39,7 @@ GameWindow::~GameWindow()
 
 	if (tileGraphicsItems != 0)
 	{
-		qDeleteAll(*tileGraphicsItems);
+		//qDeleteAll(*tileGraphicsItems);
 		tileGraphicsItems->clear();
 		delete tileGraphicsItems;
 		tileGraphicsItems = 0;
