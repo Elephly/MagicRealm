@@ -34,6 +34,7 @@ public:
 	void changeScreenState(QWidget* screen);
 	CharacterTypes getSelectedChar();
 	void selectTile(Tile* tile);
+	void updateCharacterInfoPane();
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
