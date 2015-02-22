@@ -20,7 +20,7 @@ public:
     *   out:        Treasure that you got
     *   Purpose:    Removes the treasure from the list
     */
-    Treasure* loot(int location);
+    virtual Treasure* loot(int location);
 
 private:
     int clearingLocation;
