@@ -698,6 +698,20 @@ Character* Game::getPlayer(CharacterTypes charType)
     return NULL;
 }
 
+bool Game::hideRequest(Character* player)
+{
+    int d1 = rollDice();
+    int d2 = rollDice();
+    int diceUsed = (d1>d2) ? d1 : d2;
+
+    if(diceUsed = 6)
+        return false;
+    
+    if(player->isHidden())
+        return true;
+    player->toggleHide();
+    return true;
+}
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 {
     Clearing* playerLoc = NULL;

@@ -42,8 +42,21 @@ public:
     */
     bool isDiscovered(Path*);
 
+    /*
+    *   isHidden
+    *   out: whether or not the character is hidden
+    */
+    bool isHidden();
+
+    /*
+    *   toggleHide()
+    *   toggles whether or not the character is hidden
+    */
+    void toggleHide();
+
 private:
 	CharacterTypes myType;
+    bool hidden;
 	int gold;
 	Clearing *location;
 	CharAdvantages advantages[2];

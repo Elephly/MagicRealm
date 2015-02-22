@@ -4,6 +4,7 @@
 #include <sstream>
 
 Character::Character(CharacterTypes type) {
+    hidden = false;
 	init(type);
 }
 
@@ -92,6 +93,16 @@ void Character::addPath(Path* discoveredPath)
         }
     }
     knownPaths->push_back(discoveredPath);
+}
+
+bool Character::isHidden()
+{
+    return hidden;
+}
+
+void Character::toggleHide()
+{
+    hidden = !hidden;
 }
 
 char* Character::getTypeString(CharacterTypes t)
