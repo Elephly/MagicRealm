@@ -474,7 +474,7 @@ void GameWindow::selectAction(ActionType action)
 	ui.gamePeerActionButton->setStyleSheet("");
 }
 
-void GameWindow::move()
+void GameWindow::moveAction()
 {
 	Clearing* currentClearing = game->getPlayer(selectedCharacter)->getCurrentLocation();
 	vector<Path*> availablePaths = *currentClearing->getPaths();
@@ -500,16 +500,26 @@ void GameWindow::move()
 	if (destIndex != -1)
 	{
 		Clearing* dest = adjacentClearings.at(destIndex);
-		game->moveRequest(game->getPlayer(selectedCharacter), dest);
-		updateTileInfoPane(dest->getTile());
+		myTurn->addAction(new Action(MoveAction, dest), BasicPhase);
 	}
 	delete dlg;
 
 	selectAction(NoAction);
 }
 
+void GameWindow::moveTo(CharacterTypes character, Clearing* clearing)
+{
+	game->move(game->getPlayer(character), clearing);
+}
+
 void GameWindow::doTurn(QString &turnString)
 {
 	string *s = new string(turnString.toUtf8().constData());
+	if (myTurn != 0)
+	{
+		delete myTurn;
+		myTurn = 0;
+	}
 	myTurn = new RecordedTurn(s, game->getBoard());
+	delete s;
 }

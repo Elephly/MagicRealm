@@ -38,7 +38,8 @@ public:
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
-	void move();
+	void moveAction();
+	void moveTo(CharacterTypes character, Clearing* clearing);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
