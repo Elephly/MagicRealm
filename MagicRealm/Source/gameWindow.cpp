@@ -507,8 +507,10 @@ void GameWindow::moveAction()
 	selectAction(NoAction);
 }
 
-void GameWindow::moveTo(CharacterTypes character, Clearing* clearing)
+void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 {
+	Clearing* clearing;
+	//parse clearingString;
 	game->move(game->getPlayer(character), clearing);
 }
 
