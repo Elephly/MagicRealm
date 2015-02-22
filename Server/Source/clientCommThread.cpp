@@ -33,8 +33,7 @@ void ClientCommThread::readIncomingData() {
 		qDebug() << clientData;
 
 		if (clientData.contains(QRegExp("^RecordedTurn"))) {
-			//Client has sent recorded turn
-			//mark player as ready and execute if all ready
+			incomingTurn(clientData, clientID);
 		} else if (clientData.contains(QRegExp("^CharacterType"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData = clientData.remove(0, pos + 2);

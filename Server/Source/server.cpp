@@ -45,6 +45,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(characterUnavail(CharacterTypes, int)));
 			connect(newThread, SIGNAL(spawnSelected(DwellingType, int)),
 				this, SLOT(setSpawn(DwellingType, int)));
+			connect(newThread, SIGNAL(incomingTurn(QString&, int)), 
+				this, SLOT(recordedTurn(QString&, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			newThread->writeMessage(new QString(ACCEPTCONN));
