@@ -8,9 +8,11 @@
 
 class COMMONLIBRARY_EXPORT Warning: public Chit{
 public:
-    Warning(string n, bool hide);
+    Warning(string n, bool hide, char type);
+    char getTileType();
 
 private:
+    char tileType;
 };
 
 #endif //SITE_H
