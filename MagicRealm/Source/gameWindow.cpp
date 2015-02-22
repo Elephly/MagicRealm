@@ -13,6 +13,7 @@
 GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
+	gameStarted = false;
 	characterImages = new QMap<CharacterTypes, QPixmap*>();
 	loadCharacterImages();
 	characterGraphicsItems = new QMap<CharacterTypes, QGraphicsItem*>();
@@ -178,8 +179,6 @@ void GameWindow::characterRequestAcknowledged(bool accepted)
 	serializedStartLocation.sprintf("SpawnLocation%s%d", CLASSDELIM, startLocation);
 	qDebug() << serializedStartLocation;
 	server->writeMessage(&serializedStartLocation);
-
-	initializeGame();
 }
 
 void GameWindow::addCharacterToGame(QString &newCharacter) {
@@ -320,6 +319,8 @@ errno_t GameWindow::cleanup()
 		delete game;
 		game = 0;
 	}
+
+	gameStarted = false;
 	
 	changeScreenState(ui.menuWidget);
 
@@ -509,6 +510,11 @@ void GameWindow::moveAction()
 
 void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 {
+	if (!gameStarted)
+	{
+		gameStarted = true;
+		initializeGame();
+	}
 	Clearing* clearing;
 	//parse clearingString;
 	game->move(game->getPlayer(character), clearing);

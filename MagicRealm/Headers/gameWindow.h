@@ -49,6 +49,7 @@ public:
 	void doTurn(QString&);
 
 private:
+	bool gameStarted;
 	QMap<CharacterTypes, QPixmap*>* characterImages;
 	QMap<CharacterTypes, QGraphicsItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
