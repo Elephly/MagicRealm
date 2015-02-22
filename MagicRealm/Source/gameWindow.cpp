@@ -478,7 +478,8 @@ void GameWindow::move()
 	selectAction(NoAction);
 }
 
-void GameWindow::doTurn()
+void GameWindow::doTurn(QString &turnString)
 {
-
+	string *s = new string(turnString.toUtf8().constData());
+	myTurn = new RecordedTurn(s, game->getBoard());
 }

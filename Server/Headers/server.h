@@ -23,7 +23,7 @@ public slots:
 	void run();
 	void setSpawn(DwellingType type, int clientID);
 	void characterUnavail(CharacterTypes type, int clientID);
-	void recordedTurn(RecordedTurn *turn, int clientID);
+	void recordedTurn(QString &turn, int clientID);
 signals:
 	void finished();
 private:
@@ -37,7 +37,7 @@ private:
 	void moveCharacter(Character*, Clearing*);
 	void writeMessageAllClients(string*);
 	void writeMessageAllClients(QString*);
-	void calculatePlayerTurnPhases();
+	void calculatePlayerTurnPhases(ClientCommThread*);
 };
 
 #endif // SERVER_H

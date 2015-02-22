@@ -67,7 +67,7 @@ void ServerCommThread::updateFromServer()
 			connected = true;
 			windowParent->connectedToServer();
 		} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
-			windowParent->doTurn();
+			windowParent->doTurn(serverData);
 		} else if (serverData.contains(QRegExp("^CharacterType"))) {
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			int character = serverData.remove(0, pos+2).toInt();

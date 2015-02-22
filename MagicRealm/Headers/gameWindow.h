@@ -41,7 +41,7 @@ public:
 	void requestCharacter(CharacterTypes character, DwellingType startLoc);
 	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
-	void doTurn();
+	void doTurn(QString&);
 
 private:
 	QMap<CharacterTypes, QPixmap*>* characterImages;
@@ -57,6 +57,7 @@ private:
 	Game* game;
 	Tile* selectedTile;
 	ActionType selectedAction;
+	RecordedTurn *myTurn;
 };
 
 #endif // GAMEWINDOW_H
