@@ -41,10 +41,10 @@ void Board::addDwelling(Dwelling* newDwelling)
     dwellingList->push_back(newDwelling);
 }
 
-Dwelling* Board::getDwelling(string dName)
+Dwelling* Board::getDwelling(DwellingType dType)
 {
     for(vector<Dwelling*>::iterator it = dwellingList->begin(); it != dwellingList->end(); ++it){
-        if((*it)->getName() == dName)
+        if((*it)->getType() == dType)
             return *it;
     }
     //Tile String not found.

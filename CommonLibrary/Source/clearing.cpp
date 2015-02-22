@@ -8,6 +8,7 @@ Clearing::Clearing(int clNum, Tile* parentTile, ClearingType ct) {
     myTile = parentTile;
     pathways = new vector<Path*>;
     characters = new vector<Character*>;
+    myDwelling = NULL;
     if(parentTile !=NULL)
         parentTile->addClearing(this);
     else
@@ -43,6 +44,8 @@ Clearing::~Clearing()
     delete pathways;
     pathways = 0;
 
+    if(myDwelling)
+        delete myDwelling;
     //NOTE: not touching the characters, they should be destroyed later
 }
 
@@ -81,6 +84,15 @@ void Clearing::removePath(Path* oldPath)
     cout << "WARN: path not found in clearing" <<endl;
 }
 
+Dwelling* Clearing::buildDwelling(DwellingType dt)
+{
+    if(!myDwelling){
+        myDwelling = new Dwelling(CHAPEL, this, false);
+        return myDwelling;
+    }
+    cout << "ERR: Clearing::buildDwelling Dwelling already existed in this clearing" << endl;
+    return NULL;
+}
 void Clearing::addPath(Path* newPath)
 {
     //checking to see if the player is already in this clearing.
@@ -122,6 +134,12 @@ ClearingType Clearing::getClearingType()
 {
     return myType;
 }
+
+Dwelling* Clearing::getDwelling()
+{
+    return myDwelling;
+}
+
 
 const vector<Character*>* Clearing::getCharacters()
 {

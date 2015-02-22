@@ -574,17 +574,13 @@ void Game::setupTiles()
 void Game::plopDwellings()
 {
     cout << "Placing Dwellings.." <<endl;
-	Dwelling* chapel = new Dwelling(CHAPEL, gameBoard->getTile("Awful Valley")->getClearing(5), false);
-	dwellings[0] = chapel;
+    Dwelling* chapel = gameBoard->getTile("Awful Valley")->getClearing(5)->buildDwelling(CHAPEL);
     gameBoard->addDwelling(chapel);
-	Dwelling* guard = new Dwelling(GUARD, gameBoard->getTile("Dark Valley")->getClearing(5), false);
-	dwellings[1] = guard;
+	Dwelling* guard = gameBoard->getTile("Dark Valley")->getClearing(5)->buildDwelling(GUARD);
     gameBoard->addDwelling(guard);
-	Dwelling* house = new Dwelling(HOUSE, gameBoard->getTile("Curst Valley")->getClearing(5), false);
-	dwellings[2] = house;
+	Dwelling* house = gameBoard->getTile("Curst Valley")->getClearing(5)->buildDwelling(HOUSE);
     gameBoard->addDwelling(house);
-	Dwelling* inn = new Dwelling(INN, gameBoard->getTile("Bad Valley")->getClearing(5), false);
-	dwellings[3] = inn;
+	Dwelling* inn = gameBoard->getTile("Bad Valley")->getClearing(5)->buildDwelling(INN);
     gameBoard->addDwelling(inn);
 }
 
@@ -774,17 +770,7 @@ void Game::move(Character* player, Clearing* requestedClearing)
 
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {
-	// I realize that the dwellings array is setup such that each DwellingType
-	// value maps onto its proper corresponding array index, but this way
-	// is safer I believe.
-	for (int i = 0; i < MAXDWELLINGS; i++)
-	{
-		if (dwellings[i]->getType() == dwellingType)
-		{
-			return dwellings[i];
-		}
-	}
-	return NULL;
+	gameBoard->getDwelling(dwellingType);
 }
 
 void Game::doTurn()

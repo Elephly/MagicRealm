@@ -36,7 +36,7 @@ public:
     *   in:     String of the Dwelling name
     *   out:    Pointer to that dwelling.
     */
-    Dwelling* getDwelling(string dName);
+    Dwelling* getDwelling(DwellingType dType);
 
     /*
     *   getTile

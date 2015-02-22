@@ -45,6 +45,19 @@ public:
     void removePath(Path* oldPath);
 
     /*
+    *   in:         DwellingType to be built
+    *   out:        The Dwelling that was built
+    *   Purpose:    Build The Dwelling and assigns it to this clearing.
+    */
+    Dwelling* buildDwelling(DwellingType dt);
+
+    /*
+    *   getDwelling
+    *   out: Dwelling pointer in the clearing (null otherwise)
+    */
+    Dwelling* getDwelling();
+
+    /*
     *   getTile
     *   Out:    Pointer to the clearing's tile
     */
@@ -92,7 +105,8 @@ private:
     int ID;
 
     ClearingType myType;
-    //TODO: Add Dwelling object here!!!!!
+
+    Dwelling* myDwelling;
 };
 
 #endif // CLEARING_H
