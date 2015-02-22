@@ -46,7 +46,34 @@ void Game::setupGame(bool cm)
 
 void Game::dealChits()
 {
+    Warning* valleyWarnings[5];
+    Warning* woodsWarnings[5];
+    Warning* cavesWarnings[5];
+    Warning* mountainWarnings[5];
 
+    valleyWarnings[0] = new Warning("BONES V", true);
+    valleyWarnings[1] = new Warning("DANK V", true);
+    valleyWarnings[2] = new Warning("RUINS V", true);
+    valleyWarnings[3] = new Warning("SMOKE V", true);
+    valleyWarnings[4] = new Warning("STINK V", true);
+
+    woodsWarnings[0] = new Warning("BONES W", true);
+    woodsWarnings[1] = new Warning("DANK W", true);
+    woodsWarnings[2] = new Warning("RUINS W", true);
+    woodsWarnings[3] = new Warning("SMOKE W", true);
+    woodsWarnings[4] = new Warning("STINK W", true);
+
+    cavesWarnings[0] = new Warning("BONES C", true);
+    cavesWarnings[1] = new Warning("DANK C", true);
+    cavesWarnings[2] = new Warning("RUINS C", true);
+    cavesWarnings[3] = new Warning("SMOKE C", true);
+    cavesWarnings[4] = new Warning("STINK C", true);
+
+    mountainWarnings[0] = new Warning("BONES M", true);
+    mountainWarnings[1] = new Warning("DANK M", true);
+    mountainWarnings[2] = new Warning("RUINS M", true);
+    mountainWarnings[3] = new Warning("SMOKE M", true);
+    mountainWarnings[4] = new Warning("STINK M", true);
 }
 void Game::setupTiles()
 {
