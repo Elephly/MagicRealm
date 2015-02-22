@@ -38,6 +38,7 @@ private:
 	//gameplay stuff
 	void sunrise();
 	void daylight();
+	bool turnExists();
 	void sunset();
 	void evening();
 	void midnight();

@@ -195,7 +195,42 @@ void Server::sunrise() {
 //play player turns in random order
 void Server::daylight() {
     //execute the TURNS per player here.
+	do {
+		int player = 0;
+		do {
+			player = game.rollDice();
+		} while(recTurns[player] != NULL);
+
+		RecordedTurn *turn = recTurns[player];
+
+		vector<Action*> *act = turn->getActions();
+		for (vector<Action*>::iterator it = act->begin(); it != act->end(); ++it) {
+			switch ((*it)->getAction()) {
+			case MoveAction: 
+				moveCharacter(game.getPlayer(clientThreadList->at(player)->getMyCharacter()),
+					(*it)->getTarget());
+				break;
+			case SearchAction: break; //Not implemented yet
+			case TradeAction: break; //Not implemented yet
+			case HideAction: break; //Not implemented yet
+			case PeerAction: break; //Not implemented yet
+			}
+
+			delete (*it);
+		}
+
+		delete turn;
+		recTurns[player] = NULL;
+	} while (turnExists());
     evening();
+}
+
+bool Server::turnExists() {
+	for (int i = 0; i < MAXPLAYERS; ++i) {
+		if (recTurns[i] != NULL)
+			return true;
+	}
+	return false;
 }
 
 //randomly select clearings with players in them

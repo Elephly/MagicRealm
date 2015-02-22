@@ -13,7 +13,10 @@ public:
 	RecordedTurn();
 	RecordedTurn(string*);
 	RecordedTurn(string*, Board*);
+	~RecordedTurn();
 
+
+	vector<Action*>* getActions();
 	/*
 	returns result code, true for ok, false for unable to add action
 	*/

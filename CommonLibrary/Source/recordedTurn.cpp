@@ -69,6 +69,11 @@ RecordedTurn::RecordedTurn(string* serializedString) {
 	} while(second.at(0) != '*');
 }
 
+RecordedTurn::~RecordedTurn() {
+	delete actions;
+	delete availablePhases;
+}
+
 bool RecordedTurn::addAction(Action *action, PhaseType phase) {
 	bool result = false;
 	map<PhaseType, int>::iterator myiter = availablePhases->find(phase);
@@ -106,4 +111,8 @@ string* RecordedTurn::serialize() {
 	
 	string *myString = new string(s.str());
 	return myString;
+}
+
+vector<Action*>* RecordedTurn::getActions() {
+	return actions;
 }
