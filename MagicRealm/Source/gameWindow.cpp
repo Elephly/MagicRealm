@@ -116,6 +116,8 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	changeScreenState(ui.loadingWidget);
 	
 	game = new Game();
+
+	game->setupGame(false);
 	
 	err = server->threadConnect(hostIP, GAMEPORT);
 	if (err)
@@ -192,8 +194,6 @@ errno_t GameWindow::initializeGame()
 
 	gameScene = new QGraphicsScene();
 
-	game->setupGame(false);
-
 	drawTiles();
 	
 	for (int i = 0; i <= Swordsman; i++)
@@ -202,7 +202,7 @@ errno_t GameWindow::initializeGame()
 		QGraphicsItem* item = new QGraphicsPixmapItem(pxmap);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
 		characterGraphicsItems->insert((CharacterTypes)i, item);
-		updateCharacterLocation(game->getPlayer((CharacterTypes)i));
+		//updateCharacterLocation(game->getPlayer((CharacterTypes)i));
 		gameScene->addItem(item);
 	}
 	
@@ -522,18 +522,15 @@ void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 		gameStarted = true;
 		initializeGame();
 	}
-	else
-	{
-		string second(clearingString.toUtf8().constData());
+	string second(clearingString.toUtf8().constData());
 
-		int pos = second.find(VARDELIM);
-		int id = atoi(second.substr(pos + 1).c_str());
-		second = second.substr(0, pos);
+	int pos = second.find(VARDELIM);
+	int id = atoi(second.substr(pos + 1).c_str());
+	second = second.substr(0, pos);
 
-		Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
+	Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
 
-		game->move(game->getPlayer(character), clearing);
-	}
+	game->move(game->getPlayer(character), clearing);
 }
 
 void GameWindow::doTurn(QString &turnString)
