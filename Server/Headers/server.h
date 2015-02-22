@@ -22,7 +22,7 @@ public slots:
 	void handleIncomingUsers();
 	void run();
 	void setSpawn(DwellingType type, int clientID);
-	void characterUnavail(CharacterTypes type, int clientID);
+	void characterUnavail(CharacterType type, int clientID);
 	void recordedTurn(QString &turn, int clientID);
 signals:
 	void finished();

@@ -30,7 +30,7 @@ public:
     *   in:     CharacterType to be added to the array
     *   out:    successfully added or not (list full)
     */
-    bool addPlayer(CharacterTypes newPlayerType);
+    bool addPlayer(CharacterType newPlayerType);
     /*
     *   addPlayer
     *   in:     Character pointer to be added to the array
@@ -42,13 +42,13 @@ public:
     *   removePlayer
     *   in:     Character point to be removed AND DESTROYED.
     */
-    void removePlayer(CharacterTypes oldPlayerType);
+    void removePlayer(CharacterType oldPlayerType);
 
     /*
     *   getPlayer
     *   returns the player object playing that CharacterType
     */
-    Character* getPlayer(CharacterTypes charType);
+    Character* getPlayer(CharacterType charType);
 
 	Board* getBoard();
     /*

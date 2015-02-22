@@ -37,7 +37,7 @@ void ClientCommThread::readIncomingData() {
 		} else if (clientData.contains(QRegExp("^CharacterType"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData = clientData.remove(0, pos + 2);
-			CharacterTypes data = (CharacterTypes)clientData.toInt();
+			CharacterType data = (CharacterType)clientData.toInt();
 			myCharacter = data;
 			characterSelected(data, clientID);
 		} else if (clientData.contains(QRegExp("^SpawnLocation"))) {
@@ -68,6 +68,6 @@ void ClientCommThread::writeMessage(string *message) {
 	//delete message;
 }
 
-CharacterTypes ClientCommThread::getMyCharacter() {
+CharacterType ClientCommThread::getMyCharacter() {
 	return myCharacter;
 }

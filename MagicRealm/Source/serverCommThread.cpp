@@ -82,7 +82,7 @@ void ServerCommThread::updateFromServer()
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
-			CharacterTypes type = (CharacterTypes)serverData.left(pos).toInt();
+			CharacterType type = (CharacterType)serverData.left(pos).toInt();
 			QString clearingString = serverData.right(serverData.size()- (pos + 1));
 			windowParent->moveTo(type, clearingString);
 			//character type

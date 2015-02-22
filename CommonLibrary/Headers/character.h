@@ -17,16 +17,16 @@ class Path;
 
 class  COMMONLIBRARY_EXPORT Character : public Serializer{
 public:
-	Character(CharacterTypes type);
+	Character(CharacterType type);
 	Character(string* serialString);
 	int getGold();
 	vector<Equipment *>* getEquipment();
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);
-	CharacterTypes getType();
-	static char* getTypeString(CharacterTypes t);
-	static vector<DwellingType>* getStartLocations(CharacterTypes t);
+	CharacterType getType();
+	static char* getTypeString(CharacterType t);
+	static vector<DwellingType>* getStartLocations(CharacterType t);
 	virtual string* serialize();
 
     /*
@@ -55,7 +55,7 @@ public:
     void toggleHide();
 
 private:
-	CharacterTypes myType;
+	CharacterType myType;
     bool hidden;
 	int gold;
 	Clearing *location;
@@ -64,7 +64,7 @@ private:
     vector<Path *>* knownPaths;
 
 	//private functions
-	void init(CharacterTypes);
+	void init(CharacterType);
 	void initAmazon();
 	void initBlackknight();
 	void initCaptain();
