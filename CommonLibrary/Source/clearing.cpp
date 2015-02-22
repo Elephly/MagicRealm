@@ -87,7 +87,7 @@ void Clearing::removePath(Path* oldPath)
 Dwelling* Clearing::buildDwelling(DwellingType dt)
 {
     if(!myDwelling){
-        myDwelling = new Dwelling(CHAPEL, this, false);
+        myDwelling = new Dwelling(dt, this, false);
         return myDwelling;
     }
     cout << "ERR: Clearing::buildDwelling Dwelling already existed in this clearing" << endl;
