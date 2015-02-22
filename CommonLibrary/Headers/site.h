@@ -22,7 +22,7 @@ public:
     */
     Treasure* loot(int location);
 
-protected:
+private:
     int clearingLocation;
     vector <Treasure*> * trove;
 };
