@@ -403,10 +403,9 @@ void GameWindow::updateCharacterInfoPane()
 	ui.gameCharacterInformationBrowser->setCurrentFont(font);
 
 	QString characterInfo;
-	//Clearing* loc = character->getCurrentLocation();
-	//characterInfo.sprintf("\Location: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(),
-	//	Clearing::getTypeString(loc->getClearingType()));
-	//ui.gameCharacterInformationBrowser->append(characterInfo);
+	Clearing* loc = character->getCurrentLocation();
+	characterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
+	ui.gameCharacterInformationBrowser->append(characterInfo);
 	
 	characterInfo.sprintf("\nGold: %d", character->getGold());
 	ui.gameCharacterInformationBrowser->append(characterInfo);
@@ -464,12 +463,10 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 
 void GameWindow::updateCharacterLocation(Character* character)
 {
-	/*
 	Clearing* currClearing = character->getCurrentLocation();
 	Tile* currTile = currClearing->getTile();
 	QGraphicsItem* charItem = (*characterGraphicsItems)[character->getType()];
 	charItem->setX((*tileGraphicsItems)[currTile]->x());
-	*/
 }
 
 void GameWindow::selectAction(ActionType action)
@@ -523,15 +520,18 @@ void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 		gameStarted = true;
 		initializeGame();
 	}
-	string second(clearingString.toUtf8().constData());
+	else
+	{
+		string second(clearingString.toUtf8().constData());
 
-	int pos = second.find(VARDELIM);
-	int id = atoi(second.substr(pos + 1).c_str());
-	second = second.substr(0, pos);
+		int pos = second.find(VARDELIM);
+		int id = atoi(second.substr(pos + 1).c_str());
+		second = second.substr(0, pos);
 
-	Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
+		Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
 
-	game->move(game->getPlayer(character), clearing);
+		game->move(game->getPlayer(character), clearing);
+	}
 }
 
 void GameWindow::doTurn(QString &turnString)

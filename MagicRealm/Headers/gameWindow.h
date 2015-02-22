@@ -28,7 +28,6 @@ public:
 	errno_t initializeGame();
 	errno_t initializePlayers();
 	errno_t drawTiles();
-	errno_t drawPlayers();
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
