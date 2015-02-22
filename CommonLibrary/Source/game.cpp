@@ -5,7 +5,9 @@ Game::Game()
     //initalizing players list
     for(int i=0; i < MAXPLAYERS; i ++)
         players[i] = NULL;
-
+    
+    day = 28;
+    currentTime = BIRDSONG;
     gameBoard = new Board();
     cout << "Game Initialized" <<endl;
 }
