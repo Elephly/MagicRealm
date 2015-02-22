@@ -23,6 +23,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -51,6 +52,10 @@ public:
     QPushButton *gameHideActionButton;
     QPushButton *gamePeerActionButton;
     QPushButton *gameQuitButton;
+    QTabWidget *informationTabWidget;
+    QWidget *characterInfoTab;
+    QWidget *tileInfoTab;
+    QVBoxLayout *verticalLayout;
     QTextBrowser *gameTileInformationBrowser;
     QWidget *loadingWidget;
     QVBoxLayout *verticalLayout_2;
@@ -123,6 +128,7 @@ public:
         font1.setFamily(QStringLiteral("MS Serif"));
         font1.setPointSize(16);
         menuPlayButton->setFont(font1);
+        menuPlayButton->setToolTipDuration(3);
 
         menuButtonLayout->addWidget(menuPlayButton);
 
@@ -225,17 +231,38 @@ public:
 
         horizontalLayout_3->addLayout(gameViewLayout);
 
-        gameTileInformationBrowser = new QTextBrowser(gameWidget);
+        informationTabWidget = new QTabWidget(gameWidget);
+        informationTabWidget->setObjectName(QStringLiteral("informationTabWidget"));
+        informationTabWidget->setToolTipDuration(-1);
+        informationTabWidget->setIconSize(QSize(32, 32));
+        characterInfoTab = new QWidget();
+        characterInfoTab->setObjectName(QStringLiteral("characterInfoTab"));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/images/actions/cache.gif"), QSize(), QIcon::Normal, QIcon::On);
+        informationTabWidget->addTab(characterInfoTab, icon5, QString());
+        tileInfoTab = new QWidget();
+        tileInfoTab->setObjectName(QStringLiteral("tileInfoTab"));
+        verticalLayout = new QVBoxLayout(tileInfoTab);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        gameTileInformationBrowser = new QTextBrowser(tileInfoTab);
         gameTileInformationBrowser->setObjectName(QStringLiteral("gameTileInformationBrowser"));
         QFont font4;
         font4.setFamily(QStringLiteral("MS Serif"));
         font4.setPointSize(14);
         gameTileInformationBrowser->setFont(font4);
 
-        horizontalLayout_3->addWidget(gameTileInformationBrowser);
+        verticalLayout->addWidget(gameTileInformationBrowser);
+
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/tab/record.gif"), QSize(), QIcon::Normal, QIcon::On);
+        informationTabWidget->addTab(tileInfoTab, icon6, QString());
+
+        horizontalLayout_3->addWidget(informationTabWidget);
 
         horizontalLayout_3->setStretch(0, 7);
-        horizontalLayout_3->setStretch(1, 3);
         loadingWidget = new QWidget(centralWidget);
         loadingWidget->setObjectName(QStringLiteral("loadingWidget"));
         loadingWidget->setGeometry(QRect(0, 0, 800, 409));
@@ -303,8 +330,8 @@ public:
         characterSelectorLayout->addWidget(characterSelectCharacterLabel);
 
         characterListView = new QListWidget(characterSelectWidget);
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
         QFont font9;
         font9.setFamily(QStringLiteral("MS Serif"));
         font9.setPointSize(16);
@@ -312,32 +339,32 @@ public:
         font9.setWeight(75);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(characterListView);
         __qlistwidgetitem->setFont(font9);
-        __qlistwidgetitem->setIcon(icon5);
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(characterListView);
         __qlistwidgetitem1->setFont(font9);
-        __qlistwidgetitem1->setIcon(icon6);
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem1->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(characterListView);
         __qlistwidgetitem2->setFont(font9);
-        __qlistwidgetitem2->setIcon(icon7);
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem2->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(characterListView);
         __qlistwidgetitem3->setFont(font9);
-        __qlistwidgetitem3->setIcon(icon8);
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem3->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(characterListView);
         __qlistwidgetitem4->setFont(font9);
-        __qlistwidgetitem4->setIcon(icon9);
-        QIcon icon10;
-        icon10.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem4->setIcon(icon11);
+        QIcon icon12;
+        icon12.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(characterListView);
         __qlistwidgetitem5->setFont(font9);
-        __qlistwidgetitem5->setIcon(icon10);
+        __qlistwidgetitem5->setIcon(icon12);
         characterListView->setObjectName(QStringLiteral("characterListView"));
         characterListView->setFont(font9);
 
@@ -400,10 +427,10 @@ public:
         horizontalLayout_2->setStretch(0, 1);
         horizontalLayout_2->setStretch(1, 9);
         MainWindowClass->setCentralWidget(centralWidget);
-        menuWidget->raise();
-        loadingWidget->raise();
-        gameWidget->raise();
         characterSelectWidget->raise();
+        loadingWidget->raise();
+        menuWidget->raise();
+        gameWidget->raise();
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 800, 21));
@@ -419,6 +446,7 @@ public:
 
         retranslateUi(MainWindowClass);
 
+        informationTabWidget->setCurrentIndex(0);
         characterListView->setCurrentRow(0);
         characterStartLocationListView->setCurrentRow(0);
 
@@ -432,6 +460,15 @@ public:
         actionExit->setText(QApplication::translate("MainWindowClass", "Exit", 0));
         actionExit->setShortcut(QApplication::translate("MainWindowClass", "Ctrl+Q", 0));
         menuTitleLabel->setText(QApplication::translate("MainWindowClass", "Magic Realm", 0));
+#ifndef QT_NO_TOOLTIP
+        menuPlayButton->setToolTip(QApplication::translate("MainWindowClass", "shelly", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        menuPlayButton->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_ACCESSIBILITY
+        menuPlayButton->setAccessibleDescription(QString());
+#endif // QT_NO_ACCESSIBILITY
         menuPlayButton->setText(QApplication::translate("MainWindowClass", "Play", 0));
         menuQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
         gameMoveActionButton->setText(QString());
@@ -440,11 +477,19 @@ public:
         gameHideActionButton->setText(QString());
         gamePeerActionButton->setText(QString());
         gameQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
+#ifndef QT_NO_TOOLTIP
+        informationTabWidget->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_STATUSTIP
+        informationTabWidget->setStatusTip(QString());
+#endif // QT_NO_STATUSTIP
+        informationTabWidget->setTabText(informationTabWidget->indexOf(characterInfoTab), QString());
         gameTileInformationBrowser->setHtml(QApplication::translate("MainWindowClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
+        informationTabWidget->setTabText(informationTabWidget->indexOf(tileInfoTab), QString());
         loadingLoadingLabel->setText(QApplication::translate("MainWindowClass", "Loading", 0));
         loadingMessageLabel->setText(QString());
         loadingProgLabel->setText(QApplication::translate("MainWindowClass", "...", 0));

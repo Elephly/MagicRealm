@@ -85,6 +85,18 @@
            <pointsize>16</pointsize>
           </font>
          </property>
+         <property name="toolTip">
+          <string>SHELLY</string>
+         </property>
+         <property name="toolTipDuration">
+          <number>-1</number>
+         </property>
+         <property name="whatsThis">
+          <string/>
+         </property>
+         <property name="accessibleDescription">
+          <string/>
+         </property>
          <property name="text">
           <string>Play</string>
          </property>
@@ -122,7 +134,7 @@
       <height>409</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="7,3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="7,0">
      <item>
       <layout class="QVBoxLayout" name="gameViewLayout">
        <item>
@@ -255,20 +267,98 @@
       </layout>
      </item>
      <item>
-      <widget class="QTextBrowser" name="gameTileInformationBrowser">
-       <property name="font">
-        <font>
-         <family>MS Serif</family>
-         <pointsize>14</pointsize>
-        </font>
+      <widget class="QTabWidget" name="informationTabWidget">
+       <property name="toolTip">
+        <string/>
        </property>
-       <property name="html">
-        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+       <property name="toolTipDuration">
+        <number>-1</number>
+       </property>
+       <property name="statusTip">
+        <string/>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>32</height>
+        </size>
+       </property>
+       <widget class="QWidget" name="characterInfoTab">
+        <attribute name="icon">
+         <iconset>
+          <normalon>:/images/actions/cache.gif</normalon>
+         </iconset>
+        </attribute>
+        <attribute name="title">
+         <string/>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Character Info</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QTextBrowser" name="gameCharacterInformationBrowser"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tileInfoTab">
+        <attribute name="icon">
+         <iconset resource="../Resources/mainwindow.qrc">
+          <normaloff>:/images/tiles/questionmark.gif</normaloff>:/images/tiles/questionmark.gif</iconset>
+        </attribute>
+        <attribute name="title">
+         <string/>
+        </attribute>
+        <attribute name="toolTip">
+         <string>Tile Info</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QTextBrowser" name="gameTileInformationBrowser">
+           <property name="font">
+            <font>
+             <family>MS Serif</family>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -579,10 +669,10 @@ p, li { white-space: pre-wrap; }
      </item>
     </layout>
    </widget>
-   <zorder>menuWidget</zorder>
-   <zorder>loadingWidget</zorder>
-   <zorder>gameWidget</zorder>
    <zorder>characterSelectWidget</zorder>
+   <zorder>loadingWidget</zorder>
+   <zorder>menuWidget</zorder>
+   <zorder>gameWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

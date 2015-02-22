@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/tiles/questionmark.gif</file>
     <file>images/armor/breastplate.gif</file>
     <file>images/armor/buckler.gif</file>
     <file>images/armor/cap.gif</file>
