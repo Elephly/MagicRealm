@@ -67,6 +67,7 @@ public:
 	*	Out:	Pointer of requester Dwelling
 	*/
 	Dwelling* getDwelling(DwellingType dwellingType);
+
 private:
 
     /*
