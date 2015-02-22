@@ -133,12 +133,23 @@ void Server::recordedTurn(QString &turn, int clientID) {
 	string *s = new string(turn.toUtf8().constData());
 	RecordedTurn *recTurn = new RecordedTurn(s, game.getBoard());
 	receivedRecTurn[clientID] = true;
-	//todo store this somewhere
+	recTurns[clientID] = recTurn;
+	int count = 0;
+	for (int i = 0; i < MAXPLAYERS; ++i) {
+		if (receivedRecTurn[i])
+			++count;
+	}
+	if (count = clientThreadList->size()) {
+		//stop accepting connections
+		//start game at sunrise
+	}
 }
 
 /*
 Creates a RecordedTurn object with the number of each type of phase
 sends the serialized version of the object to the client
+
+Birdsong stage of game
 */
 void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 	Character *player = game.getPlayer(client->getMyCharacter());

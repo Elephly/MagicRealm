@@ -32,7 +32,15 @@ private:
 	std::vector<ClientCommThread *> *clientThreadList;
 	bool selectedCharacters[MAXPLAYERS];
 	bool receivedRecTurn[MAXPLAYERS];
+	RecordedTurn *recTurns[MAXPLAYERS];
     Game game;
+
+	//gameplay stuff
+	void sunrise();
+	void daylight();
+	void sunset();
+	void Evening();
+	void Midnight();
 
 	void moveCharacter(Character*, Clearing*);
 	void writeMessageAllClients(string*);
