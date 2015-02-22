@@ -96,6 +96,7 @@ private:
     *   goes through and deals all the chits
     */
     void dealChits();
+
     Board* gameBoard;
     Character* players[MAXPLAYERS];
     int day;

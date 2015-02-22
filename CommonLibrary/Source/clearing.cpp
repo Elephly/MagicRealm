@@ -158,3 +158,22 @@ string* Clearing::serialize() {
 
 	return new string(s.str());
 }
+
+char* Clearing::getTypeString(ClearingType type)
+{
+	switch (type)
+	{
+	case WOODS:
+		return "Woods";
+		break;
+	case CAVES:
+		return "Caves";
+		break;
+	case MOUNTAIN:
+		return "Mountain";
+		break;
+	default:
+		return "?";
+		break;
+	}
+}

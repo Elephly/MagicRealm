@@ -92,6 +92,8 @@ public:
 
 	virtual string* serialize();
 
+	static char* getTypeString(ClearingType);
+
 private:
     //list of characters in a clearing.
 	vector<Character*>* characters;

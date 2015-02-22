@@ -206,6 +206,7 @@ errno_t GameWindow::initializeGame()
 		gameScene->addItem(item);
 	}
 	
+	updateCharacterInfoPane();
 	
 	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
@@ -386,6 +387,31 @@ void GameWindow::selectTile(Tile* tile)
 	selectAction(NoAction);
 }
 
+void GameWindow::updateCharacterInfoPane()
+{
+	Character* character = game->getPlayer(selectedCharacter);
+	QFont font = QFont("MS Serif", 26);
+	font.setBold(true);
+	font.setUnderline(true);
+	ui.gameCharacterInformationBrowser->setCurrentFont(font);
+	ui.gameCharacterInformationBrowser->setText(Character::getTypeString(character->getType()));
+	
+	font.setPointSize(14);
+	font.setUnderline(false);
+	ui.gameCharacterInformationBrowser->setCurrentFont(font);
+
+	QString characterInfo;
+	//Clearing* loc = character->getCurrentLocation();
+	//characterInfo.sprintf("\Location: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(),
+	//	Clearing::getTypeString(loc->getClearingType()));
+	//ui.gameCharacterInformationBrowser->append(characterInfo);
+	
+	characterInfo.sprintf("\nGold: %d", character->getGold());
+	ui.gameCharacterInformationBrowser->append(characterInfo);
+
+	//character->getEquipment();
+}
+
 void GameWindow::updateTileInfoPane(Tile* tile)
 {
 	QFont font = QFont("MS Serif", 26);
@@ -403,23 +429,9 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 		Clearing* c = tile->getClearing(i);
 		if (c != 0)
 		{
-			char* type;
-			switch (c->getClearingType())
-			{
-			case WOODS:
-				type = "Woods";
-				break;
-			case CAVES:
-				type = "Caves";
-				break;
-			case MOUNTAIN:
-				type = "Mountain";
-				break;
-			default:
-				break;
-			}
 			QString clearingInfo;
-			clearingInfo.sprintf("Clearing %d: %s", c->getClearingNum(), type);
+			clearingInfo.sprintf("Clearing %d: %s", c->getClearingNum(), 
+				Clearing::getTypeString(c->getClearingType()));
 			font.setPointSize(16);
 			font.setBold(false);
 			ui.gameTileInformationBrowser->setCurrentFont(font);
@@ -471,7 +483,8 @@ void GameWindow::move()
 	{
 		Path* p = *it;
 		Clearing* end = p->getEnd(currentClearing);
-		if (end != NULL && (!p->isHidden() /*|| player knows about hidden path */))
+		Character* character = game->getPlayer(selectedCharacter);
+		if (end != NULL && (!p->isHidden() || character->isDiscovered(p)))
 		{
 			adjacentClearings.append(end);
 		}

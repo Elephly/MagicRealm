@@ -44,6 +44,10 @@ void Game::setupGame(bool cm)
     cout << "Finished Setup..." <<endl <<endl;
 }
 
+void Game::dealChits()
+{
+
+}
 void Game::setupTiles()
 {
     cout << "Arranging Tiles..." <<endl;
@@ -774,7 +778,7 @@ int Game::rollDice()
 }
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {
-	gameBoard->getDwelling(dwellingType);
+	return gameBoard->getDwelling(dwellingType);
 }
 
 void Game::doTurn()
