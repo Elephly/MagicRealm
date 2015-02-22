@@ -768,6 +768,10 @@ void Game::move(Character* player, Clearing* requestedClearing)
     }
 }
 
+int Game::rollDice()
+{
+    return rand() % 6 + 1;
+}
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {
 	gameBoard->getDwelling(dwellingType);

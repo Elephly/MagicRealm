@@ -68,6 +68,12 @@ public:
 	*/
 	Dwelling* getDwelling(DwellingType dwellingType);
 
+    /*
+	*	rollDice
+	*	Out:	Number you rolled.
+	*/
+	int rollDice();
+
 private:
 
     /*
