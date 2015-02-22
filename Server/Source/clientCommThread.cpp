@@ -10,7 +10,7 @@ ClientCommThread::ClientCommThread(QTcpSocket *socket, Server *parent, int id) :
 
 ClientCommThread::~ClientCommThread() {
 	clientConnection->close();
-	free(clientConnection);
+	delete clientConnection;
 }
 
 void ClientCommThread::readIncomingData() {

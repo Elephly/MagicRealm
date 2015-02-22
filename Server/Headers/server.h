@@ -39,8 +39,8 @@ private:
 	void sunrise();
 	void daylight();
 	void sunset();
-	void Evening();
-	void Midnight();
+	void evening();
+	void midnight();
 
 	void moveCharacter(Character*, Clearing*);
 	void writeMessageAllClients(string*);

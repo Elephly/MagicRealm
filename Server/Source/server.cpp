@@ -141,6 +141,7 @@ void Server::recordedTurn(QString &turn, int clientID) {
 	}
 	if (count = clientThreadList->size()) {
 		//stop accepting connections
+		incoming->pauseAccepting();
 		//start game at sunrise
 	}
 }
@@ -168,12 +169,31 @@ void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 		turn.addPhase(HidePhase);
 	}
 	if (player->hasAdvantage(REPUTATION)) {
-		for (int i = 0; i < MAXDWELLINGS; ++i) {
-			if (player->getCurrentLocation() == game.getDwelling((DwellingType) i)->getLocation()) {
-				turn.addPhase(BasicPhase);
-			}
+		if (player->getCurrentLocation()->getDwelling() != NULL) {
+			turn.addPhase(BasicPhase);
 		}
 	}
 
 	client->writeMessage(turn.serialize());
+}
+
+//Determine what monsters are prwoling
+void Server::sunrise() {
+
+}
+
+//play player turns in random order
+void Server::daylight() {
+
+}
+
+//randomly select clearings with players in them
+//player can rearrange belongings (not needed for iter 1)
+void Server::evening() {
+
+}
+
+//reset all face up mapchits
+void Server::midnight() {
+
 }
