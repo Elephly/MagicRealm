@@ -39,7 +39,7 @@ GameWindow::~GameWindow()
 
 	if (tileGraphicsItems != 0)
 	{
-		qDeleteAll(*tileGraphicsItems);
+		//qDeleteAll(*tileGraphicsItems);
 		tileGraphicsItems->clear();
 		delete tileGraphicsItems;
 		tileGraphicsItems = 0;
@@ -530,7 +530,7 @@ void GameWindow::moveTo(CharacterTypes character, QString& clearingString)
 	second = second.substr(0, pos);
 
 	Clearing* clearing = game->getBoard()->getTile(second)->getClearing(id);
-	//parse clearingString;
+
 	game->move(game->getPlayer(character), clearing);
 }
 

@@ -104,7 +104,6 @@ void Server::characterUnavail(CharacterTypes type, int clientID) {
 }
 
 void Server::setSpawn(DwellingType type, int clientID) {
-	qDebug() << "Server::setSpawn";
 	moveCharacter(game.getPlayer(clientThreadList->at(clientID)->getMyCharacter()),
 		game.getDwelling(type)->getLocation());
 
@@ -112,7 +111,6 @@ void Server::setSpawn(DwellingType type, int clientID) {
 }
 
 void Server::moveCharacter(Character *character, Clearing *dest) {
-	qDebug() << "Server::moveCharacter";
 	game.moveRequest(character, dest);
 
 	stringstream s;
@@ -127,7 +125,7 @@ void Server::moveCharacter(Character *character, Clearing *dest) {
 
 void Server::writeMessageAllClients(string *message) {
 	writeMessageAllClients(new QString(message->c_str()));
-	//delete message;
+	delete message;
 }
 
 void Server::writeMessageAllClients(QString *message) {
