@@ -108,7 +108,6 @@ private:
     int day;
     TimeOfDay currentTime;
     bool cheatMode;
-	Dwelling* dwellings[MAXDWELLINGS];
 };
 
 #endif // GAME_H

@@ -37,11 +37,10 @@ void ClientCommThread::readIncomingData() {
 		} else if (clientData.contains(QRegExp("^CharacterType"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData = clientData.remove(0, pos + 2);
-			qDebug() << "substr data: " << clientData;
 			CharacterTypes data = (CharacterTypes)clientData.toInt();
 			myCharacter = data;
 			characterSelected(data, clientID);
-		} else if (clientData.contains("^SpawnLocation")) {
+		} else if (clientData.contains(QRegExp("^SpawnLocation"))) {
 			int pos = clientData.indexOf(CLASSDELIM);
 			DwellingType data = (DwellingType) clientData.remove(0, pos + 2).toInt();
 			spawnSelected(data, clientID);
@@ -54,19 +53,19 @@ void ClientCommThread::readIncomingData() {
 void ClientCommThread::writeMessage(QString *message) {
 	QByteArray block;
 	QDataStream out(&block, QIODevice::WriteOnly);
-	qDebug() << *message;
+	qDebug() << "outgoing message" << *message;
 	out << (quint16)0;
 	out << *message;
 	out.device()->seek(0);
 	out << (quint16)(block.size() - sizeof(quint16));
 
-	qDebug() << clientConnection->write(block);
-	delete message;
+	clientConnection->write(block);
+	//delete message;
 }
 
 void ClientCommThread::writeMessage(string *message) {
 	writeMessage(new QString(message->c_str()));
-	delete message;
+	//delete message;
 }
 
 CharacterTypes ClientCommThread::getMyCharacter() {
