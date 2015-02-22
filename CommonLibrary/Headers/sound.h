@@ -4,14 +4,15 @@
 #include "shared.h"
 #include "commonlibrary_global.h"
 
-#include "site.h"
+#include "chit.h"
 
-class COMMONLIBRARY_EXPORT Sound: public Site{
+class COMMONLIBRARY_EXPORT Sound: public Chit{
 public:
     Sound(string n, bool hide, int clnum);
+    int getClearingNum();
 
 private:
-
+    int clearingLocation;
 };
 
 #endif //SOUND_H

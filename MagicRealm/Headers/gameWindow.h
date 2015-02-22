@@ -39,7 +39,7 @@ public:
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
 	void moveAction();
-	void moveTo(CharacterTypes character, Clearing* clearing);
+	void moveTo(CharacterTypes character, QString& clearingString);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
@@ -49,6 +49,7 @@ public:
 	void doTurn(QString&);
 
 private:
+	bool gameStarted;
 	QMap<CharacterTypes, QPixmap*>* characterImages;
 	QMap<CharacterTypes, QGraphicsItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;

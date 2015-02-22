@@ -53,6 +53,12 @@ public:
     *   Out:    boolean whether move was successful or not
     */
     bool moveRequest(Character* player, Clearing* requestedClearing);
+    /*
+    *   hideRequest
+    *   In:     Player Wishing to hide
+    *   Out:    boolean whether hide was successful or not
+    */
+    bool hideRequest(Character* player);
 
     /*
     *   move
