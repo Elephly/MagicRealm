@@ -86,6 +86,16 @@ public:
 	int rollDice();
 
 private:
+    enum siteType{
+        HOARD,
+        LAIR,
+        ALTAR,
+        SHRINE,
+        POOL,
+        VAULT,
+        CAIRNS,
+        STATUE
+    };
 
     /*
     *   setupTiles
@@ -107,12 +117,20 @@ private:
     *   goes through and deals all the chits
     */
     void dealChits();
+    /*
+    *   setupSite
+    *   sets up the sites and returns it
+    *   helper for dealChits.
+    */
+    Site* setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm);
 
     Board* gameBoard;
     Character* players[MAXPLAYERS];
     int day;
     TimeOfDay currentTime;
     bool cheatMode;
+
+    
 };
 
 #endif // GAME_H
