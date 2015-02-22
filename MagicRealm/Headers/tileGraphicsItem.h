@@ -10,6 +10,8 @@ class TileGraphicsItem : public QGraphicsPixmapItem
 public:
 	TileGraphicsItem(QPixmap pixmap, Tile* tile, GameWindow* container);
 	~TileGraphicsItem();
+	int width();
+	int height();
 
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -20,6 +22,8 @@ protected:
 private:
 	Tile* myTile;
 	GameWindow* myContainer;
+	int myWidth;
+	int myHeight;
 };
 
 #endif // TILEGRAPHICSITEM_H
