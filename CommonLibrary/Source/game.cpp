@@ -778,7 +778,7 @@ int Game::rollDice()
 }
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {
-	gameBoard->getDwelling(dwellingType);
+	return gameBoard->getDwelling(dwellingType);
 }
 
 void Game::doTurn()
