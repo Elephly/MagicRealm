@@ -95,8 +95,10 @@ void ServerCommThread::writeMessage(QString *message) {
 	out << (quint16)(block.size() - sizeof(quint16));
 
 	serverConnection->write(block);
+	delete message;
 }
 
 void ServerCommThread::writeMessage(string *message) {
 	writeMessage(new QString(message->c_str()));
+	delete message;
 }

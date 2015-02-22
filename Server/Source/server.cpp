@@ -117,6 +117,7 @@ void Server::moveCharacter(Character *character, Clearing *dest) {
 
 void Server::writeMessageAllClients(string *message) {
 	writeMessageAllClients(new QString(message->c_str()));
+	delete message;
 }
 
 void Server::writeMessageAllClients(QString *message) {
