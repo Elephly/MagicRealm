@@ -308,12 +308,14 @@ errno_t GameWindow::cleanup()
 
 	err = server->threadDisconnect();
 
+	/*
 	if (tileGraphicsItems != 0)
 	{
 		tileGraphicsItems->clear();
 		delete tileGraphicsItems;
 		tileGraphicsItems = 0;
 	}
+	*/
 
 	if (game != 0)
 	{
