@@ -66,9 +66,8 @@ void ServerCommThread::updateFromServer()
 		if (serverData.compare(QString(ACCEPTCONN)) == 0) {
 			connected = true;
 			windowParent->connectedToServer();
-			//writeMessage(new QString(windowParent->getSelectedChar()->serialize()->c_str()));
 		} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
-			//Server wants us to record a turn
+			windowParent->doTurn();
 		} else if (serverData.contains(QRegExp("^CharacterType"))) {
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			int character = serverData.remove(0, pos+2).toInt();

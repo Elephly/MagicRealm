@@ -477,3 +477,5 @@ void GameWindow::move()
 
 	selectAction(NoAction);
 }
+
+void GameWindow::doTurn();

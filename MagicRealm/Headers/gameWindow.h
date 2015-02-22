@@ -41,6 +41,7 @@ public:
 	void requestCharacter(CharacterTypes character, DwellingType startLoc);
 	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
+	void doTurn();
 
 private:
 	QMap<CharacterTypes, QPixmap*>* characterImages;
