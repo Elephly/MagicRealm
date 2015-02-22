@@ -98,7 +98,8 @@ enum COMMONLIBRARY_EXPORT PhaseType
 {
 	MovePhase,
 	BasicPhase,
-	SunlightPhase
+	SunlightPhase,
+	HidePhase
 };
 
 enum COMMONLIBRARY_EXPORT TimeOfDay

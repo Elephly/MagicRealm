@@ -9,6 +9,7 @@
 #include "clientCommThread.h"
 #include "shared.h"
 #include "game.h"
+#include "recordedTurn.h"
 
 class ClientCommThread;
 
@@ -22,6 +23,7 @@ public slots:
 	void run();
 	void setSpawn(DwellingType type, int clientID);
 	void characterUnavail(CharacterTypes type, int clientID);
+	void recordedTurn(RecordedTurn *turn, int clientID);
 signals:
 	void finished();
 private:
@@ -29,11 +31,13 @@ private:
 	QTcpServer *incoming;
 	std::vector<ClientCommThread *> *clientThreadList;
 	bool selectedCharacters[MAXPLAYERS];
+	bool receivedRecTurn[MAXPLAYERS];
     Game game;
 
 	void moveCharacter(Character*, Clearing*);
 	void writeMessageAllClients(string*);
 	void writeMessageAllClients(QString*);
+	void calculatePlayerTurnPhases();
 };
 
 #endif // SERVER_H

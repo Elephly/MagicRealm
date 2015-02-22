@@ -121,3 +121,42 @@ void Server::writeMessageAllClients(QString *message) {
 			(*it)->writeMessage(message);
 	}
 }
+
+void Server::recordedTurn(RecordedTurn *turn, int clientID) {
+
+}
+
+/*
+Creates a RecordedTurn object with the number of each type of phase
+sends the serialized version of the object to the client
+*/
+void Server::calculatePlayerTurnPhases() {
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
+		it != clientThreadList->end(); ++it) 
+	{
+		Character *player = game.getPlayer((*it)->getMyCharacter());
+		RecordedTurn turn;
+		turn.addPhase(BasicPhase, 2); //all players get two basic phases.
+		if (player->hasAdvantage(STAMINA)) {
+			turn.addPhase(MovePhase);
+		}
+		if (!player->hasAdvantage(SHORTLEGS)) {
+			//if not in caves
+			if (player->getCurrentLocation()->getClearingType() != CAVES) {
+				turn.addPhase(SunlightPhase, 2);
+			}
+		}
+		if (player->hasAdvantage(ELUSIVNESS)) {
+			turn.addPhase(HidePhase);
+		}
+		if (player->hasAdvantage(REPUTATION)) {
+			for (int i = 0; i < MAXDWELLINGS; ++i) {
+				if (player->getCurrentLocation() == game.getDwelling((DwellingType) i)->getLocation) {
+					turn.addPhase(BasicPhase);
+				}
+			}
+		}
+
+		(*it)->writeMessage(turn.serialize());
+	}
+}
