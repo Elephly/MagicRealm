@@ -65,6 +65,13 @@ void Server::handleIncomingUsers()  {
 				Character *character = game.getPlayer((CharacterTypes) i);
 				if (character != NULL) {
 					newThread->writeMessage(character->serialize());
+					stringstream s;
+					s << "MoveCharacter";
+					s << CLASSDELIM;
+					s << i;
+					s << VARDELIM;
+					s << *(character->getCurrentLocation()->toString());
+					newThread->writeMessage(new string(s.str()));
 				}
 			}
 			//todo send player locations to new players
