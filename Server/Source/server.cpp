@@ -185,16 +185,19 @@ void Server::sunrise() {
 
 //play player turns in random order
 void Server::daylight() {
+    //execute the TURNS per player here.
     evening();
 }
 
 //randomly select clearings with players in them
 //player can rearrange belongings (not needed for iter 1)
+//combat?
 void Server::evening() {
     midnight();
 }
 
 //reset all face up mapchits
+//start new day
 void Server::midnight() {
 
 }
