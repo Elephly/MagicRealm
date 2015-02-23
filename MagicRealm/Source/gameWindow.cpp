@@ -26,7 +26,8 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	selectedTile = 0;
 	destinationClearing = 0;
 	selectedAction = NoAction;
-	myTurn = NULL;
+	myTurn = 0;
+	turnNumber = 1;
 }
 
 GameWindow::~GameWindow()
@@ -199,6 +200,8 @@ errno_t GameWindow::initializeGame()
 	errno_t err = 0;
 
 	gameScene = new QGraphicsScene();
+
+	turnNumber = 1;
 	
 	tileLocations = new QMap<Tile*, QPointF>();
 
@@ -516,24 +519,60 @@ void GameWindow::updateCharacterLocation(Character* character)
 void GameWindow::selectAction(ActionType action)
 {
 	selectedAction = action;
+	bool actionCompleted = false;
+	QString eventString;
 	
-	switch (action)
+	if (action == NoAction)
 	{
-	case NoAction:
-		break;
-	case MoveAction:
-		if (!moveAction())
+
+	}
+	else if (action == MoveAction)
+	{
+		actionCompleted = moveAction();
+		if (actionCompleted)
 		{
-			break;
+			eventString.sprintf(" - Move to %s clearing %d", destinationClearing->getTile()->getName().c_str(),
+				destinationClearing->getClearingNum());
+			ui.gameEventFeedBrowser->append(eventString);
 		}
-	case SearchAction:
-	case TradeAction:
-	case HideAction:
-	default:
+	}
+	else if (action == SearchAction)
+	{
+		actionCompleted = true;
+		if (actionCompleted)
+		{
+			eventString.sprintf(" - Search %s clearing %d", destinationClearing->getTile()->getName().c_str(),
+				destinationClearing->getClearingNum());
+			ui.gameEventFeedBrowser->append(eventString);
+		}
+	}
+	else if (action == TradeAction)
+	{
+		actionCompleted = true;
+		if (actionCompleted)
+		{
+			eventString.sprintf(" - Trade");
+			ui.gameEventFeedBrowser->append(eventString);
+		}
+	}
+	else if (action == HideAction)
+	{
+		actionCompleted = true;
+		if (actionCompleted)
+		{
+			eventString.sprintf(" - Hide at %s clearing %d", destinationClearing->getTile()->getName().c_str(),
+				destinationClearing->getClearingNum());
+			ui.gameEventFeedBrowser->append(eventString);
+		}
+	}
+
+	if (actionCompleted)
+	{
 		myTurn->addAction(new Action(action, destinationClearing), currentPhase);
 		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
-		break;
 	}
+
+	selectedAction = NoAction;
 
 	if (ui.gamePhaseComboBox->count() <= 0)
 	{
@@ -572,8 +611,6 @@ bool GameWindow::moveAction()
 		destinationClearing = adjacentClearings.at(destIndex);
 	}
 	delete dlg;
-
-	selectAction(NoAction);
 
 	return moveConfirmed;
 }
@@ -682,6 +719,9 @@ void GameWindow::doTurn(QString &turnString)
 			}
 		}
 	}
+	QString eventString;
+	eventString.sprintf("Plot turn %d:", turnNumber);
+	ui.gameEventFeedBrowser->append(eventString);
 }
 
 void GameWindow::submitTurn()
@@ -689,6 +729,9 @@ void GameWindow::submitTurn()
 	server->writeMessage(myTurn->serialize());
 	ui.gamePhaseComboBox->setDisabled(true);
 	ui.gameSubmitTurnButton->setDisabled(true);
+	QString eventString;
+	eventString.sprintf("Turn %d submitted.", turnNumber);
+	ui.gameEventFeedBrowser->append(eventString);
 }
 
 void GameWindow::setCurrentPhaseType(const QString& phaseString)

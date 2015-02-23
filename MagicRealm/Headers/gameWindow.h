@@ -74,6 +74,7 @@ private:
 	Clearing* destinationClearing;
 	ActionType selectedAction;
 	RecordedTurn *myTurn;
+	int turnNumber;
 	PhaseType currentPhase;
 };
 

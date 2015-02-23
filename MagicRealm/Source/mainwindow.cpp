@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
 	gameWindow->changeScreenState(ui.menuWidget);
 	gameWindow->disableActions();
 	QLineEdit* lineEdit = new QLineEdit();
-	lineEdit->setPlaceholderText("Select Phase");
+	lineEdit->setPlaceholderText("No Phases");
 	lineEdit->setReadOnly(true);
 	ui.gamePhaseComboBox->setLineEdit(lineEdit);
 }
