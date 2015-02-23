@@ -103,6 +103,7 @@ void ServerCommThread::updateFromServer()
 void ServerCommThread::writeMessage(QString *message) {
 	QByteArray block;
 	QDataStream out(&block, QIODevice::WriteOnly);
+	qDebug() << "data sent to server: " << *message;
 	out << (quint16)0;
 	out << *message;
 	out.device()->seek(0);

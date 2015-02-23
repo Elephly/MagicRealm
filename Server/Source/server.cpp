@@ -206,68 +206,91 @@ void Server::sunrise() {
 
 //play player turns in random order
 void Server::daylight() {
-	qDebug() << "daylight begins";
-    //execute the TURNS per player here.
+	startPlayerTurn();
+}
+
+void Server::startPlayerTurn() {
+	currentPlayer = 0;
 	do {
-		int player = 0;
-		do {
-			player = game.rollDice() -1;
-			qDebug() << "rolled: " << player;
-			qDebug() << "array value: " << recTurns[player];
-		} while(recTurns[player] == NULL);
-		qDebug() << "selected player: " << player;
+		currentPlayer = game.rollDice() -1;
+		qDebug() << "rolled: " << currentPlayer;
+		qDebug() << "array value: " << recTurns[currentPlayer];
+	} while(recTurns[currentPlayer] == NULL);
+	qDebug() << "selected player: " << currentPlayer;
+	currentAction = recTurns[currentPlayer]->getActions()->begin();
+	if (currentAction != recTurns[currentPlayer]->getActions()->end()) {
+		startAction();
+	} else {
+		endPlayerTurn();
+	}
+}
 
-		RecordedTurn *turn = recTurns[player];
-
-		vector<Action*> *act = turn->getActions();
-		for (vector<Action*>::iterator it = act->begin(); it != act->end(); ++it) {
-			qDebug() << "performing action";
-			stringstream s;
-			QEventLoop loop;
-			SearchType sType;
-			Character *character = game.getPlayer(clientThreadList->at(player)->getMyCharacter());
-			switch ((*it)->getAction()) {
-			case MoveAction: 
-				moveCharacter(character, (*it)->getTarget());
-				break;
-			case SearchAction: 
-				s << "SearchTypeReq";
-				s << CLASSDELIM;
-				s << PEER;
-				s << VARDELIM;
-				s << LOCATE;
-				if (game.canLoot(character)) {
-					s << VARDELIM;
-					s << LOOT;
-				}
-				connect(clientThreadList->at(player), SIGNAL(searchTypeReturned()),
-					&loop, SLOT(quit()));
-				clientThreadList->at(player)->writeMessage(new string(s.str()));
-				qDebug() << "about to wait for client response";
-				loop.exec(); //Waits for client to respond with search type before continuing
-				qDebug() << "client response received";
-				sType = clientThreadList->at(player)->getSearchTypeResult();
-				searchClearing(character, sType, (*it)->getTarget());
-				break;
-			case TradeAction: break; //Not implemented yet
-			case HideAction: 
-				bool result = game.hideRequest(character);
-				s << "Hidden";
-				s << CLASSDELIM;
-				s << clientThreadList->at(player)->getMyCharacter();
-				s << VARDELIM;
-				s << result;
-				writeMessageAllClients(new string(s.str()));
-				break;
-			}
-
-			delete (*it);
+void Server::startAction() {
+	qDebug() << "performing action";
+	stringstream s;
+	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
+	switch ((*currentAction)->getAction()) {
+	case MoveAction: 
+		moveCharacter(character, (*currentAction)->getTarget());
+		endAction();
+		break;
+	case SearchAction: 
+		s << "SearchTypeReq";
+		s << CLASSDELIM;
+		s << PEER;
+		s << VARDELIM;
+		s << LOCATE;
+		if (game.canLoot(character)) {
+			s << VARDELIM;
+			s << LOOT;
 		}
+		connect(clientThreadList->at(currentPlayer), SIGNAL(searchTypeReturned()),
+			this, SLOT(endAction()));
+		clientThreadList->at(currentPlayer)->writeMessage(new string(s.str()));
+		qDebug() << "wating for response from client";
+		break;
+	case TradeAction: break; //Not implemented yet
+	case HideAction: 
+		bool result = game.hideRequest(character);
+		s << "Hidden";
+		s << CLASSDELIM;
+		s << clientThreadList->at(currentPlayer)->getMyCharacter();
+		s << VARDELIM;
+		s << result;
+		writeMessageAllClients(new string(s.str()));
+		endAction();
+		break;
+	}
+}
 
-		delete turn;
-		recTurns[player] = NULL;
-	} while (turnExists());
-	sunset();
+void Server::endAction() {
+	SearchType sType;
+	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
+	switch ((*currentAction)->getAction())
+	{
+	case SearchAction:
+		sType = clientThreadList->at(currentPlayer)->getSearchTypeResult();
+		searchClearing(character, sType, (*currentAction)->getTarget());
+		break;
+	}
+
+	delete (*currentAction);
+	++currentAction;
+	if (currentAction != recTurns[currentPlayer]->getActions()->end()) {
+		startAction();
+	} else {
+		endPlayerTurn();
+	}
+}
+
+void Server::endPlayerTurn() {
+	delete recTurns[currentPlayer];
+	recTurns[currentPlayer] = NULL;
+	if (turnExists()) {
+		startPlayerTurn();
+	} else {
+		sunset();
+	}
 }
 
 bool Server::turnExists() {

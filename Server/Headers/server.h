@@ -24,6 +24,7 @@ public slots:
 	void setSpawn(DwellingType type, int clientID);
 	void characterUnavail(CharacterType type, int clientID);
 	void recordedTurn(QString &turn, int clientID);
+	void endAction();
 signals:
 	void finished();
 private:
@@ -42,10 +43,20 @@ private:
 	void sunset();
 	void evening();
 	void midnight();
+
+	//daylight functions
+	int currentPlayer;
+	vector<Action *>::iterator currentAction;
+	void startPlayerTurn();
+	void startAction();
+	//void endAction(), is located in public slots:
+	void endPlayerTurn();
+
 	bool turnExists();
 	void searchClearing(Character*, SearchType, Clearing*);
 	void hidePlayer(Character*);
 	void moveCharacter(Character*, Clearing*);
+
 	void writeMessageAllClients(string*);
 	void writeMessageAllClients(QString*);
 	void calculatePlayerTurnPhases(ClientCommThread*);
