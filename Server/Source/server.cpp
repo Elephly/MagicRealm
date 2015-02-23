@@ -278,6 +278,7 @@ Attempt to the player at the current location
 void Server::hidePlayer(Character *character) {
 
 }
+
 /*
 Peer into a neighboring clearing
 */
