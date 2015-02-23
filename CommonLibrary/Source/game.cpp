@@ -969,6 +969,11 @@ void Game::searchRequest(Character* player, SearchType type, Clearing* target) {
 
 bool Game::canLoot(Character* player) {
 	Clearing *location = player->getCurrentLocation();
+	if (location->getClearingNum() == location->getTile()->getSiteOrSoundChit()->getClearingNum()) {
+		if (player->hasDiscovered(location->getTile()->getSiteOrSoundChit())) {
+			return true;
+		}
+	}
 	return false;
 	//todo finish this when clearing have sites, and players have disoveries
 }
