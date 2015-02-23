@@ -12,7 +12,9 @@ class Clearing;
 
 class COMMONLIBRARY_EXPORT Path : public Serializer{
 public:
-	Path(Clearing *c1, Clearing *c2, bool isHidden);
+	Path(Clearing *c1, Clearing *c2, PathType myType);
+	//used for normal paths
+	Path(Clearing *c1, Clearing *c2);
 	Path(string* serialString);
 
     //for a path that leaves a tile (connects two tiles)]
@@ -37,7 +39,7 @@ public:
     *   isHidden()
     *   out:    path is hidden or not (secret passageway / hidden path)
     */
-    bool isHidden();
+    PathType getType();
 
     /*
     *   isBorder
@@ -54,7 +56,7 @@ public:
 	virtual string* serialize();
 
 private:
-	bool hidden;
+	PathType myType;
     bool border;
 	Clearing *clearing1;
 	Clearing *clearing2;

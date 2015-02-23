@@ -583,7 +583,7 @@ bool GameWindow::moveAction()
 		Path* p = *it;
 		Clearing* end = p->getEnd(destinationClearing);
 		Character* character = game->getPlayer(selectedCharacter);
-		if (end != NULL && (!p->isHidden() || character->isDiscovered(p)))
+		if (end != NULL && ((p->getType() == NORMAL) || character->isDiscovered(p)))
 		{
 			adjacentClearings.append(end);
 		}
