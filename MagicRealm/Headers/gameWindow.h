@@ -68,6 +68,7 @@ private:
 	DwellingType startLocation;
 	Game* game;
 	Tile* selectedTile;
+	Clearing* destinationClearing;
 	ActionType selectedAction;
 	RecordedTurn *myTurn;
 	PhaseType currentPhase;
