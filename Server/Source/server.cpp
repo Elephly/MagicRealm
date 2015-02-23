@@ -241,7 +241,7 @@ void Server::daylight() {
 				loop.exec();
 				SearchType sType = clientThreadList->at(player)->getSearchTypeResult();
 				searchClearing(character, sType, (*it)->getTarget());
-				break; //Not implemented yet
+				break;
 			case TradeAction: break; //Not implemented yet
 			case HideAction: 
 				bool result = game.hideRequest(character);
@@ -251,7 +251,7 @@ void Server::daylight() {
 				s << VARDELIM;
 				s << result;
 				writeMessageAllClients(new string(s.str()));
-				break; //Not implemented yet
+				break;
 			}
 
 			delete (*it);
