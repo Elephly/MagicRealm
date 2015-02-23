@@ -11,6 +11,8 @@ Tile::Tile( Direction orient, string n, TileType type)
     for(int i =0; i <CONNECTED_LENGTH; i++)
         connectedTiles[i] = NULL;
 
+	warningChit = 0;
+	siteSoundChit = 0;
 }
 
 Tile::Tile(string* serialString) {
