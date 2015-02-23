@@ -8,6 +8,7 @@
 #include "serializer.h"
 #include <vector>
 #include <string>
+#include "chit.h"
 
 //forward declare
 class Clearing;
@@ -54,6 +55,10 @@ public:
     */
     void toggleHide();
 
+	void discover(Chit* newDiscovery);
+
+	bool hasDiscovered(Chit* checkDiscovery);
+
 private:
 	CharacterType myType;
     bool hidden;
@@ -62,6 +67,7 @@ private:
 	CharAdvantages advantages[2];
 	vector<Equipment *> *equipment;
     vector<Path *>* knownPaths;
+	vector<Chit* >* discoveries;
 
 	//private functions
 	void init(CharacterType);

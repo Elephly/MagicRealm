@@ -6,9 +6,11 @@
 Character::Character(CharacterType type) {
     hidden = false;
 	init(type);
+	discoveries = new vector<Chit*>;
 }
 
 Character::Character(string* serialString) {
+	discoveries = new vector<Chit*>;
 	knownPaths = new vector <Path*>;
     int pos = serialString->find(CLASSDELIM);
 	string first = serialString->substr(0, pos);
@@ -103,6 +105,28 @@ bool Character::isHidden()
 void Character::toggleHide()
 {
     hidden = !hidden;
+}
+
+void Character::discover(Chit* newDiscovery)
+{
+	for(vector<Chit*>::iterator it = discoveries->begin(); it != discoveries->end(); ++it){
+		if(*it == newDiscovery){
+			cout << "WARN: Path already known to Character, not adding to list" <<endl;
+            return;
+		}
+	}
+	discoveries->push_back(newDiscovery);
+}
+
+bool Character::hasDiscovered(Chit* checkDiscovery)
+{
+	for(vector<Chit*>::iterator it = discoveries->begin(); it != discoveries->end(); ++it){
+		if(*it == checkDiscovery){
+			cout << "WARN: Path already known to Character, not adding to list" <<endl;
+            return true;
+		}
+	}
+	return false;
 }
 
 char* Character::getTypeString(CharacterType t)
