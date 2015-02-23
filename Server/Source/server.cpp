@@ -324,7 +324,49 @@ void Server::midnight() {
 Searches the players current location
 */
 void Server::searchClearing(Character *character, SearchType type, Clearing *target) {
-	game.searchRequest(character, type, target);
+	DiscoveryType discover = DISCOVER_NOTHING;
+	stringstream s;
+	switch(type) {
+	case PEER: 
+		discover = game.searchPeerRequest();
+		break;
+	case LOCATE: 
+		discover = game.searchLocateRequest();
+		break;
+	case LOOT: 
+		Treasure *found = game.searchLootRequest(character);
+		if (found != NULL) {
+			character->addGold(found->getWorth());
+		}
+		s << "TreasureFound";
+		s << CLASSDELIM;
+		s << found->getWorth();
+		s << VARDELIM;
+		s << character->getType();
+		break;
+	}
+	switch(discover) {
+	case DISCOVER_HENEMIES: break;
+	case DISCOVER_ENEMAPATH: 
+	case DISCOVER_HPATH: break;
+	case DISCOVER_PATHACLUES: 
+	case DISCOVER_CLUES: break;
+	case DISCOVER_PASSACLUES: 
+	case DISCOVER_SPASS: break;
+	case DISCOVER_CHIT: 
+		Chit* site = target->getTile()->getSiteOrSoundChit();
+		if (site != NULL && site->getType() == CHIT_SITE) {
+			character->discover(site);
+			s << "SiteFound";
+			s << CLASSDELIM;
+			s << site->getName();
+			s << VARDELIM;
+			s << character->getType();
+		}
+		break;
+	case DISCOVER_CHOICE: break;
+	}
+	writeMessageAllClients(new string(s.str()));
 	//TODO handle result of search and send message
 }
 

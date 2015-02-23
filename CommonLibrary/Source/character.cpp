@@ -202,6 +202,10 @@ string* Character::serialize() {
 	return myString;
 }
 
+void Character::addGold(int in) {
+	gold += in;
+}
+
 //Character inits
 void Character::initAmazon() {
 	advantages[0] = AIM;

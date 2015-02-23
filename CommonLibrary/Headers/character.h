@@ -30,6 +30,8 @@ public:
 	static vector<DwellingType>* getStartLocations(CharacterType t);
 	virtual string* serialize();
 
+	void addGold(int);
+
     /*
     *   addPath
     *   in:     Pointer to the Path

@@ -66,12 +66,14 @@ public:
     bool hideRequest(Character* player);
 
 	/*
-	*	searchRequest, Locate or Loot table
+	*	searchPeerRequest, Locate or Loot table
 	*	In:		Player attempting to search
-	*			Type of search to perform
+	*			Target Clearing
 	*	Out:	
 	*/
-	void searchRequest(Character* player, SearchType type, Clearing* target);
+	DiscoveryType searchPeerRequest();
+	DiscoveryType searchLocateRequest();
+	Treasure* searchLootRequest(Character* player);
 
 	/*
 	*	canLoot

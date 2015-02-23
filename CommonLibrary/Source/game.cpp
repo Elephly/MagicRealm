@@ -1040,38 +1040,43 @@ bool Game::hideRequest(Character* player)
     return true;
 }
 
-void Game::searchRequest(Character* player, SearchType type, Clearing* target) {
+DiscoveryType Game::searchPeerRequest() {
 	int d1 = rollDice();
 	int d2 = rollDice();
 	int diceUsed = (d1>d2) ? d1 : d2;
 	
-	switch(type) {
-	case PEER: 
-		switch (diceUsed) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-			break;
-		}
-		break;
-	case LOCATE: 
-		switch (diceUsed) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-			break;
-		}
-		break;
-	case LOOT: 
-		//use looting function
-		break;
+	switch (diceUsed) {
+	case 1: return DISCOVER_CHOICE;
+	case 2: return DISCOVER_PATHACLUES;
+	case 3: return DISCOVER_ENEMAPATH;
+	case 4: return DISCOVER_HENEMIES;
+	case 5: return DISCOVER_CLUES;
+	case 6: return DISCOVER_NOTHING;
 	}
+}
+
+DiscoveryType Game::searchLocateRequest() {
+	int d1 = rollDice();
+	int d2 = rollDice();
+	int diceUsed = (d1>d2) ? d1 : d2;
+
+	switch (diceUsed) {
+	case 1: return DISCOVER_CHOICE;
+	case 2: return DISCOVER_PASSACLUES;
+	case 3: return DISCOVER_SPASS;
+	case 4: return DISCOVER_CHIT;
+	case 5:
+	case 6: return DISCOVER_NOTHING;
+	}
+}
+
+Treasure* Game::searchLootRequest(Character* player) {
+	int d1 = rollDice();
+	int d2 = rollDice();
+	int diceUsed = (d1>d2) ? d1 : d2;
+
+	Chit* chit = player->getCurrentLocation()->getTile()->getSiteOrSoundChit();
+	return chit->loot(diceUsed);
 }
 
 bool Game::canLoot(Character* player) {
