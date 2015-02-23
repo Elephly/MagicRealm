@@ -7,6 +7,7 @@
 #include "path.h"
 #include "serializer.h"
 #include "chit.h"
+#include "warning.h"
 
 class Board;
 
@@ -62,7 +63,7 @@ public:
     */
     Clearing* getConnectedClearing(Tile* aTile);
 
-	void addWarningChit(Chit* newChit);
+	void addWarningChit(Warning* newChit);
 	void addSiteOrSoundChit(Chit* newChit);
 
 	Chit* getWarningChit();
@@ -88,7 +89,7 @@ private:
 
 	TileType myType;
 
-	Chit* warningChit;
+	Warning* warningChit;
 	Chit* siteSoundChit;
 };
 
