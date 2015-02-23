@@ -1,8 +1,6 @@
 #ifndef SITE_H
 #define SITE_H
 
-#include <vector>
-
 #include "shared.h"
 #include "commonlibrary_global.h"
 

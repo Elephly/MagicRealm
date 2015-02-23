@@ -4,6 +4,7 @@
 #include "shared.h"
 #include "commonlibrary_global.h"
 #include "treasure.h"
+#include <vector>
 
 class COMMONLIBRARY_EXPORT Chit {
 public:
@@ -19,7 +20,7 @@ public:
     virtual Treasure* loot(int location);
 	virtual int getClearingNum();
 	virtual ChitType getType() = 0;
-
+	virtual vector<Chit *>* getContents();
 protected:
     string name;
     bool hidden;

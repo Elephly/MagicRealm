@@ -53,8 +53,8 @@ void Game::dealChits()
     vector<Warning *> cavesWarningList;
     vector<Warning *> woodsList;
 	vector <Chit *> siteAndSoundList;
-	vector<Chit *> lostCityList;
-	vector<Chit *> lostCastleList;
+	vector<Chit *>* lostCityList = new vector<Chit*>;
+	vector<Chit *>* lostCastleList = new vector<Chit*>;
 	int random = 0;
 
     Warning* bonesv = new Warning("BONES V", true);
@@ -191,9 +191,8 @@ void Game::dealChits()
 	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
 	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
 
-	Warning* lostCity = new Warning("Lost City", true);
-	Warning* lostCastle = new Warning("Lost Castle", true);
-
+	Lost* lostCity; 
+	Lost* lostCastle; 
 	//randomly putting into cavesList
 	for(int i=0; i<4; i++){
 		if(siteAndSoundList.size()> 1)
@@ -214,25 +213,28 @@ void Game::dealChits()
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
 
+	//settig up LostCity
 	for(int i=0; i<5; i++){
 		if(siteAndSoundList.size() > 1)
 			random = rand() % (siteAndSoundList.size()-1);
 		else
 			random = 0;
-		lostCityList.push_back(siteAndSoundList.at(random));
+		lostCityList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-
+	lostCity = new Lost("Lost City", true, lostCityList);
+	
+	//Setting up LostCastle
 	for(int i=0; i<5; i++){
 		if(siteAndSoundList.size() > 1)
 			random = rand() % (siteAndSoundList.size()-1);
 		else
 			random = 0;
-		lostCastleList.push_back(siteAndSoundList.at(random));
+		lostCastleList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-
-	//ADDING THE LOST CITY LOST CASTLE
+	lostCastle = new Lost("Lost Castle", true, lostCastleList);
+	
 
 	cavesList.push_back(lostCity);
 	mountainList.push_back(lostCastle);

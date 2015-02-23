@@ -15,6 +15,7 @@
 #include "warning.h"
 #include "site.h"
 #include "treasure.h"
+#include "lost.h"
 
 class COMMONLIBRARY_EXPORT Game{
 

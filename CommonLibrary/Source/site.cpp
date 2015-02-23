@@ -23,12 +23,13 @@ ChitType Site::getType()
 {
 	return CHIT_SITE;
 }
-Treasure* Site::loot(int location)
+Treasure* Site::loot(int diceUsed)
 {
-    if(location >= trove->size())
+	int position = diceUsed -1;
+    if(position >= trove->size())
         return NULL;
 
-    Treasure* looted = trove->at(location);
-    trove->erase(trove->begin() + location);
+    Treasure* looted = trove->at(position);
+    trove->erase(trove->begin() + position);
     return looted;
 }
