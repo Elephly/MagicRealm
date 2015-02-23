@@ -35,7 +35,7 @@ void Game::setupGame(bool cm)
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
-	dealChits();
+	//dealChits();
     plopDwellings();
     //placePlayers();
 
