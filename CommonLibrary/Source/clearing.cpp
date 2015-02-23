@@ -115,6 +115,21 @@ Tile* Clearing::getTile()
     return myTile;
 }
 
+bool Clearing::lootable()
+{
+	switch(myTile->getType()){
+	case TILE_CAVES:
+	case TILE_MOUNTAIN:
+		if(myTile->getSiteOrSoundChit()->getClearingNum() == ID){
+			return (myTile->getSiteOrSoundChit()->loot(0));
+		}
+		else{
+			return false;
+		}
+	default:
+		return false;
+	}
+}
 vector<Path*>* Clearing::getPaths()
 {
     return pathways;

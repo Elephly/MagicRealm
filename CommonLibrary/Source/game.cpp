@@ -525,7 +525,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Deep Woods
-    Tile* deepWoodsTile = new Tile(EDGE_A, "Deep Woods", TILE_WOODS);
+    Tile* deepWoodsTile = new Tile(EDGE_A, "Deep Woods", TILE_MOUNTAIN);
     c1 = new Clearing(1, deepWoodsTile, WOODS);
     c2 = new Clearing(2, deepWoodsTile, WOODS);
     c3 = new Clearing(3, deepWoodsTile, WOODS);

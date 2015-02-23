@@ -92,6 +92,12 @@ public:
 
 	static char* getTypeString(ClearingType);
 
+	/*
+	*	returns whether or not a clearing is lootable.
+	*	
+	*/
+	bool lootable();
+
 private:
     //list of characters in a clearing.
 	vector<Character*>* characters;
