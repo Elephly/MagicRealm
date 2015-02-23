@@ -610,8 +610,17 @@ void GameWindow::setCharacterHidden(CharacterType character, bool hidden)
 void GameWindow::searchTypeRequest(QString& searchTypes)
 {
 	//parsing string
-
-	int searchType = QMessageBox::question(ui.centralWidget, "Search Type", "How would you like to search?", "Peer", "Locate", "Loot");
+	int pos = searchTypes.indexOf(CLASSDELIM);
+	searchTypes = searchTypes.remove(0, pos + 2);
+	pos = searchTypes.indexOf(VARDELIM);
+	searchTypes = searchTypes.right(searchTypes.size() - (pos + 1));
+	pos = searchTypes.indexOf(VARDELIM);
+	int searchType;
+	if (pos != -1) {
+		searchType = QMessageBox::question(ui.centralWidget, "Search Type", "How would you like to search?", "Peer", "Locate", "Loot");
+	} else {
+		searchType = QMessageBox::question(ui.centralWidget, "Search Type", "How would you like to search?", "Peer", "Locate");
+	}
 	
 	QString serializedSearchType;
 	serializedSearchType.sprintf("SearchTypeResp%s%d", CLASSDELIM, searchType);

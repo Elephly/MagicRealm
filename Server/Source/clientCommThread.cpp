@@ -75,3 +75,7 @@ void ClientCommThread::writeMessage(string *message) {
 CharacterType ClientCommThread::getMyCharacter() {
 	return myCharacter;
 }
+
+SearchType ClientCommThread::getSearchTypeResult() {
+	return searchTypeRes;
+}

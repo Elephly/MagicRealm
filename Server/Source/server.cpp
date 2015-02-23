@@ -220,6 +220,7 @@ void Server::daylight() {
 		for (vector<Action*>::iterator it = act->begin(); it != act->end(); ++it) {
 			stringstream s;
 			QEventLoop loop;
+			SearchType sType;
 			Character *character = game.getPlayer(clientThreadList->at(player)->getMyCharacter());
 			switch ((*it)->getAction()) {
 			case MoveAction: 
@@ -239,7 +240,7 @@ void Server::daylight() {
 					&loop, SLOT(quit()));
 				clientThreadList->at(player)->writeMessage(new string(s.str()));
 				loop.exec(); //Waits for client to respond with search type before continuing
-				SearchType sType = clientThreadList->at(player)->getSearchTypeResult();
+				sType = clientThreadList->at(player)->getSearchTypeResult();
 				searchClearing(character, sType, (*it)->getTarget());
 				break;
 			case TradeAction: break; //Not implemented yet
