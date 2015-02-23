@@ -1,12 +1,12 @@
 #include "tile.h"
 #include <sstream>
 
-Tile::Tile( Direction orient, string n)
+Tile::Tile( Direction orient, string n, TileType type)
 {
     clearings = new vector<Clearing*>;
     orientation = orient;
     name = n;
-    
+    myType = type;
     //setting up adjacent tiles as null
     for(int i =0; i <CONNECTED_LENGTH; i++)
         connectedTiles[i] = NULL;
@@ -25,7 +25,7 @@ Tile::Tile(string* serialString) {
 
 	Direction o = (Direction) atoi(first.c_str());
 	 
-	Tile(o, second);
+	Tile(o, second, TILE_WOODS);
 }
 
 Tile::~Tile()
@@ -142,6 +142,10 @@ Direction Tile::findConnectingEdge(Tile* aTile)
     return EDGE_NONE;
 }
 
+TileType Tile::getType()
+{
+	return myType;
+}
 //Tile**orientation^name^clearing1+clearing2+
 string* Tile::serialize() {
 	stringstream s;

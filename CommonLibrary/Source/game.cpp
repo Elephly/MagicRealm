@@ -50,6 +50,7 @@ void Game::dealChits()
     vector<Chit *> cavesList;
     vector<Chit *> woodsList;
     vector<Chit *> valleyList;
+	vector <Chit *> siteAndSoundList;
 
     valleyList.push_back(new Warning("BONES V", true));
     valleyList.push_back(new Warning("DANK V", true));
@@ -151,29 +152,40 @@ void Game::dealChits()
     smallTreasure.push_back(new Treasure("Withered Claw", 5, SMALL));
 
     //Hoard Treasure setup
-    vector <Site *> siteList;
-    siteList.push_back(setupSite(HOARD, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(HOARD, &largeTreasure, &smallTreasure));
 
     //Lair Treasure setup
-    siteList.push_back(setupSite(LAIR, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(LAIR, &largeTreasure, &smallTreasure));
 
     //Altar Treasure setup
-    siteList.push_back(setupSite(ALTAR, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(ALTAR, &largeTreasure, &smallTreasure));
 
     //Shrine Treasure setup
-    siteList.push_back(setupSite(SHRINE, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(SHRINE, &largeTreasure, &smallTreasure));
 
     //Pool Treasure setup
-    siteList.push_back(setupSite(POOL, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(POOL, &largeTreasure, &smallTreasure));
 
     //Vault treasure setup
-    siteList.push_back(setupSite(VAULT, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(VAULT, &largeTreasure, &smallTreasure));
 
     //Cairns treasure setup
-    siteList.push_back(setupSite(CAIRNS, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(CAIRNS, &largeTreasure, &smallTreasure));
     
     //Statue treasure setup
-    siteList.push_back(setupSite(STATUE, &largeTreasure, &smallTreasure));
+    siteAndSoundList.push_back(setupSite(STATUE, &largeTreasure, &smallTreasure));
+
+	siteAndSoundList.push_back(new Sound("Howl 4", true, 4));
+	siteAndSoundList.push_back(new Sound("Howl 5", true, 5));
+	siteAndSoundList.push_back(new Sound("Flutter 1", true, 1));
+	siteAndSoundList.push_back(new Sound("Flutter 2", true, 2));
+	siteAndSoundList.push_back(new Sound("Patter 2", true, 2));
+	siteAndSoundList.push_back(new Sound("Patter 5", true, 2));
+	siteAndSoundList.push_back(new Sound("roar 4", true, 4));
+	siteAndSoundList.push_back(new Sound("roar 6", true, 2));
+	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
+	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
+
 }
 
 Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm)
@@ -262,7 +274,7 @@ void Game::setupTiles()
     string *resultString = NULL;
 
     //creating borderland tile and clearings and INTERNAL paths
-	Tile* borderLandTile = new Tile (EDGE_F, "Border Land");
+	Tile* borderLandTile = new Tile (EDGE_F, "Border Land", TILE_CAVES);
 	c1 = new Clearing(1, borderLandTile, WOODS);
 	c2 = new Clearing(2, borderLandTile, WOODS);
 	c3 = new Clearing(3, borderLandTile, WOODS);
@@ -290,7 +302,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //setting up the Oak Woods Tile and INTERNAL PATHS
-    Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods");
+    Tile* oakWoodsTile = new Tile(EDGE_E, "Oak Woods", TILE_WOODS);
     c1 = new Clearing(2, oakWoodsTile, WOODS);
     c2 = new Clearing(4, oakWoodsTile, WOODS);
     c3 = new Clearing(5, oakWoodsTile, WOODS);
@@ -304,7 +316,7 @@ void Game::setupTiles()
     c3 = NULL;
 
     //setting up the Bad Valley Tile. and INTERNAL PATHS
-    Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley");
+    Tile* badValleyTile = new Tile(EDGE_F, "Bad Valley", TILE_VALLEY);
     c1 = new Clearing(1, badValleyTile, WOODS);
     c2 = new Clearing(2, badValleyTile, WOODS);
     c3 = new Clearing(4, badValleyTile, WOODS);
@@ -322,7 +334,7 @@ void Game::setupTiles()
     c3 = NULL;
 
     //Setting up the Maple Woods Tile and INTERNAL PATHS
-    Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods");
+    Tile* mapleWoodsTile = new Tile(EDGE_C, "Maple Woods", TILE_WOODS);
 
     c1 = new Clearing(2, mapleWoodsTile, WOODS);
     c2 = new Clearing(4, mapleWoodsTile, WOODS);
@@ -338,7 +350,7 @@ void Game::setupTiles()
     c2 = NULL;
     c3 = NULL;
 
-    Tile* cavernTile = new Tile(EDGE_B, "Cavern");
+    Tile* cavernTile = new Tile(EDGE_B, "Cavern", TILE_CAVES);
 
     c1 = new Clearing(1, cavernTile, CAVES);
     c2 = new Clearing(2, cavernTile, CAVES);
@@ -366,7 +378,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //HighPass
-    Tile* highPassTile = new Tile(EDGE_C, "High Pass");
+    Tile* highPassTile = new Tile(EDGE_C, "High Pass", TILE_CAVES);
     c1 = new Clearing(1, highPassTile, MOUNTAIN);
     c2 = new Clearing(2, highPassTile, MOUNTAIN);
     c3 = new Clearing(3, highPassTile, CAVES);
@@ -390,7 +402,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //Evil Valley
-    Tile* evilValleyTile = new Tile(EDGE_C, "Evil Valley");
+    Tile* evilValleyTile = new Tile(EDGE_C, "Evil Valley", TILE_VALLEY);
     c1 = new Clearing(1, evilValleyTile, WOODS);
     c2 = new Clearing(2, evilValleyTile, WOODS);
     c4 = new Clearing(4, evilValleyTile, WOODS);
@@ -409,7 +421,7 @@ void Game::setupTiles()
 
     //Ledges
 
-    Tile* ledgesTile = new Tile(EDGE_E, "Ledges");
+	Tile* ledgesTile = new Tile(EDGE_E, "Ledges", TILE_MOUNTAIN);
     c1 = new Clearing(1, ledgesTile, WOODS);
     c2 = new Clearing(2, ledgesTile, MOUNTAIN);
     c3 = new Clearing(3, ledgesTile, WOODS);
@@ -435,7 +447,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //Cliff
-    Tile* cliffTile = new Tile(EDGE_F, "Cliff");
+    Tile* cliffTile = new Tile(EDGE_F, "Cliff", TILE_MOUNTAIN);
     c1 = new Clearing(1, cliffTile, MOUNTAIN);
     c2 = new Clearing(2, cliffTile, WOODS);
     c3 = new Clearing(3, cliffTile, WOODS);
@@ -461,7 +473,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //crag
-    Tile* cragTile = new Tile(EDGE_D, "Crag");
+	Tile* cragTile = new Tile(EDGE_D, "Crag", TILE_MOUNTAIN);
     c1 = new Clearing(1, cragTile, MOUNTAIN);
     c2 = new Clearing(2, cragTile, MOUNTAIN);
     c3 = new Clearing(3, cragTile, MOUNTAIN);
@@ -488,7 +500,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //Dark Valey
-    Tile* darkValleyTile = new Tile(EDGE_C, "Dark Valley");
+    Tile* darkValleyTile = new Tile(EDGE_C, "Dark Valley", TILE_VALLEY);
     c1 = new Clearing(1, darkValleyTile, WOODS);
     c2 = new Clearing(2, darkValleyTile, WOODS);
     c4 = new Clearing(4, darkValleyTile, WOODS);
@@ -506,7 +518,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Deep Woods
-    Tile* deepWoodsTile = new Tile(EDGE_A, "Deep Woods");
+    Tile* deepWoodsTile = new Tile(EDGE_A, "Deep Woods", TILE_WOODS);
     c1 = new Clearing(1, deepWoodsTile, WOODS);
     c2 = new Clearing(2, deepWoodsTile, WOODS);
     c3 = new Clearing(3, deepWoodsTile, WOODS);
@@ -533,7 +545,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //Curst Valley
-    Tile* curstValleyTile = new Tile(EDGE_A, "Curst Valley");
+    Tile* curstValleyTile = new Tile(EDGE_A, "Curst Valley", TILE_VALLEY);
     c1 = new Clearing(1, curstValleyTile, WOODS);
     c2 = new Clearing(2, curstValleyTile, WOODS);
     c4 = new Clearing(4, curstValleyTile, WOODS);
@@ -551,7 +563,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Nut Woods
-    Tile* nutWoodsTile = new Tile(EDGE_D, "Nut Woods");
+    Tile* nutWoodsTile = new Tile(EDGE_D, "Nut Woods", TILE_WOODS);
     c2 = new Clearing(2, nutWoodsTile, WOODS);
     c4 = new Clearing(4, nutWoodsTile, WOODS);
     c5 = new Clearing(5, nutWoodsTile, WOODS);
@@ -567,7 +579,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Awful Valley
-    Tile* awfulValleyTile = new Tile(EDGE_A, "Awful Valley");
+    Tile* awfulValleyTile = new Tile(EDGE_A, "Awful Valley", TILE_VALLEY);
     c1 = new Clearing(1, awfulValleyTile, WOODS);
     c2 = new Clearing(2, awfulValleyTile, WOODS);
     c4 = new Clearing(4, awfulValleyTile, WOODS);
@@ -586,7 +598,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Linden Woods
-    Tile* lindenWoodsTile = new Tile(EDGE_B, "Linden Woods");
+    Tile* lindenWoodsTile = new Tile(EDGE_B, "Linden Woods", TILE_WOODS);
     c2 = new Clearing(2, lindenWoodsTile, WOODS);
     c4 = new Clearing(4, lindenWoodsTile, WOODS);
     c5 = new Clearing(5, lindenWoodsTile, WOODS);
@@ -602,7 +614,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Ruins
-    Tile* ruinsTile = new Tile(EDGE_C, "Ruins");
+    Tile* ruinsTile = new Tile(EDGE_C, "Ruins", TILE_CAVES);
     c1 = new Clearing(1, ruinsTile, WOODS);
     c2 = new Clearing(2, ruinsTile, WOODS);
     c3 = new Clearing(3, ruinsTile, WOODS);
@@ -628,7 +640,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //Caves
-    Tile* cavesTile = new Tile(EDGE_C, "Caves");
+    Tile* cavesTile = new Tile(EDGE_C, "Caves", TILE_CAVES);
     c1 = new Clearing(1, cavesTile, CAVES);
     c2 = new Clearing(2, cavesTile, CAVES);
     c3 = new Clearing(3, cavesTile, CAVES);
@@ -653,7 +665,7 @@ void Game::setupTiles()
     c6 = NULL;
 
     //Linden Woods
-    Tile* pineWoodsTile = new Tile(EDGE_A, "Pine Woods");
+    Tile* pineWoodsTile = new Tile(EDGE_A, "Pine Woods", TILE_WOODS);
     c2 = new Clearing(2, pineWoodsTile, WOODS);
     c4 = new Clearing(4, pineWoodsTile, WOODS);
     c5 = new Clearing(5, pineWoodsTile, WOODS);
@@ -669,7 +681,7 @@ void Game::setupTiles()
     c5 = NULL;
 
     //Mountain
-    Tile* mountainTile = new Tile(EDGE_F, "Mountain");
+    Tile* mountainTile = new Tile(EDGE_F, "Mountain", TILE_MOUNTAIN);
     c1 = new Clearing(1, mountainTile, MOUNTAIN);
     c2 = new Clearing(2, mountainTile, WOODS);
     c3 = new Clearing(3, mountainTile, MOUNTAIN);

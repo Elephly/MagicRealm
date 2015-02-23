@@ -12,7 +12,7 @@ class Board;
 //Abstract class, extend this with all different tile types
 class COMMONLIBRARY_EXPORT Tile : public Serializer {
 public:
-	Tile(Direction orient, string n);
+	Tile(Direction orient, string n, TileType type);
 	Tile(string* serialString);
     ~Tile();
 
@@ -61,6 +61,7 @@ public:
     */
     Clearing* getConnectedClearing(Tile* aTile);
 
+	TileType getType();
 
 	virtual string* serialize();
 
@@ -77,6 +78,8 @@ private:
     string name;
 
     Tile* connectedTiles [CONNECTED_LENGTH];
+
+	TileType myType;
 };
 
 #endif // TILE_H
