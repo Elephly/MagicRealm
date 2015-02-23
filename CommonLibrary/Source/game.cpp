@@ -395,12 +395,12 @@ void Game::setupTiles()
 	c4 = new Clearing(4, borderLandTile, CAVES);
 	c5 = new Clearing(5, borderLandTile, CAVES);
 	c6 = new Clearing(6, borderLandTile, CAVES);
-	p = new Path(c1, c6, false);
-	p = new Path(c2, c3, false);
-	p = new Path(c3, c5, false);
-	p = new Path(c3, c6, false);
-	p = new Path(c4, c5, true);
-	p = new Path(c4, c6, false);
+	p = new Path(c1, c6);
+	p = new Path(c2, c3);
+	p = new Path(c3, c5);
+	p = new Path(c3, c6);
+	p = new Path(c4, c5, SECRET);
+	p = new Path(c4, c6);
 	gameBoard->addTile(borderLandTile);
 	
     if(gameBoard->getTile("Border Land") != NULL)
@@ -420,7 +420,7 @@ void Game::setupTiles()
     c1 = new Clearing(2, oakWoodsTile, WOODS);
     c2 = new Clearing(4, oakWoodsTile, WOODS);
     c3 = new Clearing(5, oakWoodsTile, WOODS);
-    p = new Path(c1, c2, false);
+    p = new Path(c1, c2);
     gameBoard->addTile(oakWoodsTile);
 
     //resetting the clearings and paths
@@ -437,8 +437,8 @@ void Game::setupTiles()
     c4 = new Clearing(5, badValleyTile, WOODS);
 
     //regular paths
-    p = new Path(c1, c3, false);
-    p = new Path(c2, c4, false);
+    p = new Path(c1, c3);
+    p = new Path(c2, c4);
 
     gameBoard->addTile(badValleyTile);
     //resetting the clearings and paths
@@ -454,7 +454,7 @@ void Game::setupTiles()
     c2 = new Clearing(4, mapleWoodsTile, WOODS);
     c3 = new Clearing(5, mapleWoodsTile, WOODS);
 
-    p = new Path(c1, c2, false);
+    p = new Path(c1, c2);
 
     gameBoard->addTile(mapleWoodsTile);
 
@@ -473,13 +473,13 @@ void Game::setupTiles()
     c5 = new Clearing(5, cavernTile, CAVES);
     c6 = new Clearing(6, cavernTile, CAVES);
 
-    p = new Path(c1, c3, false);
-    p = new Path(c1, c4, true);
-    p = new Path(c2, c3, false);
-    p = new Path(c3, c5, true);
-    p = new Path(c3, c6, false);
-    p = new Path(c4, c5, false);
-    p = new Path(c4, c6, false);
+    p = new Path(c1, c3);
+    p = new Path(c1, c4, SECRET);
+    p = new Path(c2, c3);
+    p = new Path(c3, c5, SECRET);
+    p = new Path(c3, c6);
+    p = new Path(c4, c5);
+    p = new Path(c4, c6);
 
     gameBoard->addTile(cavernTile);
     //resetting the clearings and paths
@@ -500,10 +500,10 @@ void Game::setupTiles()
     c5 = new Clearing(5, highPassTile, MOUNTAIN);
     c6 = new Clearing(6, highPassTile, CAVES);
 
-    p = new Path(c1, c5, false);
-    p = new Path(c1, c4, false);
-    p = new Path(c2, c4, false);
-    p = new Path(c3, c6, false);
+    p = new Path(c1, c5);
+    p = new Path(c1, c4);
+    p = new Path(c2, c4);
+    p = new Path(c3, c6);
 
     gameBoard->addTile(highPassTile);
 
@@ -522,8 +522,8 @@ void Game::setupTiles()
     c4 = new Clearing(4, evilValleyTile, WOODS);
     c5 = new Clearing(5, evilValleyTile, WOODS);
 
-    p = new Path(c1, c4, false);
-    p = new Path(c2, c5, false);
+    p = new Path(c1, c4);
+    p = new Path(c2, c5);
 
     gameBoard->addTile(evilValleyTile);
 
@@ -543,12 +543,12 @@ void Game::setupTiles()
     c5 = new Clearing(5, ledgesTile, MOUNTAIN);
     c6 = new Clearing(6, ledgesTile, WOODS);
 
-    p = new Path(c1, c3, true);
-    p = new Path(c1, c4, false);
-    p = new Path(c1, c6, false);
-    p = new Path(c2, c5, false);
-    p = new Path(c3, c6, false);
-    p = new Path(c4, c6, true);
+    p = new Path(c1, c3, HIDDEN);
+    p = new Path(c1, c4);
+    p = new Path(c1, c6);
+    p = new Path(c2, c5);
+    p = new Path(c3, c6);
+    p = new Path(c4, c6, HIDDEN);
 
     gameBoard->addTile(ledgesTile);
 
@@ -569,12 +569,12 @@ void Game::setupTiles()
     c5 = new Clearing(5, cliffTile, WOODS);
     c6 = new Clearing(6, cliffTile, MOUNTAIN);
 
-    p = new Path(c1, c6, false);
-    p = new Path(c2, c3, false);
-    p = new Path(c2, c5, true);
-    p = new Path(c3, c5, false);
-    p = new Path(c3, c6, true);
-    p = new Path(c4, c6, false);
+    p = new Path(c1, c6);
+    p = new Path(c2, c3);
+    p = new Path(c2, c5, HIDDEN);
+    p = new Path(c3, c5);
+    p = new Path(c3, c6, SECRET);
+    p = new Path(c4, c6);
 
     gameBoard->addTile(cliffTile);
 
@@ -595,13 +595,13 @@ void Game::setupTiles()
     c5 = new Clearing(5, cragTile, MOUNTAIN);
     c6 = new Clearing(6, cragTile, MOUNTAIN);
 
-    p = new Path(c1, c4, false);
-    p = new Path(c1, c6, true);
-    p = new Path(c2, c5, false);
-    p = new Path(c2, c3, true);
-    p = new Path(c3, c5, false);
-    p = new Path(c3, c6, false);
-    p = new Path(c4, c6, false);
+    p = new Path(c1, c4);
+    p = new Path(c1, c6, SECRET);
+    p = new Path(c2, c5);
+    p = new Path(c2, c3, HIDDEN);
+    p = new Path(c3, c5);
+    p = new Path(c3, c6);
+    p = new Path(c4, c6);
     
     gameBoard->addTile(cragTile);
 
@@ -620,8 +620,8 @@ void Game::setupTiles()
     c4 = new Clearing(4, darkValleyTile, WOODS);
     c5 = new Clearing(5, darkValleyTile, WOODS);
 
-    p = new Path(c1, c4, false);
-    p = new Path(c2, c5, false);
+    p = new Path(c1, c4);
+    p = new Path(c2, c5);
     
     gameBoard->addTile(darkValleyTile);
 
@@ -640,13 +640,13 @@ void Game::setupTiles()
     c5 = new Clearing(5, deepWoodsTile, WOODS);
     c6 = new Clearing(6, deepWoodsTile, WOODS);
 
-    p = new Path(c1, c6, false);
-    p = new Path(c1, c4, true);
-    p = new Path(c2, c3, false);
-    p = new Path(c3, c5, false);
-    p = new Path(c3, c6, true);
-    p = new Path(c4, c5, false);
-    p = new Path(c4, c6, false);
+    p = new Path(c1, c6);
+	p = new Path(c1, c4, HIDDEN);
+    p = new Path(c2, c3);
+    p = new Path(c3, c5);
+    p = new Path(c3, c6, HIDDEN);
+    p = new Path(c4, c5);
+    p = new Path(c4, c6);
     
     gameBoard->addTile(deepWoodsTile);
     
@@ -665,8 +665,8 @@ void Game::setupTiles()
     c4 = new Clearing(4, curstValleyTile, WOODS);
     c5 = new Clearing(5, curstValleyTile, WOODS);
 
-    p = new Path(c1, c4, false);
-    p = new Path(c2, c5, false);
+    p = new Path(c1, c4);
+    p = new Path(c2, c5);
     
     gameBoard->addTile(curstValleyTile);
 
@@ -682,7 +682,7 @@ void Game::setupTiles()
     c4 = new Clearing(4, nutWoodsTile, WOODS);
     c5 = new Clearing(5, nutWoodsTile, WOODS);
 
-    p = new Path(c2, c4, false);
+    p = new Path(c2, c4);
     
     gameBoard->addTile(nutWoodsTile);
 
@@ -699,8 +699,8 @@ void Game::setupTiles()
     c4 = new Clearing(4, awfulValleyTile, WOODS);
     c5 = new Clearing(5, awfulValleyTile, WOODS);
 
-    p = new Path(c1, c4, false);
-    p = new Path(c2, c5, false);
+    p = new Path(c1, c4);
+    p = new Path(c2, c5);
     
     gameBoard->addTile(awfulValleyTile);
 
@@ -717,7 +717,7 @@ void Game::setupTiles()
     c4 = new Clearing(4, lindenWoodsTile, WOODS);
     c5 = new Clearing(5, lindenWoodsTile, WOODS);
 
-    p = new Path(c2, c4, false);
+    p = new Path(c2, c4);
     
     gameBoard->addTile(lindenWoodsTile);
 
@@ -736,12 +736,12 @@ void Game::setupTiles()
     c5 = new Clearing(5, ruinsTile, WOODS);
     c6 = new Clearing(6, ruinsTile, CAVES);
 
-    p = new Path(c1, c2, false);
-    p = new Path(c1, c5, true);
-    p = new Path(c1, c4, false);
-    p = new Path(c3, c5, false);
-    p = new Path(c3, c6, false);
-    p = new Path(c4, c6, false);
+    p = new Path(c1, c2);
+    p = new Path(c1, c5, HIDDEN);
+    p = new Path(c1, c4);
+    p = new Path(c3, c5);
+    p = new Path(c3, c6);
+    p = new Path(c4, c6);
     
     gameBoard->addTile(ruinsTile);
     
@@ -762,11 +762,11 @@ void Game::setupTiles()
     c5 = new Clearing(5, cavesTile, CAVES);
     c6 = new Clearing(6, cavesTile, CAVES);
 
-    p = new Path(c1, c6, false);
-    p = new Path(c2, c3, true);
-    p = new Path(c2, c4, false);
-    p = new Path(c3, c5, false);
-    p = new Path(c4, c6, false);
+    p = new Path(c1, c6);
+    p = new Path(c2, c3, SECRET);
+    p = new Path(c2, c4);
+    p = new Path(c3, c5);
+    p = new Path(c4, c6);
     
     gameBoard->addTile(cavesTile);
     
@@ -784,7 +784,7 @@ void Game::setupTiles()
     c4 = new Clearing(4, pineWoodsTile, WOODS);
     c5 = new Clearing(5, pineWoodsTile, WOODS);
 
-    p = new Path(c2, c4, false);
+    p = new Path(c2, c4);
     
     gameBoard->addTile(pineWoodsTile);
 
@@ -803,12 +803,12 @@ void Game::setupTiles()
     c5 = new Clearing(5, mountainTile, MOUNTAIN);
     c6 = new Clearing(6, mountainTile, MOUNTAIN);
 
-    p = new Path(c1, c3, false);
-    p = new Path(c2, c5, false);
-    p = new Path(c2, c4, false);
-    p = new Path(c3, c6, false);
-    p = new Path(c4, c6, true);
-    p = new Path(c5, c6, false);
+    p = new Path(c1, c3);
+    p = new Path(c2, c5);
+    p = new Path(c2, c4);
+    p = new Path(c3, c6);
+    p = new Path(c4, c6, HIDDEN);
+    p = new Path(c5, c6);
 
     gameBoard->addTile(mountainTile);
         
@@ -822,84 +822,84 @@ void Game::setupTiles()
 
     //setting up connected stuff and connected paths.	
     borderLandTile->addConnectedTile(oakWoodsTile, EDGE_A);
-    p = new Path(borderLandTile->getClearing(2), oakWoodsTile->getClearing(2), false);
+    p = new Path(borderLandTile->getClearing(2), oakWoodsTile->getClearing(2));
     borderLandTile->addConnectedTile(badValleyTile, EDGE_B);
-    p = new Path(borderLandTile->getClearing(1), badValleyTile->getClearing(5), false);
+    p = new Path(borderLandTile->getClearing(1), badValleyTile->getClearing(5));
     borderLandTile->addConnectedTile(cavernTile, EDGE_C);
-    p = new Path(borderLandTile->getClearing(5), cavernTile->getClearing(2), false);
+    p = new Path(borderLandTile->getClearing(5), cavernTile->getClearing(2));
     borderLandTile->addConnectedTile(highPassTile, EDGE_D);
-    p = new Path(borderLandTile->getClearing(1), highPassTile->getClearing(2), false);
+    p = new Path(borderLandTile->getClearing(1), highPassTile->getClearing(2));
     borderLandTile->addConnectedTile(evilValleyTile, EDGE_E);
-    p = new Path(borderLandTile->getClearing(2), evilValleyTile->getClearing(4), false);
+    p = new Path(borderLandTile->getClearing(2), evilValleyTile->getClearing(4));
     borderLandTile->addConnectedTile(ledgesTile, EDGE_F);
-    p = new Path(borderLandTile->getClearing(4), ledgesTile->getClearing(4), false);
+    p = new Path(borderLandTile->getClearing(4), ledgesTile->getClearing(4));
 
     highPassTile->addConnectedTile(evilValleyTile, EDGE_C);
-    p = new Path(highPassTile->getClearing(6), evilValleyTile->getClearing(5), false);
+    p = new Path(highPassTile->getClearing(6), evilValleyTile->getClearing(5));
     highPassTile->addConnectedTile(cavernTile, EDGE_E);
-    p = new Path(highPassTile->getClearing(3), cavernTile->getClearing(5), false);
+    p = new Path(highPassTile->getClearing(3), cavernTile->getClearing(5));
 
     oakWoodsTile->addConnectedTile(badValleyTile, EDGE_D);
-    p = new Path(oakWoodsTile->getClearing(5), badValleyTile->getClearing(1), false);
+    p = new Path(oakWoodsTile->getClearing(5), badValleyTile->getClearing(1));
     oakWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_C);
-    p = new Path(oakWoodsTile->getClearing(5), mapleWoodsTile->getClearing(5), false);
+    p = new Path(oakWoodsTile->getClearing(5), mapleWoodsTile->getClearing(5));
     oakWoodsTile->addConnectedTile(deepWoodsTile, EDGE_B);
-    p = new Path(oakWoodsTile->getClearing(4), deepWoodsTile->getClearing(1), false);
+    p = new Path(oakWoodsTile->getClearing(4), deepWoodsTile->getClearing(1));
     oakWoodsTile->addConnectedTile(ledgesTile, EDGE_F);
-    p = new Path(oakWoodsTile->getClearing(2), ledgesTile->getClearing(5), false);
+    p = new Path(oakWoodsTile->getClearing(2), ledgesTile->getClearing(5));
 
     evilValleyTile->addConnectedTile(cliffTile, EDGE_C);
-    p = new Path(evilValleyTile->getClearing(2), cliffTile->getClearing(1), false);
+    p = new Path(evilValleyTile->getClearing(2), cliffTile->getClearing(1));
     evilValleyTile->addConnectedTile(ledgesTile, EDGE_D);
-    p = new Path(evilValleyTile->getClearing(4), ledgesTile->getClearing(2), false);
+    p = new Path(evilValleyTile->getClearing(4), ledgesTile->getClearing(2));
     
     ledgesTile->addConnectedTile(cliffTile, EDGE_F);
-    p = new Path(ledgesTile->getClearing(3), cliffTile->getClearing(2), false);
+    p = new Path(ledgesTile->getClearing(3), cliffTile->getClearing(2));
 
     deepWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_B);
-    p = new Path(deepWoodsTile->getClearing(5), mapleWoodsTile->getClearing(5), false);
+    p = new Path(deepWoodsTile->getClearing(5), mapleWoodsTile->getClearing(5));
     deepWoodsTile->addConnectedTile(cragTile, EDGE_D);
-    p = new Path(deepWoodsTile->getClearing(1), cragTile->getClearing(2), false);
+    p = new Path(deepWoodsTile->getClearing(1), cragTile->getClearing(2));
     deepWoodsTile->addConnectedTile(darkValleyTile, EDGE_E);
-    p = new Path(deepWoodsTile->getClearing(2), darkValleyTile->getClearing(5), false);
+    p = new Path(deepWoodsTile->getClearing(2), darkValleyTile->getClearing(5));
     deepWoodsTile->addConnectedTile(curstValleyTile, EDGE_F);
-    p = new Path(deepWoodsTile->getClearing(2), curstValleyTile->getClearing(2), false);
+    p = new Path(deepWoodsTile->getClearing(2), curstValleyTile->getClearing(2));
 
     curstValleyTile->addConnectedTile(nutWoodsTile, EDGE_B);
-    p = new Path(curstValleyTile->getClearing(4), nutWoodsTile->getClearing(5), false);
+    p = new Path(curstValleyTile->getClearing(4), nutWoodsTile->getClearing(5));
     curstValleyTile->addConnectedTile(darkValleyTile, EDGE_D);
-    p = new Path(curstValleyTile->getClearing(1), darkValleyTile->getClearing(1), false);
+    p = new Path(curstValleyTile->getClearing(1), darkValleyTile->getClearing(1));
 
     nutWoodsTile->addConnectedTile(awfulValleyTile, EDGE_D);
-    p = new Path(nutWoodsTile->getClearing(2), awfulValleyTile->getClearing(5), false);
+    p = new Path(nutWoodsTile->getClearing(2), awfulValleyTile->getClearing(5));
     nutWoodsTile->addConnectedTile(ruinsTile, EDGE_E);
-    p = new Path(nutWoodsTile->getClearing(4), ruinsTile->getClearing(1), false);
+    p = new Path(nutWoodsTile->getClearing(4), ruinsTile->getClearing(1));
     nutWoodsTile->addConnectedTile(mapleWoodsTile, EDGE_F);
-    p = new Path(nutWoodsTile->getClearing(5), mapleWoodsTile->getClearing(2), false);
+    p = new Path(nutWoodsTile->getClearing(5), mapleWoodsTile->getClearing(2));
 
     mapleWoodsTile->addConnectedTile(ruinsTile, EDGE_E);
-    p = new Path(mapleWoodsTile->getClearing(2), ruinsTile->getClearing(5), false);
+    p = new Path(mapleWoodsTile->getClearing(2), ruinsTile->getClearing(5));
     mapleWoodsTile->addConnectedTile(cavesTile, EDGE_F);
-    p = new Path(mapleWoodsTile->getClearing(4), cavesTile->getClearing(5), false);
+    p = new Path(mapleWoodsTile->getClearing(4), cavesTile->getClearing(5));
 
     badValleyTile->addConnectedTile(cavesTile, EDGE_B);
-    p = new Path(badValleyTile->getClearing(2), cavesTile->getClearing(2), false);
+    p = new Path(badValleyTile->getClearing(2), cavesTile->getClearing(2));
     badValleyTile->addConnectedTile(mountainTile, EDGE_C);
-    p = new Path(badValleyTile->getClearing(4), mountainTile->getClearing(5), false);
+    p = new Path(badValleyTile->getClearing(4), mountainTile->getClearing(5));
 
     mountainTile->addConnectedTile(pineWoodsTile, EDGE_B);
-    p = new Path(mountainTile->getClearing(2), pineWoodsTile->getClearing(4), false);
+    p = new Path(mountainTile->getClearing(2), pineWoodsTile->getClearing(4));
 
     cavesTile->addConnectedTile(pineWoodsTile, EDGE_F);
-    p = new Path(cavesTile->getClearing(1), pineWoodsTile->getClearing(5), false);
+    p = new Path(cavesTile->getClearing(1), pineWoodsTile->getClearing(5));
 
     ruinsTile->addConnectedTile(awfulValleyTile, EDGE_D);
-    p = new Path(ruinsTile->getClearing(2), awfulValleyTile->getClearing(1), false);
+    p = new Path(ruinsTile->getClearing(2), awfulValleyTile->getClearing(1));
     ruinsTile->addConnectedTile(lindenWoodsTile, EDGE_E);
-    p = new Path(ruinsTile->getClearing(2), lindenWoodsTile->getClearing(4), false);
+    p = new Path(ruinsTile->getClearing(2), lindenWoodsTile->getClearing(4));
 
     awfulValleyTile->addConnectedTile(lindenWoodsTile, EDGE_B);
-    p = new Path(awfulValleyTile->getClearing(2), lindenWoodsTile->getClearing(5), false);
+    p = new Path(awfulValleyTile->getClearing(2), lindenWoodsTile->getClearing(5));
 }
 
 void Game::plopDwellings()

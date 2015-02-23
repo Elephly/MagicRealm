@@ -18,6 +18,7 @@ public:
 
     virtual Treasure* loot(int location);
 	virtual int getClearingNum();
+	virtual ChitType getType() = 0;
 
 protected:
     string name;

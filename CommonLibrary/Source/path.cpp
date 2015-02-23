@@ -2,8 +2,8 @@
 #include <sstream>
 
 
-Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
-	hidden = isHidden;
+Path::Path(Clearing *c1, Clearing *c2, PathType pt){
+	myType = pt;
     border = false;
 	clearing1 = c1;
 	clearing2 = c2;
@@ -12,11 +12,21 @@ Path::Path(Clearing *c1, Clearing *c2, bool isHidden){
     clearing2->addPath(this);
 }
 
-//for a path that leaves a tile.
+Path::Path(Clearing *c1, Clearing *c2){
+	myType = NORMAL;
+    border = false;
+	clearing1 = c1;
+	clearing2 = c2;
+    bordering = EDGE_NONE;
+    clearing1->addPath(this);
+    clearing2->addPath(this);
+}
+
+//for a path that leaves a tile. DEPRECIATED
 Path::Path(Clearing* c1, Direction dir)
 {
     //border paths cannot be secret passages or hidden paths
-    hidden = false;
+    myType = NORMAL;
     border = true;
     clearing1 = c1;
     clearing2 = NULL;
@@ -47,9 +57,9 @@ Clearing* Path::getEnd(Clearing* startPoint)
      return startPoint == clearing1 ? clearing2 : clearing1;
 }
 
-bool Path::isHidden()
+PathType Path::getType()
 {
-    return hidden;
+    return myType;
 }
 
 bool Path::isBorder()
@@ -70,7 +80,7 @@ string* Path::serialize() {
 	s << VARDELIM;
 	s << *(clearing2->toString());
 	s << VARDELIM;
-	s << hidden;
+	s << myType;
 	s << VARDELIM;
 	s << border;
 	s << VARDELIM;
