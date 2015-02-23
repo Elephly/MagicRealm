@@ -26,7 +26,12 @@ int Chit::getClearingNum()
 	return -1;
 }
 
-Treasure* Chit::loot(int location)
+Treasure* Chit::loot(int diceUsed)
 {
     return NULL;
+}
+
+vector<Chit *>* Chit::getContents()
+{
+	return NULL;
 }

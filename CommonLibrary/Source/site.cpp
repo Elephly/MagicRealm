@@ -1,9 +1,8 @@
 #include "site.h"
 
-Site::Site(string n, bool hide, vector<Treasure*> * myTreasure): Chit(n, hide)
+Site::Site(string n, bool hide, int clLoc, vector<Treasure*> * myTreasure): Chit(n, hide)
 {
-    //sites always go on clearing 6???
-    clearingLocation = 6;
+    clearingLocation = clLoc;
     trove = myTreasure;
 }
 
@@ -23,12 +22,13 @@ ChitType Site::getType()
 {
 	return CHIT_SITE;
 }
-Treasure* Site::loot(int location)
+Treasure* Site::loot(int diceUsed)
 {
-    if(location >= trove->size())
+	int position = diceUsed -1;
+    if(position >= trove->size())
         return NULL;
 
-    Treasure* looted = trove->at(location);
-    trove->erase(trove->begin() + location);
+    Treasure* looted = trove->at(position);
+    trove->erase(trove->begin() + position);
     return looted;
 }

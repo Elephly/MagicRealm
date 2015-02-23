@@ -32,6 +32,8 @@ Game::~Game()
 
 void Game::setupGame(bool cm)
 {
+	//setting seed for randomness
+	srand(time(NULL));
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
@@ -53,8 +55,8 @@ void Game::dealChits()
     vector<Warning *> cavesWarningList;
     vector<Warning *> woodsList;
 	vector <Chit *> siteAndSoundList;
-	vector<Chit *> lostCityList;
-	vector<Chit *> lostCastleList;
+	vector<Chit *>* lostCityList = new vector<Chit*>;
+	vector<Chit *>* lostCastleList = new vector<Chit*>;
 	int random = 0;
 
     Warning* bonesv = new Warning("BONES V", true);
@@ -191,48 +193,38 @@ void Game::dealChits()
 	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
 	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
 
-	Warning* lostCity = new Warning("Lost City", true);
-	Warning* lostCastle = new Warning("Lost Castle", true);
-
+	Lost* lostCity; 
+	Lost* lostCastle; 
 	//randomly putting into cavesList
 	for(int i=0; i<4; i++){
-		if(siteAndSoundList.size()> 1)
-			random = rand() % (siteAndSoundList.size()-1);
-		else
-			random = 0;
+		random = rand() % (siteAndSoundList.size());
 		cavesList.push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
 
 	//randomly putting into mountain list
 	for(int i=0; i<4; i++){
-		if(siteAndSoundList.size() > 1)
-			random = rand() % (siteAndSoundList.size()-1);
-		else
-			random = 0;
+		random = rand() % (siteAndSoundList.size());
 		mountainList.push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
 
+	//settig up LostCity
 	for(int i=0; i<5; i++){
-		if(siteAndSoundList.size() > 1)
-			random = rand() % (siteAndSoundList.size()-1);
-		else
-			random = 0;
-		lostCityList.push_back(siteAndSoundList.at(random));
+		random = rand() % (siteAndSoundList.size());
+		lostCityList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-
+	lostCity = new Lost("Lost City", true, lostCityList);
+	
+	//Setting up LostCastle
 	for(int i=0; i<5; i++){
-		if(siteAndSoundList.size() > 1)
-			random = rand() % (siteAndSoundList.size()-1);
-		else
-			random = 0;
-		lostCastleList.push_back(siteAndSoundList.at(random));
+		random = rand() % (siteAndSoundList.size());
+		lostCastleList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-
-	//ADDING THE LOST CITY LOST CASTLE
+	lostCastle = new Lost("Lost Castle", true, lostCastleList);
+	int position;
 
 	cavesList.push_back(lostCity);
 	mountainList.push_back(lostCastle);
@@ -240,19 +232,15 @@ void Game::dealChits()
 
 	//populating mountain tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
-		//adding warningChit
-		if(mountainWarningList.size() > 1)
-			random = rand() % (mountainWarningList.size() -1);
-		else
-			random = 0;
+
+		random = rand() % (mountainWarningList.size());
+
 		(*it)->addWarningChit(mountainWarningList.at(random));
 		mountainWarningList.erase(mountainWarningList.begin() + random);
 
 		//adding Site or Sound
-		if(mountainList.size() > 1)
-			random = rand() % (mountainList.size() -1);
-		else
-			random = 0;
+		
+		random = rand() % (mountainList.size());
 		(*it)->addSiteOrSoundChit(mountainList.at(random));
 		mountainList.erase(mountainList.begin() +random);
 	}
@@ -263,18 +251,12 @@ void Game::dealChits()
 	//populating caves tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 		//adding warningChit
-		if(cavesWarningList.size() > 1)
-			random = rand() % (cavesWarningList.size() -1);
-		else
-			random = 0;
+		random = rand() % (cavesWarningList.size());
 		(*it)->addWarningChit(cavesWarningList.at(random));
 		cavesWarningList.erase(cavesWarningList.begin() + random);
 
 		//adding Site or Sound
-		if(cavesList.size() > 1)
-			random = rand() % (cavesList.size() -1);
-		else
-			random = 0;
+		random = rand() % (cavesList.size());
 		(*it)->addSiteOrSoundChit(cavesList.at(random));
 		cavesList.erase(cavesList.begin() +random);
 	}
@@ -284,11 +266,7 @@ void Game::dealChits()
 	//populating woods tiles
 	tileTypeList = gameBoard->getTileByType(TILE_WOODS);
 	for(vector <Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
-		
-		if(woodsList.size() > 1)
-			random = rand() % (woodsList.size() -1);
-		else
-			random = 0;
+		random = rand() % (woodsList.size());
 		(*it)->addWarningChit(woodsList.at(random));
 		woodsList.erase(woodsList.begin() + random);
 	}
@@ -307,45 +285,54 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
     int numLarge = 0;
     int numSmall = 0;
     int random = -1;
+	int clearingLocation = 0;
 
     switch(sType){
     case HOARD:
         name = "Hoard";
         numLarge = 5;
         numSmall = 4;
+		clearingLocation = 6;
         break;
     case LAIR:
         name = "Lair";
         numLarge = 3;
         numSmall = 4;
+		clearingLocation = 3;
         break;
     case ALTAR:
         name = "Altar";
         numLarge = 4;
+		clearingLocation = 1;
         break;
     case SHRINE:
         name = "Shrine";
         numLarge = 2;
         numSmall = 2;
+		clearingLocation = 4;
         break;
     case POOL:
         name = "Pool";
         numLarge = 3;
         numSmall = 6;
+		clearingLocation = 6;
 		break;
     case VAULT:
         name = "Vault";
         numLarge = 5;
+		clearingLocation = 3;
         break;
     case CAIRNS:
         name = "Cairns";
         numLarge = 1;
         numSmall = 6;
+		clearingLocation = 5;
         break;
     case STATUE:
         name = "Statue";
         numLarge = 1;
         numSmall = 2;
+		clearingLocation = 2;
 		break;
     default:
         cout << "Err: Game::setupSite site unrecognized" <<endl;
@@ -355,7 +342,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
     vector <Treasure *> * stash = new vector<Treasure *>;
     for(int i=0; i < numLarge; i++){
         //get random large treasure
-        random = rand() % (lg->size()-1);
+        random = rand() % (lg->size());
         
         //take the treasure add it to the site's stash.
         stash->push_back(lg->at(random));
@@ -364,7 +351,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
     }
     for(int i=0; i < numSmall; i++){
         //get random large treasure
-        random = rand() % (sm->size()-1);
+        random = rand() % (sm->size());
         
         //take the treasure add it to the site's stash.
         stash->push_back(sm->at(random));
@@ -372,7 +359,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
         sm->erase(sm->begin() + random);
     }
 
-    return new Site(name, true, stash);
+    return new Site(name, true, clearingLocation, stash);
 }
 
 void Game::setupTiles()
@@ -1168,7 +1155,7 @@ void Game::move(Character* player, Clearing* requestedClearing)
 
 int Game::rollDice()
 {
-    return rand() % 6 + 1;
+    return rand() % 7 + 1;
 }
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {

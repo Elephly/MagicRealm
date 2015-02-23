@@ -14,6 +14,7 @@
 
 #include <iostream>
 #include <string>
+#include <ctime>
 #include "commonlibrary_global.h"
 
 using namespace std;
