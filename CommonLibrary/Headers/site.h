@@ -13,7 +13,7 @@ class COMMONLIBRARY_EXPORT Site: public Chit {
 public:
     Site(string n, bool hide, vector<Treasure*> * myTreasure);
     ~Site();
-    int getClearingNum();
+    virtual int getClearingNum();
     /*
     *   loot
     *   in:         array index of treasure location

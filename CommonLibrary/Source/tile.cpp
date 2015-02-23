@@ -28,6 +28,27 @@ Tile::Tile(string* serialString) {
 	Tile(o, second, TILE_WOODS);
 }
 
+void Tile::addSiteOrSoundChit(Chit* newChit)
+{
+	siteSoundChit = newChit;
+}
+
+void Tile::addWarningChit(Chit* newChit)
+{
+	warningChit = newChit;
+}
+
+Chit* Tile::getWarningChit()
+{
+	return warningChit;
+}
+
+Chit* Tile::getSiteOrSoundChit()
+{
+	return siteSoundChit;
+}
+
+
 Tile::~Tile()
 {
     clearings->clear();

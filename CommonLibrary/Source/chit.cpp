@@ -21,6 +21,11 @@ void Chit::unhide()
     hidden = true;
 }
 
+int Chit::getClearingNum()
+{
+	return -1;
+}
+
 Treasure* Chit::loot(int location)
 {
     return NULL;

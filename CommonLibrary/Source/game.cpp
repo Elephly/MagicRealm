@@ -51,6 +51,7 @@ void Game::dealChits()
     vector<Chit *> woodsList;
     vector<Chit *> valleyList;
 	vector <Chit *> siteAndSoundList;
+	int random = 0;
 
     valleyList.push_back(new Warning("BONES V", true));
     valleyList.push_back(new Warning("DANK V", true));
@@ -186,6 +187,12 @@ void Game::dealChits()
 	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
 	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
 
+	for(int i=0; i<4; i++){
+		random = rand() % siteAndSoundList.size()-1;
+		
+	}
+
+	
 }
 
 Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm)
