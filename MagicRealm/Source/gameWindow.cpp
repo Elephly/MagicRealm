@@ -180,7 +180,6 @@ void GameWindow::characterRequestAcknowledged(bool accepted)
 
 	QString serializedStartLocation;
 	serializedStartLocation.sprintf("SpawnLocation%s%d", CLASSDELIM, startLocation);
-	qDebug() << serializedStartLocation;
 	server->writeMessage(&serializedStartLocation);
 }
 
@@ -526,12 +525,10 @@ void GameWindow::selectAction(ActionType action)
 		moveAction();
 		break;
 	case SearchAction:
-		break;
 	case TradeAction:
-		break;
 	case HideAction:
-		break;
 	default:
+		myTurn->addAction(new Action(action, destinationClearing), currentPhase);
 		break;
 	}
 
@@ -600,6 +597,29 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 		updateTileInfoPane(selectedTile);
 		updateCharacterLocation(game->getPlayer((CharacterType)character));
 	}
+}
+
+void GameWindow::setCharacterHidden(CharacterType character, bool hidden)
+{
+	if (hidden)
+	{
+		game->hideRequest(game->getPlayer(character));
+	}
+}
+
+void GameWindow::searchTypeRequest()
+{
+	int searchType = QMessageBox::question(ui.centralWidget, "Search Type", "How would you like to search?", "Peer", "Locate", "Loot");
+	
+	QString serializedSearchType;
+	serializedSearchType.sprintf("SearchTypeResp%s%d", CLASSDELIM, searchType);
+	server->writeMessage(&serializedSearchType);
+}
+
+void GameWindow::search(CharacterType character, SearchType searchType)
+{
+	Character* c = game->getPlayer(character);
+	game->searchRequest(c, searchType, c->getCurrentLocation());
 }
 
 void GameWindow::doTurn(QString &turnString)

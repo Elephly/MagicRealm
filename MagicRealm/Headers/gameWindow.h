@@ -43,6 +43,9 @@ public:
 	void selectAction(ActionType action);
 	void moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
+	void setCharacterHidden(CharacterType character, bool hidden);
+	void searchTypeRequest();
+	void search(CharacterType character, SearchType searchType);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);

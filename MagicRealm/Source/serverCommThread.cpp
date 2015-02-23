@@ -86,13 +86,15 @@ void ServerCommThread::updateFromServer()
 			QString clearingString = serverData.right(serverData.size()- (pos + 1));
 			windowParent->moveTo(type, clearingString);
 		} else if (serverData.contains(QRegExp("^Hidden"))) {
-			//update hidden data for given character
-			//1. CharacterType
-			//2. bool hidden true / false
+			// Check this please
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			serverData = serverData.remove(0, pos + 2);
+			pos = serverData.indexOf(QString(VARDELIM));
+			CharacterType type = (CharacterType)serverData.left(pos).toInt();
+			bool hidden = (bool) serverData.right(serverData.size()- (pos + 1)).toInt();
+			windowParent->setCharacterHidden(type, hidden);
 		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
-			//prompt user for a SearchType.
-			//use SearchTypes provided by server
-			//response formatted as SearchTypeResp**Type
+			windowParent->searchTypeRequest();
 		}
 		blocksize = 0;
 	} while(true);
