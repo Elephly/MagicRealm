@@ -238,7 +238,7 @@ void Server::daylight() {
 				connect(clientThreadList->at(player), SIGNAL(searchTypeReturned()),
 					&loop, SLOT(quit()));
 				clientThreadList->at(player)->writeMessage(new string(s.str()));
-				loop.exec();
+				loop.exec(); //Waits for client to respond with search type before continuing
 				SearchType sType = clientThreadList->at(player)->getSearchTypeResult();
 				searchClearing(character, sType, (*it)->getTarget());
 				break;
