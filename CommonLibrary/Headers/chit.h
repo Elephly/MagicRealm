@@ -17,6 +17,7 @@ public:
     void unhide();
 
     virtual Treasure* loot(int location);
+	virtual int getClearingNum();
 
 protected:
     string name;

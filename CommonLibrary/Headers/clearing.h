@@ -9,6 +9,7 @@
 #include "tile.h"
 #include "serializer.h"
 #include "board.h"
+#include "chit.h"
 
 //forward declare
 class Character;
@@ -86,9 +87,6 @@ public:
     string* toString();
 
 	const vector<Character*>* getCharacters();
-
-
-    //TODO: Add the get dwelling object here.
 
 	virtual string* serialize();
 

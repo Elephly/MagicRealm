@@ -6,6 +6,7 @@
 #include <vector>
 #include "path.h"
 #include "serializer.h"
+#include "chit.h"
 
 class Board;
 
@@ -61,6 +62,12 @@ public:
     */
     Clearing* getConnectedClearing(Tile* aTile);
 
+	void addWarningChit(Chit* newChit);
+	void addSiteOrSoundChit(Chit* newChit);
+
+	Chit* getWarningChit();
+	Chit* getSiteOrSoundChit();
+
 	TileType getType();
 
 	virtual string* serialize();
@@ -80,6 +87,9 @@ private:
     Tile* connectedTiles [CONNECTED_LENGTH];
 
 	TileType myType;
+
+	Chit* warningChit;
+	Chit* siteSoundChit;
 };
 
 #endif // TILE_H
