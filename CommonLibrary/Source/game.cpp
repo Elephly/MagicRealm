@@ -46,34 +46,34 @@ void Game::setupGame(bool cm)
 
 void Game::dealChits()
 {
-    Warning* valleyWarnings[5];
-    Warning* woodsWarnings[5];
-    Warning* cavesWarnings[5];
-    Warning* mountainWarnings[5];
+    vector<Chit *> mountainList;
+    vector<Chit *> cavesList;
+    vector<Chit *> woodsList;
+    vector<Chit *> valleyList;
 
-    valleyWarnings[0] = new Warning("BONES V", true);
-    valleyWarnings[1] = new Warning("DANK V", true);
-    valleyWarnings[2] = new Warning("RUINS V", true);
-    valleyWarnings[3] = new Warning("SMOKE V", true);
-    valleyWarnings[4] = new Warning("STINK V", true);
+    valleyList.push_back(new Warning("BONES V", true));
+    valleyList.push_back(new Warning("DANK V", true));
+    valleyList.push_back(new Warning("RUINS V", true));
+    valleyList.push_back(new Warning("SMOKE V", true));
+    valleyList.push_back(new Warning("STINK V", true));
 
-    woodsWarnings[0] = new Warning("BONES W", true);
-    woodsWarnings[1] = new Warning("DANK W", true);
-    woodsWarnings[2] = new Warning("RUINS W", true);
-    woodsWarnings[3] = new Warning("SMOKE W", true);
-    woodsWarnings[4] = new Warning("STINK W", true);
+    woodsList.push_back(new Warning("BONES W", true));
+    woodsList.push_back(new Warning("DANK W", true));
+    woodsList.push_back(new Warning("RUINS W", true));
+    woodsList.push_back(new Warning("SMOKE W", true));
+    woodsList.push_back(new Warning("STINK W", true));
 
-    cavesWarnings[0] = new Warning("BONES C", true);
-    cavesWarnings[1] = new Warning("DANK C", true);
-    cavesWarnings[2] = new Warning("RUINS C", true);
-    cavesWarnings[3] = new Warning("SMOKE C", true);
-    cavesWarnings[4] = new Warning("STINK C", true);
+    cavesList.push_back(new Warning("BONES C", true));
+    cavesList.push_back(new Warning("DANK C", true));
+    cavesList.push_back(new Warning("RUINS C", true));
+    cavesList.push_back(new Warning("SMOKE C", true));
+    cavesList.push_back(new Warning("STINK C", true));
 
-    mountainWarnings[0] = new Warning("BONES M", true);
-    mountainWarnings[1] = new Warning("DANK M", true);
-    mountainWarnings[2] = new Warning("RUINS M", true);
-    mountainWarnings[3] = new Warning("SMOKE M", true);
-    mountainWarnings[4] = new Warning("STINK M", true);
+    mountainList.push_back(new Warning("BONES M", true));
+    mountainList.push_back(new Warning("DANK M", true));
+    mountainList.push_back(new Warning("RUINS M", true));
+    mountainList.push_back(new Warning("SMOKE M", true));
+    mountainList.push_back(new Warning("STINK M", true));
 
     vector <Treasure*> largeTreasure;
     vector <Treasure*> smallTreasure;
@@ -151,22 +151,29 @@ void Game::dealChits()
     smallTreasure.push_back(new Treasure("Withered Claw", 5, SMALL));
 
     //Hoard Treasure setup
-    
-    setupSite(HOARD, &largeTreasure, &smallTreasure);
+    vector <Site *> siteList;
+    siteList.push_back(setupSite(HOARD, &largeTreasure, &smallTreasure));
 
     //Lair Treasure setup
+    siteList.push_back(setupSite(LAIR, &largeTreasure, &smallTreasure));
 
     //Altar Treasure setup
+    siteList.push_back(setupSite(ALTAR, &largeTreasure, &smallTreasure));
 
     //Shrine Treasure setup
+    siteList.push_back(setupSite(SHRINE, &largeTreasure, &smallTreasure));
 
     //Pool Treasure setup
+    siteList.push_back(setupSite(POOL, &largeTreasure, &smallTreasure));
 
     //Vault treasure setup
+    siteList.push_back(setupSite(VAULT, &largeTreasure, &smallTreasure));
 
     //Cairns treasure setup
+    siteList.push_back(setupSite(CAIRNS, &largeTreasure, &smallTreasure));
     
     //Statue treasure setup
+    siteList.push_back(setupSite(STATUE, &largeTreasure, &smallTreasure));
 }
 
 Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm)
@@ -174,6 +181,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
     string name = "";
     int numLarge = 0;
     int numSmall = 0;
+    int random = -1;
 
     switch(sType){
     case HOARD:
@@ -191,15 +199,54 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
         numLarge = 4;
         break;
     case SHRINE:
+        name = "Shrine";
+        numLarge = 2;
+        numSmall = 2;
+        break;
     case POOL:
+        name = "Pool";
+        numLarge = 3;
+        numSmall = 6;
     case VAULT:
+        name = "Vault";
+        numLarge = 5;
+        break;
     case CAIRNS:
+        name = "Cairns";
+        numLarge = 1;
+        numSmall = 6;
+        break;
     case STATUE:
+        name = "Statue";
+        numLarge = 1;
+        numSmall = 2;
     default:
         cout << "Err: Game::setupSite site unrecognized" <<endl;
         return NULL;
     }
     return NULL;
+
+    vector <Treasure *> * stash = new vector<Treasure *>;
+    for(int i=0; i < numLarge; i++){
+        //get random large treasure
+        random = rand() % (lg->size()-1);
+        
+        //take the treasure add it to the site's stash.
+        stash->push_back(lg->at(random));
+        //remove it from the list of available treasures
+        lg->erase(lg->begin() + random);
+    }
+    for(int i=0; i < numSmall; i++){
+        //get random large treasure
+        random = rand() % (sm->size()-1);
+        
+        //take the treasure add it to the site's stash.
+        stash->push_back(sm->at(random));
+        //remove it from the list of available treasures
+        sm->erase(sm->begin() + random);
+    }
+
+    return new Site(name, true, stash);
 }
 
 void Game::setupTiles()
