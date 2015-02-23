@@ -373,7 +373,6 @@ void GameWindow::disableActions()
 	ui.gameSearchActionButton->setDisabled(true);
 	ui.gameTradeActionButton->setDisabled(true);
 	ui.gameHideActionButton->setDisabled(true);
-	ui.gameSubmitTurnButton->setDisabled(true);
 }
 
 CharacterType GameWindow::getSelectedChar()
@@ -573,11 +572,6 @@ void GameWindow::selectAction(ActionType action)
 	}
 
 	selectedAction = NoAction;
-
-	if (ui.gamePhaseComboBox->count() <= 0)
-	{
-		ui.gameSubmitTurnButton->setEnabled(true);
-	}
 }
 
 bool GameWindow::moveAction()
@@ -685,7 +679,7 @@ void GameWindow::search(CharacterType character, SearchType searchType)
 void GameWindow::doTurn(QString &turnString)
 {
 	string *s = new string(turnString.toUtf8().constData());
-	if (myTurn != NULL)
+	if (myTurn != 0)
 	{
 		delete myTurn;
 		myTurn = 0;
@@ -727,6 +721,7 @@ void GameWindow::doTurn(QString &turnString)
 	QString eventString;
 	eventString.sprintf("Plot turn %d:", turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);
+	ui.gameSubmitTurnButton->setEnabled(true);
 }
 
 void GameWindow::submitTurn()
