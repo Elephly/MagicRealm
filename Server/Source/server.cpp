@@ -8,6 +8,7 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
+		recTurns[i] = NULL;
 	}
 
 	QObject::connect(incoming,
@@ -211,13 +212,17 @@ void Server::daylight() {
 	do {
 		int player = 0;
 		do {
-			player = game.rollDice();
-		} while(recTurns[player] != NULL);
+			player = game.rollDice() -1;
+			qDebug() << "rolled: " << player;
+			qDebug() << "array value: " << recTurns[player];
+		} while(recTurns[player] == NULL);
+		qDebug() << "selected player: " << player;
 
 		RecordedTurn *turn = recTurns[player];
 
 		vector<Action*> *act = turn->getActions();
 		for (vector<Action*>::iterator it = act->begin(); it != act->end(); ++it) {
+			qDebug() << "performing action";
 			stringstream s;
 			QEventLoop loop;
 			SearchType sType;
