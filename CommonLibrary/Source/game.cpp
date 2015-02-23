@@ -46,22 +46,21 @@ void Game::setupGame(bool cm)
 
 void Game::dealChits()
 {
-    vector<Chit *> mountainWarningList;
+    vector<Warning *> mountainWarningList;
 	vector<Chit *> mountainList;
 	vector<Chit *> cavesList;
-    vector<Chit *> cavesWarningList;
-    vector<Chit *> woodsList;
-    vector<Chit *> valleyList;
+    vector<Warning *> cavesWarningList;
+    vector<Warning *> woodsList;
 	vector <Chit *> siteAndSoundList;
 	vector<Chit *> lostCityList;
 	vector<Chit *> lostCastleList;
 	int random = 0;
 
-    valleyList.push_back(new Warning("BONES V", true));
-    valleyList.push_back(new Warning("DANK V", true));
-    valleyList.push_back(new Warning("RUINS V", true));
-    valleyList.push_back(new Warning("SMOKE V", true));
-    valleyList.push_back(new Warning("STINK V", true));
+    Warning* bonesv = new Warning("BONES V", true);
+    Warning* dankv = new Warning("DANK V", true);
+    Warning* ruinsv = new Warning("RUINS V", true);
+    Warning* smokev = new Warning("SMOKE V", true);
+    Warning* stinkv = new Warning("STINK V", true);
 
     woodsList.push_back(new Warning("BONES W", true));
     woodsList.push_back(new Warning("DANK W", true));
@@ -222,14 +221,14 @@ void Game::dealChits()
 	//populating mountain tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 		//adding warningChit
-		random = rand() % (cavesWarningList.size() -1);
-		(*it)->addWarningChit(cavesWarningList.at(random));
-		cavesWarningList.erase(cavesWarningList.begin() + random);
+		random = rand() % (mountainWarningList.size() -1);
+		(*it)->addWarningChit(mountainWarningList.at(random));
+		cavesWarningList.erase(mountainWarningList.begin() + random);
 
 		//adding Site or Sound
-		random = rand() % (cavesList.size() -1);
-		(*it)->addSiteOrSoundChit(cavesList.at(random));
-		cavesList.erase(cavesList.begin() +random);
+		random = rand() % (mountainList.size() -1);
+		(*it)->addSiteOrSoundChit(mountainList.at(random));
+		cavesList.erase(mountainList.begin() +random);
 	}
 
 	delete tileTypeList;
@@ -247,7 +246,23 @@ void Game::dealChits()
 		(*it)->addSiteOrSoundChit(cavesList.at(random));
 		cavesList.erase(cavesList.begin() +random);
 	}
-	
+
+	delete tileTypeList;
+
+	//populating woods tiles
+	tileTypeList = gameBoard->getTileByType(TILE_WOODS);
+	for(vector <Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
+		random = rand() % (woodsList.size() -1);
+		(*it)->addWarningChit(woodsList.at(random));
+		woodsList.erase(woodsList.begin() + random);
+	}
+
+	//plopping valley tiles
+	gameBoard->getTile("Evil Valley")->addWarningChit(bonesv);
+	gameBoard->getTile("Awful Valley")->addWarningChit(dankv);
+	gameBoard->getTile("Dark Valley")->addWarningChit(ruinsv);
+	gameBoard->getTile("Curst Valley")->addWarningChit(smokev);
+	gameBoard->getTile("Bad Valley")->addWarningChit(stinkv);	
 }
 
 Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm)

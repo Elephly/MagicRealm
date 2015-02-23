@@ -33,7 +33,7 @@ void Tile::addSiteOrSoundChit(Chit* newChit)
 	siteSoundChit = newChit;
 }
 
-void Tile::addWarningChit(Chit* newChit)
+void Tile::addWarningChit(Warning* newChit)
 {
 	warningChit = newChit;
 }
