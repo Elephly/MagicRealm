@@ -36,13 +36,16 @@ private:
     Game game;
 
 	//gameplay stuff
+	void birdsong();
 	void sunrise();
 	void daylight();
-	bool turnExists();
 	void sunset();
 	void evening();
 	void midnight();
-
+	bool turnExists();
+	void searchClearing(Character*);
+	void hidePlayer(Character*);
+	void peerClearing(Character*, Clearing*);
 	void moveCharacter(Character*, Clearing*);
 	void writeMessageAllClients(string*);
 	void writeMessageAllClients(QString*);

@@ -151,7 +151,9 @@ void Server::recordedTurn(QString &turn, int clientID) {
 	if (count = clientThreadList->size()) {
 		//stop accepting connections
 		incoming->pauseAccepting();
+		qDebug() << "no longer accepting connections";
 		//start game at sunrise
+		sunrise();
 	}
 }
 
@@ -186,14 +188,25 @@ void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 	client->writeMessage(turn.serialize());
 }
 
+void Server::birdsong() {
+	qDebug() << "birdsong begins";
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
+		it != clientThreadList->end(); ++it)
+	{
+		calculatePlayerTurnPhases((*it));
+	}
+}
+
 //Determine what monsters are prwoling
 void Server::sunrise() {
+	qDebug() << "sunrise begins";
 	int roll = game.rollDice();
     daylight();
 }
 
 //play player turns in random order
 void Server::daylight() {
+	qDebug() << "daylight begins";
     //execute the TURNS per player here.
 	do {
 		int player = 0;
@@ -222,7 +235,7 @@ void Server::daylight() {
 		delete turn;
 		recTurns[player] = NULL;
 	} while (turnExists());
-    evening();
+	sunset();
 }
 
 bool Server::turnExists() {
@@ -233,15 +246,41 @@ bool Server::turnExists() {
 	return false;
 }
 
+void Server::sunset() {
+	qDebug() << "sunset begins";
+    evening();
+}
+
 //randomly select clearings with players in them
 //player can rearrange belongings (not needed for iter 1)
 //combat?
 void Server::evening() {
+	qDebug() << "evening begins";
     midnight();
 }
 
 //reset all face up mapchits
 //start new day
 void Server::midnight() {
+	qDebug() << "midnight begins";
+	birdsong();
+}
+/*
+Searches the players current location
+*/
+void Server::searchClearing(Character *character) {
+
+}
+
+/*
+Attempt to the player at the current location
+*/
+void Server::hidePlayer(Character *character) {
+
+}
+/*
+Peer into a neighboring clearing
+*/
+void Server::peerClearing(Character *character, Clearing *target) {
 
 }
