@@ -32,6 +32,7 @@ private slots:
 	void on_gameHideActionButton_clicked();
 	void on_gameSubmitTurnButton_clicked();
 	void on_gameQuitButton_clicked();
+	void on_gamePhaseComboBox_currentIndexChanged(const QString& text);
 
 private:
 	Ui::MainWindowClass ui;

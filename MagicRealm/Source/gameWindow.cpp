@@ -602,7 +602,7 @@ void GameWindow::doTurn(QString &turnString)
 				break;
 			case SunlightPhase:
 				ui.gamePhaseComboBox->addItem("Sunlight");
-				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/actions/sunshine.gif"));
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/sunshine.gif"));
 				break;
 			case HidePhase:
 				ui.gamePhaseComboBox->addItem("Hide");
@@ -619,4 +619,28 @@ void GameWindow::submitTurn()
 {
 	server->writeMessage(myTurn->serialize());
 	ui.gamePhaseComboBox->setEnabled(false);
+}
+
+void GameWindow::setCurrentPhaseType(const QString& phaseString)
+{
+	if (phaseString == "Basic")
+	{
+		qDebug() << phaseString;
+	}
+	else if (phaseString == "Sunlight")
+	{
+		qDebug() << phaseString;
+	}
+	else if (phaseString == "Move")
+	{
+		qDebug() << phaseString;
+	}
+	else if (phaseString == "Hide")
+	{
+		qDebug() << phaseString;
+	}
+	else
+	{
+		qDebug() << "phase check failed";
+	}
 }

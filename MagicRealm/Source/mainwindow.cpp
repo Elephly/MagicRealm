@@ -159,3 +159,8 @@ void MainWindow::on_gameQuitButton_clicked()
 		}
 	}
 }
+
+void MainWindow::on_gamePhaseComboBox_currentIndexChanged(const QString& text)
+{
+	gameWindow->setCurrentPhaseType(text);
+}

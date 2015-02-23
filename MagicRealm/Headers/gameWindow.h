@@ -50,6 +50,7 @@ public:
 	void addCharacterToGame(QString &newCharacter);
 	void doTurn(QString&);
 	void submitTurn();
+	void setCurrentPhaseType(const QString& phaseString);
 
 private:
 	bool gameStarted;
