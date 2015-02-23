@@ -149,7 +149,7 @@ void Server::recordedTurn(QString &turn, int clientID) {
 		if (receivedRecTurn[i])
 			++count;
 	}
-	if (count = clientThreadList->size()) {
+	if (count == clientThreadList->size()) {
 		//stop accepting connections
 		incoming->pauseAccepting();
 		qDebug() << "no longer accepting connections";
@@ -244,7 +244,9 @@ void Server::daylight() {
 				connect(clientThreadList->at(player), SIGNAL(searchTypeReturned()),
 					&loop, SLOT(quit()));
 				clientThreadList->at(player)->writeMessage(new string(s.str()));
+				qDebug() << "about to wait for client response";
 				loop.exec(); //Waits for client to respond with search type before continuing
+				qDebug() << "client response received";
 				sType = clientThreadList->at(player)->getSearchTypeResult();
 				searchClearing(character, sType, (*it)->getTarget());
 				break;
