@@ -85,8 +85,6 @@ void ServerCommThread::updateFromServer()
 			CharacterType type = (CharacterType)serverData.left(pos).toInt();
 			QString clearingString = serverData.right(serverData.size()- (pos + 1));
 			windowParent->moveTo(type, clearingString);
-			//character type
-			//clearing string
 		}
 		blocksize = 0;
 	} while(true);

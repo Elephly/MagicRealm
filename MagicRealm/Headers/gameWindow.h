@@ -33,6 +33,7 @@ public:
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
+	void disableActions();
 	CharacterType getSelectedChar();
 	void selectTile(Tile* tile);
 	void updateCharacterInfoPane();
@@ -48,6 +49,7 @@ public:
 	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
 	void doTurn(QString&);
+	void submitTurn();
 
 private:
 	bool gameStarted;
