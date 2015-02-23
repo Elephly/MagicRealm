@@ -24,6 +24,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	selectedCharacter = NullCharacter;
 	game = 0;
 	selectedTile = 0;
+	destinationClearing = 0;
 	selectedAction = NoAction;
 	myTurn = NULL;
 }
@@ -542,13 +543,12 @@ void GameWindow::selectAction(ActionType action)
 
 void GameWindow::moveAction()
 {
-	Clearing* currentClearing = game->getPlayer(selectedCharacter)->getCurrentLocation();
-	vector<Path*> availablePaths = *currentClearing->getPaths();
+	vector<Path*> availablePaths = *(destinationClearing->getPaths());
 	QList<Clearing*> adjacentClearings;
 	for (vector<Path*>::iterator it = availablePaths.begin(); it != availablePaths.end(); ++it)
 	{
 		Path* p = *it;
-		Clearing* end = p->getEnd(currentClearing);
+		Clearing* end = p->getEnd(destinationClearing);
 		Character* character = game->getPlayer(selectedCharacter);
 		if (end != NULL && (!p->isHidden() || character->isDiscovered(p)))
 		{
@@ -565,8 +565,8 @@ void GameWindow::moveAction()
 	int destIndex = dlg->exec();
 	if (destIndex != -1)
 	{
-		Clearing* dest = adjacentClearings.at(destIndex);
-		myTurn->addAction(new Action(MoveAction, dest), currentPhase);
+		destinationClearing = adjacentClearings.at(destIndex);
+		myTurn->addAction(new Action(MoveAction, destinationClearing), currentPhase);
 		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
 	}
 	delete dlg;
@@ -592,6 +592,10 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 	game->move(game->getPlayer(character), clearing);
 	if (gameStarted)
 	{
+		if (selectedCharacter == character)
+		{
+			destinationClearing = clearing;
+		}
 		updateCharacterInfoPane();
 		updateTileInfoPane(selectedTile);
 		updateCharacterLocation(game->getPlayer((CharacterType)character));
@@ -646,6 +650,7 @@ void GameWindow::submitTurn()
 {
 	server->writeMessage(myTurn->serialize());
 	ui.gamePhaseComboBox->setDisabled(true);
+	ui.gameSubmitTurnButton->setDisabled(true);
 }
 
 void GameWindow::setCurrentPhaseType(const QString& phaseString)
