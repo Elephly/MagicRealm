@@ -1,6 +1,7 @@
 #include "tileGraphicsItem.h"
 
 TileGraphicsItem::TileGraphicsItem(QPixmap pixmap, Tile* tile, GameWindow* container)
+	: QGraphicsPixmapItem(pixmap)
 {
 	setPixmap(pixmap);
 	setZValue(0);

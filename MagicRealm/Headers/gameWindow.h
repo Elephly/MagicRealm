@@ -12,9 +12,11 @@
 #include "serverCommThread.h"
 #include "game.h"
 #include "character.h"
+#include "tileGraphicsItem.h"
 
 //Forward decl
 class ServerCommThread;
+class TileGraphicsItem;
 
 class GameWindow : public QObject
 {
@@ -50,9 +52,10 @@ public:
 private:
 	bool gameStarted;
 	QMap<CharacterType, QPixmap*>* characterImages;
-	QMap<CharacterType, QGraphicsItem*>* characterGraphicsItems;
+	QMap<CharacterType, QGraphicsPixmapItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
-	QMap<Tile*, QGraphicsItem*>* tileGraphicsItems;
+	QMap<Tile*, TileGraphicsItem*>* tileGraphicsItems;
+	QMap<Tile*, QPointF>* tileLocations;
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;
