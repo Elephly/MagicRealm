@@ -46,11 +46,15 @@ void Game::setupGame(bool cm)
 
 void Game::dealChits()
 {
-    vector<Chit *> mountainList;
-    vector<Chit *> cavesList;
+    vector<Chit *> mountainWarningList;
+	vector<Chit *> mountainList;
+	vector<Chit *> cavesList;
+    vector<Chit *> cavesWarningList;
     vector<Chit *> woodsList;
     vector<Chit *> valleyList;
 	vector <Chit *> siteAndSoundList;
+	vector<Chit *> lostCityList;
+	vector<Chit *> lostCastleList;
 	int random = 0;
 
     valleyList.push_back(new Warning("BONES V", true));
@@ -65,17 +69,17 @@ void Game::dealChits()
     woodsList.push_back(new Warning("SMOKE W", true));
     woodsList.push_back(new Warning("STINK W", true));
 
-    cavesList.push_back(new Warning("BONES C", true));
-    cavesList.push_back(new Warning("DANK C", true));
-    cavesList.push_back(new Warning("RUINS C", true));
-    cavesList.push_back(new Warning("SMOKE C", true));
-    cavesList.push_back(new Warning("STINK C", true));
+    cavesWarningList.push_back(new Warning("BONES C", true));
+    cavesWarningList.push_back(new Warning("DANK C", true));
+    cavesWarningList.push_back(new Warning("RUINS C", true));
+    cavesWarningList.push_back(new Warning("SMOKE C", true));
+    cavesWarningList.push_back(new Warning("STINK C", true));
 
-    mountainList.push_back(new Warning("BONES M", true));
-    mountainList.push_back(new Warning("DANK M", true));
-    mountainList.push_back(new Warning("RUINS M", true));
-    mountainList.push_back(new Warning("SMOKE M", true));
-    mountainList.push_back(new Warning("STINK M", true));
+    mountainWarningList.push_back(new Warning("BONES M", true));
+    mountainWarningList.push_back(new Warning("DANK M", true));
+    mountainWarningList.push_back(new Warning("RUINS M", true));
+    mountainWarningList.push_back(new Warning("SMOKE M", true));
+    mountainWarningList.push_back(new Warning("STINK M", true));
 
     vector <Treasure*> largeTreasure;
     vector <Treasure*> smallTreasure;
@@ -187,11 +191,62 @@ void Game::dealChits()
 	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
 	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
 
+	//randomly putting into cavesList
 	for(int i=0; i<4; i++){
-		random = rand() % siteAndSoundList.size()-1;
-		
+		random = rand() % (siteAndSoundList.size()-1);
+		cavesList.push_back(siteAndSoundList.at(random));
+		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
 
+	//randomly putting into mountain list
+	for(int i=0; i<4; i++){
+		random = rand() % (siteAndSoundList.size()-1);
+		mountainList.push_back(siteAndSoundList.at(random));
+		siteAndSoundList.erase(siteAndSoundList.begin() + random);
+	}
+
+	for(int i=0; i<5; i++){
+		random = rand() % (siteAndSoundList.size()-1);
+		lostCityList.push_back(siteAndSoundList.at(random));
+		siteAndSoundList.erase(siteAndSoundList.begin() + random);
+	}
+
+	for(int i=0; i<5; i++){
+		random = rand() % (siteAndSoundList.size()-1);
+		lostCastleList.push_back(siteAndSoundList.at(random));
+		siteAndSoundList.erase(siteAndSoundList.begin() + random);
+	}
+
+	vector <Tile *> * tileTypeList = gameBoard->getTileByType(TILE_MOUNTAIN);
+
+	//populating mountain tiles
+	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
+		//adding warningChit
+		random = rand() % (cavesWarningList.size() -1);
+		(*it)->addWarningChit(cavesWarningList.at(random));
+		cavesWarningList.erase(cavesWarningList.begin() + random);
+
+		//adding Site or Sound
+		random = rand() % (cavesList.size() -1);
+		(*it)->addSiteOrSoundChit(cavesList.at(random));
+		cavesList.erase(cavesList.begin() +random);
+	}
+
+	delete tileTypeList;
+	tileTypeList = gameBoard->getTileByType(TILE_CAVES);
+
+	//populating caves tiles
+	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
+		//adding warningChit
+		random = rand() % (cavesWarningList.size() -1);
+		(*it)->addWarningChit(cavesWarningList.at(random));
+		cavesWarningList.erase(cavesWarningList.begin() + random);
+
+		//adding Site or Sound
+		random = rand() % (cavesList.size() -1);
+		(*it)->addSiteOrSoundChit(cavesList.at(random));
+		cavesList.erase(cavesList.begin() +random);
+	}
 	
 }
 
