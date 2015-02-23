@@ -14,6 +14,8 @@ public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+	void resetActionStyles();
+
 private slots:
 	void resizeEvent(QResizeEvent* event);
 
