@@ -332,6 +332,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
         name = "Pool";
         numLarge = 3;
         numSmall = 6;
+		break;
     case VAULT:
         name = "Vault";
         numLarge = 5;
@@ -345,11 +346,11 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
         name = "Statue";
         numLarge = 1;
         numSmall = 2;
+		break;
     default:
         cout << "Err: Game::setupSite site unrecognized" <<endl;
         return NULL;
     }
-    return NULL;
 
     vector <Treasure *> * stash = new vector<Treasure *>;
     for(int i=0; i < numLarge; i++){
