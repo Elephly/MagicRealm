@@ -9,3 +9,8 @@ int Sound::getClearingNum()
 {
     return clearingLocation;
 }
+
+ChitType Sound::getType()
+{
+	return CHIT_SOUND;
+}

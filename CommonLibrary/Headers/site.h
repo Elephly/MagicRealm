@@ -21,6 +21,7 @@ public:
     *   Purpose:    Removes the treasure from the list
     */
     virtual Treasure* loot(int location);
+	virtual ChitType getType();
 
 private:
     int clearingLocation;

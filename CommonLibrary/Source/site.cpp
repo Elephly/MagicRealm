@@ -19,6 +19,10 @@ int Site::getClearingNum()
     return clearingLocation;
 }
 
+ChitType Site::getType()
+{
+	return CHIT_SITE;
+}
 Treasure* Site::loot(int location)
 {
     if(location >= trove->size())

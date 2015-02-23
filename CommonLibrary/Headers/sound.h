@@ -10,6 +10,7 @@ class COMMONLIBRARY_EXPORT Sound: public Chit{
 public:
     Sound(string n, bool hide, int clnum);
     virtual int getClearingNum();
+	virtual ChitType getType();
 
 private:
     int clearingLocation;
