@@ -219,10 +219,11 @@ void Server::daylight() {
 		vector<Action*> *act = turn->getActions();
 		for (vector<Action*>::iterator it = act->begin(); it != act->end(); ++it) {
 			stringstream s;
+			QEventLoop loop;
+			Character *character = game.getPlayer(clientThreadList->at(player)->getMyCharacter());
 			switch ((*it)->getAction()) {
 			case MoveAction: 
-				moveCharacter(game.getPlayer(clientThreadList->at(player)->getMyCharacter()),
-					(*it)->getTarget());
+				moveCharacter(character, (*it)->getTarget());
 				break;
 			case SearchAction: 
 				s << "SearchTypeReq";
@@ -230,14 +231,27 @@ void Server::daylight() {
 				s << PEER;
 				s << VARDELIM;
 				s << LOCATE;
-				if (game.canLoot(game.getPlayer(clientThreadList->at(player)->getMyCharacter()))) {
+				if (game.canLoot(character)) {
 					s << VARDELIM;
 					s << LOOT;
 				}
+				connect(clientThreadList->at(player), SIGNAL(searchTypeReturned()),
+					&loop, SLOT(quit()));
 				clientThreadList->at(player)->writeMessage(new string(s.str()));
+				loop.exec();
+				SearchType sType = clientThreadList->at(player)->getSearchTypeResult();
+				searchClearing(character, sType, (*it)->getTarget());
 				break; //Not implemented yet
 			case TradeAction: break; //Not implemented yet
-			case HideAction: break; //Not implemented yet
+			case HideAction: 
+				bool result = game.hideRequest(character);
+				s << "Hidden";
+				s << CLASSDELIM;
+				s << clientThreadList->at(player)->getMyCharacter();
+				s << VARDELIM;
+				s << result;
+				writeMessageAllClients(new string(s.str()));
+				break; //Not implemented yet
 			}
 
 			delete (*it);
@@ -281,6 +295,7 @@ Searches the players current location
 */
 void Server::searchClearing(Character *character, SearchType type, Clearing *target) {
 	game.searchRequest(character, type, target);
+	//TODO handle result of search and send message
 }
 
 /*
