@@ -32,6 +32,14 @@ MainWindow::~MainWindow()
 	delete gameWindow;
 }
 
+void MainWindow::resetActionStyles()
+{
+	ui.gameMoveActionButton->setStyleSheet("");
+	ui.gameSearchActionButton->setStyleSheet("");
+	ui.gameTradeActionButton->setStyleSheet("");
+	ui.gameHideActionButton->setStyleSheet("");
+}
+
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
 	QMainWindow::resizeEvent(event);
@@ -121,25 +129,28 @@ void MainWindow::on_characterListView_currentRowChanged(int row)
 
 void MainWindow::on_gameMoveActionButton_clicked()
 {
+	resetActionStyles();
 	gameWindow->selectAction(MoveAction);
 	ui.gameMoveActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
-	gameWindow->moveAction();
 }
 
 void MainWindow::on_gameSearchActionButton_clicked()
 {
+	resetActionStyles();
 	gameWindow->selectAction(SearchAction);
 	ui.gameSearchActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gameTradeActionButton_clicked()
 {
+	resetActionStyles();
 	gameWindow->selectAction(TradeAction);
 	ui.gameTradeActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
 void MainWindow::on_gameHideActionButton_clicked()
 {
+	resetActionStyles();
 	gameWindow->selectAction(HideAction);
 	ui.gameHideActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
@@ -158,4 +169,9 @@ void MainWindow::on_gameQuitButton_clicked()
 			QMessageBox::about(ui.centralWidget, "Error", "Failed to cleanup game.");
 		}
 	}
+}
+
+void MainWindow::on_gamePhaseComboBox_currentIndexChanged(const QString& text)
+{
+	gameWindow->setCurrentPhaseType(text);
 }

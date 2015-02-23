@@ -33,6 +33,7 @@ public:
 	errno_t cleanup();
 
 	void changeScreenState(QWidget* screen);
+	void enableActions();
 	void disableActions();
 	CharacterType getSelectedChar();
 	void selectTile(Tile* tile);
@@ -50,6 +51,7 @@ public:
 	void addCharacterToGame(QString &newCharacter);
 	void doTurn(QString&);
 	void submitTurn();
+	void setCurrentPhaseType(const QString& phaseString);
 
 private:
 	bool gameStarted;
@@ -68,6 +70,7 @@ private:
 	Tile* selectedTile;
 	ActionType selectedAction;
 	RecordedTurn *myTurn;
+	PhaseType currentPhase;
 };
 
 #endif // GAMEWINDOW_H

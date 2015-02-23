@@ -14,6 +14,8 @@ public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+	void resetActionStyles();
+
 private slots:
 	void resizeEvent(QResizeEvent* event);
 
@@ -32,6 +34,7 @@ private slots:
 	void on_gameHideActionButton_clicked();
 	void on_gameSubmitTurnButton_clicked();
 	void on_gameQuitButton_clicked();
+	void on_gamePhaseComboBox_currentIndexChanged(const QString& text);
 
 private:
 	Ui::MainWindowClass ui;

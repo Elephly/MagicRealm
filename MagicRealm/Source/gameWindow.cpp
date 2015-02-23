@@ -356,12 +356,21 @@ void GameWindow::changeScreenState(QWidget* screen)
 	qApp->processEvents();
 }
 
+void GameWindow::enableActions()
+{
+	ui.gameMoveActionButton->setEnabled(true);
+	ui.gameSearchActionButton->setEnabled(true);
+	ui.gameTradeActionButton->setEnabled(true);
+	ui.gameHideActionButton->setEnabled(true);
+}
+
 void GameWindow::disableActions()
 {
 	ui.gameMoveActionButton->setDisabled(true);
 	ui.gameSearchActionButton->setDisabled(true);
 	ui.gameTradeActionButton->setDisabled(true);
 	ui.gameHideActionButton->setDisabled(true);
+	ui.gameSubmitTurnButton->setDisabled(true);
 }
 
 CharacterType GameWindow::getSelectedChar()
@@ -508,10 +517,27 @@ void GameWindow::selectAction(ActionType action)
 {
 	selectedAction = action;
 	
-	ui.gameMoveActionButton->setStyleSheet("");
-	ui.gameSearchActionButton->setStyleSheet("");
-	ui.gameTradeActionButton->setStyleSheet("");
-	ui.gameHideActionButton->setStyleSheet("");
+	switch (action)
+	{
+	case NoAction:
+		break;
+	case MoveAction:
+		moveAction();
+		break;
+	case SearchAction:
+		break;
+	case TradeAction:
+		break;
+	case HideAction:
+		break;
+	default:
+		break;
+	}
+
+	if (ui.gamePhaseComboBox->count() <= 0)
+	{
+		ui.gameSubmitTurnButton->setEnabled(true);
+	}
 }
 
 void GameWindow::moveAction()
@@ -540,7 +566,8 @@ void GameWindow::moveAction()
 	if (destIndex != -1)
 	{
 		Clearing* dest = adjacentClearings.at(destIndex);
-		myTurn->addAction(new Action(MoveAction, dest), BasicPhase);
+		myTurn->addAction(new Action(MoveAction, dest), currentPhase);
+		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
 	}
 	delete dlg;
 
@@ -602,7 +629,7 @@ void GameWindow::doTurn(QString &turnString)
 				break;
 			case SunlightPhase:
 				ui.gamePhaseComboBox->addItem("Sunlight");
-				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/actions/sunshine.gif"));
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/sunshine.gif"));
 				break;
 			case HidePhase:
 				ui.gamePhaseComboBox->addItem("Hide");
@@ -618,5 +645,34 @@ void GameWindow::doTurn(QString &turnString)
 void GameWindow::submitTurn()
 {
 	server->writeMessage(myTurn->serialize());
-	ui.gamePhaseComboBox->setEnabled(false);
+	ui.gamePhaseComboBox->setDisabled(true);
+}
+
+void GameWindow::setCurrentPhaseType(const QString& phaseString)
+{
+	disableActions();
+	if (phaseString == "Basic")
+	{
+		currentPhase = BasicPhase;
+		enableActions();
+	}
+	else if (phaseString == "Sunlight")
+	{
+		currentPhase = SunlightPhase;
+		enableActions();
+	}
+	else if (phaseString == "Move")
+	{
+		currentPhase = MovePhase;
+		ui.gameMoveActionButton->setEnabled(true);
+	}
+	else if (phaseString == "Hide")
+	{
+		currentPhase = HidePhase;
+		ui.gameHideActionButton->setEnabled(true);
+	}
+	else
+	{
+		qDebug() << "phase check failed";
+	}
 }
