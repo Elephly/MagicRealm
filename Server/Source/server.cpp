@@ -142,11 +142,10 @@ We have received a recorded turn for the given client
 void Server::recordedTurn(QString &turn, int clientID) {
 	string *s = new string(turn.toUtf8().constData());
 	RecordedTurn *recTurn = new RecordedTurn(s, game.getBoard());
-	receivedRecTurn[clientID] = true;
 	recTurns[clientID] = recTurn;
 	int count = 0;
 	for (int i = 0; i < MAXPLAYERS; ++i) {
-		if (receivedRecTurn[i])
+		if (recTurns[i] != NULL)
 			++count;
 	}
 	if (count == clientThreadList->size()) {
