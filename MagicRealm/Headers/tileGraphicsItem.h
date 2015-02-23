@@ -5,6 +5,8 @@
 #include "gameWindow.h"
 #include "tile.h"
 
+class GameWindow;
+
 class TileGraphicsItem : public QGraphicsPixmapItem
 {
 public:
