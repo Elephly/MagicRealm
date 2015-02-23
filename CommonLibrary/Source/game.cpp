@@ -926,7 +926,7 @@ bool Game::hideRequest(Character* player)
     return true;
 }
 
-void Game::searchRequest(Character* player, SearchType type) {
+void Game::searchRequest(Character* player, SearchType type, Clearing* target) {
 	int d1 = rollDice();
 	int d2 = rollDice();
 	int diceUsed = (d1>d2) ? d1 : d2;
@@ -962,7 +962,7 @@ void Game::searchRequest(Character* player, SearchType type) {
 
 bool Game::canLoot(Character* player) {
 	Clearing *location = player->getCurrentLocation();
-
+	return false;
 	//todo finish this when clearing have sites, and players have disoveries
 }
 

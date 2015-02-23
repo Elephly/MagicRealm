@@ -71,7 +71,7 @@ public:
 	*			Type of search to perform
 	*	Out:	
 	*/
-	void searchRequest(Character* player, SearchType type);
+	void searchRequest(Character* player, SearchType type, Clearing* target);
 
 	/*
 	*	canLoot

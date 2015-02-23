@@ -279,8 +279,8 @@ void Server::midnight() {
 /*
 Searches the players current location
 */
-void Server::searchClearing(Character *character) {
-	
+void Server::searchClearing(Character *character, SearchType type, Clearing *target) {
+	game.searchRequest(character, type, target);
 }
 
 /*
@@ -296,11 +296,4 @@ void Server::hidePlayer(Character *character) {
 	s << result;
 
 	writeMessageAllClients(new string(s.str()));
-}
-
-/*
-Peer into a neighboring clearing
-*/
-void Server::peerClearing(Character *character, Clearing *target) {
-
 }

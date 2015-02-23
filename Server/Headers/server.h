@@ -43,9 +43,8 @@ private:
 	void evening();
 	void midnight();
 	bool turnExists();
-	void searchClearing(Character*);
+	void searchClearing(Character*, SearchType, Clearing*);
 	void hidePlayer(Character*);
-	void peerClearing(Character*, Clearing*);
 	void moveCharacter(Character*, Clearing*);
 	void writeMessageAllClients(string*);
 	void writeMessageAllClients(QString*);

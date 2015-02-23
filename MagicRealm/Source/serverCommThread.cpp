@@ -92,6 +92,7 @@ void ServerCommThread::updateFromServer()
 		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
 			//prompt user for a SearchType.
 			//use SearchTypes provided by server
+			//response formatted as SearchTypeResp**Type
 		}
 		blocksize = 0;
 	} while(true);

@@ -395,10 +395,6 @@ void GameWindow::selectTile(Tile* tile)
 		{
 			break;
 		}
-	case PeerAction:
-		{
-			break;
-		}
 	default:
 		{
 			break;

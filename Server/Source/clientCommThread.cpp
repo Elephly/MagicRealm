@@ -44,6 +44,9 @@ void ClientCommThread::readIncomingData() {
 			int pos = clientData.indexOf(CLASSDELIM);
 			DwellingType data = (DwellingType) clientData.remove(0, pos + 2).toInt();
 			spawnSelected(data, clientID);
+		} else if (clientData.contains(QRegExp("^SearchTypeResp"))) {
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			SearchType type = (SearchType) clientData.remove(0, pos + 2).toInt();
 		}
 		blocksize = 0;
 	} while(true);
