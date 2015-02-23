@@ -116,3 +116,8 @@ string* RecordedTurn::serialize() {
 vector<Action*>* RecordedTurn::getActions() {
 	return actions;
 }
+
+map<PhaseType, int>* RecordedTurn::getAvailablePhases()
+{
+	return availablePhases;
+}

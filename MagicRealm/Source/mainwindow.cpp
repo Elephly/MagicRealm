@@ -20,6 +20,11 @@ MainWindow::MainWindow(QWidget *parent)
 	gameWindow = new GameWindow(this, ui);
 
 	gameWindow->changeScreenState(ui.menuWidget);
+	gameWindow->disableActions();
+	QLineEdit* lineEdit = new QLineEdit();
+	lineEdit->setPlaceholderText("Select Phase");
+	lineEdit->setReadOnly(true);
+	ui.gamePhaseComboBox->setLineEdit(lineEdit);
 }
 
 MainWindow::~MainWindow()
@@ -139,10 +144,9 @@ void MainWindow::on_gameHideActionButton_clicked()
 	ui.gameHideActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
 }
 
-void MainWindow::on_gamePeerActionButton_clicked()
+void MainWindow::on_gameSubmitTurnButton_clicked()
 {
-	gameWindow->selectAction(PeerAction);
-	ui.gamePeerActionButton->setStyleSheet("background-color: rgb(250, 255, 187);");
+	gameWindow->submitTurn();
 }
 
 void MainWindow::on_gameQuitButton_clicked()

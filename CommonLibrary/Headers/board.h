@@ -45,6 +45,8 @@ public:
     */
     Tile* getTile(string tName);
 
+	vector<Tile*>* getTileByType(TileType type);
+
 	virtual string* serialize();
 
 private:

@@ -356,6 +356,14 @@ void GameWindow::changeScreenState(QWidget* screen)
 	qApp->processEvents();
 }
 
+void GameWindow::disableActions()
+{
+	ui.gameMoveActionButton->setDisabled(true);
+	ui.gameSearchActionButton->setDisabled(true);
+	ui.gameTradeActionButton->setDisabled(true);
+	ui.gameHideActionButton->setDisabled(true);
+}
+
 CharacterType GameWindow::getSelectedChar()
 {
 	return selectedCharacter;
@@ -508,7 +516,6 @@ void GameWindow::selectAction(ActionType action)
 	ui.gameSearchActionButton->setStyleSheet("");
 	ui.gameTradeActionButton->setStyleSheet("");
 	ui.gameHideActionButton->setStyleSheet("");
-	ui.gamePeerActionButton->setStyleSheet("");
 }
 
 void GameWindow::moveAction()
@@ -578,4 +585,42 @@ void GameWindow::doTurn(QString &turnString)
 	}
 	myTurn = new RecordedTurn(s);
 	delete s;
+
+	ui.gamePhaseComboBox->clear();
+	ui.gamePhaseComboBox->setEnabled(true);
+
+	map<PhaseType, int>* availablePhases = myTurn->getAvailablePhases();
+	for (map<PhaseType, int>::iterator it = availablePhases->begin(); it != availablePhases->end(); ++it)
+	{
+		for (int i = 0; i < it->second; i++)
+		{
+			switch (it->first)
+			{
+			case MovePhase:
+				ui.gamePhaseComboBox->addItem("Move");
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/actions/move.gif"));
+				break;
+			case BasicPhase:
+				ui.gamePhaseComboBox->addItem("Basic");
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/basic.gif"));
+				break;
+			case SunlightPhase:
+				ui.gamePhaseComboBox->addItem("Sunlight");
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/actions/sunshine.gif"));
+				break;
+			case HidePhase:
+				ui.gamePhaseComboBox->addItem("Hide");
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/actions/hide.gif"));
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
+void GameWindow::submitTurn()
+{
+	server->writeMessage(myTurn->serialize());
+	ui.gamePhaseComboBox->setEnabled(false);
 }

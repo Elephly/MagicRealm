@@ -50,6 +50,18 @@ Dwelling* Board::getDwelling(DwellingType dType)
     //Tile String not found.
     return NULL;
 }
+
+vector <Tile *>* Board::getTileByType(TileType type)
+{
+	vector <Tile *> * typeList = new vector <Tile *>;
+	for(vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it){
+		if((*it)->getType() == type){
+			typeList->push_back(*it);
+		}
+	}
+	return typeList;
+}
+
 string* Board::serialize() {
 	stringstream s;
 	s << "Board";

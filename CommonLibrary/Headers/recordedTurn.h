@@ -17,6 +17,7 @@ public:
 
 
 	vector<Action*>* getActions();
+	map<PhaseType, int>* getAvailablePhases();
 	/*
 	returns result code, true for ok, false for unable to add action
 	*/

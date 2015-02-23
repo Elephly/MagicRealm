@@ -13,7 +13,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -42,16 +44,18 @@ public:
     QPushButton *menuPlayButton;
     QPushButton *menuQuitButton;
     QWidget *gameWidget;
-    QHBoxLayout *horizontalLayout_3;
+    QHBoxLayout *gameWidgetLayout;
     QVBoxLayout *gameViewLayout;
     QGraphicsView *graphicsView;
-    QHBoxLayout *gameButtonLayout;
+    QGroupBox *actionsGroupBox;
+    QHBoxLayout *actionsLayout;
     QPushButton *gameMoveActionButton;
     QPushButton *gameSearchActionButton;
     QPushButton *gameTradeActionButton;
     QPushButton *gameHideActionButton;
-    QPushButton *gamePeerActionButton;
+    QPushButton *gameSubmitTurnButton;
     QPushButton *gameQuitButton;
+    QVBoxLayout *gameInfoPhaseLayout;
     QTabWidget *informationTabWidget;
     QWidget *characterInfoTab;
     QVBoxLayout *verticalLayout_3;
@@ -59,6 +63,7 @@ public:
     QWidget *tileInfoTab;
     QVBoxLayout *verticalLayout;
     QTextBrowser *gameTileInformationBrowser;
+    QComboBox *gamePhaseComboBox;
     QWidget *loadingWidget;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *loadingLabelLayout;
@@ -148,10 +153,10 @@ public:
         gameWidget = new QWidget(centralWidget);
         gameWidget->setObjectName(QStringLiteral("gameWidget"));
         gameWidget->setGeometry(QRect(0, 0, 800, 409));
-        horizontalLayout_3 = new QHBoxLayout(gameWidget);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        gameWidgetLayout = new QHBoxLayout(gameWidget);
+        gameWidgetLayout->setSpacing(6);
+        gameWidgetLayout->setContentsMargins(11, 11, 11, 11);
+        gameWidgetLayout->setObjectName(QStringLiteral("gameWidgetLayout"));
         gameViewLayout = new QVBoxLayout();
         gameViewLayout->setSpacing(6);
         gameViewLayout->setObjectName(QStringLiteral("gameViewLayout"));
@@ -160,10 +165,14 @@ public:
 
         gameViewLayout->addWidget(graphicsView);
 
-        gameButtonLayout = new QHBoxLayout();
-        gameButtonLayout->setSpacing(6);
-        gameButtonLayout->setObjectName(QStringLiteral("gameButtonLayout"));
-        gameMoveActionButton = new QPushButton(gameWidget);
+        actionsGroupBox = new QGroupBox(gameWidget);
+        actionsGroupBox->setObjectName(QStringLiteral("actionsGroupBox"));
+        actionsLayout = new QHBoxLayout(actionsGroupBox);
+        actionsLayout->setSpacing(1);
+        actionsLayout->setContentsMargins(11, 11, 11, 11);
+        actionsLayout->setObjectName(QStringLiteral("actionsLayout"));
+        actionsLayout->setContentsMargins(1, 1, 1, 1);
+        gameMoveActionButton = new QPushButton(actionsGroupBox);
         gameMoveActionButton->setObjectName(QStringLiteral("gameMoveActionButton"));
         QFont font2;
         font2.setFamily(QStringLiteral("MS Serif"));
@@ -178,61 +187,70 @@ public:
         gameMoveActionButton->setDefault(false);
         gameMoveActionButton->setFlat(false);
 
-        gameButtonLayout->addWidget(gameMoveActionButton);
+        actionsLayout->addWidget(gameMoveActionButton);
 
-        gameSearchActionButton = new QPushButton(gameWidget);
+        gameSearchActionButton = new QPushButton(actionsGroupBox);
         gameSearchActionButton->setObjectName(QStringLiteral("gameSearchActionButton"));
         QIcon icon1;
         icon1.addFile(QStringLiteral(":/images/actions/search.gif"), QSize(), QIcon::Normal, QIcon::Off);
         gameSearchActionButton->setIcon(icon1);
         gameSearchActionButton->setIconSize(QSize(32, 32));
 
-        gameButtonLayout->addWidget(gameSearchActionButton);
+        actionsLayout->addWidget(gameSearchActionButton);
 
-        gameTradeActionButton = new QPushButton(gameWidget);
+        gameTradeActionButton = new QPushButton(actionsGroupBox);
         gameTradeActionButton->setObjectName(QStringLiteral("gameTradeActionButton"));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/images/actions/trade.gif"), QSize(), QIcon::Normal, QIcon::Off);
         gameTradeActionButton->setIcon(icon2);
         gameTradeActionButton->setIconSize(QSize(32, 32));
 
-        gameButtonLayout->addWidget(gameTradeActionButton);
+        actionsLayout->addWidget(gameTradeActionButton);
 
-        gameHideActionButton = new QPushButton(gameWidget);
+        gameHideActionButton = new QPushButton(actionsGroupBox);
         gameHideActionButton->setObjectName(QStringLiteral("gameHideActionButton"));
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/images/actions/hide.gif"), QSize(), QIcon::Normal, QIcon::Off);
         gameHideActionButton->setIcon(icon3);
         gameHideActionButton->setIconSize(QSize(32, 32));
 
-        gameButtonLayout->addWidget(gameHideActionButton);
+        actionsLayout->addWidget(gameHideActionButton);
 
-        gamePeerActionButton = new QPushButton(gameWidget);
-        gamePeerActionButton->setObjectName(QStringLiteral("gamePeerActionButton"));
-        QIcon icon4;
-        icon4.addFile(QStringLiteral(":/images/actions/peer.gif"), QSize(), QIcon::Normal, QIcon::Off);
-        gamePeerActionButton->setIcon(icon4);
-        gamePeerActionButton->setIconSize(QSize(32, 32));
-
-        gameButtonLayout->addWidget(gamePeerActionButton);
-
-        gameQuitButton = new QPushButton(gameWidget);
-        gameQuitButton->setObjectName(QStringLiteral("gameQuitButton"));
+        gameSubmitTurnButton = new QPushButton(actionsGroupBox);
+        gameSubmitTurnButton->setObjectName(QStringLiteral("gameSubmitTurnButton"));
         QFont font3;
         font3.setFamily(QStringLiteral("MS Serif"));
         font3.setPointSize(22);
         font3.setBold(true);
         font3.setWeight(75);
+        gameSubmitTurnButton->setFont(font3);
+
+        actionsLayout->addWidget(gameSubmitTurnButton);
+
+        gameQuitButton = new QPushButton(actionsGroupBox);
+        gameQuitButton->setObjectName(QStringLiteral("gameQuitButton"));
         gameQuitButton->setFont(font3);
 
-        gameButtonLayout->addWidget(gameQuitButton);
+        actionsLayout->addWidget(gameQuitButton);
 
+        gameSubmitTurnButton->raise();
+        gameHideActionButton->raise();
+        gameMoveActionButton->raise();
+        gameQuitButton->raise();
+        gameSearchActionButton->raise();
+        gameTradeActionButton->raise();
 
-        gameViewLayout->addLayout(gameButtonLayout);
+        gameViewLayout->addWidget(actionsGroupBox);
 
+        gameViewLayout->setStretch(0, 6);
+        gameViewLayout->setStretch(1, 1);
 
-        horizontalLayout_3->addLayout(gameViewLayout);
+        gameWidgetLayout->addLayout(gameViewLayout);
 
+        gameInfoPhaseLayout = new QVBoxLayout();
+        gameInfoPhaseLayout->setSpacing(6);
+        gameInfoPhaseLayout->setObjectName(QStringLiteral("gameInfoPhaseLayout"));
+        gameInfoPhaseLayout->setContentsMargins(-1, -1, -1, 5);
         informationTabWidget = new QTabWidget(gameWidget);
         informationTabWidget->setObjectName(QStringLiteral("informationTabWidget"));
         informationTabWidget->setToolTipDuration(-1);
@@ -249,9 +267,9 @@ public:
 
         verticalLayout_3->addWidget(gameCharacterInformationBrowser);
 
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/images/actions/cache.gif"), QSize(), QIcon::Normal, QIcon::On);
-        informationTabWidget->addTab(characterInfoTab, icon5, QString());
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/images/tab/record.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        informationTabWidget->addTab(characterInfoTab, icon4, QString());
         tileInfoTab = new QWidget();
         tileInfoTab->setObjectName(QStringLiteral("tileInfoTab"));
         verticalLayout = new QVBoxLayout(tileInfoTab);
@@ -268,13 +286,28 @@ public:
 
         verticalLayout->addWidget(gameTileInformationBrowser);
 
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/images/tiles/questionmark.gif"), QSize(), QIcon::Normal, QIcon::Off);
-        informationTabWidget->addTab(tileInfoTab, icon6, QString());
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/images/tiles/questionmark.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        informationTabWidget->addTab(tileInfoTab, icon5, QString());
 
-        horizontalLayout_3->addWidget(informationTabWidget);
+        gameInfoPhaseLayout->addWidget(informationTabWidget);
 
-        horizontalLayout_3->setStretch(0, 7);
+        gamePhaseComboBox = new QComboBox(gameWidget);
+        gamePhaseComboBox->setObjectName(QStringLiteral("gamePhaseComboBox"));
+        gamePhaseComboBox->setFont(font3);
+        gamePhaseComboBox->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
+        gamePhaseComboBox->setIconSize(QSize(24, 24));
+        gamePhaseComboBox->setDuplicatesEnabled(false);
+        gamePhaseComboBox->setFrame(true);
+
+        gameInfoPhaseLayout->addWidget(gamePhaseComboBox);
+
+        gameInfoPhaseLayout->setStretch(0, 6);
+
+        gameWidgetLayout->addLayout(gameInfoPhaseLayout);
+
+        gameWidgetLayout->setStretch(0, 9);
+        gameWidgetLayout->setStretch(1, 4);
         loadingWidget = new QWidget(centralWidget);
         loadingWidget->setObjectName(QStringLiteral("loadingWidget"));
         loadingWidget->setGeometry(QRect(0, 0, 800, 409));
@@ -342,8 +375,8 @@ public:
         characterSelectorLayout->addWidget(characterSelectCharacterLabel);
 
         characterListView = new QListWidget(characterSelectWidget);
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
         QFont font9;
         font9.setFamily(QStringLiteral("MS Serif"));
         font9.setPointSize(16);
@@ -351,32 +384,32 @@ public:
         font9.setWeight(75);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(characterListView);
         __qlistwidgetitem->setFont(font9);
-        __qlistwidgetitem->setIcon(icon7);
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(characterListView);
         __qlistwidgetitem1->setFont(font9);
-        __qlistwidgetitem1->setIcon(icon8);
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem1->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(characterListView);
         __qlistwidgetitem2->setFont(font9);
-        __qlistwidgetitem2->setIcon(icon9);
-        QIcon icon10;
-        icon10.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem2->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(characterListView);
         __qlistwidgetitem3->setFont(font9);
-        __qlistwidgetitem3->setIcon(icon10);
-        QIcon icon11;
-        icon11.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem3->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(characterListView);
         __qlistwidgetitem4->setFont(font9);
-        __qlistwidgetitem4->setIcon(icon11);
-        QIcon icon12;
-        icon12.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem4->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(characterListView);
         __qlistwidgetitem5->setFont(font9);
-        __qlistwidgetitem5->setIcon(icon12);
+        __qlistwidgetitem5->setIcon(icon11);
         characterListView->setObjectName(QStringLiteral("characterListView"));
         characterListView->setFont(font9);
 
@@ -483,11 +516,12 @@ public:
 #endif // QT_NO_ACCESSIBILITY
         menuPlayButton->setText(QApplication::translate("MainWindowClass", "Play", 0));
         menuQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
+        actionsGroupBox->setTitle(QApplication::translate("MainWindowClass", "Actions", 0));
         gameMoveActionButton->setText(QString());
         gameSearchActionButton->setText(QString());
         gameTradeActionButton->setText(QString());
         gameHideActionButton->setText(QString());
-        gamePeerActionButton->setText(QString());
+        gameSubmitTurnButton->setText(QApplication::translate("MainWindowClass", "Submit", 0));
         gameQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
 #ifndef QT_NO_TOOLTIP
         informationTabWidget->setToolTip(QString());
@@ -504,6 +538,7 @@ public:
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
         informationTabWidget->setTabText(informationTabWidget->indexOf(tileInfoTab), QString());
         informationTabWidget->setTabToolTip(informationTabWidget->indexOf(tileInfoTab), QApplication::translate("MainWindowClass", "Tile Info", 0));
+        gamePhaseComboBox->setCurrentText(QString());
         loadingLoadingLabel->setText(QApplication::translate("MainWindowClass", "Loading", 0));
         loadingMessageLabel->setText(QString());
         loadingProgLabel->setText(QApplication::translate("MainWindowClass", "...", 0));
