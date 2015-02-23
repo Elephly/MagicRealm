@@ -41,7 +41,7 @@ public:
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
 	void selectAction(ActionType action);
-	void moveAction();
+	bool moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
 	void setCharacterHidden(CharacterType character, bool hidden);
 	void searchTypeRequest(QString& searchTypes);

@@ -522,13 +522,16 @@ void GameWindow::selectAction(ActionType action)
 	case NoAction:
 		break;
 	case MoveAction:
-		moveAction();
-		break;
+		if (!moveAction())
+		{
+			break;
+		}
 	case SearchAction:
 	case TradeAction:
 	case HideAction:
 	default:
 		myTurn->addAction(new Action(action, destinationClearing), currentPhase);
+		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
 		break;
 	}
 
@@ -538,7 +541,7 @@ void GameWindow::selectAction(ActionType action)
 	}
 }
 
-void GameWindow::moveAction()
+bool GameWindow::moveAction()
 {
 	vector<Path*> availablePaths = *(destinationClearing->getPaths());
 	QList<Clearing*> adjacentClearings;
@@ -560,15 +563,19 @@ void GameWindow::moveAction()
 		dlg->addOption(option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum()));
 	}
 	int destIndex = dlg->exec();
+
+	bool moveConfirmed = false;
+
 	if (destIndex != -1)
 	{
+		moveConfirmed = true;
 		destinationClearing = adjacentClearings.at(destIndex);
-		myTurn->addAction(new Action(MoveAction, destinationClearing), currentPhase);
-		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
 	}
 	delete dlg;
 
 	selectAction(NoAction);
+
+	return moveConfirmed;
 }
 
 void GameWindow::moveTo(CharacterType character, QString& clearingString)
