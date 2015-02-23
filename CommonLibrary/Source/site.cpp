@@ -1,9 +1,8 @@
 #include "site.h"
 
-Site::Site(string n, bool hide, vector<Treasure*> * myTreasure): Chit(n, hide)
+Site::Site(string n, bool hide, int clLoc, vector<Treasure*> * myTreasure): Chit(n, hide)
 {
-    //sites always go on clearing 6???
-    clearingLocation = 6;
+    clearingLocation = clLoc;
     trove = myTreasure;
 }
 
