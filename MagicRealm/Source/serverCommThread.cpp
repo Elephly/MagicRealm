@@ -94,7 +94,7 @@ void ServerCommThread::updateFromServer()
 			bool hidden = (bool) serverData.right(serverData.size()- (pos + 1)).toInt();
 			windowParent->setCharacterHidden(type, hidden);
 		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
-			windowParent->searchTypeRequest();
+			windowParent->searchTypeRequest(serverData);
 		}
 		blocksize = 0;
 	} while(true);

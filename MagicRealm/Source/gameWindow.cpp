@@ -607,8 +607,10 @@ void GameWindow::setCharacterHidden(CharacterType character, bool hidden)
 	}
 }
 
-void GameWindow::searchTypeRequest()
+void GameWindow::searchTypeRequest(QString& searchTypes)
 {
+	//parsing string
+
 	int searchType = QMessageBox::question(ui.centralWidget, "Search Type", "How would you like to search?", "Peer", "Locate", "Loot");
 	
 	QString serializedSearchType;

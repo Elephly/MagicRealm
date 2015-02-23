@@ -44,7 +44,7 @@ public:
 	void moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
 	void setCharacterHidden(CharacterType character, bool hidden);
-	void searchTypeRequest();
+	void searchTypeRequest(QString& searchTypes);
 	void search(CharacterType character, SearchType searchType);
 
 	void connectedToServer();
