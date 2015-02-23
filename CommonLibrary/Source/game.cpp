@@ -35,7 +35,7 @@ void Game::setupGame(bool cm)
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
-	//dealChits();
+	dealChits();
     plopDwellings();
     //placePlayers();
 
@@ -191,9 +191,12 @@ void Game::dealChits()
 	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
 	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
 
+	Warning* lostCity = new Warning("Lost City", true);
+	Warning* lostCastle = new Warning("Lost Castle", true);
+
 	//randomly putting into cavesList
 	for(int i=0; i<4; i++){
-		if(siteAndSoundList.size()-1 != 0)
+		if(siteAndSoundList.size()> 1)
 			random = rand() % (siteAndSoundList.size()-1);
 		else
 			random = 0;
@@ -203,7 +206,7 @@ void Game::dealChits()
 
 	//randomly putting into mountain list
 	for(int i=0; i<4; i++){
-		if(siteAndSoundList.size()-1 != 0)
+		if(siteAndSoundList.size() > 1)
 			random = rand() % (siteAndSoundList.size()-1);
 		else
 			random = 0;
@@ -212,7 +215,7 @@ void Game::dealChits()
 	}
 
 	for(int i=0; i<5; i++){
-		if(siteAndSoundList.size()-1 != 0)
+		if(siteAndSoundList.size() > 1)
 			random = rand() % (siteAndSoundList.size()-1);
 		else
 			random = 0;
@@ -221,7 +224,7 @@ void Game::dealChits()
 	}
 
 	for(int i=0; i<5; i++){
-		if(siteAndSoundList.size()-1 != 0)
+		if(siteAndSoundList.size() > 1)
 			random = rand() % (siteAndSoundList.size()-1);
 		else
 			random = 0;
@@ -229,12 +232,16 @@ void Game::dealChits()
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
 
+	//ADDING THE LOST CITY LOST CASTLE
+
+	cavesList.push_back(lostCity);
+	mountainList.push_back(lostCastle);
 	vector <Tile *> * tileTypeList = gameBoard->getTileByType(TILE_MOUNTAIN);
 
 	//populating mountain tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 		//adding warningChit
-		if(mountainWarningList.size() -1 != 0)
+		if(mountainWarningList.size() > 1)
 			random = rand() % (mountainWarningList.size() -1);
 		else
 			random = 0;
@@ -242,7 +249,7 @@ void Game::dealChits()
 		mountainWarningList.erase(mountainWarningList.begin() + random);
 
 		//adding Site or Sound
-		if(mountainList.size() -1 != 0)
+		if(mountainList.size() > 1)
 			random = rand() % (mountainList.size() -1);
 		else
 			random = 0;
@@ -256,7 +263,7 @@ void Game::dealChits()
 	//populating caves tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 		//adding warningChit
-		if(cavesWarningList.size() -1 != 0)
+		if(cavesWarningList.size() > 1)
 			random = rand() % (cavesWarningList.size() -1);
 		else
 			random = 0;
@@ -264,7 +271,7 @@ void Game::dealChits()
 		cavesWarningList.erase(cavesWarningList.begin() + random);
 
 		//adding Site or Sound
-		if(cavesList.size() -1 != 0)
+		if(cavesList.size() > 1)
 			random = rand() % (cavesList.size() -1);
 		else
 			random = 0;
@@ -278,7 +285,7 @@ void Game::dealChits()
 	tileTypeList = gameBoard->getTileByType(TILE_WOODS);
 	for(vector <Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 		
-		if(woodsList.size() -1 != 0)
+		if(woodsList.size() > 1)
 			random = rand() % (woodsList.size() -1);
 		else
 			random = 0;
