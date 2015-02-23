@@ -1,5 +1,21 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/counters/characters/amazon.png</file>
+    <file>images/counters/characters/berserker.png</file>
+    <file>images/counters/characters/black_knight.png</file>
+    <file>images/counters/characters/captain.png</file>
+    <file>images/counters/characters/druid.png</file>
+    <file>images/counters/characters/dwarf.png</file>
+    <file>images/counters/characters/elf.png</file>
+    <file>images/counters/characters/magician.png</file>
+    <file>images/counters/characters/pilgrim.png</file>
+    <file>images/counters/characters/sorceror.png</file>
+    <file>images/counters/characters/swordsman.png</file>
+    <file>images/counters/characters/white_knight.png</file>
+    <file>images/counters/characters/witch.png</file>
+    <file>images/counters/characters/witch_king.png</file>
+    <file>images/counters/characters/wizard.png</file>
+    <file>images/counters/characters/woodsgirl.png</file>
     <file>images/tiles/questionmark.gif</file>
     <file>images/armor/breastplate.gif</file>
     <file>images/armor/buckler.gif</file>

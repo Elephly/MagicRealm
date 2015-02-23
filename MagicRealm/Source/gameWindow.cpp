@@ -57,12 +57,12 @@ GameWindow::~GameWindow()
 
 void GameWindow::loadCharacterImages()
 {
-	characterImages->insert(Amazon, new QPixmap(":/images/characters/amazon.png"));
-	characterImages->insert(BlackKnight, new QPixmap(":/images/characters/black_knight.png"));
-	characterImages->insert(Captain, new QPixmap(":/images/characters/captain.png"));
-	characterImages->insert(Dwarf, new QPixmap(":/images/characters/dwarf.png"));
-	characterImages->insert(Elf, new QPixmap(":/images/characters/elf.png"));
-	characterImages->insert(Swordsman, new QPixmap(":/images/characters/swordsman.png"));
+	characterImages->insert(Amazon, new QPixmap(":/images/counters/characters/amazon.png"));
+	characterImages->insert(BlackKnight, new QPixmap(":/images/counters/characters/black_knight.png"));
+	characterImages->insert(Captain, new QPixmap(":/images/counters/characters/captain.png"));
+	characterImages->insert(Dwarf, new QPixmap(":/images/counters/characters/dwarf.png"));
+	characterImages->insert(Elf, new QPixmap(":/images/counters/characters/elf.png"));
+	characterImages->insert(Swordsman, new QPixmap(":/images/counters/characters/swordsman.png"));
 }
 
 void GameWindow::loadTileImages()
