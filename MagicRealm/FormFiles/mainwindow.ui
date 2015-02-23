@@ -134,7 +134,7 @@
       <height>409</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="gameWidgetLayout" stretch="9,4">
+    <layout class="QHBoxLayout" name="gameWidgetLayout" stretch="8,5">
      <item>
       <layout class="QVBoxLayout" name="gameViewLayout" stretch="6,1">
        <item>

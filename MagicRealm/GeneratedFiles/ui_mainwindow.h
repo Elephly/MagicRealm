@@ -347,8 +347,8 @@ public:
 
         gameWidgetLayout->addLayout(gameInfoPhaseLayout);
 
-        gameWidgetLayout->setStretch(0, 9);
-        gameWidgetLayout->setStretch(1, 4);
+        gameWidgetLayout->setStretch(0, 8);
+        gameWidgetLayout->setStretch(1, 5);
         loadingWidget = new QWidget(centralWidget);
         loadingWidget->setObjectName(QStringLiteral("loadingWidget"));
         loadingWidget->setGeometry(QRect(0, 0, 800, 409));
