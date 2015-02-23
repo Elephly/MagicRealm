@@ -91,8 +91,7 @@ enum COMMONLIBRARY_EXPORT ActionType
 	MoveAction=0,
 	SearchAction,
 	TradeAction,
-	HideAction,
-	PeerAction
+	HideAction
 };
 
 enum COMMONLIBRARY_EXPORT PhaseType
@@ -133,5 +132,12 @@ enum COMMONLIBRARY_EXPORT TreasureType
 	SMALL,
     LARGE,
     GREAT
+};
+
+enum COMMONLIBRARY_EXPORT SearchType
+{
+	PEER,
+	LOCATE,
+	LOOT
 };
 #endif

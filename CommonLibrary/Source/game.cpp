@@ -913,6 +913,47 @@ bool Game::hideRequest(Character* player)
     player->toggleHide();
     return true;
 }
+
+void Game::searchRequest(Character* player, SearchType type) {
+	int d1 = rollDice();
+	int d2 = rollDice();
+	int diceUsed = (d1>d2) ? d1 : d2;
+	
+	switch(type) {
+	case PEER: 
+		switch (diceUsed) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+			break;
+		}
+		break;
+	case LOCATE: 
+		switch (diceUsed) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+			break;
+		}
+		break;
+	case LOOT: 
+		//use looting function
+		break;
+	}
+}
+
+bool Game::canLoot(Character* player) {
+	Clearing *location = player->getCurrentLocation();
+
+	//todo finish this when clearing have sites, and players have disoveries
+}
+
 bool Game::moveRequest(Character* player, Clearing* requestedClearing)
 {
     Clearing* playerLoc = NULL;

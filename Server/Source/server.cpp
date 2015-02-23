@@ -218,15 +218,26 @@ void Server::daylight() {
 
 		vector<Action*> *act = turn->getActions();
 		for (vector<Action*>::iterator it = act->begin(); it != act->end(); ++it) {
+			stringstream s;
 			switch ((*it)->getAction()) {
 			case MoveAction: 
 				moveCharacter(game.getPlayer(clientThreadList->at(player)->getMyCharacter()),
 					(*it)->getTarget());
 				break;
-			case SearchAction: break; //Not implemented yet
+			case SearchAction: 
+				s << "SearchTypeReq";
+				s << CLASSDELIM;
+				s << PEER;
+				s << VARDELIM;
+				s << LOCATE;
+				if (game.canLoot(game.getPlayer(clientThreadList->at(player)->getMyCharacter()))) {
+					s << VARDELIM;
+					s << LOOT;
+				}
+				clientThreadList->at(player)->writeMessage(new string(s.str()));
+				break; //Not implemented yet
 			case TradeAction: break; //Not implemented yet
 			case HideAction: break; //Not implemented yet
-			case PeerAction: break; //Not implemented yet
 			}
 
 			delete (*it);
@@ -269,14 +280,22 @@ void Server::midnight() {
 Searches the players current location
 */
 void Server::searchClearing(Character *character) {
-
+	
 }
 
 /*
 Attempt to the player at the current location
 */
 void Server::hidePlayer(Character *character) {
+	bool result = game.hideRequest(character);
+	stringstream s;
+	s << "Hidden";
+	s << CLASSDELIM;
+	s << character->getType();
+	s << VARDELIM;
+	s << result;
 
+	writeMessageAllClients(new string(s.str()));
 }
 
 /*

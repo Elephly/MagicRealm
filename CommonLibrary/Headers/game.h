@@ -65,6 +65,21 @@ public:
     */
     bool hideRequest(Character* player);
 
+	/*
+	*	searchRequest, Locate or Loot table
+	*	In:		Player attempting to search
+	*			Type of search to perform
+	*	Out:	
+	*/
+	void searchRequest(Character* player, SearchType type);
+
+	/*
+	*	canLoot
+	*	In:		Player that we are checking
+	*	Out:	boolean whether player can loot their location or not
+	*/
+	bool canLoot(Character* player);
+
     /*
     *   move
     *   Pointer of the Character wishing to move

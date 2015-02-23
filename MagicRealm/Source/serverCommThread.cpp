@@ -85,8 +85,13 @@ void ServerCommThread::updateFromServer()
 			CharacterType type = (CharacterType)serverData.left(pos).toInt();
 			QString clearingString = serverData.right(serverData.size()- (pos + 1));
 			windowParent->moveTo(type, clearingString);
-			//character type
-			//clearing string
+		} else if (serverData.contains(QRegExp("^Hidden"))) {
+			//update hidden data for given character
+			//1. CharacterType
+			//2. bool hidden true / false
+		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
+			//prompt user for a SearchType.
+			//use SearchTypes provided by server
 		}
 		blocksize = 0;
 	} while(true);
