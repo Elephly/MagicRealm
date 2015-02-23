@@ -737,6 +737,7 @@ void GameWindow::submitTurn()
 	QString eventString;
 	eventString.sprintf("Turn %d submitted.", turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);
+	turnNumber++;
 }
 
 void GameWindow::setCurrentPhaseType(const QString& phaseString)
