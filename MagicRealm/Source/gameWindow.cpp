@@ -657,10 +657,14 @@ void GameWindow::selectAction(ActionType action)
 		{
 			for (int i = 0; i < sunlightPhases; i++)
 			{
-				//ui.gamePhaseComboBox->setInsertPolicy(QComboBox::InsertAtTop);
-				ui.gamePhaseComboBox->addItem("Sunlight");
-				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/sunshine.gif"));
-				//ui.gamePhaseComboBox->setInsertPolicy(QComboBox::InsertAtBottom);
+				ui.gamePhaseComboBox->addItem("Adding sunlight phase");
+				for (int i = ui.gamePhaseComboBox->count() - 1; i > 0 ; i--)
+				{
+					ui.gamePhaseComboBox->setItemText(i, ui.gamePhaseComboBox->itemText(i-1));
+					ui.gamePhaseComboBox->setItemIcon(i, ui.gamePhaseComboBox->itemIcon(i-1));
+				}
+				ui.gamePhaseComboBox->setItemText(0, "Sunlight");
+				ui.gamePhaseComboBox->setItemIcon(0, QIcon(":/images/phases/sunshine.gif"));
 			}
 			sunlightPhases = 0;
 		}
