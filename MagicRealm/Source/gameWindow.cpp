@@ -472,6 +472,7 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 		ui.gameTileInformationBrowser->setCurrentFont(font);
 		QString chitInfo;
 		ChitType chitType = siteOrSoundChit->getType();
+		bool lost = false;
 		switch (chitType)
 		{
 		case CHIT_SOUND:
@@ -481,16 +482,28 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 			chitInfo.append("Site: ");
 			break;
 		case CHIT_LOST:
+			lost = true;
 		case CHIT_WARNING:
 		default:
-			break;
+				break;
 		}
 		chitInfo.append(siteOrSoundChit->getName().c_str());
 		ui.gameTileInformationBrowser->append(chitInfo);
+		if (lost)
+		{
+			font.setPointSize(14);
+			ui.gameTileInformationBrowser->setCurrentFont(font);
+			vector<Chit*>* treasureChits = siteOrSoundChit->getContents();
+			for (vector<Chit*>::iterator it = treasureChits->begin(); it != treasureChits->end(); ++it)
+			{
+				chitInfo.sprintf(" - %s", (*it)->getName().c_str());
+				ui.gameTileInformationBrowser->append(chitInfo);
+			}
+		}
 	}
 	else
 	{
-		if (tile->getType() != WOODS)
+		if (tile->getType() == TILE_CAVES || tile->getType() == TILE_MOUNTAIN)
 		{
 			ui.gameTileInformationBrowser->append("???");
 		}
