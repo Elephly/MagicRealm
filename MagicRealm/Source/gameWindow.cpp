@@ -666,6 +666,10 @@ void GameWindow::selectAction(ActionType action)
 				ui.gamePhaseComboBox->setItemText(0, "Sunlight");
 				ui.gamePhaseComboBox->setItemIcon(0, QIcon(":/images/phases/sunshine.gif"));
 			}
+			if (sunlightPhases > 0)
+			{
+				enableActions();
+			}
 			sunlightPhases = 0;
 		}
 	}

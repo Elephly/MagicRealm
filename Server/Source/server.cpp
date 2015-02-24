@@ -357,12 +357,14 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 		break;
 	case LOOT: 
 		found = game.searchLootRequest(character);
+		int worth;
 		if (found != NULL) {
+			worth = found->getWorth();
 			character->addGold(found->getWorth());
 		}
 		s << "TreasureFound";
 		s << CLASSDELIM;
-		s << found->getWorth();
+		s << worth;
 		s << VARDELIM;
 		s << character->getType();
 		break;
