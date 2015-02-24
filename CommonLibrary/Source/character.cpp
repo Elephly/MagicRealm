@@ -10,6 +10,7 @@ Character::Character(CharacterType type) {
 }
 
 Character::Character(string* serialString) {
+	hidden = false;
 	discoveries = new vector<Chit*>;
 	knownPaths = new vector <Path*>;
     int pos = serialString->find(CLASSDELIM);
