@@ -24,6 +24,7 @@ ChitType Site::getType()
 }
 Treasure* Site::loot(int diceUsed)
 {
+	cout << "SITE LOOT" <<endl;
 	int position = diceUsed -1;
     if(position >= trove->size())
         return NULL;

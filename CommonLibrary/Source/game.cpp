@@ -952,6 +952,18 @@ Board* Game::getBoard()
 void Game::runGame()
 {
     cout << "Game Run..." << endl;
+	/* NOTE: For demonstrating looting onlys	
+	Chit* myChit = NULL;
+	string name;
+	Treasure* myTreasure;
+	vector<Tile* >* tiles = gameBoard->getTileByType(TILE_MOUNTAIN);
+	 for(vector<Tile*>::iterator it = tiles->begin(); it != tiles->end(); ++it){
+		 if((*it)->getSiteOrSoundChit()->getType() == CHIT_SITE){
+			 myChit = (*it)->getSiteOrSoundChit();
+			 cout << "Looting " <<myChit->getName() << " FOUND: " << myChit->loot(1)->getName() <<endl;
+        }
+    }
+	*/
 }
 
 bool Game::addPlayer(CharacterType newPlayerType)
