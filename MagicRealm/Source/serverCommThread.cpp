@@ -94,6 +94,12 @@ void ServerCommThread::updateFromServer()
 			windowParent->setCharacterHidden(type, hidden);
 		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
 			windowParent->searchTypeRequest(serverData);
+		} else if (serverData.contains(QRegExp("^TreasureFound"))) {
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			//Not Done
+		} else if (serverData.contains(QRegExp("^SiteFound"))) {
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			//Not Done
 		}
 		blocksize = 0;
 	} while(true);
