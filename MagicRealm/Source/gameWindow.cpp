@@ -898,6 +898,7 @@ void GameWindow::doTurn(QString &turnString)
 void GameWindow::submitTurn()
 {
 	server->writeMessage(myTurn->serialize());
+	disableActions();
 	ui.gamePhaseComboBox->setDisabled(true);
 	ui.gameSubmitTurnButton->setDisabled(true);
 	QString eventString;
