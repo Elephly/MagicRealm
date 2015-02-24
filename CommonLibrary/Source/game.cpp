@@ -59,11 +59,11 @@ void Game::dealChits()
 	vector<Chit *>* lostCastleList = new vector<Chit*>;
 	int random = 0;
 
-    Warning* bonesv = new Warning("BONES V", true);
-    Warning* dankv = new Warning("DANK V", true);
-    Warning* ruinsv = new Warning("RUINS V", true);
-    Warning* smokev = new Warning("SMOKE V", true);
-    Warning* stinkv = new Warning("STINK V", true);
+    Warning* bonesv = new Warning("BONES V", false);
+    Warning* dankv = new Warning("DANK V", false);
+    Warning* ruinsv = new Warning("RUINS V", false);
+    Warning* smokev = new Warning("SMOKE V", false);
+    Warning* stinkv = new Warning("STINK V", false);
 
     woodsList.push_back(new Warning("BONES W", true));
     woodsList.push_back(new Warning("DANK W", true));
