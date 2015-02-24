@@ -441,12 +441,12 @@ void GameWindow::updateCharacterInfoPane()
 
 	ui.gameCharacterInformationBrowser->append("\nEquipment:");
 	vector<Equipment*>* equipment = character->getEquipment();
-	/*
 	for (vector<Equipment*>::iterator it = equipment->begin(); it != equipment->end(); ++it)
 	{
-		characterInfo.sprintf("  - %s", (*it)->
+		characterInfo.sprintf("  - %s", (*it)->getName().c_str());
+		ui.gameCharacterInformationBrowser->append(characterInfo);
 	}
-	*/
+	ui.gameCharacterInformationBrowser->verticalScrollBar()->setValue(0);
 }
 
 void GameWindow::updateTileInfoPane(Tile* tile)
@@ -488,6 +488,13 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 		chitInfo.append(siteOrSoundChit->getName().c_str());
 		ui.gameTileInformationBrowser->append(chitInfo);
 	}
+	else
+	{
+		if (tile->getType() != WOODS)
+		{
+			ui.gameTileInformationBrowser->append("???");
+		}
+	}
 	Chit* warningChit = tile->getWarningChit();
 	if (warningChit != 0 && (!warningChit->isHidden() ||
 		(game->getPlayer(selectedCharacter)->getCurrentLocation() != 0 &&
@@ -499,6 +506,10 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 		QString chitInfo;
 		chitInfo.sprintf("Warning: %s", warningChit->getName().c_str());
 		ui.gameTileInformationBrowser->append(chitInfo);
+	}
+	else
+	{
+		ui.gameTileInformationBrowser->append("???");
 	}
 
 	// CLEARINGS INFO
