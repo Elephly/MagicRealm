@@ -231,7 +231,7 @@ void Character::initCaptain() {
 	equipment->push_back(new Weapon(ShortSword, "Short Sword"));
 	equipment->push_back(new Armor(Helmet, "Helmet"));
 	equipment->push_back(new Armor(Shield, "Shield"));
-	equipment->push_back(new Armor(Breastplate, ""));
+	equipment->push_back(new Armor(Breastplate, "Breastplate"));
 }
 
 void Character::initDwarf() {

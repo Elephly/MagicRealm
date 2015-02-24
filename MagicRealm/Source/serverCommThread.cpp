@@ -86,7 +86,6 @@ void ServerCommThread::updateFromServer()
 			QString clearingString = serverData.right(serverData.size()- (pos + 1));
 			windowParent->moveTo(type, clearingString);
 		} else if (serverData.contains(QRegExp("^Hidden"))) {
-			// Check this please
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
