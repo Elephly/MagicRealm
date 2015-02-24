@@ -1,6 +1,7 @@
 #include "weapon.h"
 
-Weapon::Weapon(WeaponType type) {
+Weapon::Weapon(WeaponType type, string n): Equipment(n) 
+{
 	this->type = type;
 	active = false;
 	switch (type) {

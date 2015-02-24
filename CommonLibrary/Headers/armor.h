@@ -6,7 +6,7 @@
 
 class COMMONLIBRARY_EXPORT Armor : public Equipment {
 public:
-	Armor(ArmorType type);
+	Armor(ArmorType type, string n);
 
 private:
 	ArmorType type;

@@ -1,6 +1,7 @@
 #include "armor.h"
 
-Armor::Armor(ArmorType type) {
+Armor::Armor(ArmorType type, string n): Equipment(n) 
+{
 	this->type = type;
 	damaged = false;
 	switch (type) {

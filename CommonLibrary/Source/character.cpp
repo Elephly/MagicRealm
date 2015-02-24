@@ -211,44 +211,50 @@ void Character::addGold(int in) {
 void Character::initAmazon() {
 	advantages[0] = AIM;
 	advantages[1] = STAMINA;
-	equipment->push_back(new Weapon(ShortSword));
-	equipment->push_back(new Armor(Helmet));
-	equipment->push_back(new Armor(Shield));
-	equipment->push_back(new Armor(Breastplate));
+	equipment->push_back(new Weapon(ShortSword, "Short Sword"));
+	equipment->push_back(new Armor(Helmet, "Helmet"));
+	equipment->push_back(new Armor(Shield, "Shield"));
+	equipment->push_back(new Armor(Breastplate, "Breastplate"));
 }
 
 void Character::initBlackknight() {
 	advantages[0] = AIM;
 	advantages[1] = FEAR;
-	equipment->push_back(new Weapon(Mace));
-	equipment->push_back(new Armor(Shield));
-	equipment->push_back(new Armor(Suit));
+	equipment->push_back(new Weapon(Mace, "Mace"));
+	equipment->push_back(new Armor(Shield, "Shield"));
+	equipment->push_back(new Armor(Suit, "Suit"));
 }
 
 void Character::initCaptain() {
 	advantages[0] = AIM;
 	advantages[1] = REPUTATION;
-	equipment->push_back(new Weapon(ShortSword));
-	equipment->push_back(new Armor(Helmet));
-	equipment->push_back(new Armor(Shield));
-	equipment->push_back(new Armor(Breastplate));
+	equipment->push_back(new Weapon(ShortSword, "Short Sword"));
+	equipment->push_back(new Armor(Helmet, "Helmet"));
+	equipment->push_back(new Armor(Shield, "Shield"));
+	equipment->push_back(new Armor(Breastplate, ""));
 }
 
 void Character::initDwarf() {
 	advantages[0] = SHORTLEGS;
 	advantages[1] = CAVEKNOWLEGDE;
-	equipment->push_back(new Weapon(GreatAxe));
-	equipment->push_back(new Armor(Helmet));
+	equipment->push_back(new Weapon(GreatAxe, "Great Axe"));
+	equipment->push_back(new Armor(Helmet, "Helmet"));
 }
 
 void Character::initElf() {
 	advantages[0] = ELUSIVNESS;
 	advantages[1] = ARCHER;
-	equipment->push_back(new Weapon(LightBow));
+	equipment->push_back(new Weapon(LightBow, "Light Bow"));
 }
 
+CharAdvantages Character::getAdvantage(bool firstAdvantage)
+{
+	if(firstAdvantage)
+		return advantages[0];
+	return advantages[1];
+}
 void Character::initSwordsman() {
 	advantages[0] = BARTER;
 	advantages[1] = CLEAVER;
-	equipment->push_back(new Weapon(ThrustingSword));
+	equipment->push_back(new Weapon(ThrustingSword, "Thrusting Sword"));
 }

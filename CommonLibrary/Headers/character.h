@@ -30,6 +30,9 @@ public:
 	static vector<DwellingType>* getStartLocations(CharacterType t);
 	virtual string* serialize();
 
+	//returns the first advantage is passed true, the second is false
+	CharAdvantages getAdvantage(bool firstAdvantage);
+
 	void addGold(int);
 
     /*
