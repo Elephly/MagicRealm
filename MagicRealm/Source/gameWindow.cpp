@@ -496,7 +496,7 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 			vector<Chit*>* treasureChits = siteOrSoundChit->getContents();
 			for (vector<Chit*>::iterator it = treasureChits->begin(); it != treasureChits->end(); ++it)
 			{
-				chitInfo.sprintf(" - %s %d", (*it)->getName().c_str(), (*it)->getClearingNum());
+				chitInfo.sprintf(" - %s", (*it)->getName().c_str());
 				ui.gameTileInformationBrowser->append(chitInfo);
 			}
 		}
