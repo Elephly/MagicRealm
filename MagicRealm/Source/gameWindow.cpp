@@ -3,6 +3,7 @@
 #include "availableMovesDialog.h"
 
 #include <QMessageBox>
+#include <QScrollBar>
 
 #include <queue>
 #include <unordered_set>
@@ -455,9 +456,54 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 	font.setUnderline(true);
 	ui.gameTileInformationBrowser->setCurrentFont(font);
 	ui.gameTileInformationBrowser->setText(QString(tile->getName().c_str()));
-
+	
+	// CHITS INFO
 	font.setPointSize(18);
 	font.setUnderline(false);
+	ui.gameTileInformationBrowser->setCurrentFont(font);
+	ui.gameTileInformationBrowser->append("\nChits");
+	Chit* siteOrSoundChit = tile->getSiteOrSoundChit();
+	if (siteOrSoundChit != 0 && (!siteOrSoundChit->isHidden() ||
+		(game->getPlayer(selectedCharacter)->getCurrentLocation() != 0 &&
+		tile == game->getPlayer(selectedCharacter)->getCurrentLocation()->getTile())))
+	{
+		font.setPointSize(16);
+		font.setBold(false);
+		ui.gameTileInformationBrowser->setCurrentFont(font);
+		QString chitInfo;
+		ChitType chitType = siteOrSoundChit->getType();
+		switch (chitType)
+		{
+		case CHIT_SOUND:
+			chitInfo.append("Sound: ");
+			break;
+		case CHIT_SITE:
+			chitInfo.append("Site: ");
+			break;
+		case CHIT_LOST:
+		case CHIT_WARNING:
+		default:
+			break;
+		}
+		chitInfo.append(siteOrSoundChit->getName().c_str());
+		ui.gameTileInformationBrowser->append(chitInfo);
+	}
+	Chit* warningChit = tile->getWarningChit();
+	if (warningChit != 0 && (!warningChit->isHidden() ||
+		(game->getPlayer(selectedCharacter)->getCurrentLocation() != 0 &&
+		tile == game->getPlayer(selectedCharacter)->getCurrentLocation()->getTile())))
+	{
+		font.setPointSize(16);
+		font.setBold(false);
+		ui.gameTileInformationBrowser->setCurrentFont(font);
+		QString chitInfo;
+		chitInfo.sprintf("Warning: %s", warningChit->getName().c_str());
+		ui.gameTileInformationBrowser->append(chitInfo);
+	}
+
+	// CLEARINGS INFO
+	font.setPointSize(18);
+	font.setBold(true);
 	ui.gameTileInformationBrowser->setCurrentFont(font);
 	ui.gameTileInformationBrowser->append("\nClearings");
 	for (int i = 1; i < CONNECTED_LENGTH+1; i++)
@@ -491,11 +537,16 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 			{
 				QString charString;
 				charString.sprintf("  - %s", Character::getTypeString((*chr)->getType()));
+				if ((*chr)->isHidden())
+				{
+					charString.append(" (hidden)");
+				}
 				ui.gameTileInformationBrowser->append(charString);
 			}
 			ui.gameTileInformationBrowser->append("");
 		}
 	}
+	ui.gameTileInformationBrowser->verticalScrollBar()->setValue(0);
 }
 
 void GameWindow::updateCharacterLocation(Character* character)
