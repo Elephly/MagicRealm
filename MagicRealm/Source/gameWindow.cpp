@@ -756,7 +756,7 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 		
 		QString eventString;
 		eventString.sprintf("%s moved to %s clearing %d", Character::getTypeString((CharacterType)character),
-			destinationClearing->getTile()->getName().c_str(), destinationClearing->getClearingNum());
+			clearing->getTile()->getName().c_str(), clearing->getClearingNum());
 		ui.gameEventFeedBrowser->append(eventString);
 	}
 }
