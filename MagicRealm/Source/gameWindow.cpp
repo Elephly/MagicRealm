@@ -740,10 +740,25 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 
 void GameWindow::setCharacterHidden(CharacterType character, bool hidden)
 {
+	Character* c = game->getPlayer(character);
+	QString eventString;
 	if (hidden)
 	{
-		game->hideRequest(game->getPlayer(character));
+		if (!c->isHidden())
+		{
+			c->toggleHide();
+		}
+		eventString.sprintf("%s hid.", Character::getTypeString(character));
 	}
+	else
+	{
+		if (c->isHidden())
+		{
+			c->toggleHide();
+		}
+		eventString.sprintf("%s failed to hide.", Character::getTypeString(character));
+	}
+	ui.gameEventFeedBrowser->append(eventString);
 }
 
 void GameWindow::searchTypeRequest(QString& searchTypes)
