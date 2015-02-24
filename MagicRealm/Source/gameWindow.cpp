@@ -117,10 +117,6 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	ui.loadingMessageLabel->setText("--Connecting to server--");
 	changeScreenState(ui.loadingWidget);
 	
-	game = new Game();
-
-	game->setupGame(false);
-	
 	err = server->threadConnect(hostIP, GAMEPORT);
 	if (err)
 	{
@@ -131,8 +127,12 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 	return err;
 }
 
-void GameWindow::connectedToServer()
+void GameWindow::connectedToServer(time_t time)
 {
+	
+	game = new Game(time);
+
+	game->setupGame(false);
 	qDebug() << "client is connected to server, signal";
 	for (int i = 0; i < ui.characterListView->count(); i++)
 	{

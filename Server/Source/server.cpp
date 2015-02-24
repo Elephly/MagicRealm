@@ -52,7 +52,11 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(recordedTurn(QString&, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
-			newThread->writeMessage(new QString(ACCEPTCONN));
+			stringstream s;
+			s << ACCEPTCONN;
+			s << CLASSDELIM;
+			s << game.getTime();
+			newThread->writeMessage(new string(s.str()));
 
 			//Inform new player of currently selected characters
 			for (int i = 0; i < MAXPLAYERS; ++i) {

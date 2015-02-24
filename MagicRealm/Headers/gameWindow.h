@@ -49,7 +49,7 @@ public:
 	void treasureFound(CharacterType character, int treasureWorth);
 	void siteFound(CharacterType character, QString& siteName);
 
-	void connectedToServer();
+	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);
 	void requestCharacter(CharacterType character, DwellingType startLoc);
 	void characterRequestAcknowledged(bool accepted);

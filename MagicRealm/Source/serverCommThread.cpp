@@ -63,9 +63,11 @@ void ServerCommThread::updateFromServer()
 		in >> serverData;
 		qDebug() << serverData;
 
-		if (serverData.compare(QString(ACCEPTCONN)) == 0) {
+		if (serverData.contains(QRegExp(ACCEPTCONN))) {
+			int pos = serverData.indexOf(CLASSDELIM);
+			time_t time = serverData.remove(0, pos + 2).toLong();
 			connected = true;
-			windowParent->connectedToServer();
+			windowParent->connectedToServer(time);
 		} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
 			windowParent->doTurn(serverData);
 		} else if (serverData.contains(QRegExp("^CharacterType"))) {
