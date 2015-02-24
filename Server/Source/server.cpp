@@ -360,7 +360,7 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 		int worth;
 		if (found != NULL) {
 			worth = found->getWorth();
-			character->addGold(found->getWorth());
+			character->addGold(worth);
 		}
 		s << "TreasureFound";
 		s << CLASSDELIM;
