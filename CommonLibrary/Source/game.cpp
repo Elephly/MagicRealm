@@ -208,7 +208,7 @@ void Game::dealChits()
 	siteAndSoundList.push_back(new Sound("Flutter 1", true, 1));
 	siteAndSoundList.push_back(new Sound("Flutter 2", true, 2));
 	siteAndSoundList.push_back(new Sound("Patter 2", true, 2));
-	siteAndSoundList.push_back(new Sound("Patter 5", true, 2));
+	siteAndSoundList.push_back(new Sound("Patter 5", true, 5));
 	siteAndSoundList.push_back(new Sound("roar 4", true, 4));
 	siteAndSoundList.push_back(new Sound("roar 6", true, 2));
 	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
