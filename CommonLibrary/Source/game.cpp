@@ -1038,7 +1038,7 @@ DiscoveryType Game::searchPeerRequest() {
 	case 3: return DISCOVER_ENEMAPATH;
 	case 4: return DISCOVER_HENEMIES;
 	case 5: return DISCOVER_CLUES;
-	case 6: return DISCOVER_NOTHING;
+	default: return DISCOVER_NOTHING;
 	}
 }
 
@@ -1052,8 +1052,7 @@ DiscoveryType Game::searchLocateRequest() {
 	case 2: return DISCOVER_PASSACLUES;
 	case 3: return DISCOVER_SPASS;
 	case 4: return DISCOVER_CHIT;
-	case 5:
-	case 6: return DISCOVER_NOTHING;
+	default: return DISCOVER_NOTHING;
 	}
 }
 
@@ -1155,7 +1154,18 @@ void Game::move(Character* player, Clearing* requestedClearing)
 
 int Game::rollDice()
 {
-    return rand() % 7 + 1;
+	int num =0;
+	if(!cheatMode)
+		num = rand() % 6 + 1;
+	else{
+		while(num < 1 || num > 6){
+			cout << "Game::rollDice CHEATMODE Enter Roll (1-6)" << endl;
+			cin >> num;
+		}
+	}
+	cout <<"Returning Dice Roll: " <<num << endl;
+	return num;
+
 }
 Dwelling* Game::getDwelling(DwellingType dwellingType)
 {

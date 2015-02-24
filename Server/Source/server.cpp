@@ -23,10 +23,12 @@ Server::~Server() {
 
 void Server::run() {
 	std::cout << "Starting up the server" << std::endl;
-
+	bool cheatMode = false;
+	cout << "Cheat Mode? (0/1)" <<endl;
+	cin >> cheatMode;
 	incoming->listen(QHostAddress::Any, (quint16) myPort);
 	std::cout << "listening for connections" << std::endl;
-    game.setupGame(false);
+    game.setupGame(cheatMode);
     game.runGame();
 }
 
