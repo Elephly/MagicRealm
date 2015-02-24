@@ -208,6 +208,14 @@ void Server::sunrise() {
 
 //play player turns in random order
 void Server::daylight() {
+	
+	qDebug() << "unhiding all players";
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
+		it != clientThreadList->end(); ++it) {
+			if(game.getPlayer((*it)->getMyCharacter())->isHidden()) {
+				game.getPlayer((*it)->getMyCharacter())->toggleHide();
+			}
+	}
 	startPlayerTurn();
 }
 
