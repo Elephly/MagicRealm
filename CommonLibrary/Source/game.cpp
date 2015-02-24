@@ -1018,7 +1018,7 @@ bool Game::hideRequest(Character* player)
     int d2 = rollDice();
     int diceUsed = (d1>d2) ? d1 : d2;
 
-    if(diceUsed = 6)
+    if(diceUsed == 6)
         return false;
     
     if(player->isHidden())
