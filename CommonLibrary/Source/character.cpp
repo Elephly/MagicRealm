@@ -246,6 +246,12 @@ void Character::initElf() {
 	equipment->push_back(new Weapon(LightBow, "Light Bow"));
 }
 
+CharAdvantages Character::getAdvantage(bool firstAdvantage)
+{
+	if(firstAdvantage)
+		return advantages[0];
+	return advantages[1];
+}
 void Character::initSwordsman() {
 	advantages[0] = BARTER;
 	advantages[1] = CLEAVER;
