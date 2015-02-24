@@ -83,23 +83,31 @@ void ServerCommThread::updateFromServer()
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType type = (CharacterType)serverData.left(pos).toInt();
-			QString clearingString = serverData.right(serverData.size()- (pos + 1));
+			QString clearingString = serverData.right(serverData.size() - (pos + 1));
 			windowParent->moveTo(type, clearingString);
 		} else if (serverData.contains(QRegExp("^Hidden"))) {
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType type = (CharacterType)serverData.left(pos).toInt();
-			bool hidden = (bool) serverData.right(serverData.size()- (pos + 1)).toInt();
+			bool hidden = (bool) serverData.right(serverData.size() - (pos + 1)).toInt();
 			windowParent->setCharacterHidden(type, hidden);
 		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
 			windowParent->searchTypeRequest(serverData);
 		} else if (serverData.contains(QRegExp("^TreasureFound"))) {
 			int pos = serverData.indexOf(QString(CLASSDELIM));
-			//Not Done
+			serverData = serverData.remove(0, pos + 2);
+			pos = serverData.indexOf(QString(VARDELIM));
+			int treasureWorth = serverData.left(pos).toInt();
+			CharacterType type = (CharacterType)serverData.right(serverData.size() - (pos + 1)).toInt();
+			windowParent->treasureFound(type, treasureWorth);
 		} else if (serverData.contains(QRegExp("^SiteFound"))) {
 			int pos = serverData.indexOf(QString(CLASSDELIM));
-			//Not Done
+			serverData = serverData.remove(0, pos + 2);
+			pos = serverData.indexOf(QString(VARDELIM));
+			QString siteName = serverData.left(pos);
+			CharacterType type = (CharacterType)serverData.right(serverData.size() - (pos + 1)).toInt();
+			windowParent->siteFound(type, siteName);
 		}
 		blocksize = 0;
 	} while(true);

@@ -46,6 +46,8 @@ public:
 	void setCharacterHidden(CharacterType character, bool hidden);
 	void searchTypeRequest(QString& searchTypes);
 	void search(CharacterType character, SearchType searchType);
+	void treasureFound(CharacterType character, int treasureWorth);
+	void siteFound(CharacterType character, QString& siteName);
 
 	void connectedToServer();
 	void updateAvailableCharacters(int removeCharacter);
