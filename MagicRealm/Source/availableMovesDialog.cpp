@@ -30,9 +30,10 @@ AvailableMovesDialog::AvailableMovesDialog(QWidget* parent)
 	setWindowTitle("Move");
 }
 
-void AvailableMovesDialog::addOption(QString text)
+void AvailableMovesDialog::addOption(QString text, bool optionIsEnabled)
 {
 	QRadioButton* newOption = new QRadioButton(text);
+	newOption->setEnabled(optionIsEnabled);
 	options->append(newOption);
 	connect(newOption, SIGNAL(clicked()), this, SLOT(enableMoveButton()));
 	QLayout* l = layout();
