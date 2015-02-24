@@ -47,6 +47,10 @@ Game::~Game()
     cout << "Game Destroyed" << endl;
 }
 
+time_t Game::getTime()
+{
+	return seed;
+}
 void Game::setupGame(bool cm)
 {
 	//setting seed for randomness

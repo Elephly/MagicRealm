@@ -27,6 +27,7 @@ public:
     void setupGame(bool cm);
     void doTurn();
 
+	time_t getTime();
     /*
     *   addPlayer
     *   in:     CharacterType to be added to the array
