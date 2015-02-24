@@ -289,47 +289,47 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
 
     switch(sType){
     case HOARD:
-        name = "Hoard";
+        name = "Hoard 6";
         numLarge = 5;
         numSmall = 4;
 		clearingLocation = 6;
         break;
     case LAIR:
-        name = "Lair";
+        name = "Lair 3";
         numLarge = 3;
         numSmall = 4;
 		clearingLocation = 3;
         break;
     case ALTAR:
-        name = "Altar";
+        name = "Altar 1";
         numLarge = 4;
 		clearingLocation = 1;
         break;
     case SHRINE:
-        name = "Shrine";
+        name = "Shrine 4";
         numLarge = 2;
         numSmall = 2;
 		clearingLocation = 4;
         break;
     case POOL:
-        name = "Pool";
+        name = "Pool 6";
         numLarge = 3;
         numSmall = 6;
 		clearingLocation = 6;
 		break;
     case VAULT:
-        name = "Vault";
+        name = "Vault 3";
         numLarge = 5;
 		clearingLocation = 3;
         break;
     case CAIRNS:
-        name = "Cairns";
+        name = "Cairns 3";
         numLarge = 1;
         numSmall = 6;
 		clearingLocation = 5;
         break;
     case STATUE:
-        name = "Statue";
+        name = "Statue 2";
         numLarge = 1;
         numSmall = 2;
 		clearingLocation = 2;
