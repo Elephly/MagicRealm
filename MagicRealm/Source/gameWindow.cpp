@@ -496,7 +496,7 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 			vector<Chit*>* treasureChits = siteOrSoundChit->getContents();
 			for (vector<Chit*>::iterator it = treasureChits->begin(); it != treasureChits->end(); ++it)
 			{
-				chitInfo.sprintf(" - %s", (*it)->getName().c_str());
+				chitInfo.sprintf(" - %s %d", (*it)->getName().c_str(), (*it)->getClearingNum());
 				ui.gameTileInformationBrowser->append(chitInfo);
 			}
 		}
@@ -810,6 +810,39 @@ void GameWindow::search(CharacterType character, SearchType searchType)
 	default:
 		break;
 	}
+}
+
+void GameWindow::treasureFound(CharacterType character, int treasureWorth)
+{
+	Character* c = game->getPlayer(character);
+	c->addGold(treasureWorth);
+	QString eventString;
+	eventString.sprintf("%s found %d gold!", Character::getTypeString(character), treasureWorth);
+	ui.gameEventFeedBrowser->append(eventString);
+}
+
+void GameWindow::siteFound(CharacterType character, QString& siteName)
+{
+	Character* c = game->getPlayer(character);
+	Chit* chit = c->getCurrentLocation()->getTile()->getSiteOrSoundChit();
+	if (chit->getType() == CHIT_LOST)
+	{
+		vector<Chit*>* lostChits = chit->getContents();
+		for (vector<Chit*>::iterator it = lostChits->begin(); it != lostChits->end(); ++it)
+		{
+			QString chitName;
+			chitName.append((*it)->getName().c_str());
+			if (siteName == chitName)
+			{
+				chit = *it;
+				break;
+			}
+		}
+	}
+	c->discover(chit);
+	QString eventString;
+	eventString.sprintf("%s found %s!", Character::getTypeString(character), chit->getName().c_str());
+	ui.gameEventFeedBrowser->append(eventString);
 }
 
 void GameWindow::doTurn(QString &turnString)
