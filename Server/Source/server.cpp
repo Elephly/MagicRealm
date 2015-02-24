@@ -326,6 +326,7 @@ Searches the players current location
 void Server::searchClearing(Character *character, SearchType type, Clearing *target) {
 	DiscoveryType discover = DISCOVER_NOTHING;
 	stringstream s;
+	Treasure* found = NULL;
 	switch(type) {
 	case PEER: 
 		discover = game.searchPeerRequest();
@@ -334,7 +335,7 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 		discover = game.searchLocateRequest();
 		break;
 	case LOOT: 
-		Treasure *found = game.searchLootRequest(character);
+		found = game.searchLootRequest(character);
 		if (found != NULL) {
 			character->addGold(found->getWorth());
 		}
@@ -345,6 +346,7 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 		s << character->getType();
 		break;
 	}
+	Chit* site = NULL;
 	switch(discover) {
 	case DISCOVER_HENEMIES: break;
 	case DISCOVER_ENEMAPATH: 
@@ -354,7 +356,7 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 	case DISCOVER_PASSACLUES: 
 	case DISCOVER_SPASS: break;
 	case DISCOVER_CHIT: 
-		Chit* site = target->getTile()->getSiteOrSoundChit();
+		site = target->getTile()->getSiteOrSoundChit();
 		if (site != NULL && site->getType() == CHIT_SITE) {
 			character->discover(site);
 			s << "SiteFound";
