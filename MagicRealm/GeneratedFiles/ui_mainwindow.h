@@ -65,7 +65,7 @@ public:
     QTextBrowser *gameTileInformationBrowser;
     QComboBox *gamePhaseComboBox;
     QGroupBox *gameEventFeedGroupBox;
-    QVBoxLayout *verticalLayout_4;
+    QVBoxLayout *eventFeedLayout;
     QTextBrowser *gameEventFeedBrowser;
     QWidget *loadingWidget;
     QVBoxLayout *verticalLayout_2;
@@ -177,7 +177,7 @@ public:
         actionsLayout->setSpacing(1);
         actionsLayout->setContentsMargins(11, 11, 11, 11);
         actionsLayout->setObjectName(QStringLiteral("actionsLayout"));
-        actionsLayout->setContentsMargins(1, 1, 1, 1);
+        actionsLayout->setContentsMargins(0, 0, 0, 0);
         gameMoveActionButton = new QPushButton(actionsGroupBox);
         gameMoveActionButton->setObjectName(QStringLiteral("gameMoveActionButton"));
         gameMoveActionButton->setFont(font2);
@@ -309,11 +309,11 @@ public:
         gameEventFeedGroupBox = new QGroupBox(gameWidget);
         gameEventFeedGroupBox->setObjectName(QStringLiteral("gameEventFeedGroupBox"));
         gameEventFeedGroupBox->setFont(font2);
-        verticalLayout_4 = new QVBoxLayout(gameEventFeedGroupBox);
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        eventFeedLayout = new QVBoxLayout(gameEventFeedGroupBox);
+        eventFeedLayout->setSpacing(6);
+        eventFeedLayout->setContentsMargins(11, 11, 11, 11);
+        eventFeedLayout->setObjectName(QStringLiteral("eventFeedLayout"));
+        eventFeedLayout->setContentsMargins(0, 0, 0, 0);
         gameEventFeedBrowser = new QTextBrowser(gameEventFeedGroupBox);
         gameEventFeedBrowser->setObjectName(QStringLiteral("gameEventFeedBrowser"));
         QPalette palette;
@@ -336,7 +336,7 @@ public:
         font5.setPointSize(10);
         gameEventFeedBrowser->setFont(font5);
 
-        verticalLayout_4->addWidget(gameEventFeedBrowser);
+        eventFeedLayout->addWidget(gameEventFeedBrowser);
 
 
         gameInfoPhaseLayout->addWidget(gameEventFeedGroupBox);

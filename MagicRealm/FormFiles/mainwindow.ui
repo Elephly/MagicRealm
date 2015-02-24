@@ -155,16 +155,16 @@
            <number>1</number>
           </property>
           <property name="leftMargin">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="topMargin">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>1</number>
+           <number>0</number>
           </property>
           <item>
            <widget class="QPushButton" name="gameMoveActionButton">
@@ -446,7 +446,7 @@ p, li { white-space: pre-wrap; }
          <property name="title">
           <string>Event Feed</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <layout class="QVBoxLayout" name="eventFeedLayout" stretch="0">
           <property name="spacing">
            <number>6</number>
           </property>
