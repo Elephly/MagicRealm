@@ -15,15 +15,17 @@ RecordedTurn::RecordedTurn(string* serializedString, Board* gameBoard) {
 
 	string second = serializedString->substr(pos + 2);
 	string first;
-	//create list of actions
-	do {
-		int delimPos = second.find(LISTDELIM);
-		first = second.substr(0, delimPos);
-		qDebug() << QString(first.c_str()) << ", " << QString(second.c_str());
-		actions->push_back(new Action(&first, gameBoard));
+	if(second.at(0) != '^') {
+		//create list of actions
+		do {
+			int delimPos = second.find(LISTDELIM);
+			first = second.substr(0, delimPos);
+			qDebug() << QString(first.c_str()) << ", " << QString(second.c_str());
+			actions->push_back(new Action(&first, gameBoard));
 
-		second = second.substr(delimPos + 1);
-	} while(second.at(0) != '^');
+			second = second.substr(delimPos + 1);
+		} while(second.at(0) != '^');
+	}
 
 	second = second.substr(1);
 	first = "";
