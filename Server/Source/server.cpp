@@ -50,6 +50,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(setSpawn(DwellingType, int)));
 			connect(newThread, SIGNAL(incomingTurn(QString&, int)), 
 				this, SLOT(recordedTurn(QString&, int)));
+			connect(newThread, SIGNAL(searchTypeReturned()),
+				this, SLOT(endAction()));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;
