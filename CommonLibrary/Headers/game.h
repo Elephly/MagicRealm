@@ -21,6 +21,7 @@ class COMMONLIBRARY_EXPORT Game{
 
 public:
 	Game();
+	Game(time_t sd);
     ~Game();
     void runGame();
     void setupGame(bool cm);
@@ -147,6 +148,7 @@ private:
     int day;
     TimeOfDay currentTime;
     bool cheatMode;
+	time_t seed;
 
     
 };

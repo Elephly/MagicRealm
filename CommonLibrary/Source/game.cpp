@@ -10,6 +10,23 @@ Game::Game()
     currentTime = BIRDSONG;
     gameBoard = new Board();
     cout << "Game Initialized" <<endl;
+
+	seed = time(NULL);
+}
+
+//used in client for seed passing in
+Game::Game(time_t sd)
+{
+    //initalizing players list
+    for(int i=0; i < MAXPLAYERS; i ++)
+        players[i] = NULL;
+    
+    day = 28;
+    currentTime = BIRDSONG;
+    gameBoard = new Board();
+    cout << "Game Initialized" <<endl;
+
+	seed = sd;
 }
 
 Game::~Game()
@@ -33,7 +50,7 @@ Game::~Game()
 void Game::setupGame(bool cm)
 {
 	//setting seed for randomness
-	srand(time(NULL));
+	srand(seed);
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
     setupTiles();
