@@ -214,6 +214,13 @@ void Server::daylight() {
 		it != clientThreadList->end(); ++it) {
 			if(game.getPlayer((*it)->getMyCharacter())->isHidden()) {
 				game.getPlayer((*it)->getMyCharacter())->toggleHide();
+				stringstream s;
+				s << "Hidden";
+				s << CLASSDELIM;
+				s << (*it)->getMyCharacter();
+				s << VARDELIM;
+				s << false;
+				writeMessageAllClients(new string(s.str()));
 			}
 	}
 	startPlayerTurn();
