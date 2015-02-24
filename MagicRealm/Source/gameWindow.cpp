@@ -604,17 +604,24 @@ bool GameWindow::moveAction()
 	AvailableMovesDialog* dlg = new AvailableMovesDialog(ui.centralWidget);
 	for (Clearing* c : adjacentClearings)
 	{
+		bool noMountainClimb = true;
+		bool noSunlightIntoCaves = true;
+
 		QString option;
+		option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum());
 		if ((destinationClearing->getClearingType() == MOUNTAIN && c->getClearingType() != MOUNTAIN) ||
 			(destinationClearing->getClearingType() != MOUNTAIN && c->getClearingType() == MOUNTAIN))
 		{
-			dlg->addOption(option.sprintf("%s: Clearing %d (Cost: 2 phases to climb/descend)", c->getTile()->getName().c_str(), 
-				c->getClearingNum()), (movingPhases > 1));
+			option.append(" (Cost: 2 phases to climb/descend)");
+			noMountainClimb = false;
 		}
-		else
+		if (c->getClearingType() == CAVES && ui.gamePhaseComboBox->currentText() == "Sunlight")
 		{
-			dlg->addOption(option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum()), true);
+			option.append(" (May not move into a cave using sunlight phase)");
+			noSunlightIntoCaves = false;
 		}
+
+		dlg->addOption(option, ((noMountainClimb || (movingPhases > 1)) && noSunlightIntoCaves));
 	}
 	int destIndex = dlg->exec();
 
