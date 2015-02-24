@@ -80,6 +80,7 @@ private:
 	RecordedTurn *myTurn;
 	int turnNumber;
 	PhaseType currentPhase;
+	int sunlightPhases;
 };
 
 #endif // GAMEWINDOW_H

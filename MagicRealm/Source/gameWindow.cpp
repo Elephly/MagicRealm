@@ -570,6 +570,15 @@ void GameWindow::selectAction(ActionType action)
 		myTurn->addAction(new Action(action, destinationClearing), currentPhase);
 		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
 		caveCheck();
+		if (ui.gamePhaseComboBox->count() <= 0)
+		{
+			for (int i = 0; i < sunlightPhases; i++)
+			{
+				ui.gamePhaseComboBox->addItem("Sunlight");
+				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/sunshine.gif"));
+			}
+			sunlightPhases = 0;
+		}
 	}
 
 	selectedAction = NoAction;
@@ -690,7 +699,20 @@ void GameWindow::searchTypeRequest(QString& searchTypes)
 void GameWindow::search(CharacterType character, SearchType searchType)
 {
 	Character* c = game->getPlayer(character);
-	game->searchRequest(c, searchType, c->getCurrentLocation());
+	switch (searchType)
+	{
+	case PEER:
+		game->searchPeerRequest();
+		break;
+	case LOCATE:
+		game->searchLocateRequest();
+		break;
+	case LOOT:
+		game->searchLootRequest(c);
+		break;
+	default:
+		break;
+	}
 }
 
 void GameWindow::doTurn(QString &turnString)
@@ -706,6 +728,8 @@ void GameWindow::doTurn(QString &turnString)
 
 	ui.gamePhaseComboBox->clear();
 	ui.gamePhaseComboBox->setEnabled(true);
+
+	sunlightPhases = 0;
 
 	map<PhaseType, int>* availablePhases = myTurn->getAvailablePhases();
 	for (map<PhaseType, int>::iterator it = availablePhases->begin(); it != availablePhases->end(); ++it)
@@ -723,8 +747,7 @@ void GameWindow::doTurn(QString &turnString)
 				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/basic.gif"));
 				break;
 			case SunlightPhase:
-				ui.gamePhaseComboBox->addItem("Sunlight");
-				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/sunshine.gif"));
+				sunlightPhases++;
 				break;
 			case HidePhase:
 				ui.gamePhaseComboBox->addItem("Hide");
@@ -788,6 +811,8 @@ void GameWindow::caveCheck()
 
 	if (destinationClearing->getClearingType() == CAVES)
 	{
+		sunlightPhases = 0;
+
 		for (int i = 0; i < ui.gamePhaseComboBox->count(); i++)
 		{
 			if (ui.gamePhaseComboBox->itemText(i) == "Sunlight")
@@ -839,6 +864,10 @@ void GameWindow::payForMountainClimb()
 	{
 		if (ui.gamePhaseComboBox->currentIndex() != i && isMovingPhase(i))
 		{
+			QString eventString;
+			eventString.sprintf(" - Extra %s phase used to pay for mountain climb.", 
+				ui.gamePhaseComboBox->itemText(i));
+			ui.gameEventFeedBrowser->append(eventString);
 			ui.gamePhaseComboBox->removeItem(i);
 			break;
 		}
