@@ -267,8 +267,6 @@ void Server::startAction() {
 			s << VARDELIM;
 			s << LOOT;
 		}
-		connect(clientThreadList->at(currentPlayer), SIGNAL(searchTypeReturned()),
-			this, SLOT(endAction()));
 		clientThreadList->at(currentPlayer)->writeMessage(new string(s.str()));
 		qDebug() << "wating for response from client";
 		break;

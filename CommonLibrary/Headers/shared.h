@@ -97,9 +97,9 @@ enum COMMONLIBRARY_EXPORT ActionType
 
 enum COMMONLIBRARY_EXPORT PhaseType
 {
-	MovePhase,
 	BasicPhase,
 	SunlightPhase,
+	MovePhase,
 	HidePhase
 };
 

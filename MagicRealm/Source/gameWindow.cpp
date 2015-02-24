@@ -645,12 +645,22 @@ void GameWindow::selectAction(ActionType action)
 		myTurn->addAction(new Action(action, destinationClearing), currentPhase);
 		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
 		caveCheck();
-		if (ui.gamePhaseComboBox->count() <= 0)
+		int movablePhases = 0;
+		for (int i = 0; i < ui.gamePhaseComboBox->count(); i++)
+		{
+			if (ui.gamePhaseComboBox->itemText(i) == "Basic")
+			{
+				movablePhases++;
+			}
+		}
+		if (movablePhases <= 0)
 		{
 			for (int i = 0; i < sunlightPhases; i++)
 			{
+				//ui.gamePhaseComboBox->setInsertPolicy(QComboBox::InsertAtTop);
 				ui.gamePhaseComboBox->addItem("Sunlight");
 				ui.gamePhaseComboBox->setItemIcon(ui.gamePhaseComboBox->count()-1, QIcon(":/images/phases/sunshine.gif"));
+				//ui.gamePhaseComboBox->setInsertPolicy(QComboBox::InsertAtBottom);
 			}
 			sunlightPhases = 0;
 		}
@@ -769,7 +779,10 @@ void GameWindow::setCharacterHidden(CharacterType character, bool hidden)
 		{
 			c->toggleHide();
 		}
-		eventString.sprintf("%s failed to hide.", Character::getTypeString(character));
+		else
+		{
+			eventString.sprintf("%s failed to hide.", Character::getTypeString(character));
+		}
 	}
 	ui.gameEventFeedBrowser->append(eventString);
 }
