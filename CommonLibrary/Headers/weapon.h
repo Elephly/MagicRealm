@@ -6,7 +6,7 @@
 
 class COMMONLIBRARY_EXPORT Weapon : public Equipment {
 public:
-	Weapon(WeaponType type);
+	Weapon(WeaponType type, string n);
 
 private:
 	bool active;

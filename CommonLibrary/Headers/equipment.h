@@ -6,11 +6,13 @@
 
 class COMMONLIBRARY_EXPORT Equipment {
 public:
-	Equipment();
+	Equipment(string n);
+	string getName();
 
 protected:
 	char weightClass;
 	int value;
+	string name;
 };
 
 #endif // EQUIPMENT_H
