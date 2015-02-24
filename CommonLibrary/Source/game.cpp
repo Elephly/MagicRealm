@@ -1062,6 +1062,16 @@ Treasure* Game::searchLootRequest(Character* player) {
 	int diceUsed = (d1>d2) ? d1 : d2;
 
 	Chit* chit = player->getCurrentLocation()->getTile()->getSiteOrSoundChit();
+	if (chit->getType() == CHIT_LOST) {
+		int i = 0;
+		vector<Chit*> *contents = chit->getContents();
+		do {
+			chit = contents->at(i);
+			++i;
+		} while((i < contents->size()) 
+			&& ((chit->getType() != CHIT_SITE)
+				&&(chit->getClearingNum() != player->getCurrentLocation()->getClearingNum())));
+	}
 	return chit->loot(diceUsed);
 }
 
