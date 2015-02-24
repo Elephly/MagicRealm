@@ -569,6 +569,7 @@ void GameWindow::selectAction(ActionType action)
 	{
 		myTurn->addAction(new Action(action, destinationClearing), currentPhase);
 		ui.gamePhaseComboBox->removeItem(ui.gamePhaseComboBox->currentIndex());
+		caveCheck();
 	}
 
 	selectedAction = NoAction;
@@ -589,11 +590,22 @@ bool GameWindow::moveAction()
 		}
 	}
 
+	int movingPhases = countMovingPhases();
+
 	AvailableMovesDialog* dlg = new AvailableMovesDialog(ui.centralWidget);
 	for (Clearing* c : adjacentClearings)
 	{
 		QString option;
-		dlg->addOption(option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum()));
+		if ((destinationClearing->getClearingType() == MOUNTAIN && c->getClearingType() != MOUNTAIN) ||
+			(destinationClearing->getClearingType() != MOUNTAIN && c->getClearingType() == MOUNTAIN))
+		{
+			dlg->addOption(option.sprintf("%s: Clearing %d (Cost: 2 phases to climb/descend)", c->getTile()->getName().c_str(), 
+				c->getClearingNum()), (movingPhases > 1));
+		}
+		else
+		{
+			dlg->addOption(option.sprintf("%s: Clearing %d", c->getTile()->getName().c_str(), c->getClearingNum()), true);
+		}
 	}
 	int destIndex = dlg->exec();
 
@@ -602,7 +614,13 @@ bool GameWindow::moveAction()
 	if (destIndex != -1)
 	{
 		moveConfirmed = true;
-		destinationClearing = adjacentClearings.at(destIndex);
+		Clearing* newDest = adjacentClearings.at(destIndex);
+		if ((destinationClearing->getClearingType() == MOUNTAIN && newDest->getClearingType() != MOUNTAIN) ||
+			(destinationClearing->getClearingType() != MOUNTAIN && newDest->getClearingType() == MOUNTAIN))
+		{
+			payForMountainClimb();
+		}
+		destinationClearing = newDest;
 	}
 	delete dlg;
 
@@ -652,7 +670,6 @@ void GameWindow::setCharacterHidden(CharacterType character, bool hidden)
 
 void GameWindow::searchTypeRequest(QString& searchTypes)
 {
-	//parsing string
 	int pos = searchTypes.indexOf(CLASSDELIM);
 	searchTypes = searchTypes.remove(0, pos + 2);
 	pos = searchTypes.indexOf(VARDELIM);
@@ -721,6 +738,7 @@ void GameWindow::doTurn(QString &turnString)
 	QString eventString;
 	eventString.sprintf("Plot turn %d:", turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);
+	caveCheck();
 	ui.gameSubmitTurnButton->setEnabled(true);
 }
 
@@ -761,5 +779,77 @@ void GameWindow::setCurrentPhaseType(const QString& phaseString)
 	else
 	{
 		qDebug() << "phase check failed";
+	}
+}
+
+void GameWindow::caveCheck()
+{
+	int phasesToRemove = 0;
+
+	if (destinationClearing->getClearingType() == CAVES)
+	{
+		for (int i = 0; i < ui.gamePhaseComboBox->count(); i++)
+		{
+			if (ui.gamePhaseComboBox->itemText(i) == "Sunlight")
+			{
+				phasesToRemove++;
+			}
+		}
+		ui.gameEventFeedBrowser->append(" - Sunlight phases lost in cave clearing.");
+	}
+	
+	for (int i = 0; i < phasesToRemove; i++)
+	{
+		for (int j = 0; j < ui.gamePhaseComboBox->count(); j++)
+		{
+			if (ui.gamePhaseComboBox->itemText(j) == "Sunlight")
+			{
+				ui.gamePhaseComboBox->removeItem(j);
+			}
+		}
+	}
+}
+
+int GameWindow::countMovingPhases()
+{
+	int movingPhases = 0;
+
+	for (int i = 0; i < ui.gamePhaseComboBox->count(); i++)
+	{
+		if (isMovingPhase(i))
+		{
+			movingPhases++;
+		}
+	}
+
+	return movingPhases;
+}
+
+bool GameWindow::isMovingPhase(int phaseIndex)
+{
+	return (ui.gamePhaseComboBox->itemText(phaseIndex) == "Basic" ||
+			ui.gamePhaseComboBox->itemText(phaseIndex) == "Sunlight" ||
+			ui.gamePhaseComboBox->itemText(phaseIndex) == "Move");
+}
+
+void GameWindow::payForMountainClimb()
+{
+	QString currentSelectedPhase = ui.gamePhaseComboBox->currentText();
+	for (int i = 0; i < ui.gamePhaseComboBox->count(); i++)
+	{
+		if (ui.gamePhaseComboBox->currentIndex() != i && isMovingPhase(i))
+		{
+			ui.gamePhaseComboBox->removeItem(i);
+			break;
+		}
+	}
+
+	for (int i = 0; i < ui.gamePhaseComboBox->count(); i++)
+	{
+		if (ui.gamePhaseComboBox->itemText(i) == currentSelectedPhase)
+		{
+			ui.gamePhaseComboBox->setCurrentIndex(i);
+			break;
+		}
 	}
 }

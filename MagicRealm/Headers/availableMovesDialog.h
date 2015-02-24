@@ -15,7 +15,7 @@ class AvailableMovesDialog : public QDialog
 
 public:
 	AvailableMovesDialog(QWidget* parent = 0);
-	void addOption(QString text);
+	void addOption(QString text, bool optionIsEnabled);
 
 private slots:
 	void enableMoveButton();

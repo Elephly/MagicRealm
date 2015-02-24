@@ -55,6 +55,10 @@ public:
 	void doTurn(QString&);
 	void submitTurn();
 	void setCurrentPhaseType(const QString& phaseString);
+	void caveCheck();
+	int countMovingPhases();
+	bool isMovingPhase(int phaseIndex);
+	void payForMountainClimb();
 
 private:
 	bool gameStarted;
