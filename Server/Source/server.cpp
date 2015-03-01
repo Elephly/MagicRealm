@@ -380,6 +380,7 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 	case DISCOVER_SPASS: break;
 	case DISCOVER_CHIT: 
 		site = target->getTile()->getSiteOrSoundChit();
+		//bug we do not handle LOST CITY / LOST CASTLE here...
 		if (site != NULL && site->getType() == CHIT_SITE) {
 			character->discover(site);
 			s << "SiteFound";
