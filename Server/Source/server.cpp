@@ -381,6 +381,21 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 	case DISCOVER_CHIT: 
 		site = target->getTile()->getSiteOrSoundChit();
 		//bug we do not handle LOST CITY / LOST CASTLE here...
+		if (site->getType() == CHIT_LOST) {
+			int i = 0;
+			vector<Chit*> *contents = site->getContents();
+			do {
+				site = contents->at(i);
+				++i;
+			} while((i < contents->size()) 
+				&& ((site->getType() != CHIT_SITE)
+				&&(site->getClearingNum() != character->getCurrentLocation()->getClearingNum())));
+			s << "SiteFound";
+			s << CLASSDELIM;
+			s << site->getName();
+			s << VARDELIM;
+			s << character->getType();
+		}
 		if (site != NULL && site->getType() == CHIT_SITE) {
 			character->discover(site);
 			s << "SiteFound";
