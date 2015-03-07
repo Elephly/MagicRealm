@@ -390,11 +390,6 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 			} while((i < contents->size()) 
 				&& ((site->getType() != CHIT_SITE)
 				&&(site->getClearingNum() != character->getCurrentLocation()->getClearingNum())));
-			s << "SiteFound";
-			s << CLASSDELIM;
-			s << site->getName();
-			s << VARDELIM;
-			s << character->getType();
 		}
 		if (site != NULL && site->getType() == CHIT_SITE) {
 			character->discover(site);
