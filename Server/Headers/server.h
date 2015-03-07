@@ -36,6 +36,9 @@ private:
 	RecordedTurn *recTurns[MAXPLAYERS];
     Game game;
 
+	//sending game map to client
+	void sendBoard(ClientCommThread* client);
+
 	//gameplay stuff
 	void birdsong();
 	void sunrise();

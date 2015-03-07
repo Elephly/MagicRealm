@@ -58,7 +58,8 @@ void Server::handleIncomingUsers()  {
 			s << ACCEPTCONN;
 			s << CLASSDELIM;
 			s << game.getTime();
-			newThread->writeMessage(new string(s.str()));
+			newThread->writeMessage(new string(s.str()));	//send the connection OK message
+			sendBoard(newThread);
 
 			//Inform new player of currently selected characters
 			for (int i = 0; i < MAXPLAYERS; ++i) {
@@ -409,4 +410,8 @@ void Server::hidePlayer(Character *character) {
 	s << result;
 
 	writeMessageAllClients(new string(s.str()));
+}
+
+void Server::sendBoard(ClientCommThread* client) {
+
 }
