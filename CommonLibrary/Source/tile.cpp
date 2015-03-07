@@ -83,11 +83,15 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
     int targetEdge = 0;
 
     if(newTile == NULL){
+#ifdef DEBUG
         cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile passed in was Null" <<endl;
+#endif
 
     }
     if(findConnectingEdge(newTile) != EDGE_NONE){
+#ifdef DEBUG
         cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile already exists in Connected Array" <<endl;
+#endif
         return;
     }
     
@@ -119,7 +123,9 @@ void Tile::addClearing(Clearing* newClearing)
 {
     for(vector<Clearing*>::iterator it = clearings->begin(); it != clearings->end(); ++it){
         if(*it == newClearing){
+#ifdef DEBUG
             cout << "WARN: Clearing already exists in tile, not adding Tile" <<endl;
+#endif
             return;
         }
     }
@@ -151,7 +157,9 @@ Clearing* Tile::getConnectedClearing(Tile* aTile)
         return NULL;
     }
     else{
+#ifdef DEBUG
         cout << "WARN: Tile::getConnectedClearing Tile is not connected" <<endl;
+#endif
         return NULL;
     }
 }
