@@ -413,5 +413,15 @@ void Server::hidePlayer(Character *character) {
 }
 
 void Server::sendBoard(ClientCommThread* client) {
+	//vector<Tile*> *tiles = game.getBoard()->;
+	vector<Clearing*> clearings;
+	//TODO get list of Tiles
+	//Tiles have Direction, Name(String), TileType
+
+	//TODO get list of clearings
+	//clearings have number(int), Tile(game.getTile(tileName), ClearingType
+
+	//TODO get list of paths
+	// TileName^clearingNum^TileName^CleaingNum^PathType
 
 }

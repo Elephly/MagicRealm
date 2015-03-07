@@ -32,8 +32,7 @@ Clearing::Clearing(string* serialString, Board* board) {
 	string tile = first;
 
 	ClearingType t = (ClearingType) atoi(second.c_str());
-
-	Clearing(num, board->getTile(tile), t);
+	//TODO fix deserialization
 
 }
 

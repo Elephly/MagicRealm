@@ -34,6 +34,10 @@ Path::Path(Clearing* c1, Direction dir)
     clearing1->addPath(this);
 }
 
+Path::Path(string* serialString) {
+	//TODO implement deserializer
+}
+
 Path::~Path()
 {
     cout << "Destructor called for Path" << endl;
@@ -81,10 +85,6 @@ string* Path::serialize() {
 	s << *(clearing2->toString());
 	s << VARDELIM;
 	s << myType;
-	s << VARDELIM;
-	s << border;
-	s << VARDELIM;
-	s << bordering;
 
 	return new string(s.str());
 }

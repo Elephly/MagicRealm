@@ -26,8 +26,7 @@ Tile::Tile(string* serialString) {
 	second = second.substr(pos + 1);
 
 	Direction o = (Direction) atoi(first.c_str());
-	 
-	Tile(o, second, TILE_WOODS);
+	//TODO fix deserialization
 }
 
 void Tile::addSiteOrSoundChit(Chit* newChit)
@@ -177,6 +176,8 @@ string* Tile::serialize() {
 	s << orientation;
 	s << VARDELIM;
 	s << name;
+	s << VARDELIM;
+	s << myType;
 
 	return new string(s.str());
 }
