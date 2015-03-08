@@ -6,6 +6,10 @@
 #include <vector>
 #include "serializer.h"
 #include "dwelling.h"
+#include "site.h"
+#include "sound.h"
+#include "warning.h"
+#include "treasure.h"
 
 class Clearing;
 class Tile;
@@ -40,11 +44,22 @@ public:
 
 	vector<Tile*>* getTileByType(TileType type);
 
+	//returns a pointer to the list of treasure pointers
+	vector<Treasure*>* getLargeTreasureList();
+	vector<Treasure*>* getSmallTreasureList();
+
+
 	virtual string* serialize();
 
 private:
     vector<Tile*>* tileList;
     vector<Dwelling*>* dwellingList;
+	vector<Site*>* siteList;
+	vector<Warning*>* warningList;
+	vector<Sound*>* soundList;
+	vector<Treasure*>* smallTreasureList;
+	vector<Treasure*>* largeTreasureList;
+
 	void createTiles();
 	void createTreasures();
 	void createMonsters();

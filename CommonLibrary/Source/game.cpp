@@ -104,80 +104,17 @@ void Game::dealChits()
     mountainWarningList.push_back(new Warning("SMOKE M", true));
     mountainWarningList.push_back(new Warning("STINK M", true));
 
-    vector <Treasure*> largeTreasure;
+	//should copy the vector (which would create another vector with the same pointers in them?)
+	vector <Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
+    vector <Treasure*> largeTreasure; 
     vector <Treasure*> smallTreasure;
 
-    largeTreasure.push_back(new Treasure("Battle Bracelets", LARGE));
-    largeTreasure.push_back(new Treasure("Beast Pipes", GREAT));
-    largeTreasure.push_back(new Treasure("Bejewled Vest", GREAT));
-    largeTreasure.push_back(new Treasure("Belt of Strength", GREAT));
-    largeTreasure.push_back(new Treasure("Book of Lore", LARGE));
-    largeTreasure.push_back(new Treasure("Blasted Jewel", GREAT));
-    largeTreasure.push_back(new Treasure("Cloak of Mist", GREAT));
-    largeTreasure.push_back(new Treasure("Cloven Hoof", GREAT));
-    largeTreasure.push_back(new Treasure("Cloven Hoof", GREAT));
-    largeTreasure.push_back(new Treasure("Deft Gloves", GREAT));
-    largeTreasure.push_back(new Treasure("Dragon Essence", LARGE));
-    largeTreasure.push_back(new Treasure("Dragonfang Necklace", LARGE));
-    largeTreasure.push_back(new Treasure("Draught of Speed", LARGE));
-    largeTreasure.push_back(new Treasure("Elusive Cloak", LARGE));
-    largeTreasure.push_back(new Treasure("Elven Slippers", LARGE));
-    largeTreasure.push_back(new Treasure("Enchanted Meadow", LARGE));
-    largeTreasure.push_back(new Treasure("Echanter's Skull", LARGE));
-    largeTreasure.push_back(new Treasure("Eye of Idol", LARGE));
-    largeTreasure.push_back(new Treasure("Eye of the Moon", GREAT));
-    largeTreasure.push_back(new Treasure("Flowers of Rest", GREAT));
-    largeTreasure.push_back(new Treasure("Garb of Speed", GREAT));
-    largeTreasure.push_back(new Treasure("Girtle of Energy", GREAT));
-    largeTreasure.push_back(new Treasure("Gloves of Strength", LARGE));
-    largeTreasure.push_back(new Treasure("Golden Arm Band", GREAT));
-    largeTreasure.push_back(new Treasure("Magic Wand", GREAT));
-    largeTreasure.push_back(new Treasure("Map of the Lost Castle", GREAT));
-    largeTreasure.push_back(new Treasure("Map of the Lost City", GREAT));
-    largeTreasure.push_back(new Treasure("Map of Ruins", GREAT));
-    largeTreasure.push_back(new Treasure("Oil of Poison", LARGE));
+	for(vector <Treasure*>::iterator it = tempTreasureList->begin(); it !=tempTreasureList->end(); ++it)
+		largeTreasure.push_back((*it));
 
-    smallTreasure.push_back(new Treasure("7-League Boots", SMALL));
-    smallTreasure.push_back(new Treasure("Alchemist's Mixture", SMALL));
-    smallTreasure.push_back(new Treasure("Amulet", SMALL));
-    smallTreasure.push_back(new Treasure("Ancient Telescope", SMALL));
-    smallTreasure.push_back(new Treasure("Black Book", SMALL));
-    smallTreasure.push_back(new Treasure("Crystal Ball", SMALL));
-    smallTreasure.push_back(new Treasure("Flying Carpet", SMALL));
-    smallTreasure.push_back(new Treasure("Glimmering Ring", SMALL));
-    smallTreasure.push_back(new Treasure("Glowing Gem", SMALL));
-    smallTreasure.push_back(new Treasure("Golden Crown", SMALL));
-    smallTreasure.push_back(new Treasure("Golden Icon", SMALL));
-    smallTreasure.push_back(new Treasure("Good Book", SMALL));
-    smallTreasure.push_back(new Treasure("Gripping Dust", SMALL));
-    smallTreasure.push_back(new Treasure("Handy Gloves", SMALL));
-    smallTreasure.push_back(new Treasure("Hidden Ring", SMALL));
-    smallTreasure.push_back(new Treasure("Imperial Tabard", SMALL));
-    smallTreasure.push_back(new Treasure("Lost Keys", SMALL));
-    smallTreasure.push_back(new Treasure("Lucky Charm", SMALL));
-    smallTreasure.push_back(new Treasure("Magic Spectacles", SMALL));
-    smallTreasure.push_back(new Treasure("Ointment of Bite", SMALL));
-    smallTreasure.push_back(new Treasure("Oitment of Steel", SMALL));
-    smallTreasure.push_back(new Treasure("Penetrating Grease", SMALL));
-    smallTreasure.push_back(new Treasure("Phantom Glass", SMALL));
-    smallTreasure.push_back(new Treasure("Potion of Energy", SMALL));
-    smallTreasure.push_back(new Treasure("Poultrice of Health", SMALL));
-    smallTreasure.push_back(new Treasure("Power Boots", SMALL));
-    smallTreasure.push_back(new Treasure("Power Gauntlets", SMALL));
-    smallTreasure.push_back(new Treasure("Quick Boots", SMALL));
-    smallTreasure.push_back(new Treasure("Reflecting Grease", SMALL));
-    smallTreasure.push_back(new Treasure("Regent of Jewels", SMALL));
-    smallTreasure.push_back(new Treasure("Royal Sceptre", SMALL));
-    smallTreasure.push_back(new Treasure("Sacred Grail", SMALL));
-    smallTreasure.push_back(new Treasure("Sacred Statue", SMALL));
-    smallTreasure.push_back(new Treasure("Scroll of Alchemy", SMALL));
-    smallTreasure.push_back(new Treasure("Scroll of Nature", SMALL));
-    smallTreasure.push_back(new Treasure("Shielded Lantern", SMALL));
-    smallTreasure.push_back(new Treasure("Shoes of Stealth", SMALL));
-    smallTreasure.push_back(new Treasure("Timeless Jewel", SMALL));
-    smallTreasure.push_back(new Treasure("Toadstool Ring", SMALL));
-    smallTreasure.push_back(new Treasure("Vial of Healing", SMALL));
-    smallTreasure.push_back(new Treasure("Withered Claw", SMALL));
+	tempTreasureList = gameBoard->getSmallTreasureList();
+	for(vector <Treasure*>::iterator it = tempTreasureList->begin(); it !=tempTreasureList->end(); ++it)
+		smallTreasure.push_back((*it));
 
     //Hoard Treasure setup
     siteAndSoundList.push_back(setupSite(HOARD, &largeTreasure, &smallTreasure));

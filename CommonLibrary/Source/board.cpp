@@ -4,10 +4,16 @@
 Board::Board() {
 	//whole lotta nothing
     tileList = new vector <Tile*>;
+	siteList = new vector <Site*>;
+	soundList  = new vector<Sound*>;
+	warningList = new vector<Warning*>;
+	smallTreasureList = new vector<Treasure*>;
+	largeTreasureList = new vector<Treasure*>;
     dwellingList = new vector<Dwelling*>;
 	createTiles();
 	createTreasures();
 	createMonsters();
+
 }
 
 void Board::addTile(Tile* newTile)
@@ -544,8 +550,88 @@ void Board::createTiles()
     c6 = NULL;
 }
 
+vector<Treasure*> * Board::getLargeTreasureList()
+{
+	return largeTreasureList;
+}
+
+vector<Treasure*>* Board::getSmallTreasureList()
+{
+	return smallTreasureList;
+}
 void Board::createTreasures()
 {
+	largeTreasureList->push_back(new Treasure("Battle Bracelets", LARGE));
+    largeTreasureList->push_back(new Treasure("Beast Pipes", GREAT));
+    largeTreasureList->push_back(new Treasure("Bejewled Vest", GREAT));
+    largeTreasureList->push_back(new Treasure("Belt of Strength", GREAT));
+    largeTreasureList->push_back(new Treasure("Book of Lore", LARGE));
+    largeTreasureList->push_back(new Treasure("Blasted Jewel", GREAT));
+    largeTreasureList->push_back(new Treasure("Cloak of Mist", GREAT));
+    largeTreasureList->push_back(new Treasure("Cloven Hoof", GREAT));
+    largeTreasureList->push_back(new Treasure("Cloven Hoof", GREAT));
+    largeTreasureList->push_back(new Treasure("Deft Gloves", GREAT));
+    largeTreasureList->push_back(new Treasure("Dragon Essence", LARGE));
+    largeTreasureList->push_back(new Treasure("Dragonfang Necklace", LARGE));
+    largeTreasureList->push_back(new Treasure("Draught of Speed", LARGE));
+    largeTreasureList->push_back(new Treasure("Elusive Cloak", LARGE));
+    largeTreasureList->push_back(new Treasure("Elven Slippers", LARGE));
+    largeTreasureList->push_back(new Treasure("Enchanted Meadow", LARGE));
+    largeTreasureList->push_back(new Treasure("Echanter's Skull", LARGE));
+    largeTreasureList->push_back(new Treasure("Eye of Idol", LARGE));
+    largeTreasureList->push_back(new Treasure("Eye of the Moon", GREAT));
+    largeTreasureList->push_back(new Treasure("Flowers of Rest", GREAT));
+    largeTreasureList->push_back(new Treasure("Garb of Speed", GREAT));
+    largeTreasureList->push_back(new Treasure("Girtle of Energy", GREAT));
+    largeTreasureList->push_back(new Treasure("Gloves of Strength", LARGE));
+    largeTreasureList->push_back(new Treasure("Golden Arm Band", GREAT));
+    largeTreasureList->push_back(new Treasure("Magic Wand", GREAT));
+    largeTreasureList->push_back(new Treasure("Map of the Lost Castle", GREAT));
+    largeTreasureList->push_back(new Treasure("Map of the Lost City", GREAT));
+    largeTreasureList->push_back(new Treasure("Map of Ruins", GREAT));
+    largeTreasureList->push_back(new Treasure("Oil of Poison", LARGE));
+
+    smallTreasureList->push_back(new Treasure("7-League Boots", SMALL));
+    smallTreasureList->push_back(new Treasure("Alchemist's Mixture", SMALL));
+    smallTreasureList->push_back(new Treasure("Amulet", SMALL));
+    smallTreasureList->push_back(new Treasure("Ancient Telescope", SMALL));
+    smallTreasureList->push_back(new Treasure("Black Book", SMALL));
+    smallTreasureList->push_back(new Treasure("Crystal Ball", SMALL));
+    smallTreasureList->push_back(new Treasure("Flying Carpet", SMALL));
+    smallTreasureList->push_back(new Treasure("Glimmering Ring", SMALL));
+    smallTreasureList->push_back(new Treasure("Glowing Gem", SMALL));
+    smallTreasureList->push_back(new Treasure("Golden Crown", SMALL));
+    smallTreasureList->push_back(new Treasure("Golden Icon", SMALL));
+    smallTreasureList->push_back(new Treasure("Good Book", SMALL));
+    smallTreasureList->push_back(new Treasure("Gripping Dust", SMALL));
+    smallTreasureList->push_back(new Treasure("Handy Gloves", SMALL));
+    smallTreasureList->push_back(new Treasure("Hidden Ring", SMALL));
+    smallTreasureList->push_back(new Treasure("Imperial Tabard", SMALL));
+    smallTreasureList->push_back(new Treasure("Lost Keys", SMALL));
+    smallTreasureList->push_back(new Treasure("Lucky Charm", SMALL));
+    smallTreasureList->push_back(new Treasure("Magic Spectacles", SMALL));
+    smallTreasureList->push_back(new Treasure("Ointment of Bite", SMALL));
+    smallTreasureList->push_back(new Treasure("Oitment of Steel", SMALL));
+    smallTreasureList->push_back(new Treasure("Penetrating Grease", SMALL));
+    smallTreasureList->push_back(new Treasure("Phantom Glass", SMALL));
+    smallTreasureList->push_back(new Treasure("Potion of Energy", SMALL));
+    smallTreasureList->push_back(new Treasure("Poultrice of Health", SMALL));
+    smallTreasureList->push_back(new Treasure("Power Boots", SMALL));
+    smallTreasureList->push_back(new Treasure("Power Gauntlets", SMALL));
+    smallTreasureList->push_back(new Treasure("Quick Boots", SMALL));
+    smallTreasureList->push_back(new Treasure("Reflecting Grease", SMALL));
+    smallTreasureList->push_back(new Treasure("Regent of Jewels", SMALL));
+    smallTreasureList->push_back(new Treasure("Royal Sceptre", SMALL));
+    smallTreasureList->push_back(new Treasure("Sacred Grail", SMALL));
+    smallTreasureList->push_back(new Treasure("Sacred Statue", SMALL));
+    smallTreasureList->push_back(new Treasure("Scroll of Alchemy", SMALL));
+    smallTreasureList->push_back(new Treasure("Scroll of Nature", SMALL));
+    smallTreasureList->push_back(new Treasure("Shielded Lantern", SMALL));
+    smallTreasureList->push_back(new Treasure("Shoes of Stealth", SMALL));
+    smallTreasureList->push_back(new Treasure("Timeless Jewel", SMALL));
+    smallTreasureList->push_back(new Treasure("Toadstool Ring", SMALL));
+    smallTreasureList->push_back(new Treasure("Vial of Healing", SMALL));
+    smallTreasureList->push_back(new Treasure("Withered Claw", SMALL));
 }
 
 void Board::createMonsters()
