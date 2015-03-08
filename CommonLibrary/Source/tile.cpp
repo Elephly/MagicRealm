@@ -1,10 +1,11 @@
 #include "tile.h"
 #include <sstream>
 
-Tile::Tile( Direction orient, string n, TileType type)
+Tile::Tile(string n, TileType type)
 {
     clearings = new vector<Clearing*>;
-    orientation = orient;
+	//placeholder, direction needs to be set after creating the tile.
+	orientation = EDGE_NONE;
     name = n;
     myType = type;
     //setting up adjacent tiles as null
@@ -24,10 +25,11 @@ Tile::Tile(string* serialString) {
 	pos = second.find(VARDELIM);
 	first = second.substr(0, pos);
 	second = second.substr(pos + 1);
-
+ 
+	Tile(second, TILE_WOODS);
+	//setting the direction of the new tile.
 	Direction o = (Direction) atoi(first.c_str());
-	 
-	Tile(o, second, TILE_WOODS);
+	setOrientation(o);
 }
 
 void Tile::addSiteOrSoundChit(Chit* newChit)
@@ -66,6 +68,12 @@ Direction Tile::getOrientation()
 {
     return orientation;
 }
+
+void Tile::setOrientation(Direction newOrientation)
+{
+	orientation = newOrientation;
+}
+
 
 Tile* Tile::getConnected(Direction edge)
 {
