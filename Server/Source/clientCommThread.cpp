@@ -45,7 +45,6 @@ void ClientCommThread::readIncomingData() {
 			DwellingType data = (DwellingType) clientData.remove(0, pos + 2).toInt();
 			spawnSelected(data, clientID);
 		} else if (clientData.contains(QRegExp("^SearchTypeResp"))) {
-			qDebug() << "fuck me if this calls twice";
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			searchTypeRes = (SearchType) clientData.remove(0, pos + 2).toInt();
 			searchTypeReturned();
