@@ -1,10 +1,11 @@
 #include "tile.h"
 #include <sstream>
 
-Tile::Tile( Direction orient, string n, TileType type)
+Tile::Tile(string n, TileType type)
 {
     clearings = new vector<Clearing*>;
-    orientation = orient;
+	//placeholder, direction needs to be set after creating the tile.
+	orientation = EDGE_NONE;
     name = n;
     myType = type;
     //setting up adjacent tiles as null
@@ -24,9 +25,13 @@ Tile::Tile(string* serialString) {
 	pos = second.find(VARDELIM);
 	first = second.substr(0, pos);
 	second = second.substr(pos + 1);
-
+ 
+	Tile(second, TILE_WOODS);
+	//setting the direction of the new tile.
 	Direction o = (Direction) atoi(first.c_str());
-	//TODO fix deserialization
+	setOrientation(o);
+
+	//TODO fix serialization
 }
 
 void Tile::addSiteOrSoundChit(Chit* newChit)
@@ -66,6 +71,12 @@ Direction Tile::getOrientation()
     return orientation;
 }
 
+void Tile::setOrientation(Direction newOrientation)
+{
+	orientation = newOrientation;
+}
+
+
 Tile* Tile::getConnected(Direction edge)
 {
     if(edge >= 0 && edge < 6)
@@ -82,11 +93,15 @@ void Tile::addConnectedTile(Tile* newTile, Direction edge)
     int targetEdge = 0;
 
     if(newTile == NULL){
+#ifdef DEBUG
         cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile passed in was Null" <<endl;
+#endif
 
     }
     if(findConnectingEdge(newTile) != EDGE_NONE){
+#ifdef DEBUG
         cout << "WARN Tile::addAdjacentTile: Tile not Added, Tile already exists in Connected Array" <<endl;
+#endif
         return;
     }
     
@@ -118,7 +133,9 @@ void Tile::addClearing(Clearing* newClearing)
 {
     for(vector<Clearing*>::iterator it = clearings->begin(); it != clearings->end(); ++it){
         if(*it == newClearing){
+#ifdef DEBUG
             cout << "WARN: Clearing already exists in tile, not adding Tile" <<endl;
+#endif
             return;
         }
     }
@@ -150,7 +167,9 @@ Clearing* Tile::getConnectedClearing(Tile* aTile)
         return NULL;
     }
     else{
+#ifdef DEBUG
         cout << "WARN: Tile::getConnectedClearing Tile is not connected" <<endl;
+#endif
         return NULL;
     }
 }

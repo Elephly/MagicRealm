@@ -16,14 +16,7 @@ class  COMMONLIBRARY_EXPORT Board : public Serializer {
 public:
 	Board();
 	Board(string* serialString);
-    //TODO BOARD DESTRUCTOR
-    /*
-    *   addTile
-    *   In:         Pointer to the tile you wish to add. 
-    *   Purpose:    To Add a tile to the map with its desired paths betwen other tiles.
-    */
-    void addTile(Tile* newTile);
-    
+    //TODO BOARD DESTRUCTOR    
     /*
     *   addDwelling
     *   In:         Pointer to the dwelling you wish to add. 
@@ -46,12 +39,22 @@ public:
     Tile* getTile(string tName);
 
 	vector<Tile*>* getTileByType(TileType type);
+	vector<Tile*>* getTiles();
 
 	virtual string* serialize();
 
 private:
     vector<Tile*>* tileList;
     vector<Dwelling*>* dwellingList;
+	void createTiles();
+	void createTreasures();
+	void createMonsters();
+	/*
+    *   addTile
+    *   In:         Pointer to the tile you wish to add. 
+    *   Purpose:    To Add a tile to the map with its desired paths betwen other tiles.
+    */
+    void addTile(Tile* newTile);
 };
 
 #endif // BOARD_H

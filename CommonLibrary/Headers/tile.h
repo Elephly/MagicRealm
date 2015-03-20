@@ -14,7 +14,7 @@ class Board;
 //Abstract class, extend this with all different tile types
 class COMMONLIBRARY_EXPORT Tile : public Serializer {
 public:
-	Tile(Direction orient, string n, TileType type);
+	Tile(string n, TileType type);
 	Tile(string* serialString);
     ~Tile();
 
@@ -35,6 +35,12 @@ public:
     *   out:    Direction enum of the orientation
     */
     Direction getOrientation();
+
+	/*
+    *   setOrientation
+    *   in:    Direction enum of the orientation
+    */
+    void setOrientation(Direction newOrientation);
 
     /*
     *   getClearing
