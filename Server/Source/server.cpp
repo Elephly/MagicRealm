@@ -413,15 +413,21 @@ void Server::hidePlayer(Character *character) {
 }
 
 void Server::sendBoard(ClientCommThread* client) {
-	//vector<Tile*> *tiles = game.getBoard()->;
-	vector<Clearing*> clearings;
-	//TODO get list of Tiles
-	//Tiles have Direction, Name(String), TileType
 
-	//TODO get list of clearings
-	//clearings have number(int), Tile(game.getTile(tileName), ClearingType
-
-	//TODO get list of paths
-	// TileName^clearingNum^TileName^CleaingNum^PathType
-
+	//TODO get all tiles, that might be all todo
+	vector<Tile*> tiles = game.getBoard()->;
+	for (vector<Tile*>::iterator it = tiles.begin(); it != tiles.end(); ++it) 
+	{
+		Chit* chit = (*it)->getSiteOrSoundChit();
+		client->writeMessage(chit->serialize());
+		if (chit->getType() == CHIT_LOST) 
+		{ //LOST CITY, has multiple inner chits
+			vector <Chit*> contents = (*chit->getContents());
+			for (vector<Chit*>::iterator chiter = contents.begin(); 
+				chiter != contents.end(); ++chiter) 
+			{
+				client->writeMessage((*chiter)->serialize());
+			}
+		}
+	}
 }

@@ -6,7 +6,7 @@
 #include "treasure.h"
 #include <vector>
 
-class COMMONLIBRARY_EXPORT Chit {
+class COMMONLIBRARY_EXPORT Chit : public Serializer {
 public:
     Chit(string n, bool hide);
     bool isHidden();
@@ -21,6 +21,7 @@ public:
 	virtual int getClearingNum();
 	virtual ChitType getType() = 0;
 	virtual vector<Chit *>* getContents();
+	virtual string* serialize() = 0;
 protected:
     string name;
     bool hidden;
