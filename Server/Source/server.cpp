@@ -415,13 +415,15 @@ void Server::hidePlayer(Character *character) {
 void Server::sendBoard(ClientCommThread* client) {
 
 	//TODO get all tiles, that might be all todo
-	vector<Tile*> tiles = game.getBoard()->;
+	vector<Tile*> tiles = *(game.getBoard()->getTiles());
 	for (vector<Tile*>::iterator it = tiles.begin(); it != tiles.end(); ++it) 
 	{
 		Chit* chit = (*it)->getSiteOrSoundChit();
 		client->writeMessage(chit->serialize());
 		if (chit->getType() == CHIT_LOST) 
 		{ //LOST CITY, has multiple inner chits
+			//TODO need to mark all of the contained chits as such, so they get 
+			//added to the correct LOSTCHIT
 			vector <Chit*> contents = (*chit->getContents());
 			for (vector<Chit*>::iterator chiter = contents.begin(); 
 				chiter != contents.end(); ++chiter) 
