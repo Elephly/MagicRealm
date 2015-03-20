@@ -552,3 +552,8 @@ void Board::createMonsters()
 {
 	cout << "No Monsters Created" <<endl;
 }
+
+vector<Tile*>* Board::getTiles() 
+{
+	return tileList;
+}
