@@ -63,53 +63,76 @@ void ServerCommThread::updateFromServer()
 		in >> serverData;
 		qDebug() << serverData;
 
-		if (serverData.contains(QRegExp(ACCEPTCONN))) {
+		if (serverData.contains(QRegExp(ACCEPTCONN))) 
+		{
 			int pos = serverData.indexOf(CLASSDELIM);
 			time_t time = serverData.remove(0, pos + 2).toLong();
 			connected = true;
 			windowParent->connectedToServer(time);
-		} else if (serverData.contains(QRegExp("^RecordedTurn"))) {
+		} 
+		else if (serverData.contains(QRegExp("^RecordedTurn"))) 
+		{
 			windowParent->doTurn(serverData);
-		} else if (serverData.contains(QRegExp("^CharacterType"))) {
+		} 
+		else if (serverData.contains(QRegExp("^CharacterType"))) 
+		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			int character = serverData.remove(0, pos+2).toInt();
 			windowParent->updateAvailableCharacters(character);
-		} else if (serverData.contains(QRegExp("^Selection"))) {
+		} 
+		else if (serverData.contains(QRegExp("^Selection"))) 
+		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			bool ok = (bool) serverData.remove(0, pos+2).toInt();
 			windowParent->characterRequestAcknowledged(ok);
-		} else if (serverData.contains(QRegExp("^Character"))) {
+		} 
+		else if (serverData.contains(QRegExp("^Character"))) 
+		{
 			windowParent->addCharacterToGame(serverData);
-		} else if (serverData.contains(QRegExp("^MoveCharacter"))) {
+		} 
+		else if (serverData.contains(QRegExp("^MoveCharacter"))) 
+		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType type = (CharacterType)serverData.left(pos).toInt();
 			QString clearingString = serverData.right(serverData.size() - (pos + 1));
 			windowParent->moveTo(type, clearingString);
-		} else if (serverData.contains(QRegExp("^Hidden"))) {
+		} 
+		else if (serverData.contains(QRegExp("^Hidden"))) 
+		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType type = (CharacterType)serverData.left(pos).toInt();
 			bool hidden = (bool) serverData.right(serverData.size() - (pos + 1)).toInt();
 			windowParent->setCharacterHidden(type, hidden);
-		} else if (serverData.contains(QRegExp("^SearchTypeReq"))) {
+		} 
+		else if (serverData.contains(QRegExp("^SearchTypeReq"))) 
+		{
 			windowParent->searchTypeRequest(serverData);
-		} else if (serverData.contains(QRegExp("^TreasureFound"))) {
+		} 
+		else if (serverData.contains(QRegExp("^TreasureFound"))) 
+		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			int treasureWorth = serverData.left(pos).toInt();
 			CharacterType type = (CharacterType)serverData.right(serverData.size() - (pos + 1)).toInt();
 			windowParent->treasureFound(type, treasureWorth);
-		} else if (serverData.contains(QRegExp("^SiteFound"))) {
+		} 
+		else if (serverData.contains(QRegExp("^SiteFound"))) 
+		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			QString siteName = serverData.left(pos);
 			CharacterType type = (CharacterType)serverData.right(serverData.size() - (pos + 1)).toInt();
 			windowParent->siteFound(type, siteName);
+		} 
+		else if (serverData.contains(QRegExp("^Chit"))) 
+		{
+			//TODO serialize new chit, and add to parent tile
 		}
 		blocksize = 0;
 	} while(true);
