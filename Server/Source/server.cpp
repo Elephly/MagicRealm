@@ -419,17 +419,24 @@ void Server::sendBoard(ClientCommThread* client) {
 	for (vector<Tile*>::iterator it = tiles.begin(); it != tiles.end(); ++it) 
 	{
 		Chit* chit = (*it)->getSiteOrSoundChit();
-		client->writeMessage(chit->serialize());
 		if (chit->getType() == CHIT_LOST) 
 		{ //LOST CITY, has multiple inner chits
 			//TODO need to mark all of the contained chits as such, so they get 
 			//added to the correct LOSTCHIT
+			stringstream s;
+			s << chit->serialize();
 			vector <Chit*> contents = (*chit->getContents());
 			for (vector<Chit*>::iterator chiter = contents.begin(); 
 				chiter != contents.end(); ++chiter) 
 			{
-				client->writeMessage((*chiter)->serialize());
+				s << LISTDELIM;
+				s << (*chiter)->serialize();
 			}
+			client->writeMessage(new string(s.str()));
+		}
+		else
+		{
+			client->writeMessage(chit->serialize());
 		}
 	}
 }
