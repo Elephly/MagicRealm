@@ -1,6 +1,6 @@
 #include "site.h"
 
-Site::Site(string n, bool hide, int clLoc, vector<Treasure*> * myTreasure): Chit(n, hide)
+Site::Site(string n, bool hide, TileType myTileType, int clLoc, vector<Treasure*> * myTreasure): Chit(n, hide, myTileType)
 {
     clearingLocation = clLoc;
     trove = myTreasure;

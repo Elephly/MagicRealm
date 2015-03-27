@@ -8,7 +8,7 @@
 
 class COMMONLIBRARY_EXPORT Warning: public Chit{
 public:
-    Warning(string n, bool hide);
+    Warning(string n, bool hide, TileType myTileType);
 	virtual ChitType getType();
 private:
 };

@@ -8,7 +8,7 @@
 
 class COMMONLIBRARY_EXPORT Sound: public Chit{
 public:
-    Sound(string n, bool hide, int clnum);
+    Sound(string n, bool hide, TileType myTileType, int clnum);
     virtual int getClearingNum();
 	virtual ChitType getType();
 

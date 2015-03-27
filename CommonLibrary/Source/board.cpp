@@ -550,6 +550,11 @@ void Board::createTiles()
     c6 = NULL;
 }
 
+void Board::createChits()
+{
+	cout << "Unimplemented" <<endl;
+}
+
 vector<Treasure*> * Board::getLargeTreasureList()
 {
 	return largeTreasureList;

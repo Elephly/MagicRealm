@@ -1,6 +1,6 @@
 #include "lost.h"
 
-Lost::Lost(string n, bool hide, vector<Chit *> * inside): Chit(n,hide)
+Lost::Lost(string n, bool hide, TileType myTileType, vector<Chit *> * inside): Chit(n,hide, myTileType)
 {
 	contains = inside;
 }

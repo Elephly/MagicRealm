@@ -9,7 +9,7 @@
 
 class COMMONLIBRARY_EXPORT Site: public Chit {
 public:
-    Site(string n, bool hide, int clearingLocation, vector<Treasure*> * myTreasure);
+    Site(string n, bool hide, TileType myTileType, int clearingLocation, vector<Treasure*> * myTreasure);
     ~Site();
     virtual int getClearingNum();
     /*

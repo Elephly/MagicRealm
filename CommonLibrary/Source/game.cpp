@@ -80,29 +80,29 @@ void Game::dealChits()
 	vector<Chit *>* lostCastleList = new vector<Chit*>;
 	int random = 0;
 
-    Warning* bonesv = new Warning("BONES V", false);
-    Warning* dankv = new Warning("DANK V", false);
-    Warning* ruinsv = new Warning("RUINS V", false);
-    Warning* smokev = new Warning("SMOKE V", false);
-    Warning* stinkv = new Warning("STINK V", false);
+    Warning* bonesv = new Warning("BONES V", false, TILE_VALLEY);
+    Warning* dankv = new Warning("DANK V", false, TILE_VALLEY);
+    Warning* ruinsv = new Warning("RUINS V", false, TILE_VALLEY);
+    Warning* smokev = new Warning("SMOKE V", false, TILE_VALLEY);
+    Warning* stinkv = new Warning("STINK V", false, TILE_VALLEY);
 
-    woodsList.push_back(new Warning("BONES W", true));
-    woodsList.push_back(new Warning("DANK W", true));
-    woodsList.push_back(new Warning("RUINS W", true));
-    woodsList.push_back(new Warning("SMOKE W", true));
-    woodsList.push_back(new Warning("STINK W", true));
+    woodsList.push_back(new Warning("BONES W", true, TILE_WOODS));
+    woodsList.push_back(new Warning("DANK W", true, TILE_WOODS));
+    woodsList.push_back(new Warning("RUINS W", true, TILE_WOODS));
+    woodsList.push_back(new Warning("SMOKE W", true, TILE_WOODS));
+    woodsList.push_back(new Warning("STINK W", true, TILE_WOODS));
 
-    cavesWarningList.push_back(new Warning("BONES C", true));
-    cavesWarningList.push_back(new Warning("DANK C", true));
-    cavesWarningList.push_back(new Warning("RUINS C", true));
-    cavesWarningList.push_back(new Warning("SMOKE C", true));
-    cavesWarningList.push_back(new Warning("STINK C", true));
+    cavesWarningList.push_back(new Warning("BONES C", true, TILE_CAVES));
+    cavesWarningList.push_back(new Warning("DANK C", true, TILE_CAVES));
+    cavesWarningList.push_back(new Warning("RUINS C", true, TILE_CAVES));
+    cavesWarningList.push_back(new Warning("SMOKE C", true, TILE_CAVES));
+    cavesWarningList.push_back(new Warning("STINK C", true, TILE_CAVES));
 
-    mountainWarningList.push_back(new Warning("BONES M", true));
-    mountainWarningList.push_back(new Warning("DANK M", true));
-    mountainWarningList.push_back(new Warning("RUINS M", true));
-    mountainWarningList.push_back(new Warning("SMOKE M", true));
-    mountainWarningList.push_back(new Warning("STINK M", true));
+    mountainWarningList.push_back(new Warning("BONES M", true, TILE_MOUNTAIN));
+    mountainWarningList.push_back(new Warning("DANK M", true, TILE_MOUNTAIN));
+    mountainWarningList.push_back(new Warning("RUINS M", true, TILE_MOUNTAIN));
+    mountainWarningList.push_back(new Warning("SMOKE M", true, TILE_MOUNTAIN));
+    mountainWarningList.push_back(new Warning("STINK M", true, TILE_MOUNTAIN));
 
 	//should copy the vector (which would create another vector with the same pointers in them?)
 	vector <Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
@@ -140,16 +140,16 @@ void Game::dealChits()
     //Statue treasure setup
     siteAndSoundList.push_back(setupSite(STATUE, &largeTreasure, &smallTreasure));
 
-	siteAndSoundList.push_back(new Sound("Howl 4", true, 4));
-	siteAndSoundList.push_back(new Sound("Howl 5", true, 5));
-	siteAndSoundList.push_back(new Sound("Flutter 1", true, 1));
-	siteAndSoundList.push_back(new Sound("Flutter 2", true, 2));
-	siteAndSoundList.push_back(new Sound("Patter 2", true, 2));
-	siteAndSoundList.push_back(new Sound("Patter 5", true, 5));
-	siteAndSoundList.push_back(new Sound("roar 4", true, 4));
-	siteAndSoundList.push_back(new Sound("roar 6", true, 2));
-	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
-	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
+	siteAndSoundList.push_back(new Sound("Howl 4", true, TILE_CANDM, 4));
+	siteAndSoundList.push_back(new Sound("Howl 5", true, TILE_CANDM, 5));
+	siteAndSoundList.push_back(new Sound("Flutter 1", true, TILE_CANDM, 1));
+	siteAndSoundList.push_back(new Sound("Flutter 2", true, TILE_CANDM, 2));
+	siteAndSoundList.push_back(new Sound("Patter 2", true, TILE_CANDM, 2));
+	siteAndSoundList.push_back(new Sound("Patter 5", true, TILE_CANDM, 5));
+	siteAndSoundList.push_back(new Sound("roar 4", true, TILE_CANDM, 4));
+	siteAndSoundList.push_back(new Sound("roar 6", true, TILE_CANDM, 2));
+	siteAndSoundList.push_back(new Sound("slither 3", true, TILE_CANDM, 3));
+	siteAndSoundList.push_back(new Sound("slither 6", true, TILE_CANDM, 6));
 
 	Lost* lostCity; 
 	Lost* lostCastle; 
@@ -173,7 +173,7 @@ void Game::dealChits()
 		lostCityList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-	lostCity = new Lost("Lost City", true, lostCityList);
+	lostCity = new Lost("Lost City", true, TILE_CANDM, lostCityList);
 	
 	//Setting up LostCastle
 	for(int i=0; i<5; i++){
@@ -181,7 +181,7 @@ void Game::dealChits()
 		lostCastleList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-	lostCastle = new Lost("Lost Castle", true, lostCastleList);
+	lostCastle = new Lost("Lost Castle", true, TILE_CANDM, lostCastleList);
 	int position;
 
 	cavesList.push_back(lostCity);
@@ -317,7 +317,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
         sm->erase(sm->begin() + random);
     }
 
-    return new Site(name, true, clearingLocation, stash);
+    return new Site(name, true, TILE_CANDM, clearingLocation, stash);
 }
 
 void Game::setupTiles()

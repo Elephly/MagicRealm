@@ -63,6 +63,7 @@ private:
 	void createTiles();
 	void createTreasures();
 	void createMonsters();
+	void createChits();
 	/*
     *   addTile
     *   In:         Pointer to the tile you wish to add. 
