@@ -430,7 +430,12 @@ void Server::sendBoard(ClientCommThread* client) {
 	{
 		stringstream s;
 		Chit* chit = (*it)->getSiteOrSoundChit();
-		s << chit->serialize();
+		if (chit == NULL)
+			continue;
+		s << *(chit->serialize());
+		s << "Tile";
+		s << CLASSDELIM;
+		s << (*it)->getName(); //name of tile
 		if (chit->getType() == CHIT_LOST) 
 		{ //LOST CITY, has multiple inner chits
 			//TODO need to mark all of the contained chits as such, so they get 
@@ -440,12 +445,9 @@ void Server::sendBoard(ClientCommThread* client) {
 				chiter != contents.end(); ++chiter) 
 			{
 				s << LISTDELIM;
-				s << (*chiter)->serialize();
+				s << *((*chiter)->serialize());
 			}
 		}
-		s << "Tile";
-		s << CLASSDELIM;
-		s << (*it)->getName(); //name of tile
 		client->writeMessage(new string(s.str()));
 	}
 }

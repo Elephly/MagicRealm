@@ -132,7 +132,7 @@ void ServerCommThread::updateFromServer()
 		} 
 		else if (serverData.contains(QRegExp("^Chit"))) 
 		{
-			//TODO serialize new chit, and add to parent tile
+			windowParent->setupChit(serverData);
 		}
 		blocksize = 0;
 	} while(true);

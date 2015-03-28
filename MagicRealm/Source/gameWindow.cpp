@@ -1034,3 +1034,15 @@ void GameWindow::payForMountainClimb()
 		}
 	}
 }
+
+void GameWindow::setupChit(QString& chitString) {
+	int pos = chitString.indexOf(CLASSDELIM);
+	chitString = chitString.right(chitString.size() - (pos + 2));
+	qDebug() << "Chit Name: " << chitString;
+	pos = chitString.indexOf("Tile");
+	string name = string(chitString.left(pos).toUtf8().constData());
+
+	pos = chitString.indexOf(CLASSDELIM);
+	chitString = chitString.right(chitString.size() - (pos + 2));
+	qDebug() << "Tile Name: " << chitString;
+}

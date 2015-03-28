@@ -61,6 +61,7 @@ public:
 	int countMovingPhases();
 	bool isMovingPhase(int phaseIndex);
 	void payForMountainClimb();
+	void setupChit(QString& chitString);
 
 private:
 	bool gameStarted;
