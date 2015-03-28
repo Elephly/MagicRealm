@@ -7,9 +7,11 @@
 
 class COMMONLIBRARY_EXPORT Lost: public Chit{
 public:
-    Lost(string n, bool hide, TileType myTileType, vector<Chit* >* inside);
+    Lost(string n, bool hide, TileType myTileType);
 	virtual ChitType getType();
 	virtual vector<Chit*>* getContents();
+
+	void populateCity(vector<Chit*>* inside);
 private:
 	vector<Chit*> * contains;
 };

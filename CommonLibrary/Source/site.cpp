@@ -1,9 +1,8 @@
 #include "site.h"
 
-Site::Site(string n, bool hide, TileType myTileType, int clLoc, vector<Treasure*> * myTreasure): Chit(n, hide, myTileType)
+Site::Site(string n, bool hide, TileType myTileType, int clLoc): Chit(n, hide, myTileType)
 {
     clearingLocation = clLoc;
-    trove = myTreasure;
 }
 
 Site::~Site()
@@ -32,4 +31,9 @@ Treasure* Site::loot(int diceUsed)
     Treasure* looted = trove->at(position);
     trove->erase(trove->begin() + position);
     return looted;
+}
+
+void Site::storeTreasure(vector<Treasure*> * myTreasure)
+{
+	trove = myTreasure;
 }
