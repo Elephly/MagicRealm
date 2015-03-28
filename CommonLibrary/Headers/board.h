@@ -56,6 +56,7 @@ public:
 	*	out: Tiles that correspond to that type
 	*/
 	vector<Tile*>* getTileByType(TileType type);
+	vector<Tile*>* getTiles();
 
 	//loops through all chit lists and returns the desired chit by name
 	Chit* getChitByName(string name);

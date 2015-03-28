@@ -621,7 +621,6 @@ void Board::createMonsters()
 {
 	cout << "No Monsters Created" <<endl;
 }
-
 vector<Site*>* Board::getSiteChits()
 {
 	return siteList;
@@ -736,4 +735,9 @@ Chit* Board::getChitByName(string name)
 	}
 	//have not found anything.
 	return NULL;
+}
+
+vector<Tile*>* Board::getTiles() 
+{
+	return tileList;
 }
