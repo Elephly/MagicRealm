@@ -35,3 +35,13 @@ vector<Chit *>* Chit::getContents()
 {
 	return NULL;
 }
+
+string* Chit::serialize() {
+	stringstream s;
+
+	s << "Chit";
+	s << CLASSDELIM;
+	s << name;
+
+	return new string(s.str());
+}

@@ -4,7 +4,9 @@
 #include "shared.h"
 #include "commonlibrary_global.h"
 #include "treasure.h"
+#include "serializer.h"
 #include <vector>
+#include <sstream>
 
 class COMMONLIBRARY_EXPORT Chit : public Serializer {
 public:
@@ -21,7 +23,7 @@ public:
 	virtual int getClearingNum();
 	virtual ChitType getType() = 0;
 	virtual vector<Chit *>* getContents();
-	virtual string* serialize() = 0;
+	virtual string* serialize();
 protected:
     string name;
     bool hidden;
