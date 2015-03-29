@@ -87,6 +87,7 @@
     <ClInclude Include="Headers\equipment.h" />
     <ClInclude Include="Headers\game.h" />
     <ClInclude Include="Headers\lost.h" />
+    <ClInclude Include="Headers\monster.h" />
     <ClInclude Include="Headers\path.h" />
     <ClInclude Include="Headers\recordedTurn.h" />
     <ClInclude Include="Headers\serializer.h" />
@@ -109,6 +110,7 @@
     <ClCompile Include="Source\equipment.cpp" />
     <ClCompile Include="Source\game.cpp" />
     <ClCompile Include="Source\lost.cpp" />
+    <ClCompile Include="Source\monster.cpp" />
     <ClCompile Include="Source\path.cpp" />
     <ClCompile Include="Source\recordedTurn.cpp" />
     <ClCompile Include="Source\site.cpp" />

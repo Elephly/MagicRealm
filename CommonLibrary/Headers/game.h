@@ -16,6 +16,7 @@
 #include "site.h"
 #include "treasure.h"
 #include "lost.h"
+#include "monster.h"
 
 class COMMONLIBRARY_EXPORT Game{
 
@@ -23,7 +24,7 @@ public:
 	Game();
 	Game(time_t sd);
     ~Game();
-    void runGame();
+    void testGame();
     void setupGame(bool cm);
     void doTurn();
 

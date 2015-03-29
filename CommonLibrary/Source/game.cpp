@@ -432,9 +432,15 @@ Board* Game::getBoard()
 	return gameBoard;
 }
 
-void Game::runGame()
+void Game::testGame()
 {
-    cout << "Game Run..." << endl;
+    cout << "Game Run Tests..." << endl;
+	Monster m1("Heavy Dragon", 5, 5); 
+	Monster m2("Giant Bat", 3, 3); 
+	Monster m3("IMP", 2, 1); 
+	cout << "Heavy Dragon id: " << m1.getID() << endl;
+	cout << "Giant Bat id: " << m2.getID() << endl;
+	cout << "IMP id: " << m3.getID() << endl;
 	/* NOTE: For demonstrating looting onlys	
 	Chit* myChit = NULL;
 	string name;
