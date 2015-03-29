@@ -1051,6 +1051,35 @@ void GameWindow::setupChit(QString& chitString) {
 	string tName;
 
 	Chit* chit = game->getBoard()->getChitByName(name);
+	
+	pos = chitString.indexOf(LISTDELIM);
+	if (pos != -1)
+	{
+		tName = string(chitString.left(pos).toUtf8().constData());
+		chitString = chitString.right(chitString.size() - (pos + 1));
+		qDebug() << "contained chits: " << chitString;
+
+		//add contents to lost chits
+		string innerChit;
+		while ((pos = chitString.indexOf(LISTDELIM)) != -1)
+		{
+			innerChit = string(chitString.left(pos).toUtf8().constData());
+			chitString = chitString.right(chitString.size() - (pos + 1));
+			innerChit = innerChit.substr(innerChit.find(CLASSDELIM) + 2);
+			qDebug() << "innerChit: " << QString(innerChit.c_str());
+			qDebug() << "chitString remainder: " << chitString;
+			//TODO add to contents of chit
+		}
+		innerChit = string(chitString.toUtf8().constData());
+		innerChit = innerChit.substr(innerChit.find(CLASSDELIM) + 2);
+		qDebug() << "innerChit: " << QString(innerChit.c_str());
+		//TODO add to contents of chit
+	}
+	else 
+	{
+		tName = string(chitString.toUtf8().constData());
+	}
+
 	//add chits to the correct tiles
 	if (chit->getType() == CHIT_WARNING) {
 		game->getBoard()->getTile(tName)->addWarningChit((Warning*)chit);
@@ -1058,22 +1087,5 @@ void GameWindow::setupChit(QString& chitString) {
 		game->getBoard()->getTile(tName)->addSiteOrSoundChit(chit);
 	}
 
-	pos = chitString.indexOf(LISTDELIM);
-	if (pos != -1)
-	{
-		tName = string(chitString.left(pos).toUtf8.constData());
-		chitString = chitString.right(chitString.size() - (pos + 1));
-		qDebug() << "contained chits: " << chitString;
-
-		//add contents to lost chits
-		while ((pos = chitString.indexOf(LISTDELIM)) != -1)
-		{
-
-		}
-	}
-	else 
-	{
-		tName = string(chitString.toUtf8().constData());
-	}
 	qDebug() << "Tile Name: " << QString(tName.c_str());
 }
