@@ -1050,6 +1050,14 @@ void GameWindow::setupChit(QString& chitString) {
 	chitString = chitString.right(chitString.size() - (pos + 2));
 	string tName;
 
+	Chit* chit = game->getBoard()->getChitByName(name);
+	//add chits to the correct tiles
+	if (chit->getType() == CHIT_WARNING) {
+		game->getBoard()->getTile(tName)->addWarningChit((Warning*)chit);
+	} else {
+		game->getBoard()->getTile(tName)->addSiteOrSoundChit(chit);
+	}
+
 	pos = chitString.indexOf(LISTDELIM);
 	if (pos != -1)
 	{
@@ -1057,6 +1065,7 @@ void GameWindow::setupChit(QString& chitString) {
 		chitString = chitString.right(chitString.size() - (pos + 1));
 		qDebug() << "contained chits: " << chitString;
 
+		//add contents to lost chits
 		while ((pos = chitString.indexOf(LISTDELIM)) != -1)
 		{
 
