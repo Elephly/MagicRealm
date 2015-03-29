@@ -428,26 +428,34 @@ void Server::sendBoard(ClientCommThread* client) {
 	vector<Tile*> tiles = *(game.getBoard()->getTiles());
 	for (vector<Tile*>::iterator it = tiles.begin(); it != tiles.end(); ++it) 
 	{
-		stringstream s;
-		Chit* chit = (*it)->getSiteOrSoundChit();
-		if (chit == NULL)
-			continue;
-		s << *(chit->serialize());
-		s << "Tile";
-		s << CLASSDELIM;
-		s << (*it)->getName(); //name of tile
-		if (chit->getType() == CHIT_LOST) 
-		{ //LOST CITY, has multiple inner chits
-			//TODO need to mark all of the contained chits as such, so they get 
-			//added to the correct LOSTCHIT
-			vector <Chit*> contents = (*chit->getContents());
-			for (vector<Chit*>::iterator chiter = contents.begin(); 
-				chiter != contents.end(); ++chiter) 
-			{
-				s << LISTDELIM;
-				s << *((*chiter)->serialize());
+		for (int i = 0; i < 2; ++i) //loop twice 
+		{   //once to handle site/sound chit, once to handle warning
+			stringstream s;
+			Chit* chit;
+			if (i == 0)
+				chit = (*it)->getSiteOrSoundChit();
+			else if (i == 1)
+				chit = (*it)->getWarningChit();
+			if (chit == NULL)
+				continue;
+			s << *(chit->serialize());
+			s << "Tile";
+			s << CLASSDELIM;
+			s << (*it)->getName(); //name of tile
+			if (chit->getType() == CHIT_LOST) 
+			{ //LOST CITY, has multiple inner chits
+				//TODO need to mark all of the contained chits as such, so they get 
+				//added to the correct LOSTCHIT
+				vector <Chit*> contents = (*chit->getContents());
+				for (vector<Chit*>::iterator chiter = contents.begin(); 
+					chiter != contents.end(); ++chiter) 
+				{
+					s << LISTDELIM;
+					s << *((*chiter)->serialize());
+				}
 			}
+			client->writeMessage(new string(s.str()));
 		}
-		client->writeMessage(new string(s.str()));
+		//TODO, run again, getting the warning chits...
 	}
 }

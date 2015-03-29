@@ -1036,13 +1036,35 @@ void GameWindow::payForMountainClimb()
 }
 
 void GameWindow::setupChit(QString& chitString) {
+	//Strip the Chit identifier from the string
 	int pos = chitString.indexOf(CLASSDELIM);
 	chitString = chitString.right(chitString.size() - (pos + 2));
-	qDebug() << "Chit Name: " << chitString;
+
+	//find the end of the chit name
 	pos = chitString.indexOf("Tile");
 	string name = string(chitString.left(pos).toUtf8().constData());
+	qDebug() << "Chit Name: " << QString(name.c_str());
 
+	//strip the Tile identifier from the string
 	pos = chitString.indexOf(CLASSDELIM);
 	chitString = chitString.right(chitString.size() - (pos + 2));
-	qDebug() << "Tile Name: " << chitString;
+	string tName;
+
+	pos = chitString.indexOf(LISTDELIM);
+	if (pos != -1)
+	{
+		tName = string(chitString.left(pos).toUtf8.constData());
+		chitString = chitString.right(chitString.size() - (pos + 1));
+		qDebug() << "contained chits: " << chitString;
+
+		while ((pos = chitString.indexOf(LISTDELIM)) != -1)
+		{
+
+		}
+	}
+	else 
+	{
+		tName = string(chitString.toUtf8().constData());
+	}
+	qDebug() << "Tile Name: " << QString(tName.c_str());
 }
