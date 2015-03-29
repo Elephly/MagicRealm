@@ -424,7 +424,6 @@ void Server::hidePlayer(Character *character) {
 
 void Server::sendBoard(ClientCommThread* client) {
 
-	//TODO get all tiles, that might be all todo
 	vector<Tile*> tiles = *(game.getBoard()->getTiles());
 	for (vector<Tile*>::iterator it = tiles.begin(); it != tiles.end(); ++it) 
 	{
@@ -444,8 +443,6 @@ void Server::sendBoard(ClientCommThread* client) {
 			s << (*it)->getName(); //name of tile
 			if (chit->getType() == CHIT_LOST) 
 			{ //LOST CITY, has multiple inner chits
-				//TODO need to mark all of the contained chits as such, so they get 
-				//added to the correct LOSTCHIT
 				vector <Chit*> contents = (*chit->getContents());
 				for (vector<Chit*>::iterator chiter = contents.begin(); 
 					chiter != contents.end(); ++chiter) 
@@ -456,6 +453,5 @@ void Server::sendBoard(ClientCommThread* client) {
 			}
 			client->writeMessage(new string(s.str()));
 		}
-		//TODO, run again, getting the warning chits...
 	}
 }
