@@ -1,9 +1,10 @@
 #include "chit.h"
 
-Chit::Chit(string n, bool hide)
+Chit::Chit(string n, bool hide, TileType myCompatibleTileType)
 {
     name = n;
     hidden = hide;
+	compatibleTile = myCompatibleTileType;
 }
 
 bool Chit::isHidden()
@@ -16,6 +17,10 @@ string Chit::getName()
     return name;
 }
 
+TileType Chit::getTileType()
+{
+	return compatibleTile;
+}
 void Chit::unhide()
 {
     hidden = true;

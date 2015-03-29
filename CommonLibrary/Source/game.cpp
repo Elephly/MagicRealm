@@ -70,152 +70,45 @@ void Game::setupGame(bool cm)
 
 void Game::dealChits()
 {
-    vector<Warning *> mountainWarningList;
+	vector <Treasure*> largeTreasure; 
+    vector <Treasure*> smallTreasure;
+	vector <Chit *> siteAndSoundList;
 	vector<Chit *> mountainList;
 	vector<Chit *> cavesList;
-    vector<Warning *> cavesWarningList;
-    vector<Warning *> woodsList;
-	vector <Chit *> siteAndSoundList;
+	
+	vector <Site*>* siteList = gameBoard->getSiteChits();
+	vector <Sound*>* soundList = gameBoard->getSoundChits();
+	vector<Warning *>* mountainWarningList = gameBoard->getWarningsByType(TILE_MOUNTAIN);
+    vector<Warning *>* cavesWarningList = gameBoard->getWarningsByType(TILE_CAVES);
+    vector<Warning *>* woodsList = gameBoard->getWarningsByType(TILE_WOODS);
+	vector <Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
+
+	Lost* lostCity = (Lost*) gameBoard->getChitByName("Lost City");
+	Lost* lostCastle = (Lost*) gameBoard->getChitByName("Lost Castle");
+	
 	vector<Chit *>* lostCityList = new vector<Chit*>;
 	vector<Chit *>* lostCastleList = new vector<Chit*>;
 	int random = 0;
 
-    Warning* bonesv = new Warning("BONES V", false);
-    Warning* dankv = new Warning("DANK V", false);
-    Warning* ruinsv = new Warning("RUINS V", false);
-    Warning* smokev = new Warning("SMOKE V", false);
-    Warning* stinkv = new Warning("STINK V", false);
+	for(vector <Treasure*>::iterator it = tempTreasureList->begin(); it !=tempTreasureList->end(); ++it)
+		largeTreasure.push_back((*it));
 
-    woodsList.push_back(new Warning("BONES W", true));
-    woodsList.push_back(new Warning("DANK W", true));
-    woodsList.push_back(new Warning("RUINS W", true));
-    woodsList.push_back(new Warning("SMOKE W", true));
-    woodsList.push_back(new Warning("STINK W", true));
+	
+	tempTreasureList = gameBoard->getSmallTreasureList();
+	for(vector <Treasure*>::iterator it = tempTreasureList->begin(); it !=tempTreasureList->end(); ++it)
+		smallTreasure.push_back((*it));
 
-    cavesWarningList.push_back(new Warning("BONES C", true));
-    cavesWarningList.push_back(new Warning("DANK C", true));
-    cavesWarningList.push_back(new Warning("RUINS C", true));
-    cavesWarningList.push_back(new Warning("SMOKE C", true));
-    cavesWarningList.push_back(new Warning("STINK C", true));
+	//setting up site.
+	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
+		setupSite(*it, &largeTreasure, &smallTreasure);
 
-    mountainWarningList.push_back(new Warning("BONES M", true));
-    mountainWarningList.push_back(new Warning("DANK M", true));
-    mountainWarningList.push_back(new Warning("RUINS M", true));
-    mountainWarningList.push_back(new Warning("SMOKE M", true));
-    mountainWarningList.push_back(new Warning("STINK M", true));
+	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
+		siteAndSoundList.push_back(*it);
 
-    vector <Treasure*> largeTreasure;
-    vector <Treasure*> smallTreasure;
 
-    largeTreasure.push_back(new Treasure("Battle Bracelets", LARGE));
-    largeTreasure.push_back(new Treasure("Beast Pipes", GREAT));
-    largeTreasure.push_back(new Treasure("Bejewled Vest", GREAT));
-    largeTreasure.push_back(new Treasure("Belt of Strength", GREAT));
-    largeTreasure.push_back(new Treasure("Book of Lore", LARGE));
-    largeTreasure.push_back(new Treasure("Blasted Jewel", GREAT));
-    largeTreasure.push_back(new Treasure("Cloak of Mist", GREAT));
-    largeTreasure.push_back(new Treasure("Cloven Hoof", GREAT));
-    largeTreasure.push_back(new Treasure("Cloven Hoof", GREAT));
-    largeTreasure.push_back(new Treasure("Deft Gloves", GREAT));
-    largeTreasure.push_back(new Treasure("Dragon Essence", LARGE));
-    largeTreasure.push_back(new Treasure("Dragonfang Necklace", LARGE));
-    largeTreasure.push_back(new Treasure("Draught of Speed", LARGE));
-    largeTreasure.push_back(new Treasure("Elusive Cloak", LARGE));
-    largeTreasure.push_back(new Treasure("Elven Slippers", LARGE));
-    largeTreasure.push_back(new Treasure("Enchanted Meadow", LARGE));
-    largeTreasure.push_back(new Treasure("Echanter's Skull", LARGE));
-    largeTreasure.push_back(new Treasure("Eye of Idol", LARGE));
-    largeTreasure.push_back(new Treasure("Eye of the Moon", GREAT));
-    largeTreasure.push_back(new Treasure("Flowers of Rest", GREAT));
-    largeTreasure.push_back(new Treasure("Garb of Speed", GREAT));
-    largeTreasure.push_back(new Treasure("Girtle of Energy", GREAT));
-    largeTreasure.push_back(new Treasure("Gloves of Strength", LARGE));
-    largeTreasure.push_back(new Treasure("Golden Arm Band", GREAT));
-    largeTreasure.push_back(new Treasure("Magic Wand", GREAT));
-    largeTreasure.push_back(new Treasure("Map of the Lost Castle", GREAT));
-    largeTreasure.push_back(new Treasure("Map of the Lost City", GREAT));
-    largeTreasure.push_back(new Treasure("Map of Ruins", GREAT));
-    largeTreasure.push_back(new Treasure("Oil of Poison", LARGE));
-
-    smallTreasure.push_back(new Treasure("7-League Boots", SMALL));
-    smallTreasure.push_back(new Treasure("Alchemist's Mixture", SMALL));
-    smallTreasure.push_back(new Treasure("Amulet", SMALL));
-    smallTreasure.push_back(new Treasure("Ancient Telescope", SMALL));
-    smallTreasure.push_back(new Treasure("Black Book", SMALL));
-    smallTreasure.push_back(new Treasure("Crystal Ball", SMALL));
-    smallTreasure.push_back(new Treasure("Flying Carpet", SMALL));
-    smallTreasure.push_back(new Treasure("Glimmering Ring", SMALL));
-    smallTreasure.push_back(new Treasure("Glowing Gem", SMALL));
-    smallTreasure.push_back(new Treasure("Golden Crown", SMALL));
-    smallTreasure.push_back(new Treasure("Golden Icon", SMALL));
-    smallTreasure.push_back(new Treasure("Good Book", SMALL));
-    smallTreasure.push_back(new Treasure("Gripping Dust", SMALL));
-    smallTreasure.push_back(new Treasure("Handy Gloves", SMALL));
-    smallTreasure.push_back(new Treasure("Hidden Ring", SMALL));
-    smallTreasure.push_back(new Treasure("Imperial Tabard", SMALL));
-    smallTreasure.push_back(new Treasure("Lost Keys", SMALL));
-    smallTreasure.push_back(new Treasure("Lucky Charm", SMALL));
-    smallTreasure.push_back(new Treasure("Magic Spectacles", SMALL));
-    smallTreasure.push_back(new Treasure("Ointment of Bite", SMALL));
-    smallTreasure.push_back(new Treasure("Oitment of Steel", SMALL));
-    smallTreasure.push_back(new Treasure("Penetrating Grease", SMALL));
-    smallTreasure.push_back(new Treasure("Phantom Glass", SMALL));
-    smallTreasure.push_back(new Treasure("Potion of Energy", SMALL));
-    smallTreasure.push_back(new Treasure("Poultrice of Health", SMALL));
-    smallTreasure.push_back(new Treasure("Power Boots", SMALL));
-    smallTreasure.push_back(new Treasure("Power Gauntlets", SMALL));
-    smallTreasure.push_back(new Treasure("Quick Boots", SMALL));
-    smallTreasure.push_back(new Treasure("Reflecting Grease", SMALL));
-    smallTreasure.push_back(new Treasure("Regent of Jewels", SMALL));
-    smallTreasure.push_back(new Treasure("Royal Sceptre", SMALL));
-    smallTreasure.push_back(new Treasure("Sacred Grail", SMALL));
-    smallTreasure.push_back(new Treasure("Sacred Statue", SMALL));
-    smallTreasure.push_back(new Treasure("Scroll of Alchemy", SMALL));
-    smallTreasure.push_back(new Treasure("Scroll of Nature", SMALL));
-    smallTreasure.push_back(new Treasure("Shielded Lantern", SMALL));
-    smallTreasure.push_back(new Treasure("Shoes of Stealth", SMALL));
-    smallTreasure.push_back(new Treasure("Timeless Jewel", SMALL));
-    smallTreasure.push_back(new Treasure("Toadstool Ring", SMALL));
-    smallTreasure.push_back(new Treasure("Vial of Healing", SMALL));
-    smallTreasure.push_back(new Treasure("Withered Claw", SMALL));
-
-    //Hoard Treasure setup
-    siteAndSoundList.push_back(setupSite(HOARD, &largeTreasure, &smallTreasure));
-
-    //Lair Treasure setup
-    siteAndSoundList.push_back(setupSite(LAIR, &largeTreasure, &smallTreasure));
-
-    //Altar Treasure setup
-    siteAndSoundList.push_back(setupSite(ALTAR, &largeTreasure, &smallTreasure));
-
-    //Shrine Treasure setup
-    siteAndSoundList.push_back(setupSite(SHRINE, &largeTreasure, &smallTreasure));
-
-    //Pool Treasure setup
-    siteAndSoundList.push_back(setupSite(POOL, &largeTreasure, &smallTreasure));
-
-    //Vault treasure setup
-    siteAndSoundList.push_back(setupSite(VAULT, &largeTreasure, &smallTreasure));
-
-    //Cairns treasure setup
-    siteAndSoundList.push_back(setupSite(CAIRNS, &largeTreasure, &smallTreasure));
-    
-    //Statue treasure setup
-    siteAndSoundList.push_back(setupSite(STATUE, &largeTreasure, &smallTreasure));
-
-	siteAndSoundList.push_back(new Sound("Howl 4", true, 4));
-	siteAndSoundList.push_back(new Sound("Howl 5", true, 5));
-	siteAndSoundList.push_back(new Sound("Flutter 1", true, 1));
-	siteAndSoundList.push_back(new Sound("Flutter 2", true, 2));
-	siteAndSoundList.push_back(new Sound("Patter 2", true, 2));
-	siteAndSoundList.push_back(new Sound("Patter 5", true, 5));
-	siteAndSoundList.push_back(new Sound("roar 4", true, 4));
-	siteAndSoundList.push_back(new Sound("roar 6", true, 2));
-	siteAndSoundList.push_back(new Sound("slither 3", true, 3));
-	siteAndSoundList.push_back(new Sound("slither 6", true, 6));
-
-	Lost* lostCity; 
-	Lost* lostCastle; 
+	for(vector<Sound*>::iterator it = soundList->begin(); it != soundList->end(); ++it)
+		siteAndSoundList.push_back(*it);
+ 
 	//randomly putting into cavesList
 	for(int i=0; i<4; i++){
 		random = rand() % (siteAndSoundList.size());
@@ -236,7 +129,7 @@ void Game::dealChits()
 		lostCityList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-	lostCity = new Lost("Lost City", true, lostCityList);
+	lostCity->populateCity(lostCityList);
 	
 	//Setting up LostCastle
 	for(int i=0; i<5; i++){
@@ -244,20 +137,21 @@ void Game::dealChits()
 		lostCastleList->push_back(siteAndSoundList.at(random));
 		siteAndSoundList.erase(siteAndSoundList.begin() + random);
 	}
-	lostCastle = new Lost("Lost Castle", true, lostCastleList);
-	int position;
+	lostCastle->populateCity(lostCastleList);
 
 	cavesList.push_back(lostCity);
 	mountainList.push_back(lostCastle);
+
+
 	vector <Tile *> * tileTypeList = gameBoard->getTileByType(TILE_MOUNTAIN);
 
 	//populating mountain tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 
-		random = rand() % (mountainWarningList.size());
+		random = rand() % (mountainWarningList->size());
 
-		(*it)->addWarningChit(mountainWarningList.at(random));
-		mountainWarningList.erase(mountainWarningList.begin() + random);
+		(*it)->addWarningChit(mountainWarningList->at(random));
+		mountainWarningList->erase(mountainWarningList->begin() + random);
 
 		//adding Site or Sound
 		
@@ -265,99 +159,84 @@ void Game::dealChits()
 		(*it)->addSiteOrSoundChit(mountainList.at(random));
 		mountainList.erase(mountainList.begin() +random);
 	}
-
+	delete mountainWarningList;
 	delete tileTypeList;
+
 	tileTypeList = gameBoard->getTileByType(TILE_CAVES);
 
 	//populating caves tiles
 	for(vector<Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
 		//adding warningChit
-		random = rand() % (cavesWarningList.size());
-		(*it)->addWarningChit(cavesWarningList.at(random));
-		cavesWarningList.erase(cavesWarningList.begin() + random);
+		random = rand() % (cavesWarningList->size());
+		(*it)->addWarningChit(cavesWarningList->at(random));
+		cavesWarningList->erase(cavesWarningList->begin() + random);
 
 		//adding Site or Sound
 		random = rand() % (cavesList.size());
 		(*it)->addSiteOrSoundChit(cavesList.at(random));
 		cavesList.erase(cavesList.begin() +random);
 	}
-
+	delete cavesWarningList;
 	delete tileTypeList;
 
 	//populating woods tiles
 	tileTypeList = gameBoard->getTileByType(TILE_WOODS);
 	for(vector <Tile*>::iterator it = tileTypeList->begin(); it != tileTypeList->end(); ++it){
-		random = rand() % (woodsList.size());
-		(*it)->addWarningChit(woodsList.at(random));
-		woodsList.erase(woodsList.begin() + random);
+		random = rand() % (woodsList->size());
+		(*it)->addWarningChit(woodsList->at(random));
+		woodsList->erase(woodsList->begin() + random);
 	}
+	delete woodsList;
 
 	//plopping valley tiles
-	gameBoard->getTile("Evil Valley")->addWarningChit(bonesv);
-	gameBoard->getTile("Awful Valley")->addWarningChit(dankv);
-	gameBoard->getTile("Dark Valley")->addWarningChit(ruinsv);
-	gameBoard->getTile("Curst Valley")->addWarningChit(smokev);
-	gameBoard->getTile("Bad Valley")->addWarningChit(stinkv);	
+	//TODO needs to change!!!!!!!!!! They should be randomly placed, this has to do with iteration 1 board.
+	gameBoard->getTile("Evil Valley")->addWarningChit((Warning*) gameBoard->getChitByName("BONES V"));
+	gameBoard->getTile("Awful Valley")->addWarningChit((Warning*) gameBoard->getChitByName("DANK V"));
+	gameBoard->getTile("Dark Valley")->addWarningChit((Warning*) gameBoard->getChitByName("RUINS V"));
+	gameBoard->getTile("Curst Valley")->addWarningChit((Warning*) gameBoard->getChitByName("SMOKE V"));
+	gameBoard->getTile("Bad Valley")->addWarningChit((Warning*) gameBoard->getChitByName("STINK V"));	
 }
 
-Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm)
+void Game::setupSite(Site* mySite, vector<Treasure*>* lg,  vector<Treasure*>* sm)
 {
-    string name = "";
     int numLarge = 0;
     int numSmall = 0;
     int random = -1;
-	int clearingLocation = 0;
 
-    switch(sType){
+	switch(mySite->getType()){
     case HOARD:
-        name = "Hoard 6";
         numLarge = 5;
         numSmall = 4;
-		clearingLocation = 6;
         break;
     case LAIR:
-        name = "Lair 3";
         numLarge = 3;
         numSmall = 4;
-		clearingLocation = 3;
         break;
     case ALTAR:
-        name = "Altar 1";
         numLarge = 4;
-		clearingLocation = 1;
         break;
     case SHRINE:
-        name = "Shrine 4";
         numLarge = 2;
         numSmall = 2;
-		clearingLocation = 4;
         break;
     case POOL:
-        name = "Pool 6";
         numLarge = 3;
         numSmall = 6;
-		clearingLocation = 6;
 		break;
     case VAULT:
-        name = "Vault 3";
         numLarge = 5;
-		clearingLocation = 3;
         break;
     case CAIRNS:
-        name = "Cairns 3";
         numLarge = 1;
         numSmall = 6;
-		clearingLocation = 5;
         break;
     case STATUE:
-        name = "Statue 2";
         numLarge = 1;
         numSmall = 2;
-		clearingLocation = 2;
 		break;
     default:
         cout << "Err: Game::setupSite site unrecognized" <<endl;
-        return NULL;
+        return;
     }
 
     vector <Treasure *> * stash = new vector<Treasure *>;
@@ -380,7 +259,7 @@ Site* Game::setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>*
         sm->erase(sm->begin() + random);
     }
 
-    return new Site(name, true, clearingLocation, stash);
+	mySite->storeTreasure(stash);
 }
 
 void Game::setupTiles()

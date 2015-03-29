@@ -6,6 +6,11 @@
 #include <vector>
 #include "serializer.h"
 #include "dwelling.h"
+#include "site.h"
+#include "sound.h"
+#include "warning.h"
+#include "treasure.h"
+#include "lost.h"
 
 class Clearing;
 class Tile;
@@ -38,17 +43,54 @@ public:
     */
     Tile* getTile(string tName);
 
+	/*
+    *   getChits
+    *   in:     Type of tile
+    *   out:    Collection of Chits corresponding to the type. DYNAMICALLY ALLOCATED.
+    */
+    vector<Warning*>* getWarningsByType(TileType type);
+
+	/*
+	*	getTiles
+	*	in:	TileType pointer
+	*	out: Tiles that correspond to that type
+	*/
 	vector<Tile*>* getTileByType(TileType type);
 	vector<Tile*>* getTiles();
+
+	//loops through all chit lists and returns the desired chit by name
+	Chit* getChitByName(string name);
+
+	//returns the site chits
+	vector<Site*>* getSiteChits();
+
+	vector<Sound*>* getSoundChits();
+
+	//returns a pointer to the list of treasure pointers
+	vector<Treasure*>* getLargeTreasureList();
+	vector<Treasure*>* getSmallTreasureList();
+
 
 	virtual string* serialize();
 
 private:
-    vector<Tile*>* tileList;
+    
+	//stored pieces
+	vector<Tile*>* tileList;
     vector<Dwelling*>* dwellingList;
+	vector<Site*>* siteList;
+	vector<Warning*>* warningList;
+	vector<Sound*>* soundList;
+	vector<Treasure*>* smallTreasureList;
+	vector<Treasure*>* largeTreasureList;
+	Lost* lostCity;
+	Lost* lostCastle;
+
+	//helper functions
 	void createTiles();
 	void createTreasures();
 	void createMonsters();
+	void createChits();
 	/*
     *   addTile
     *   In:         Pointer to the tile you wish to add. 

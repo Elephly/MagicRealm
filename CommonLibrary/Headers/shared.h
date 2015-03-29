@@ -147,7 +147,8 @@ enum COMMONLIBRARY_EXPORT TileType
 	TILE_VALLEY = 0,
 	TILE_WOODS,
 	TILE_CAVES,
-	TILE_MOUNTAIN
+	TILE_MOUNTAIN,
+	TILE_CANDM //both caves and mountains (currently only used for tile gathering)
 };
 
 enum COMMONLIBRARY_EXPORT ChitType

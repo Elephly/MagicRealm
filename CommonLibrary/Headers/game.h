@@ -142,7 +142,7 @@ private:
     *   sets up the sites and returns it
     *   helper for dealChits.
     */
-    Site* setupSite(siteType sType, vector<Treasure*>* lg,  vector<Treasure*>* sm);
+    void setupSite(Site* mySite, vector<Treasure*>* lg,  vector<Treasure*>* sm);
 
     Board* gameBoard;
     Character* players[MAXPLAYERS];
