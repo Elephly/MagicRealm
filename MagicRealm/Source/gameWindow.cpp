@@ -1060,6 +1060,7 @@ void GameWindow::setupChit(QString& chitString) {
 		qDebug() << "contained chits: " << chitString;
 
 		//add contents to lost chits
+		vector<Chit*> *contents = new vector<Chit*>;
 		string innerChit;
 		while ((pos = chitString.indexOf(LISTDELIM)) != -1)
 		{
@@ -1068,12 +1069,13 @@ void GameWindow::setupChit(QString& chitString) {
 			innerChit = innerChit.substr(innerChit.find(CLASSDELIM) + 2);
 			qDebug() << "innerChit: " << QString(innerChit.c_str());
 			qDebug() << "chitString remainder: " << chitString;
-			//TODO add to contents of chit
+			contents->push_back(game->getBoard()->getChitByName(innerChit));
 		}
 		innerChit = string(chitString.toUtf8().constData());
 		innerChit = innerChit.substr(innerChit.find(CLASSDELIM) + 2);
 		qDebug() << "innerChit: " << QString(innerChit.c_str());
-		//TODO add to contents of chit
+		contents->push_back(game->getBoard()->getChitByName(innerChit));
+		((Lost *) chit)->populateCity(contents);
 	}
 	else 
 	{
