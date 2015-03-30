@@ -1043,7 +1043,6 @@ void GameWindow::setupChit(QString& chitString) {
 	//find the end of the chit name
 	pos = chitString.indexOf("Tile");
 	string name = string(chitString.left(pos).toUtf8().constData());
-	qDebug() << "Chit Name: " << QString(name.c_str());
 
 	//strip the Tile identifier from the string
 	pos = chitString.indexOf(CLASSDELIM);
@@ -1057,7 +1056,6 @@ void GameWindow::setupChit(QString& chitString) {
 	{
 		tName = string(chitString.left(pos).toUtf8().constData());
 		chitString = chitString.right(chitString.size() - (pos + 1));
-		qDebug() << "contained chits: " << chitString;
 
 		//add contents to lost chits
 		vector<Chit*> *contents = new vector<Chit*>;
@@ -1067,13 +1065,10 @@ void GameWindow::setupChit(QString& chitString) {
 			innerChit = string(chitString.left(pos).toUtf8().constData());
 			chitString = chitString.right(chitString.size() - (pos + 1));
 			innerChit = innerChit.substr(innerChit.find(CLASSDELIM) + 2);
-			qDebug() << "innerChit: " << QString(innerChit.c_str());
-			qDebug() << "chitString remainder: " << chitString;
 			contents->push_back(game->getBoard()->getChitByName(innerChit));
 		}
 		innerChit = string(chitString.toUtf8().constData());
 		innerChit = innerChit.substr(innerChit.find(CLASSDELIM) + 2);
-		qDebug() << "innerChit: " << QString(innerChit.c_str());
 		contents->push_back(game->getBoard()->getChitByName(innerChit));
 		((Lost *) chit)->populateCity(contents);
 	}
@@ -1089,5 +1084,4 @@ void GameWindow::setupChit(QString& chitString) {
 		game->getBoard()->getTile(tName)->addSiteOrSoundChit(chit);
 	}
 
-	qDebug() << "Tile Name: " << QString(tName.c_str());
 }
