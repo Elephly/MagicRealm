@@ -585,10 +585,10 @@ void Board::createChits()
 	warningList->push_back(new Warning("STINK C", true, TILE_CAVES));
 	//Mountain warning
 	warningList->push_back(new Warning("BONES M", true, TILE_MOUNTAIN));
-	warningList->push_back(new Warning("BONES M", true, TILE_MOUNTAIN));
-	warningList->push_back(new Warning("BONES M", true, TILE_MOUNTAIN));
-	warningList->push_back(new Warning("BONES M", true, TILE_MOUNTAIN));
-	warningList->push_back(new Warning("BONES M", true, TILE_MOUNTAIN));
+	warningList->push_back(new Warning("DANK M", true, TILE_MOUNTAIN));
+	warningList->push_back(new Warning("RUINS M", true, TILE_MOUNTAIN));
+	warningList->push_back(new Warning("SMOKE M", true, TILE_MOUNTAIN));
+	warningList->push_back(new Warning("STINK M", true, TILE_MOUNTAIN));
 
 	//setting up sounds
 	soundList->push_back(new Sound("Howl 4", true, TILE_CANDM, 4));
@@ -597,10 +597,10 @@ void Board::createChits()
 	soundList->push_back(new Sound("Flutter 2", true, TILE_CANDM, 2));
 	soundList->push_back(new Sound("Patter 2", true, TILE_CANDM, 2));
 	soundList->push_back(new Sound("Patter 5", true, TILE_CANDM, 5));
-	soundList->push_back(new Sound("roar 4", true, TILE_CANDM, 4));
-	soundList->push_back(new Sound("roar 6", true, TILE_CANDM, 2));
-	soundList->push_back(new Sound("slither 3", true, TILE_CANDM, 3));
-	soundList->push_back(new Sound("slither 6", true, TILE_CANDM, 6));
+	soundList->push_back(new Sound("Roar 4", true, TILE_CANDM, 4));
+	soundList->push_back(new Sound("Roar 6", true, TILE_CANDM, 2));
+	soundList->push_back(new Sound("Slither 3", true, TILE_CANDM, 3));
+	soundList->push_back(new Sound("Slither 6", true, TILE_CANDM, 6));
 	cout << "Unimplemented" <<endl;
 
 	siteList->push_back(new Site("Hoard", true, TILE_CANDM, 6));

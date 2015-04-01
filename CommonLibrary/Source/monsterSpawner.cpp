@@ -6,9 +6,12 @@ MonsterSpawner::Element::Element(vector <Monster*>* monList)
 	spawned = false;
 }
 
-vector<Monster*>* MonsterSpawner::Element::spawnMonsters()
+vector<Monster*>* MonsterSpawner::Element::spawnMonsters(Clearing* targetClearing)
 {
 	spawned = true;
+	for(vector<Monster*>::iterator it = monsterList->begin(); it != monsterList->end(); ++it){
+		(*it)->move(targetClearing);
+	}
 	return monsterList;
 
 }
@@ -186,6 +189,101 @@ vector<Monster*>* MonsterSpawner::getMonsterList()
 
 vector<Monster*>* MonsterSpawner::spawn(Clearing* targetClearing, int dRoll)
 {
+	Tile* targetTile = targetClearing->getTile();
+	string warningName = targetTile->getWarningChit()->getName();
+	string siteSoundName = "";
+	Chit* siteSoundChit = targetClearing->getTile()->getSiteOrSoundChit();
+	if(siteSoundChit)
+		siteSoundName = siteSoundChit->getName();
+	switch(dRoll){
+	case 1:
+		if(warningName == "SMOKE M" || siteSoundName == "Flutter 1" || siteSoundName == "Flutter 2")
+			return spawnMonsters(flutterSmokeM1, targetClearing);
+
+		else if(warningName == "SMOKE C" || siteSoundName == "Slither 3" || siteSoundName == "Slither 6"
+			|| ((siteSoundName == "Roar 4" || siteSoundName == "Roar 6") && targetTile->getType() == TILE_CAVES))
+			return spawnMonsters(smokeCSlitherRoarC1, targetClearing);
+
+		else if(siteSoundName == "Hoard")
+			return spawnMonsters(hoard1, targetClearing); 
+
+		else if(siteSoundName == "Lair")
+			return spawnMonsters(lair1, targetClearing);
+		else //did not find any correct matchup to spawn monsters on roll 1.
+			return NULL;
+	case 2:
+		if(warningName == "DANK W")
+			return spawnMonsters(dankW2, targetClearing);
+
+		else if(warningName == "DANK C" || siteSoundName == "Slither 3" ||siteSoundName == "Slither 6")
+			return spawnMonsters(dankCSlither2, targetClearing);
+
+		else if(siteSoundName == "Altar")
+			return spawnMonsters(altar2, targetClearing);
+
+		else if(siteSoundName == "Shrine")
+			return spawnMonsters(shrine2, targetClearing);
+
+		else //did not find any correct matchup to spawn monsters on roll 2.
+			return NULL;
+	case 3:
+		if(warningName == "RUINS W")
+			return spawnMonsters(ruinsW3, targetClearing);
+
+		else if(warningName == "BONES W")
+			return spawnMonsters(bonesW3, targetClearing);
+
+		else if(warningName == "RUINS C" || 
+			((siteSoundName == "Patter 2" || siteSoundName == "Patter 5" || siteSoundName == "Howl 4" || siteSoundName == "Howl 5") && targetTile->getType() == TILE_CAVES))
+			return spawnMonsters(ruinsCPatterCHowlC3, targetClearing);
+
+		else if(siteSoundName == "Pool")
+			return spawnMonsters(pool3, targetClearing);
+
+		else //did not find any correct matchup to spawn monsters on roll 3.
+			return NULL;
+	case 4:
+		if(warningName == "BONES M" || warningName == "STINK M" || 
+			((siteSoundName == "Roar 4" || siteSoundName == "Roar 6") && targetTile->getType() == TILE_MOUNTAIN))
+			return spawnMonsters(bonesMRoarMStinkM4, targetClearing);
+
+		else if(warningName == "STINK C" || warningName == "BONES C" ||
+			((siteSoundName == "Roar 4" || siteSoundName == "Roar 6") && targetTile->getType() == TILE_CAVES))
+			return spawnMonsters(stinkCBonesCRoarC4, targetClearing);
+
+		else if(siteSoundName == "Vault")
+			return spawnMonsters(vault4, targetClearing);
+
+		else //did not find any correct matchup to spawn monsters on roll 4.
+			return NULL;
+	case 5:
+		if(warningName == "STINK M" || warningName == "DANK M" ||
+			((siteSoundName == "Patter 2" || siteSoundName == "Patter 5") && targetTile->getType() == TILE_MOUNTAIN))
+			return spawnMonsters(stinkMDankMPatterM5, targetClearing);
+		else if(siteSoundName == "Cairns")
+			return spawnMonsters(cairns5, targetClearing);
+		else if (siteSoundName == "Statue")
+			return spawnMonsters(statue5, targetClearing);
+		else
+			return NULL;
+	case 6:
+		if(warningName == "RUINS M" || warningName == "BONES M" || (
+			(siteSoundName == "Flutter 1" || siteSoundName == "Flutter 2" || siteSoundName == "Howl 4" || 
+			siteSoundName == "Howl 5") && targetTile->getType() == TILE_MOUNTAIN))
+			return spawnMonsters(ruinsMBonesMFlutterHowlM6, targetClearing);
+	default:
+		cout << "ERR: MonsterSpawner::Spawn bad dice roll";	return NULL;
+	}
 	cout << "Not Implemented" <<endl;
+	return NULL;
+}
+
+vector<Monster*>* MonsterSpawner::spawnMonsters(vector<Element*>* elementList, Clearing* targetClearing)
+{
+	for(vector<Element*>::iterator it = elementList->begin(); it != elementList->end(); ++it){
+		if(!(*it)->getSpawned())
+			return (*it)->spawnMonsters(targetClearing);
+	}
+	//Monsters are all already on the map, therefore nothing left to return.
 	return NULL;
 }

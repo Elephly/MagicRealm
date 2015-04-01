@@ -10,7 +10,7 @@
 #include "serializer.h"
 #include "board.h"
 #include "chit.h"
-
+#include "monster.h"
 //forward declare
 class Character;
 class Path;
@@ -83,6 +83,10 @@ public:
     */
     ClearingType getClearingType();
 
+	void addMonster(Monster* newMonster);
+
+	vector<Monster*>* getMonsterList();
+
     //toString method, returns POINTER TO STRING, MUST BE DELETED
     string* toString();
 
@@ -101,7 +105,7 @@ public:
 private:
     //list of characters in a clearing.
 	vector<Character*>* characters;
-
+	vector<Monster*>* monsters;
     //list of paths in a clearing.
 	vector<Path*>* pathways;
 

@@ -8,6 +8,7 @@ Clearing::Clearing(int clNum, Tile* parentTile, ClearingType ct) {
     myTile = parentTile;
     pathways = new vector<Path*>;
     characters = new vector<Character*>;
+	monsters = new vector<Monster*>;
     myDwelling = NULL;
     if(parentTile !=NULL)
         parentTile->addClearing(this);
@@ -190,4 +191,14 @@ char* Clearing::getTypeString(ClearingType type)
 		return "?";
 		break;
 	}
+}
+
+void Clearing::addMonster(Monster* newMonster)
+{
+	monsters->push_back(newMonster);
+}
+
+vector<Monster*>* Clearing::getMonsterList()
+{
+	return monsters;
 }
