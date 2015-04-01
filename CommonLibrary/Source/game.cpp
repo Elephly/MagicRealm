@@ -435,9 +435,9 @@ Board* Game::getBoard()
 void Game::testGame()
 {
     cout << "Game Run Tests..." << endl;
-	Monster m1("Heavy Dragon", 5, 5); 
-	Monster m2("Giant Bat", 3, 3); 
-	Monster m3("IMP", 2, 1); 
+	Monster m1("Heavy Dragon", 'H', 4, 0, 4, 5, 5); 
+	Monster m2("Giant Bat", 'M', 2 , 0, 3, 3, 3); 
+	Monster m3("IMP", 'A', 2, 0, 2, 2, 1); 
 	cout << "Heavy Dragon id: " << m1.getID() << endl;
 	cout << "Giant Bat id: " << m2.getID() << endl;
 	cout << "IMP id: " << m3.getID() << endl;

@@ -11,10 +11,13 @@
 #include "warning.h"
 #include "treasure.h"
 #include "lost.h"
+#include "monster.h"
+#include "monsterSpawner.h"
 
 class Clearing;
 class Tile;
 class Dwelling;
+class MonsterSpawner;
 
 //Abstract class, extend this with all different Character types
 class  COMMONLIBRARY_EXPORT Board : public Serializer {
@@ -83,13 +86,14 @@ private:
 	vector<Sound*>* soundList;
 	vector<Treasure*>* smallTreasureList;
 	vector<Treasure*>* largeTreasureList;
+	vector<Monster*>* monsterList; 
 	Lost* lostCity;
 	Lost* lostCastle;
+	MonsterSpawner* monsterTable;
 
 	//helper functions
 	void createTiles();
 	void createTreasures();
-	void createMonsters();
 	void createChits();
 	/*
     *   addTile

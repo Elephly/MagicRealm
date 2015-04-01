@@ -10,10 +10,10 @@ Board::Board() {
 	smallTreasureList = new vector<Treasure*>;
 	largeTreasureList = new vector<Treasure*>;
     dwellingList = new vector<Dwelling*>;
+	monsterTable = new MonsterSpawner();
 	createTiles();
 	createChits();
 	createTreasures();
-	createMonsters();
 
 }
 
@@ -565,7 +565,6 @@ void Board::createTiles()
 void Board::createChits()
 {
 	//setting up warnings
-
 	//valley warnings
 	warningList->push_back(new Warning("BONES V", false, TILE_VALLEY));
 	warningList->push_back(new Warning("DANK V", false, TILE_VALLEY));
@@ -617,10 +616,6 @@ void Board::createChits()
 	lostCastle = new Lost("Lost Castle", true, TILE_CANDM);
 }
 
-void Board::createMonsters()
-{
-	cout << "No Monsters Created" <<endl;
-}
 vector<Site*>* Board::getSiteChits()
 {
 	return siteList;

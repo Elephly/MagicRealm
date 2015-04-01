@@ -1,6 +1,7 @@
 #include "site.h"
 
-Site::Site(string n, bool hide, TileType myTileType, int clLoc): Chit(n, hide, myTileType)
+Site::Site(string n, bool hide, TileType myTileType, int clLoc): 
+	Chit(n, hide, myTileType)
 {
     clearingLocation = clLoc;
 }

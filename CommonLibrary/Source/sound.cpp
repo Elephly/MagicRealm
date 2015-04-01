@@ -1,6 +1,7 @@
 #include "sound.h"
 
-Sound::Sound(string n, bool hide, TileType myTileType, int clnum): Chit(n, hide, myTileType)
+Sound::Sound(string n, bool hide, TileType myTileType, int clnum): 
+	Chit(n, hide, myTileType)
 {
     clearingLocation = clnum;
 }
