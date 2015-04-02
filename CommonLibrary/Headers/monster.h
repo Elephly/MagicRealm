@@ -20,6 +20,8 @@ public:
 	//NOTE: if null, has not spawned yet.
 	Clearing* getLocation();
 
+    bool isBlocked();
+    void toggleBlock();
 
 private:
 	static int currID;
@@ -32,6 +34,8 @@ private:
 	string name;
 	int id;
 	Clearing* location;
+
+    bool blocked;
 
 };
 

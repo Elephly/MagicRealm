@@ -736,3 +736,8 @@ vector<Tile*>* Board::getTiles()
 {
 	return tileList;
 }
+
+MonsterSpawner* Board::getSpawner()
+{
+    return monsterTable;
+}

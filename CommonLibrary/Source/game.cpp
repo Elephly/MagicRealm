@@ -9,6 +9,7 @@ Game::Game()
     day = 28;
     currentTime = BIRDSONG;
     gameBoard = new Board();
+    activeMonsters = new vector<Monster*>;
     cout << "Game Initialized" <<endl;
 
 	seed = time(NULL);
@@ -24,6 +25,7 @@ Game::Game(time_t sd)
     day = 28;
     currentTime = BIRDSONG;
     gameBoard = new Board();
+    activeMonsters = new vector<Monster*>;
     cout << "Game Initialized" <<endl;
 
 	seed = sd;
@@ -704,6 +706,33 @@ Dwelling* Game::getDwelling(DwellingType dwellingType)
 	return gameBoard->getDwelling(dwellingType);
 }
 
-void Game::doTurn()
+void Game::spawnMonsters()
 {
+    cout << "Rolling Monster Dice" << endl;
+    int d1 = rollDice();
+    int d2 = rollDice();
+    int diceUsed = (d1>d2) ? d1 : d2;
+    MonsterSpawner* lookupTable = gameBoard->getSpawner();
+    vector<Monster*>* spawnedMonsters;
+    //looping over players to check if any monsters spawned around them.
+    for(int i=0; i < MAXPLAYERS; i++){
+        if(players[i] == NULL) //if there is not a player there dont do anything
+            continue;
+
+        //getting list of monsters that spawned
+        spawnedMonsters = lookupTable->spawn(players[i]->getCurrentLocation(), diceUsed);
+
+        if(spawnedMonsters == NULL) //if there are no monsters to spawn we can skip
+            continue;
+
+        //adding our spawned monsters to the active monster list.
+        for(vector<Monster*>::iterator it = spawnedMonsters->begin(); it != spawnedMonsters->end(); ++it){
+            activeMonsters->push_back(*it);
+        }
+    }
+}
+
+vector<Monster*>* Game::getActiveMonsters()
+{
+    return activeMonsters;
 }

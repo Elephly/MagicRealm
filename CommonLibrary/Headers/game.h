@@ -17,6 +17,7 @@
 #include "treasure.h"
 #include "lost.h"
 #include "monster.h"
+#include "monsterSpawner.h"
 
 class COMMONLIBRARY_EXPORT Game{
 
@@ -26,7 +27,6 @@ public:
     ~Game();
     void testGame();
     void setupGame(bool cm);
-    void doTurn();
 
 	time_t getTime();
     /*
@@ -101,6 +101,18 @@ public:
 	Dwelling* getDwelling(DwellingType dwellingType);
 
     /*
+    *   spawnMonsters
+    *   Rolls the monster die, goes through the list of monsters
+    *   Spawns the monsters to the appropriate clearings.
+    */
+    void spawnMonsters();
+    //monsters will check their tile see if players are in another clearing and move
+    void moveMonsters();
+
+    //returns the list of monsters currently spawned.
+    vector<Monster*>* getActiveMonsters();
+
+    /*
 	*	rollDice
 	*	Out:	Number you rolled.
 	*/
@@ -147,6 +159,7 @@ private:
 
     Board* gameBoard;
     Character* players[MAXPLAYERS];
+    vector<Monster*>* activeMonsters; 
     int day;
     TimeOfDay currentTime;
     bool cheatMode;

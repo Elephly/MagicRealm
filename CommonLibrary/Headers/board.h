@@ -73,6 +73,8 @@ public:
 	vector<Treasure*>* getLargeTreasureList();
 	vector<Treasure*>* getSmallTreasureList();
 
+    MonsterSpawner* getSpawner();
+
 
 	virtual string* serialize();
 

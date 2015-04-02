@@ -12,6 +12,7 @@ Monster::Monster(string n, char harmLetter, int as, int sharp, int ms, int f, in
 	notoriety = notor;
 	id = currID;
 	++currID;
+    blocked = false;
 }
 
 int Monster::getFame()
@@ -43,4 +44,14 @@ void Monster::move(Clearing* loc)
 Clearing* Monster::getLocation()
 {
 	return location;
+}
+
+bool Monster::isBlocked()
+{
+    return blocked;
+}
+
+void Monster::toggleBlock()
+{
+    blocked = !blocked;
 }
