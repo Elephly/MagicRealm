@@ -732,6 +732,19 @@ void Game::spawnMonsters()
     }
 }
 
+void Game::moveMonsters()
+{
+	for(int i=0; i<MAXPLAYERS; i++){
+		if(players[i] == NULL)
+			continue;
+		for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter!=activeMonsters->end(); ++iter){
+			if(players[i]->getCurrentLocation()->getTile() == (*iter)->getLocation()->getTile())
+				(*iter)->move(players[i]->getCurrentLocation());
+		}
+	}
+
+}
+
 vector<Monster*>* Game::getActiveMonsters()
 {
     return activeMonsters;
