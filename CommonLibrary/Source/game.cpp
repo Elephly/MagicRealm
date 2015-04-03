@@ -767,5 +767,6 @@ void Game::checkBlocks(Character* currentPlayer)
     //NOTE HANDLE OTHER PLAYER BLOCKING HERE????
 
     //did not find a monster anymore, if they are blocked unblock.
+    if(currentPlayer->isBlocked())
         currentPlayer->setBlock(false);
 }
