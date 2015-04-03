@@ -749,3 +749,23 @@ vector<Monster*>* Game::getActiveMonsters()
 {
     return activeMonsters;
 }
+
+void Game::checkBlocks(Character* currentPlayer)
+{
+    Clearing* currentClearing = currentPlayer->getCurrentLocation();
+    //checking to see if any monsters are in the current position to block those monsters and the player.
+
+    for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
+        if((*iter)->getLocation() == currentClearing){
+            (*iter)->setBlock(true);
+            if(!currentPlayer->isBlocked())
+            currentPlayer->setBlock(true);
+            return;
+        }
+    }
+
+    //NOTE HANDLE OTHER PLAYER BLOCKING HERE????
+
+    //did not find a monster anymore, if they are blocked unblock.
+        currentPlayer->setBlock(false);
+}

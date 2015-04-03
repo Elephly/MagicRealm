@@ -5,6 +5,7 @@
 
 Character::Character(CharacterType type) {
     hidden = false;
+    blocked = false;
 	init(type);
 	discoveries = new vector<Chit*>;
 }
@@ -130,6 +131,15 @@ bool Character::hasDiscovered(Chit* checkDiscovery)
 	return false;
 }
 
+bool Character::isBlocked()
+{
+    return blocked;
+}
+
+void Character::setBlock(bool newBlock)
+{
+    blocked = newBlock;
+}
 char* Character::getTypeString(CharacterType t)
 {
 	switch (t)

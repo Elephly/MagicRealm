@@ -112,6 +112,8 @@ public:
     //returns the list of monsters currently spawned.
     vector<Monster*>* getActiveMonsters();
 
+    //Update the Blocking status of the players.
+    void checkBlocks(Character* currentPlayer);
     /*
 	*	rollDice
 	*	Out:	Number you rolled.

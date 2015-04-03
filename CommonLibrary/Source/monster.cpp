@@ -51,7 +51,7 @@ bool Monster::isBlocked()
     return blocked;
 }
 
-void Monster::toggleBlock()
+void Monster::setBlock(bool newBlock)
 {
-    blocked = !blocked;
+    blocked = newBlock;
 }
