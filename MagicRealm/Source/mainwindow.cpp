@@ -13,7 +13,7 @@ QString MainWindow::characterDetailPaths[] = { ":/images/characterdetail/amazon.
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
-	//this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
+	this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
 	ui.setupUi(this);
 	ui.statusBar->setSizeGripEnabled(false);
 

@@ -24,6 +24,8 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	tileGraphicsItems = new QMap<Tile*, TileGraphicsItem*>();
 	ui.graphicsView->scale(1.0, 1.0);
 	ui.graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
+	ui.graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+	ui.graphicsView->viewport()->installEventFilter(this);
 	server = new ServerCommThread(this);
 	selectedCharacter = NullCharacter;
 	game = 0;
@@ -64,6 +66,32 @@ GameWindow::~GameWindow()
 		tileClearingOffsets->clear();
 		delete tileClearingOffsets;
 		tileClearingOffsets = 0;
+	}
+}
+
+bool GameWindow::eventFilter(QObject *obj, QEvent *event)
+{
+	if (event->type() == QEvent::Wheel)
+	{
+		QWheelEvent *e = static_cast<QWheelEvent *>(event);
+		if (obj == ui.graphicsView->viewport())
+		{
+			int numDegrees = e->delta() / 8;
+			int numSteps = numDegrees / 15;
+			if (e->delta() >= 0)
+			{
+				ui.graphicsView->scale(1.1, 1.1);
+			}
+			else
+			{
+				ui.graphicsView->scale(0.9, 0.9);
+			}
+		}
+		return true;
+	}
+	else
+	{
+		return QObject::eventFilter(obj, event);
 	}
 }
 
@@ -750,7 +778,7 @@ void GameWindow::changeScreenState(QWidget* screen)
 	ui.gameWidget->setVisible(false);
 	if (screen == ui.gameWidget)
 	{
-		window->showMaximized();
+		window->showFullScreen();
 	}
 	else
 	{

@@ -6,6 +6,8 @@
  * Responsible for graphically representing game state
  */
 
+#include <QEvent>
+#include <QWheelEvent>
 #include <QMap>
 
 #include "ui_mainwindow.h"
@@ -65,6 +67,9 @@ public:
 	bool isMovingPhase(int phaseIndex);
 	void payForMountainClimb();
 	void setupChit(QString& chitString);
+
+protected:
+	bool eventFilter(QObject *, QEvent *);
 
 private:
 	bool gameStarted;
