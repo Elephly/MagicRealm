@@ -165,6 +165,8 @@ public:
         gameViewLayout->setObjectName(QStringLiteral("gameViewLayout"));
         graphicsView = new QGraphicsView(gameWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
         gameViewLayout->addWidget(graphicsView);
 

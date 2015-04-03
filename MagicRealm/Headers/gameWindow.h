@@ -74,6 +74,7 @@ private:
 	QMap<std::string, QList<QPoint*>*>* tileClearingOffsets;
 	QMap<Tile*, TileGraphicsItem*>* tileGraphicsItems;
 	QMap<Tile*, QPointF>* tileLocations;
+	QMainWindow* window;
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
 	ServerCommThread* server;

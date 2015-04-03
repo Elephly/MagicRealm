@@ -13,6 +13,7 @@
 GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	: QObject(parent), ui(mainWindow)
 {
+	window = (QMainWindow*)parent;
 	gameStarted = false;
 	characterImages = new QMap<CharacterType, QPixmap*>();
 	loadCharacterImages();
@@ -21,7 +22,8 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	tileClearingOffsets = new QMap<std::string, QList<QPoint*>*>();
 	loadTileImages();
 	tileGraphicsItems = new QMap<Tile*, TileGraphicsItem*>();
-	ui.graphicsView->scale(0.5, 0.5);
+	ui.graphicsView->scale(1.0, 1.0);
+	ui.graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
 	server = new ServerCommThread(this);
 	selectedCharacter = NullCharacter;
 	game = 0;
@@ -606,7 +608,7 @@ errno_t GameWindow::initializeGame()
 		characterGraphicsItems->insert((CharacterType)i, item);
 		item->setZValue(0.2);
 		item->setVisible(false);
-		item->setScale(0.5);
+		item->setScale(0.2);
 		Character* character = game->getPlayer((CharacterType)i);
 		if (character != 0)
 		{
@@ -746,6 +748,14 @@ void GameWindow::changeScreenState(QWidget* screen)
 	ui.loadingWidget->setVisible(false);
 	ui.characterSelectWidget->setVisible(false);
 	ui.gameWidget->setVisible(false);
+	if (screen == ui.gameWidget)
+	{
+		window->showMaximized();
+	}
+	else
+	{
+		window->showNormal();
+	}
 	screen->setEnabled(true);
 	screen->setVisible(true);
 	qApp->processEvents();
