@@ -18,6 +18,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	loadCharacterImages();
 	characterGraphicsItems = new QMap<CharacterType, QGraphicsPixmapItem*>();
 	tileImages = new QMap<std::string, QPixmap*>();
+	tileClearingOffsets = new QMap<std::string, QList<QPoint*>*>();
 	loadTileImages();
 	tileGraphicsItems = new QMap<Tile*, TileGraphicsItem*>();
 	ui.graphicsView->scale(0.5, 0.5);
@@ -54,6 +55,14 @@ GameWindow::~GameWindow()
 		delete tileImages;
 		tileImages = 0;
 	}
+
+	if (tileClearingOffsets != 0)
+	{
+		//qDeleteAll(*tileClearingOffsets);
+		tileClearingOffsets->clear();
+		delete tileClearingOffsets;
+		tileClearingOffsets = 0;
+	}
 }
 
 void GameWindow::loadCharacterImages()
@@ -69,45 +78,426 @@ void GameWindow::loadCharacterImages()
 void GameWindow::loadTileImages()
 {
 	tileImages->insert("Awful Valley", new QPixmap(":/images/tiles/awfulvalley1.gif"));
+	QList<QPoint*> *awfulValleyClearings = new QList<QPoint*>();
+	awfulValleyClearings->append(new QPoint(130 - 248, 152 - 216));
+	awfulValleyClearings->append(new QPoint(130 - 248, 275 - 216));
+	awfulValleyClearings->append(new QPoint(0, 0));
+	awfulValleyClearings->append(new QPoint(306 - 248, 252 - 216));
+	awfulValleyClearings->append(new QPoint(244 - 248, 88 - 216));
+	awfulValleyClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Awful Valley", awfulValleyClearings);
+
 	tileImages->insert("Awful Valley Enchanted", new QPixmap(":/images/tiles/awfulvalley-e1.gif"));
+	QList<QPoint*> *awfulValleyEnchantedClearings = new QList<QPoint*>();
+	awfulValleyEnchantedClearings->append(new QPoint(140 - 248, 152 - 216));
+	awfulValleyEnchantedClearings->append(new QPoint(134 - 248, 276 - 216));
+	awfulValleyEnchantedClearings->append(new QPoint(0, 0));
+	awfulValleyEnchantedClearings->append(new QPoint(302 - 248, 242 - 216));
+	awfulValleyEnchantedClearings->append(new QPoint(246 - 248, 82 - 216));
+	awfulValleyEnchantedClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Awful Valley Enchanted", awfulValleyEnchantedClearings);
+
 	tileImages->insert("Bad Valley", new QPixmap(":/images/tiles/badvalley1.gif"));
+	QList<QPoint*> *badValleyClearings = new QList<QPoint*>();
+	badValleyClearings->append(new QPoint(366 - 248, 280 - 216));
+	badValleyClearings->append(new QPoint(137 - 248, 280 - 216));
+	badValleyClearings->append(new QPoint(0, 0));
+	badValleyClearings->append(new QPoint(182 - 248, 102 - 216));
+	badValleyClearings->append(new QPoint(362 - 248, 150 - 216));
+	badValleyClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Bad Valley", badValleyClearings);
+	
 	tileImages->insert("Bad Valley Echanted", new QPixmap(":/images/tiles/badvalley-e1.gif"));
+	QList<QPoint*> *badValleyEnchantedClearings = new QList<QPoint*>();
+	badValleyEnchantedClearings->append(new QPoint(306 - 248, 314 - 216));
+	badValleyEnchantedClearings->append(new QPoint(134 - 248, 284 - 216));
+	badValleyEnchantedClearings->append(new QPoint(0, 0));
+	badValleyEnchantedClearings->append(new QPoint(192 - 248, 118 - 216));
+	badValleyEnchantedClearings->append(new QPoint(360 - 248, 156 - 216));
+	badValleyEnchantedClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Bad Valley Echanted", badValleyEnchantedClearings);
+	
 	tileImages->insert("Border Land", new QPixmap(":/images/tiles/borderland1.gif"));
+	QList<QPoint*> *borderLandClearings = new QList<QPoint*>();
+	borderLandClearings->append(new QPoint(172 - 248, 78 - 216));
+	borderLandClearings->append(new QPoint(382 - 248, 200 - 216));
+	borderLandClearings->append(new QPoint(312 - 248, 90 - 216));
+	borderLandClearings->append(new QPoint(170 - 248, 362 - 216));
+	borderLandClearings->append(new QPoint(190 - 248, 268 - 216));
+	borderLandClearings->append(new QPoint(230 - 248, 180 - 216));
+	tileClearingOffsets->insert("Border Land", borderLandClearings);
+	
 	tileImages->insert("Border Land Echanted", new QPixmap(":/images/tiles/borderland-e1.gif"));
+	QList<QPoint*> *borderLandEnchantedClearings = new QList<QPoint*>();
+	borderLandEnchantedClearings->append(new QPoint(200 - 248, 70 - 216));
+	borderLandEnchantedClearings->append(new QPoint(416 - 248, 212 - 216));
+	borderLandEnchantedClearings->append(new QPoint(320 - 248, 198 - 216));
+	borderLandEnchantedClearings->append(new QPoint(236 - 248, 322 - 216));
+	borderLandEnchantedClearings->append(new QPoint(150 - 248, 262 - 216));
+	borderLandEnchantedClearings->append(new QPoint(204 - 248, 186 - 216));
+	tileClearingOffsets->insert("Border Land Echanted", borderLandEnchantedClearings);
+	
 	tileImages->insert("Cavern", new QPixmap(":/images/tiles/cavern1.gif"));
+	QList<QPoint*> *cavernClearings = new QList<QPoint*>();
+	cavernClearings->append(new QPoint(376 - 248, 144 - 216));
+	cavernClearings->append(new QPoint(248 - 248, 76 - 216));
+	cavernClearings->append(new QPoint(244 - 248, 180 - 216));
+	cavernClearings->append(new QPoint(254 - 248, 356 - 216));
+	cavernClearings->append(new QPoint(136 - 248, 150 - 216));
+	cavernClearings->append(new QPoint(298 - 248, 270 - 216));
+	tileClearingOffsets->insert("Cavern", cavernClearings);
+	
 	tileImages->insert("Cavern Echanted", new QPixmap(":/images/tiles/cavern-e1.gif"));
+	QList<QPoint*> *cavernEnchantedClearings = new QList<QPoint*>();
+	cavernEnchantedClearings->append(new QPoint(366 - 248, 148 - 216));
+	cavernEnchantedClearings->append(new QPoint(250 - 248, 86 - 216));
+	cavernEnchantedClearings->append(new QPoint(232 - 248, 206 - 216));
+	cavernEnchantedClearings->append(new QPoint(250 - 248, 352 - 216));
+	cavernEnchantedClearings->append(new QPoint(134 - 248, 150 - 216));
+	cavernEnchantedClearings->append(new QPoint(328 - 248, 276 - 216));
+	tileClearingOffsets->insert("Cavern Echanted", cavernEnchantedClearings);
+	
 	tileImages->insert("Caves", new QPixmap(":/images/tiles/caves1.gif"));
+	QList<QPoint*> *cavesClearings = new QList<QPoint*>();
+	cavesClearings->append(new QPoint(364 - 248, 286 - 216));
+	cavesClearings->append(new QPoint(134 - 248, 278 - 216));
+	cavesClearings->append(new QPoint(228 - 248, 216 - 216));
+	cavesClearings->append(new QPoint(276 - 248, 346 - 216));
+	cavesClearings->append(new QPoint(134 - 248, 152 - 216));
+	cavesClearings->append(new QPoint(314 - 248, 84 - 216));
+	tileClearingOffsets->insert("Caves", cavesClearings);
+	
 	tileImages->insert("Caves Echanted", new QPixmap(":/images/tiles/caves-e1.gif"));
+	QList<QPoint*> *cavesEchantedClearings = new QList<QPoint*>();
+	cavesEchantedClearings->append(new QPoint(358 - 248, 278 - 216));
+	cavesEchantedClearings->append(new QPoint(130 - 248, 276 - 216));
+	cavesEchantedClearings->append(new QPoint(262 - 248, 184 - 216));
+	cavesEchantedClearings->append(new QPoint(250 - 248, 334 - 216));
+	cavesEchantedClearings->append(new QPoint(130 - 248, 150 - 216));
+	cavesEchantedClearings->append(new QPoint(330 - 248, 76 - 216));
+	tileClearingOffsets->insert("Caves Echanted", cavesEchantedClearings);
+	
 	tileImages->insert("Cliff", new QPixmap(":/images/tiles/cliff1.gif"));
+	QList<QPoint*> *cliffClearings = new QList<QPoint*>();
+	cliffClearings->append(new QPoint(132 - 248, 152 - 216));
+	cliffClearings->append(new QPoint(138 - 248, 282 - 216));
+	cliffClearings->append(new QPoint(246 - 248, 216 - 216));
+	cliffClearings->append(new QPoint(362 - 248, 146 - 216));
+	cliffClearings->append(new QPoint(364 - 248, 284 - 216));
+	cliffClearings->append(new QPoint(248 - 248, 88 - 216));
+	tileClearingOffsets->insert("Cliff", cliffClearings);
+	
 	tileImages->insert("Cliff Echanted", new QPixmap(":/images/tiles/cliff-e1.gif"));
+	QList<QPoint*> *cliffEchantedClearings = new QList<QPoint*>();
+	cliffEchantedClearings->append(new QPoint(130 - 248, 146 - 216));
+	cliffEchantedClearings->append(new QPoint(132 - 248, 282 - 216));
+	cliffEchantedClearings->append(new QPoint(248 - 248, 216 - 216));
+	cliffEchantedClearings->append(new QPoint(362 - 248, 146 - 216));
+	cliffEchantedClearings->append(new QPoint(362 - 248, 284 - 216));
+	cliffEchantedClearings->append(new QPoint(248 - 248, 88 - 216));
+	tileClearingOffsets->insert("Cliff Echanted", cliffEchantedClearings);
+	
 	tileImages->insert("Crag", new QPixmap(":/images/tiles/crag1.gif"));
+	QList<QPoint*> *cragClearings = new QList<QPoint*>();
+	cragClearings->append(new QPoint(232 - 248, 362 - 216));
+	cragClearings->append(new QPoint(248 - 248, 82 - 216));
+	cragClearings->append(new QPoint(174 - 248, 172 - 216));
+	cragClearings->append(new QPoint(318 - 248, 286 - 216));
+	cragClearings->append(new QPoint(322 - 248, 174 - 216));
+	cragClearings->append(new QPoint(162 - 248, 278 - 216));
+	tileClearingOffsets->insert("Crag", cragClearings);
+	
 	tileImages->insert("Crag Echanted", new QPixmap(":/images/tiles/crag-e1.gif"));
+	QList<QPoint*> *cragEnchantedClearings = new QList<QPoint*>();
+	cragEnchantedClearings->append(new QPoint(206 - 248, 354 - 216));
+	cragEnchantedClearings->append(new QPoint(270 - 248, 88 - 216));
+	cragEnchantedClearings->append(new QPoint(176 - 248, 146 - 216));
+	cragEnchantedClearings->append(new QPoint(282 - 248, 280 - 216));
+	cragEnchantedClearings->append(new QPoint(314 - 248, 184 - 216));
+	cragEnchantedClearings->append(new QPoint(164 - 248, 268 - 216));
+	tileClearingOffsets->insert("Crag Echanted", cragEnchantedClearings);
+	
 	tileImages->insert("Curst Valley", new QPixmap(":/images/tiles/curstvalley1.gif"));
+	QList<QPoint*> *curstValleyClearings = new QList<QPoint*>();
+	curstValleyClearings->append(new QPoint(248 - 248, 82 - 216));
+	curstValleyClearings->append(new QPoint(134 - 248, 146 - 216));
+	curstValleyClearings->append(new QPoint(0, 0));
+	curstValleyClearings->append(new QPoint(246 - 248, 284 - 216));
+	curstValleyClearings->append(new QPoint(358 - 248, 150 - 216));
+	curstValleyClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Curst Valley", curstValleyClearings);
+	
 	tileImages->insert("Curst Valley Echanted", new QPixmap(":/images/tiles/curstvalley-e1.gif"));
+	QList<QPoint*> *curstValleyEchantedClearings = new QList<QPoint*>();
+	curstValleyEchantedClearings->append(new QPoint(248 - 248, 84 - 216));
+	curstValleyEchantedClearings->append(new QPoint(136 - 248, 148 - 216));
+	curstValleyEchantedClearings->append(new QPoint(0, 0));
+	curstValleyEchantedClearings->append(new QPoint(248 - 248, 280 - 216));
+	curstValleyEchantedClearings->append(new QPoint(360 - 248, 150 - 216));
+	curstValleyEchantedClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Curst Valley Echanted", curstValleyEchantedClearings);
+	
 	tileImages->insert("Dark Valley", new QPixmap(":/images/tiles/darkvalley1.gif"));
+	QList<QPoint*> *darkValleyClearings = new QList<QPoint*>();
+	darkValleyClearings->append(new QPoint(362 - 248, 150 - 216));
+	darkValleyClearings->append(new QPoint(252 - 248, 82 - 216));
+	darkValleyClearings->append(new QPoint(0, 0));
+	darkValleyClearings->append(new QPoint(186 - 248, 250 - 216));
+	darkValleyClearings->append(new QPoint(362 - 248, 278 - 216));
+	darkValleyClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Dark Valley", darkValleyClearings);
+	
 	tileImages->insert("Dark Valley Echanted", new QPixmap(":/images/tiles/darkvalley-e1.gif"));
+	QList<QPoint*> *darkValleyEchantedClearings = new QList<QPoint*>();
+	darkValleyEchantedClearings->append(new QPoint(358 - 248, 152 - 216));
+	darkValleyEchantedClearings->append(new QPoint(248 - 248, 86 - 216));
+	darkValleyEchantedClearings->append(new QPoint(0, 0));
+	darkValleyEchantedClearings->append(new QPoint(192 - 248, 242 - 216));
+	darkValleyEchantedClearings->append(new QPoint(362 - 248, 276 - 216));
+	darkValleyEchantedClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Dark Valley Echanted", darkValleyEchantedClearings);
+	
 	tileImages->insert("Deep Woods", new QPixmap(":/images/tiles/deepwoods1.gif"));
+	QList<QPoint*> *deepWoodsClearings = new QList<QPoint*>();
+	deepWoodsClearings->append(new QPoint(164 - 248, 108 - 216));
+	deepWoodsClearings->append(new QPoint(380 - 248, 218 - 216));
+	deepWoodsClearings->append(new QPoint(300 - 248, 346 - 216));
+	deepWoodsClearings->append(new QPoint(88 - 248, 220 - 216));
+	deepWoodsClearings->append(new QPoint(148 - 248, 322 - 216));
+	deepWoodsClearings->append(new QPoint(240 - 248, 240 - 216));
+	tileClearingOffsets->insert("Deep Woods", deepWoodsClearings);
+	
 	tileImages->insert("Deep Woods Echanted", new QPixmap(":/images/tiles/deepwoods-e1.gif"));
+	QList<QPoint*> *deepWoodsEchantedClearings = new QList<QPoint*>();
+	/*
+	deepWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	deepWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	deepWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	deepWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	deepWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	deepWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Deep Woods Echanted", deepWoodsEchantedClearings);
+	
 	tileImages->insert("Evil Valley", new QPixmap(":/images/tiles/evilvalley1.gif"));
+	QList<QPoint*> *evilValleyClearings = new QList<QPoint*>();
+	evilValleyClearings->append(new QPoint(132 - 248, 280 - 216));
+	evilValleyClearings->append(new QPoint(132 - 248, 150 - 216));
+	evilValleyClearings->append(new QPoint(0, 0));
+	evilValleyClearings->append(new QPoint(312 - 248, 100 - 216));
+	evilValleyClearings->append(new QPoint(362 - 248, 280 - 216));
+	evilValleyClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Evil Valley", evilValleyClearings);
+	
 	tileImages->insert("Evil Valley Echanted", new QPixmap(":/images/tiles/evilvalley-e1.gif"));
+	QList<QPoint*> *evilValleyEchantedClearings = new QList<QPoint*>();
+	/*
+	evilValleyEchantedClearings->append(new QPoint( - 248, - 216));
+	evilValleyEchantedClearings->append(new QPoint( - 248, - 216));
+	evilValleyEchantedClearings->append(new QPoint( - 248, - 216));
+	evilValleyEchantedClearings->append(new QPoint( - 248, - 216));
+	evilValleyEchantedClearings->append(new QPoint( - 248, - 216));
+	evilValleyEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Evil Valley Echanted", evilValleyEchantedClearings);
+	
 	tileImages->insert("High Pass", new QPixmap(":/images/tiles/highpass1.gif"));
+	QList<QPoint*> *highPassClearings = new QList<QPoint*>();
+	highPassClearings->append(new QPoint(340 - 248, 254 - 216));
+	highPassClearings->append(new QPoint(248 - 248, 86 - 216));
+	highPassClearings->append(new QPoint(358 - 248, 154 - 216));
+	highPassClearings->append(new QPoint(218 - 248, 232 - 216));
+	highPassClearings->append(new QPoint(250 - 248, 348 - 216));
+	highPassClearings->append(new QPoint(136 - 248, 150 - 216));
+	tileClearingOffsets->insert("High Pass", highPassClearings);
+	
 	tileImages->insert("High Pass Echanted", new QPixmap(":/images/tiles/highpass-e1.gif"));
+	QList<QPoint*> *highPassEchantedClearings = new QList<QPoint*>();
+	/*
+	highPassEchantedClearings->append(new QPoint( - 248, - 216));
+	highPassEchantedClearings->append(new QPoint( - 248, - 216));
+	highPassEchantedClearings->append(new QPoint( - 248, - 216));
+	highPassEchantedClearings->append(new QPoint( - 248, - 216));
+	highPassEchantedClearings->append(new QPoint( - 248, - 216));
+	highPassEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("High Pass Echanted", highPassEchantedClearings);
+	
 	tileImages->insert("Ledges", new QPixmap(":/images/tiles/ledges1.gif"));
+	QList<QPoint*> *ledgesClearings = new QList<QPoint*>();
+	ledgesClearings->append(new QPoint(272 - 248, 312 - 216));
+	ledgesClearings->append(new QPoint(364 - 248, 154 - 216));
+	ledgesClearings->append(new QPoint(376 - 248, 272 - 216));
+	ledgesClearings->append(new QPoint(248 - 248, 212 - 216));
+	ledgesClearings->append(new QPoint(154 - 248, 124 - 216));
+	ledgesClearings->append(new QPoint(172 - 248, 350 - 216));
+	tileClearingOffsets->insert("Ledges", ledgesClearings);
+	
 	tileImages->insert("Ledges Echanted", new QPixmap(":/images/tiles/ledges-e1.gif"));
+	QList<QPoint*> *ledgesEchantedClearings = new QList<QPoint*>();
+	/*
+	ledgesEchantedClearings->append(new QPoint( - 248, - 216));
+	ledgesEchantedClearings->append(new QPoint( - 248, - 216));
+	ledgesEchantedClearings->append(new QPoint( - 248, - 216));
+	ledgesEchantedClearings->append(new QPoint( - 248, - 216));
+	ledgesEchantedClearings->append(new QPoint( - 248, - 216));
+	ledgesEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Ledges Echanted", ledgesEchantedClearings);
+	
 	tileImages->insert("Linden Woods", new QPixmap(":/images/tiles/lindenwoods1.gif"));
+	QList<QPoint*> *lindenWoodsClearings = new QList<QPoint*>();
+	lindenWoodsClearings->append(new QPoint(0, 0));
+	lindenWoodsClearings->append(new QPoint(250 - 248, 276 - 216));
+	lindenWoodsClearings->append(new QPoint(0, 0));
+	lindenWoodsClearings->append(new QPoint(134 - 248, 150 - 216));
+	lindenWoodsClearings->append(new QPoint(300 - 248, 124 - 216));
+	lindenWoodsClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Linden Woods", lindenWoodsClearings);
+	
 	tileImages->insert("Linden Woods Echanted", new QPixmap(":/images/tiles/lindenwoods-e1.gif"));
+	QList<QPoint*> *lindenWoodsEchantedClearings = new QList<QPoint*>();
+	/*
+	lindenWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	lindenWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	lindenWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	lindenWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	lindenWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	lindenWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Linden Woods Echanted", lindenWoodsEchantedClearings);
+	
 	tileImages->insert("Maple Woods", new QPixmap(":/images/tiles/maplewoods1.gif"));
+	QList<QPoint*> *mapleWoodsClearings = new QList<QPoint*>();
+	mapleWoodsClearings->append(new QPoint(0, 0));
+	mapleWoodsClearings->append(new QPoint(316 - 248, 116 - 216));
+	mapleWoodsClearings->append(new QPoint(0, 0));
+	mapleWoodsClearings->append(new QPoint(370 - 248, 272 - 216));
+	mapleWoodsClearings->append(new QPoint(144 - 248, 214 - 216));
+	mapleWoodsClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Maple Woods", mapleWoodsClearings);
+	
 	tileImages->insert("Maple Woods Echanted", new QPixmap(":/images/tiles/maplewoods-e1.gif"));
+	QList<QPoint*> *mapleWoodsEchantedClearings = new QList<QPoint*>();
+	/*
+	mapleWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	mapleWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	mapleWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	mapleWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	mapleWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	mapleWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Maple Woods Echanted", mapleWoodsEchantedClearings);
+	
 	tileImages->insert("Mountain", new QPixmap(":/images/tiles/mountain1.gif"));
+	QList<QPoint*> *mountainClearings = new QList<QPoint*>();
+	mountainClearings->append(new QPoint(170 - 248, 170 - 216));
+	mountainClearings->append(new QPoint(120 - 248, 290 - 216));
+	mountainClearings->append(new QPoint(240 - 248, 286 - 216));
+	mountainClearings->append(new QPoint(248 - 248, 68 - 216));
+	mountainClearings->append(new QPoint(374 - 248, 290 - 216));
+	mountainClearings->append(new QPoint(344 - 248, 164 - 216));
+	tileClearingOffsets->insert("Mountain", mountainClearings);
+	
 	tileImages->insert("Mountain Echanted", new QPixmap(":/images/tiles/mountain-e1.gif"));
+	QList<QPoint*> *mountainEchantedClearings = new QList<QPoint*>();
+	/*
+	mountainEchantedClearings->append(new QPoint( - 248, - 216));
+	mountainEchantedClearings->append(new QPoint( - 248, - 216));
+	mountainEchantedClearings->append(new QPoint( - 248, - 216));
+	mountainEchantedClearings->append(new QPoint( - 248, - 216));
+	mountainEchantedClearings->append(new QPoint( - 248, - 216));
+	mountainEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Mountain Echanted", mountainEchantedClearings);
+	
 	tileImages->insert("Nut Woods", new QPixmap(":/images/tiles/nutwoods1.gif"));
+	QList<QPoint*> *nutWoodsClearings = new QList<QPoint*>();
+	nutWoodsClearings->append(new QPoint(0, 0));
+	nutWoodsClearings->append(new QPoint(188 - 248, 106 - 216));
+	nutWoodsClearings->append(new QPoint(0, 0));
+	nutWoodsClearings->append(new QPoint(352 - 248, 136 - 216));
+	nutWoodsClearings->append(new QPoint(244 - 248, 280 - 216));
+	nutWoodsClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Nut Woods", nutWoodsClearings);
+	
 	tileImages->insert("Nut Woods Echanted", new QPixmap(":/images/tiles/nutwoods-e1.gif"));
+	QList<QPoint*> *nutWoodsEchantedClearings = new QList<QPoint*>();
+	/*
+	nutWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	nutWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	nutWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	nutWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	nutWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	nutWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Nut Woods Echanted", nutWoodsEchantedClearings);
+	
 	tileImages->insert("Oak Woods", new QPixmap(":/images/tiles/oakwoods1.gif"));
+	QList<QPoint*> *oakWoodsClearings = new QList<QPoint*>();
+	oakWoodsClearings->append(new QPoint(0, 0));
+	oakWoodsClearings->append(new QPoint(360 - 248, 206 - 216));
+	oakWoodsClearings->append(new QPoint(0, 0));
+	oakWoodsClearings->append(new QPoint(136 - 248, 282 - 216));
+	oakWoodsClearings->append(new QPoint(190 - 248, 116 - 216));
+	oakWoodsClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Oak Woods", oakWoodsClearings);
+	
 	tileImages->insert("Oak Woods Echanted", new QPixmap(":/images/tiles/oakwoods-e1.gif"));
+	QList<QPoint*> *oakWoodsEchantedClearings = new QList<QPoint*>();
+	/*
+	oakWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	oakWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	oakWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	oakWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	oakWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	oakWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Oak Woods Echanted", oakWoodsEchantedClearings);
+	
 	tileImages->insert("Pine Woods", new QPixmap(":/images/tiles/pinewoods1.gif"));
+	QList<QPoint*> *pineWoodsClearings = new QList<QPoint*>();
+	pineWoodsClearings->append(new QPoint(0, 0));
+	pineWoodsClearings->append(new QPoint(120 - 248, 192 - 216));
+	pineWoodsClearings->append(new QPoint(0, 0));
+	pineWoodsClearings->append(new QPoint(234 - 248, 82 - 216));
+	pineWoodsClearings->append(new QPoint(360 - 248, 214 - 216));
+	pineWoodsClearings->append(new QPoint(0, 0));
+	tileClearingOffsets->insert("Pine Woods", pineWoodsClearings);
+	
 	tileImages->insert("Pine Woods Echanted", new QPixmap(":/images/tiles/pinewoods-e1.gif"));
+	QList<QPoint*> *pineWoodsEchantedClearings = new QList<QPoint*>();
+	/*
+	pineWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	pineWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	pineWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	pineWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	pineWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	pineWoodsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Pine Woods Echanted", pineWoodsEchantedClearings);
+	
 	tileImages->insert("Ruins", new QPixmap(":/images/tiles/ruins1.gif"));
+	QList<QPoint*> *ruinsClearings = new QList<QPoint*>();
+	ruinsClearings->append(new QPoint(162 - 248, 148 - 216));
+	ruinsClearings->append(new QPoint(324 - 248, 88 - 216));
+	ruinsClearings->append(new QPoint(368 - 248, 284 - 216));
+	ruinsClearings->append(new QPoint(234 - 248, 258 - 216));
+	ruinsClearings->append(new QPoint(146 - 248, 328 - 216));
+	ruinsClearings->append(new QPoint(328 - 248, 184 - 216));
+	tileClearingOffsets->insert("Ruins", ruinsClearings);
+	
 	tileImages->insert("Ruins Echanted", new QPixmap(":/images/tiles/ruins-e1.gif"));
+	QList<QPoint*> *ruinsEchantedClearings = new QList<QPoint*>();
+	/*
+	ruinsEchantedClearings->append(new QPoint( - 248, - 216));
+	ruinsEchantedClearings->append(new QPoint( - 248, - 216));
+	ruinsEchantedClearings->append(new QPoint( - 248, - 216));
+	ruinsEchantedClearings->append(new QPoint( - 248, - 216));
+	ruinsEchantedClearings->append(new QPoint( - 248, - 216));
+	ruinsEchantedClearings->append(new QPoint( - 248, - 216));
+	*/
+	tileClearingOffsets->insert("Ruins Echanted", ruinsEchantedClearings);
 }
 
 errno_t GameWindow::initializeConnection(QString &hostIP)
@@ -216,6 +606,7 @@ errno_t GameWindow::initializeGame()
 		characterGraphicsItems->insert((CharacterType)i, item);
 		item->setZValue(0.2);
 		item->setVisible(false);
+		item->setScale(0.5);
 		Character* character = game->getPlayer((CharacterType)i);
 		if (character != 0)
 		{
@@ -573,6 +964,16 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 	ui.gameTileInformationBrowser->verticalScrollBar()->setValue(0);
 }
 
+int GameWindow::getXRelationalOffsetWithRotation(int x, int y, int rotation)
+{
+	return (int)(x * cos(qDegreesToRadians((double)rotation)) - y * sin(qDegreesToRadians((double)rotation))); // for now
+}
+
+int GameWindow::getYRelationalOffsetWithRotation(int x, int y, int rotation)
+{
+	return (int)(x * sin(qDegreesToRadians((double)rotation)) + y * cos(qDegreesToRadians((double)rotation))); // for now
+}
+
 void GameWindow::updateCharacterLocation(Character* character)
 {
 	Clearing* currClearing = character->getCurrentLocation();
@@ -583,8 +984,16 @@ void GameWindow::updateCharacterLocation(Character* character)
 		{
 			QGraphicsPixmapItem* charItem = ((*characterGraphicsItems)[character->getType()]);
 			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[currTile]);
-			charItem->setX((*tileLocations)[currTile].x() + (tileItem->width() / 2) - (charItem->pixmap().width() / 2));
-			charItem->setY((*tileLocations)[currTile].y() + (tileItem->height() / 2) - (charItem->pixmap().height() / 2));
+			QPoint *clearingOffset = (*(*tileClearingOffsets)[currTile->getName()])[currClearing->getClearingNum() - 1];
+			int offsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)currTile->getOrientation()));
+			int offsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)currTile->getOrientation()));
+
+			charItem->setX((*tileLocations)[currTile].x() + (tileItem->width() / 2) - (charItem->pixmap().width() / 2)
+				+ offsetX);
+			charItem->setY((*tileLocations)[currTile].y() + (tileItem->height() / 2) - (charItem->pixmap().height() / 2)
+				+ offsetY);
 			charItem->setVisible(true);
 		}
 	}

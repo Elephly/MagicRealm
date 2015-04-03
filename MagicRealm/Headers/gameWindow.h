@@ -32,6 +32,9 @@ public:
 	errno_t drawTiles();
 	errno_t cleanup();
 
+	int getXRelationalOffsetWithRotation(int x, int y, int rotation);
+	int getYRelationalOffsetWithRotation(int x, int y, int rotation);
+
 	void changeScreenState(QWidget* screen);
 	void enableActions();
 	void disableActions();
@@ -68,6 +71,7 @@ private:
 	QMap<CharacterType, QPixmap*>* characterImages;
 	QMap<CharacterType, QGraphicsPixmapItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
+	QMap<std::string, QList<QPoint*>*>* tileClearingOffsets;
 	QMap<Tile*, TileGraphicsItem*>* tileGraphicsItems;
 	QMap<Tile*, QPointF>* tileLocations;
 	Ui::MainWindowClass ui;

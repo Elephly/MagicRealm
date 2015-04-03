@@ -70,6 +70,7 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_menuPlayButton_clicked()
 {
+	/*
 	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
 	if (!hostIP.isEmpty())
 	{
@@ -78,6 +79,13 @@ void MainWindow::on_menuPlayButton_clicked()
 			QMessageBox::about(ui.centralWidget, "Error", "Failed to connect to host.");
 			return;
 		}
+	}
+	*/
+	// FOR TESTING!!!
+	if (gameWindow->initializeConnection(QString("localhost")))
+	{
+		QMessageBox::about(ui.centralWidget, "Error", "Failed to connect to host.");
+		return;
 	}
 }
 
