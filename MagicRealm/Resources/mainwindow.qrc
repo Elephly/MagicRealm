@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/counters/characters/plan_counter.png</file>
     <file>images/dwellings/chapel.png</file>
     <file>images/dwellings/guard.png</file>
     <file>images/dwellings/house.png</file>
