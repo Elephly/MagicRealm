@@ -732,7 +732,41 @@ void Game::spawnMonsters()
     }
 }
 
+void Game::moveMonsters()
+{
+	for(int i=0; i<MAXPLAYERS; i++){
+		if(players[i] == NULL)
+			continue;
+		for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter!=activeMonsters->end(); ++iter){
+			if(players[i]->getCurrentLocation()->getTile() == (*iter)->getLocation()->getTile())
+				(*iter)->move(players[i]->getCurrentLocation());
+		}
+	}
+
+}
+
 vector<Monster*>* Game::getActiveMonsters()
 {
     return activeMonsters;
+}
+
+void Game::checkBlocks(Character* currentPlayer)
+{
+    Clearing* currentClearing = currentPlayer->getCurrentLocation();
+    //checking to see if any monsters are in the current position to block those monsters and the player.
+
+    for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
+        if((*iter)->getLocation() == currentClearing){
+            (*iter)->setBlock(true);
+            if(!currentPlayer->isBlocked())
+            currentPlayer->setBlock(true);
+            return;
+        }
+    }
+
+    //NOTE HANDLE OTHER PLAYER BLOCKING HERE????
+
+    //did not find a monster anymore, if they are blocked unblock.
+    if(currentPlayer->isBlocked())
+        currentPlayer->setBlock(false);
 }

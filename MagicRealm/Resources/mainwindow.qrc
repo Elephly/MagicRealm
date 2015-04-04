@@ -1,5 +1,33 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/dwellings/chapel.png</file>
+    <file>images/dwellings/guard.png</file>
+    <file>images/dwellings/house.png</file>
+    <file>images/dwellings/hut.png</file>
+    <file>images/dwellings/inn.png</file>
+    <file>images/dwellings/large_fire.png</file>
+    <file>images/dwellings/small_fire.png</file>
+    <file>images/dwellings_c/chapel.png</file>
+    <file>images/dwellings_c/guard.png</file>
+    <file>images/dwellings_c/house.png</file>
+    <file>images/dwellings_c/hut.png</file>
+    <file>images/dwellings_c/inn.png</file>
+    <file>images/dwellings_c/large_fire.png</file>
+    <file>images/dwellings_c/small_fire.png</file>
+    <file>images/counters/dwellings_c/chapel.png</file>
+    <file>images/counters/dwellings_c/guard.png</file>
+    <file>images/counters/dwellings_c/house.png</file>
+    <file>images/counters/dwellings_c/hut.png</file>
+    <file>images/counters/dwellings_c/inn.png</file>
+    <file>images/counters/dwellings_c/large_fire.png</file>
+    <file>images/counters/dwellings_c/small_fire.png</file>
+    <file>images/counters/dwellings/chapel.png</file>
+    <file>images/counters/dwellings/guard.png</file>
+    <file>images/counters/dwellings/house.png</file>
+    <file>images/counters/dwellings/hut.png</file>
+    <file>images/counters/dwellings/inn.png</file>
+    <file>images/counters/dwellings/large_fire.png</file>
+    <file>images/counters/dwellings/small_fire.png</file>
     <file>images/counters/characters/amazon.png</file>
     <file>images/counters/characters/berserker.png</file>
     <file>images/counters/characters/black_knight.png</file>
@@ -142,20 +170,6 @@
     <file>images/custom/badges/two.gif</file>
     <file>images/custom/characters/question.gif</file>
     <file>images/custom/weapons/question.gif</file>
-    <file>images/dwellings_c/chapel.gif</file>
-    <file>images/dwellings_c/guard.gif</file>
-    <file>images/dwellings_c/house.gif</file>
-    <file>images/dwellings_c/hut.gif</file>
-    <file>images/dwellings_c/inn.gif</file>
-    <file>images/dwellings_c/large_fire.gif</file>
-    <file>images/dwellings_c/small_fire.gif</file>
-    <file>images/dwellings/chapel.gif</file>
-    <file>images/dwellings/guard.gif</file>
-    <file>images/dwellings/house.gif</file>
-    <file>images/dwellings/hut.gif</file>
-    <file>images/dwellings/inn.gif</file>
-    <file>images/dwellings/large_fire.gif</file>
-    <file>images/dwellings/small_fire.gif</file>
     <file>images/etiles/ambush1.gif</file>
     <file>images/etiles/ambush-e1.gif</file>
     <file>images/etiles/chasm1.gif</file>

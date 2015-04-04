@@ -64,9 +64,13 @@ public:
 
 	bool hasDiscovered(Chit* checkDiscovery);
 
+    bool isBlocked();
+    void setBlock(bool newBlock);
+
 private:
 	CharacterType myType;
     bool hidden;
+    bool blocked;
 	int gold;
 	Clearing *location;
 	CharAdvantages advantages[2];

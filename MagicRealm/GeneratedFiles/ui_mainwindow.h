@@ -47,7 +47,7 @@ public:
     QHBoxLayout *gameWidgetLayout;
     QVBoxLayout *gameViewLayout;
     QGraphicsView *graphicsView;
-    QGroupBox *actionsGroupBox;
+    QGroupBox *gameActionsGroupBox;
     QHBoxLayout *actionsLayout;
     QPushButton *gameMoveActionButton;
     QPushButton *gameSearchActionButton;
@@ -165,20 +165,22 @@ public:
         gameViewLayout->setObjectName(QStringLiteral("gameViewLayout"));
         graphicsView = new QGraphicsView(gameWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
         gameViewLayout->addWidget(graphicsView);
 
-        actionsGroupBox = new QGroupBox(gameWidget);
-        actionsGroupBox->setObjectName(QStringLiteral("actionsGroupBox"));
+        gameActionsGroupBox = new QGroupBox(gameWidget);
+        gameActionsGroupBox->setObjectName(QStringLiteral("gameActionsGroupBox"));
         QFont font2;
         font2.setFamily(QStringLiteral("MS Serif"));
-        actionsGroupBox->setFont(font2);
-        actionsLayout = new QHBoxLayout(actionsGroupBox);
+        gameActionsGroupBox->setFont(font2);
+        actionsLayout = new QHBoxLayout(gameActionsGroupBox);
         actionsLayout->setSpacing(1);
         actionsLayout->setContentsMargins(11, 11, 11, 11);
         actionsLayout->setObjectName(QStringLiteral("actionsLayout"));
         actionsLayout->setContentsMargins(0, 0, 0, 0);
-        gameMoveActionButton = new QPushButton(actionsGroupBox);
+        gameMoveActionButton = new QPushButton(gameActionsGroupBox);
         gameMoveActionButton->setObjectName(QStringLiteral("gameMoveActionButton"));
         gameMoveActionButton->setFont(font2);
         gameMoveActionButton->setAutoFillBackground(true);
@@ -193,7 +195,7 @@ public:
 
         actionsLayout->addWidget(gameMoveActionButton);
 
-        gameSearchActionButton = new QPushButton(actionsGroupBox);
+        gameSearchActionButton = new QPushButton(gameActionsGroupBox);
         gameSearchActionButton->setObjectName(QStringLiteral("gameSearchActionButton"));
         QIcon icon1;
         icon1.addFile(QStringLiteral(":/images/actions/search.gif"), QSize(), QIcon::Normal, QIcon::Off);
@@ -202,7 +204,7 @@ public:
 
         actionsLayout->addWidget(gameSearchActionButton);
 
-        gameTradeActionButton = new QPushButton(actionsGroupBox);
+        gameTradeActionButton = new QPushButton(gameActionsGroupBox);
         gameTradeActionButton->setObjectName(QStringLiteral("gameTradeActionButton"));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/images/actions/trade.gif"), QSize(), QIcon::Normal, QIcon::Off);
@@ -211,7 +213,7 @@ public:
 
         actionsLayout->addWidget(gameTradeActionButton);
 
-        gameHideActionButton = new QPushButton(actionsGroupBox);
+        gameHideActionButton = new QPushButton(gameActionsGroupBox);
         gameHideActionButton->setObjectName(QStringLiteral("gameHideActionButton"));
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/images/actions/hide.gif"), QSize(), QIcon::Normal, QIcon::Off);
@@ -220,7 +222,7 @@ public:
 
         actionsLayout->addWidget(gameHideActionButton);
 
-        gameSubmitTurnButton = new QPushButton(actionsGroupBox);
+        gameSubmitTurnButton = new QPushButton(gameActionsGroupBox);
         gameSubmitTurnButton->setObjectName(QStringLiteral("gameSubmitTurnButton"));
         QFont font3;
         font3.setFamily(QStringLiteral("MS Serif"));
@@ -231,7 +233,7 @@ public:
 
         actionsLayout->addWidget(gameSubmitTurnButton);
 
-        gameQuitButton = new QPushButton(actionsGroupBox);
+        gameQuitButton = new QPushButton(gameActionsGroupBox);
         gameQuitButton->setObjectName(QStringLiteral("gameQuitButton"));
         gameQuitButton->setFont(font3);
 
@@ -244,7 +246,7 @@ public:
         gameSearchActionButton->raise();
         gameTradeActionButton->raise();
 
-        gameViewLayout->addWidget(actionsGroupBox);
+        gameViewLayout->addWidget(gameActionsGroupBox);
 
         gameViewLayout->setStretch(0, 6);
         gameViewLayout->setStretch(1, 1);
@@ -348,7 +350,7 @@ public:
         gameWidgetLayout->addLayout(gameInfoPhaseLayout);
 
         gameWidgetLayout->setStretch(0, 8);
-        gameWidgetLayout->setStretch(1, 5);
+        gameWidgetLayout->setStretch(1, 4);
         loadingWidget = new QWidget(centralWidget);
         loadingWidget->setObjectName(QStringLiteral("loadingWidget"));
         loadingWidget->setGeometry(QRect(0, 0, 800, 409));
@@ -557,7 +559,7 @@ public:
 #endif // QT_NO_ACCESSIBILITY
         menuPlayButton->setText(QApplication::translate("MainWindowClass", "Play", 0));
         menuQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
-        actionsGroupBox->setTitle(QApplication::translate("MainWindowClass", "Actions", 0));
+        gameActionsGroupBox->setTitle(QApplication::translate("MainWindowClass", "Actions", 0));
 #ifndef QT_NO_TOOLTIP
         gameMoveActionButton->setToolTip(QApplication::translate("MainWindowClass", "Move", 0));
 #endif // QT_NO_TOOLTIP

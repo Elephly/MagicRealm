@@ -21,7 +21,7 @@ public:
 	Clearing* getLocation();
 
     bool isBlocked();
-    void toggleBlock();
+    void setBlock(bool newBlock);
 
 private:
 	static int currID;

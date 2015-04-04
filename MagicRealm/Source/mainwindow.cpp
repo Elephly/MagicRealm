@@ -13,7 +13,7 @@ QString MainWindow::characterDetailPaths[] = { ":/images/characterdetail/amazon.
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
-	//this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
+	this->setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint);
 	ui.setupUi(this);
 	ui.statusBar->setSizeGripEnabled(false);
 
@@ -70,6 +70,20 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_menuPlayButton_clicked()
 {
+	/*
+	 * I'd like to briefly boast about my commenting expertise.
+	 * What follows this block comment is another strategically placed, ease of use
+	 * comment designed for "one-click simplicity", if you will...
+	 * Below, you will see two blocks of code which I wish to frequently alternate
+	 * in terms of comment state. I've designed the comments such that all that's
+	 * necessary the comment out the first block and uncomment the second block
+	 * (like a toggle) is to remove the very first forward slash at the beginning
+	 * of the comment. Likewise, put that forward slash back if you wish to flip it
+	 * back.
+	 * It's simply magnificent isn't it? Truly innovative. This alone should give me
+	 * 100% on my portion of the assignment. And with that, I leave you. Enjoy.
+	 */
+	/*
 	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
 	if (!hostIP.isEmpty())
 	{
@@ -79,6 +93,15 @@ void MainWindow::on_menuPlayButton_clicked()
 			return;
 		}
 	}
+	/*/
+	// FOR TESTING!!!
+	if (gameWindow->initializeConnection(QString("localhost")))
+	{
+		QMessageBox::about(ui.centralWidget, "Error", "Failed to connect to host.");
+		return;
+	}
+	/*
+	*/
 }
 
 void MainWindow::on_menuQuitButton_clicked()

@@ -134,14 +134,21 @@
       <height>409</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="gameWidgetLayout" stretch="8,5">
+    <layout class="QHBoxLayout" name="gameWidgetLayout" stretch="8,4">
      <item>
       <layout class="QVBoxLayout" name="gameViewLayout" stretch="6,1">
        <item>
-        <widget class="QGraphicsView" name="graphicsView"/>
+        <widget class="QGraphicsView" name="graphicsView">
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="actionsGroupBox">
+        <widget class="QGroupBox" name="gameActionsGroupBox">
          <property name="font">
           <font>
            <family>MS Serif</family>
