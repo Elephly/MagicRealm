@@ -51,7 +51,7 @@ GameWindow::~GameWindow()
 
 	if (dwellingGraphicsItems != 0)
 	{
-		//qDeleteAll(*dwellingGraphicsItems);
+		qDeleteAll(*dwellingGraphicsItems);
 		dwellingGraphicsItems->clear();
 		delete dwellingGraphicsItems;
 		dwellingGraphicsItems = 0;
@@ -67,7 +67,7 @@ GameWindow::~GameWindow()
 
 	if (characterGraphicsItems != 0)
 	{
-		//qDeleteAll(*characterGraphicsItems);
+		qDeleteAll(*characterGraphicsItems);
 		characterGraphicsItems->clear();
 		delete characterGraphicsItems;
 		characterGraphicsItems = 0;
@@ -83,7 +83,6 @@ GameWindow::~GameWindow()
 
 	if (tileGraphicsItems != 0)
 	{
-		//qDeleteAll(*tileGraphicsItems);
 		tileGraphicsItems->clear();
 		delete tileGraphicsItems;
 		tileGraphicsItems = 0;
@@ -99,6 +98,14 @@ GameWindow::~GameWindow()
 
 	if (tileClearingOffsets != 0)
 	{
+		for (QMap<string, QList<QPoint*>*>::iterator it = tileClearingOffsets->begin(); it != tileClearingOffsets->end(); ++it)
+		{
+			if (*it != 0)
+			{
+				qDeleteAll(*(*it));
+				(*it)->clear();
+			}
+		}
 		qDeleteAll(*tileClearingOffsets);
 		tileClearingOffsets->clear();
 		delete tileClearingOffsets;
@@ -594,7 +601,6 @@ errno_t GameWindow::initializeConnection(QString &hostIP)
 
 void GameWindow::connectedToServer(time_t time)
 {
-	
 	game = new Game(time);
 
 	game->setupGame(false);

@@ -437,12 +437,43 @@ Board* Game::getBoard()
 void Game::testGame()
 {
     cout << "Game Run Tests..." << endl;
+    cout << "WARN: This should not be run with a normal GAME, unexpected behaviour" << endl;
 	Monster m1("Heavy Dragon", 'H', 4, 0, 4, 5, 5); 
-	Monster m2("Giant Bat", 'M', 2 , 0, 3, 3, 3); 
+	Monster m2("Giant Bat", 'M', 2 , 0, 3, 3, 3);
 	Monster m3("IMP", 'A', 2, 0, 2, 2, 1); 
 	cout << "Heavy Dragon id: " << m1.getID() << endl;
 	cout << "Giant Bat id: " << m2.getID() << endl;
 	cout << "IMP id: " << m3.getID() << endl;
+
+    cout << "Testing Monster Spawning!!!!" << endl;
+    cout << "Adding a Player" <<endl;
+
+    Character* newPlayer = new Character(Amazon);
+    addPlayer(newPlayer);
+
+    vector<Tile*>* tiles = gameBoard->getTiles();
+    for(vector<Tile*>::iterator iter = tiles->begin(); iter!= tiles->end(); ++iter)
+    {
+        if((*iter)->getWarningChit() == gameBoard->getChitByName("SMOKE C"))
+        {
+            newPlayer->moveToClearing((*iter)->getClearing(5));
+            spawnMonsters(1);
+            int oldSize = activeMonsters->size();
+            if(oldSize > 0)
+                cout << "Monsters Spawned" <<endl;
+            else
+                cout << "Monster Failed to Spawn" << endl;
+            spawnMonsters(1);
+            if( activeMonsters->size() > oldSize)
+                cout << "Second Monster Spawned" << endl;
+            else
+                cout << "Second Monster failed to spawn" << endl;
+        }
+    }
+    checkBlocks(newPlayer);
+    moveRequest(newPlayer, newPlayer->getCurrentLocation());
+    delete newPlayer;
+    players[0] = NULL;
 	/* NOTE: For demonstrating looting onlys	
 	Chit* myChit = NULL;
 	string name;
@@ -640,7 +671,10 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
         return false;
     }
 
-    //TODO Check if Player Can move!!!!
+    if(player->isBlocked()){
+        cout << "Player is blocked" <<endl;
+        return false;
+    }
     
     //going through possible cases of different types of move
     if(playerLoc == requestedClearing){
@@ -706,12 +740,8 @@ Dwelling* Game::getDwelling(DwellingType dwellingType)
 	return gameBoard->getDwelling(dwellingType);
 }
 
-void Game::spawnMonsters()
+void Game::spawnMonsters(int diceUsed)
 {
-    cout << "Rolling Monster Dice" << endl;
-    int d1 = rollDice();
-    int d2 = rollDice();
-    int diceUsed = (d1>d2) ? d1 : d2;
     MonsterSpawner* lookupTable = gameBoard->getSpawner();
     vector<Monster*>* spawnedMonsters;
     //looping over players to check if any monsters spawned around them.
@@ -754,7 +784,8 @@ void Game::checkBlocks(Character* currentPlayer)
 {
     Clearing* currentClearing = currentPlayer->getCurrentLocation();
     //checking to see if any monsters are in the current position to block those monsters and the player.
-
+    if(currentPlayer->isHidden())
+        return;
     for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
         if((*iter)->getLocation() == currentClearing){
             (*iter)->setBlock(true);

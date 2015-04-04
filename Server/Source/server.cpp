@@ -29,7 +29,8 @@ void Server::run() {
 	incoming->listen(QHostAddress::Any, (quint16) myPort);
 	std::cout << "listening for connections" << std::endl;
     game.setupGame(cheatMode);
-    game.testGame();
+    //ONLY BE ACTIVATED TO RUN SPECIFIC TESTS DOES NOT CLEAN UP AFTER ITSELF
+    //game.testGame();
 }
 
 void Server::handleIncomingUsers()  {
