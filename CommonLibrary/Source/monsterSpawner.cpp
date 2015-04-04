@@ -26,203 +26,381 @@ void MonsterSpawner::Element::addMonster(Monster* newMonster)
 
 MonsterSpawner::MonsterSpawner()
 {
+    masterList = new vector<Monster*>;
 	flutterSmokeM1 = new vector<Element*>;
 	Element* mList = new Element();
-    m = new Monster("Heavy Flying Dragon", 'H', 4, 0, 4, 5, 5);
+    Monster* m = new Monster("Heavy Flying Dragon", 'H', 4, 0, 4, 5, 5);
 	mList->addMonster(m);
-	mList->addMonster(new Monster("Heavy Flying Dragon", 'H', 4, 0, 4, 5, 5));
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Heavy Flying Dragon", 'H', 4, 0, 4, 5, 5);
+    mList->addMonster(m);
+    masterList->push_back(m);
 	flutterSmokeM1->push_back(mList);
     mList = NULL;
+    m = NULL;
 
 	smokeCSlitherRoarC1 = new vector<Element*>;
 	mList = new Element();
 	//first entry
-	mList->addMonster(new Monster("Heavy Dragon", 'H', 4, 0, 4, 5, 5));
+    m = new Monster("Heavy Dragon", 'H', 4, 0, 4, 5, 5);
+	mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	smokeCSlitherRoarC1->push_back(mList);
     mList = NULL;
+
 	//second entry
 	mList = new Element();
-	mList->addMonster(new Monster("Tremendous Dragon", 'H', 5, 0, 6, 10, 10));
+	m = new Monster("Tremendous Dragon", 'H', 5, 0, 6, 10, 10);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	smokeCSlitherRoarC1->push_back(mList);
     mList = NULL;
 
 	hoard1 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster ("Tremendous Flying Dragon", 'M', 3, 0, 4, 12, 12));
+	m = new Monster ("Tremendous Flying Dragon", 'M', 3, 0, 4, 12, 12);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	hoard1->push_back(mList);
     mList = NULL;
 
 	lair1 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster ("Tremendous Dragon", 'H', 5, 0, 6, 10, 10));
+	m = new Monster ("Tremendous Dragon", 'H', 5, 0, 6, 10, 10);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	lair1->push_back(mList);
     mList = NULL;
 
 	dankW2 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Viper", 'M', 4, 2, 4, 1, 2));
-	mList->addMonster(new Monster("Viper", 'M', 4, 2, 4, 1, 2));
+	m = new Monster("Viper", 'M', 4, 2, 4, 1, 2);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Viper", 'M', 4, 2, 4, 1, 2);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	dankW2->push_back(mList);
     mList = NULL;
 
 	dankCSlither2 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Heavy Serpent", 'M', 4, 0, 3, 4, 4));
-	mList->addMonster(new Monster("Heavy Serpent", 'M', 4, 0, 3, 4, 4));
+	m = new Monster("Heavy Serpent", 'M', 4, 0, 3, 4, 4);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Heavy Serpent", 'M', 4, 0, 3, 4, 4);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	dankCSlither2->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Tremendous Serpent", 'L', 4, 0, 4, 7, 7));
+	m = new Monster("Tremendous Serpent", 'L', 4, 0, 4, 7, 7);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	dankCSlither2->push_back(mList);
     mList = NULL;
 
 	altar2 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Demon", 'V', 2, 0, 4, 8, 8));
+	m = new Monster("Demon", 'V', 2, 0, 4, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	altar2->push_back(mList);
     mList = NULL;
 
 	shrine2 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Winged Demon", 'V', 3, 0, 3, 8, 8));
+	m = new Monster("Winged Demon", 'V', 3, 0, 3, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	shrine2->push_back(mList);
     mList = NULL;
 
 	ruinsW3 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Wolf", 'L', 4, 0, 3, 0, 1));
-	mList->addMonster(new Monster("Wolf", 'L', 4, 0, 3, 0, 1));
-	mList->addMonster(new Monster("Wolf", 'L', 4, 0, 3, 0, 1));
-	mList->addMonster(new Monster("Wolf", 'M', 5, 0, 3, 0, 1));
-	mList->addMonster(new Monster("Wolf", 'M', 5, 0, 3, 0, 1));
-	mList->addMonster(new Monster("Wolf", 'M', 5, 0, 3, 0, 1));
+	m = new Monster("Wolf", 'L', 4, 0, 3, 0, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Wolf", 'L', 4, 0, 3, 0, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Wolf", 'L', 4, 0, 3, 0, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Wolf", 'M', 5, 0, 3, 0, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Wolf", 'M', 5, 0, 3, 0, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Wolf", 'M', 5, 0, 3, 0, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsW3->push_back(mList);
     mList = NULL;
 
 	bonesW3 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Ogre", 'T', 5, 0, 5, 0, 2));
-	mList->addMonster(new Monster("Ogre", 'T', 5, 0, 5, 0, 2));
+	m = new Monster("Ogre", 'T', 5, 0, 5, 0, 2);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Ogre", 'T', 5, 0, 5, 0, 2);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	bonesW3->push_back(mList);
     mList = NULL;
 
 	ruinsCPatterCHowlC3 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1));
+	m = new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Axe", 'L', 4, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsCPatterCHowlC3->push_back(mList);
     mList = NULL;
 	mList = new Element();
 	//NOTE: A is to replace something that doesnt have harm letter
-	mList->addMonster(new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1));
+	m = new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with Spear", 'A', 0, 0, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsCPatterCHowlC3->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
-	mList->addMonster(new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1));
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Golbin with GreatSword", 'H', 6, 1, 3, 1, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsCPatterCHowlC3->push_back(mList);
     mList = NULL;
 
 	pool3 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Octopus", 'L', 4, 0, 2, 8, 8));
+	m = new Monster("Octopus", 'L', 4, 0, 2, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	pool3->push_back(mList);
     mList = NULL;
 
 	bonesMRoarMStinkM4 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Giant", 'H', 5, 0, 5, 8, 8));
+	m = new Monster("Giant", 'H', 5, 0, 5, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	bonesMRoarMStinkM4 ->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Giant", 'H', 5, 0, 5, 8, 8));
+	m = new Monster("Giant", 'H', 5, 0, 5, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	bonesMRoarMStinkM4->push_back(mList);
     mList = NULL;
 
 	stinkCBonesCRoarC4 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Heavy Troll", 'M', 4, 0, 4, 5, 5));
-	mList->addMonster(new Monster("Heavy Troll", 'M', 4, 0, 4, 5, 5));
+	m = new Monster("Heavy Troll", 'M', 4, 0, 4, 5, 5);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Heavy Troll", 'M', 4, 0, 4, 5, 5);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	stinkCBonesCRoarC4->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Tremendous Troll", 'H', 4, 0, 4, 8, 8));
+	m = new Monster("Tremendous Troll", 'H', 4, 0, 4, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	stinkCBonesCRoarC4->push_back(mList);
     mList = NULL;
 
 	vault4 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Tremendous Troll", 'H', 4, 0, 4, 8, 8));
+	m = new Monster("Tremendous Troll", 'H', 4, 0, 4, 8, 8);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	vault4->push_back(mList);
     mList = NULL;
 
 	stinkMDankMPatterM5 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Heavy Spider", 'L', 4, 0, 3, 3, 3));
+	m = new Monster("Heavy Spider", 'L', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	stinkMDankMPatterM5->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Heavy Spider", 'L', 4, 0, 3, 3, 3));
+	m = new Monster("Heavy Spider", 'L', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	stinkMDankMPatterM5->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Heavy Spider", 'L', 4, 0, 3, 3, 3));
+	m = new Monster("Heavy Spider", 'L', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	stinkMDankMPatterM5->push_back(mList);
     mList = NULL;
 
 	cairns5 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Tremendous Spider", 'M', 4, 0, 3, 6, 6));
+	m = new Monster("Tremendous Spider", 'M', 4, 0, 3, 6, 6);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	cairns5->push_back(mList);
     mList=NULL;
 
 	statue5 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Imp", 'A', 2, 0, 2, 2, 1));
+	m = new Monster("Imp", 'A', 2, 0, 2, 2, 1);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	statue5->push_back(mList);
     mList = NULL;
 
 	ruinsMBonesMFlutterHowlM6 = new vector<Element*>;
 	mList = new Element();
-	mList->addMonster(new Monster("Giant Bat", 'M', 4, 0, 3, 3, 3));
+	m = new Monster("Giant Bat", 'M', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsMBonesMFlutterHowlM6->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3));
-	mList->addMonster(new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3));
+	m = new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsMBonesMFlutterHowlM6->push_back(mList);
     mList = NULL;
 	mList = new Element();
-	mList->addMonster(new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3));
-	mList->addMonster(new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3));
-	mList->addMonster(new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3));
+	m = new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
+	m = new Monster("Giant Bat", 'A', 4, 0, 3, 3, 3);
+    mList->addMonster(m);
+    masterList->push_back(m);
+    m = NULL;
 	ruinsMBonesMFlutterHowlM6->push_back(mList);
-    blah();
 }
-
-void MonsterSpawner::blah()
-{
-    cout << "BLAH" <<endl;
-}
-
 vector<Monster*>* MonsterSpawner::getMonsterList()
 {
-	cout << "Not Implemented" <<endl;
-	return NULL;
+	return masterList;
+}
+
+Monster* MonsterSpawner::getMonsterByID(int id)
+{
+    for(vector<Monster*>::iterator iter = masterList->begin(); iter!= masterList->end(); ++iter)
+        if((*iter)->getID() == id)
+            return *iter;
+
+    //could not find monster by ID
+    cout << "WARN MonsterSpawner::getMonsterbyID ::: did not find monster with ID" <<endl;
+    return NULL;
 }
 
 vector<Monster*>* MonsterSpawner::spawn(Clearing* targetClearing, int dRoll)

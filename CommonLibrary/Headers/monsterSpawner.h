@@ -13,6 +13,9 @@ class COMMONLIBRARY_EXPORT MonsterSpawner
 public:
 	MonsterSpawner();
 	vector<Monster*>* getMonsterList();
+    //used to update specific monsters
+    Monster* getMonsterByID(int id);
+    //used for server
 	vector<Monster*>* spawn(Clearing* targetClearing, int dieRoll);
 
 private:
@@ -30,8 +33,7 @@ private:
 	};
 
 	vector<Monster*>* spawnMonsters(vector<Element*>* elementList, Clearing* targetClearing);
-    void blah();
-    Monster* m;
+    vector<Monster*>* masterList; 
 	vector<Element*>* flutterSmokeM1;
 	vector<Element*>* smokeCSlitherRoarC1;
 	vector<Element*>* hoard1;
