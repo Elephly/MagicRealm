@@ -15,14 +15,18 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 {
 	window = (QMainWindow*)parent;
 	gameStarted = false;
-	characterImages = new QMap<CharacterType, QPixmap*>();
 	characterImageScale = 0.2;
+	characterImages = new QMap<CharacterType, QPixmap*>();
 	loadCharacterImages();
 	characterGraphicsItems = new QMap<CharacterType, QGraphicsPixmapItem*>();
 	tileImages = new QMap<std::string, QPixmap*>();
 	tileClearingOffsets = new QMap<std::string, QList<QPoint*>*>();
 	loadTileImages();
 	tileGraphicsItems = new QMap<Tile*, TileGraphicsItem*>();
+	dwellingImageScale = 0.4;
+	dwellingImages = new QMap<DwellingType, QPixmap*>();
+	loadDwellingImages();
+	dwellingGraphicsItems = new QMap<DwellingType, QGraphicsPixmapItem*>();
 	ui.graphicsView->scale(1.0, 1.0);
 	ui.graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
 	ui.graphicsView->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
@@ -45,6 +49,11 @@ GameWindow::~GameWindow()
 		server = 0;
 	}
 
+	if (characterGraphicsItems != 0)
+	{
+
+	}
+
 	if (tileGraphicsItems != 0)
 	{
 		//qDeleteAll(*tileGraphicsItems);
@@ -63,7 +72,7 @@ GameWindow::~GameWindow()
 
 	if (tileClearingOffsets != 0)
 	{
-		//qDeleteAll(*tileClearingOffsets);
+		qDeleteAll(*tileClearingOffsets);
 		tileClearingOffsets->clear();
 		delete tileClearingOffsets;
 		tileClearingOffsets = 0;
@@ -104,6 +113,14 @@ void GameWindow::loadCharacterImages()
 	characterImages->insert(Dwarf, new QPixmap(":/images/counters/characters/dwarf.png"));
 	characterImages->insert(Elf, new QPixmap(":/images/counters/characters/elf.png"));
 	characterImages->insert(Swordsman, new QPixmap(":/images/counters/characters/swordsman.png"));
+}
+
+void GameWindow::loadDwellingImages()
+{
+	dwellingImages->insert(CHAPEL, new QPixmap(":/images/counters/dwellings_c/chapel.png"));
+	dwellingImages->insert(GUARD, new QPixmap(":/images/counters/dwellings_c/guard.png"));
+	dwellingImages->insert(HOUSE, new QPixmap(":/images/counters/dwellings_c/house.png"));
+	dwellingImages->insert(INN, new QPixmap(":/images/counters/dwellings_c/inn.png"));
 }
 
 void GameWindow::loadTileImages()
@@ -628,7 +645,7 @@ errno_t GameWindow::initializeGame()
 	tileLocations = new QMap<Tile*, QPointF>();
 
 	drawTiles();
-	
+
 	for (int i = 0; i <= Swordsman; i++)
 	{
 		QPixmap pxmap = *(*characterImages)[(CharacterType)i];
@@ -642,6 +659,23 @@ errno_t GameWindow::initializeGame()
 		if (character != 0)
 		{
 			updateCharacterLocation(character);
+		}
+		gameScene->addItem(item);
+	}
+
+	for (int i = 0; i <= INN; i++)
+	{
+		QPixmap pxmap = *(*dwellingImages)[(DwellingType)i];
+		QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pxmap);
+		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
+		dwellingGraphicsItems->insert((DwellingType)i, item);
+		item->setZValue(0.2);
+		item->setVisible(true);
+		item->setScale(dwellingImageScale);
+		Dwelling* dwelling = game->getDwelling((DwellingType)i);
+		if (dwelling != 0)
+		{
+			placeDwelling(dwelling);
 		}
 		gameScene->addItem(item);
 	}
@@ -1030,26 +1064,57 @@ void GameWindow::placeCharacter(Character* character, Tile* tile, Clearing* clea
 {
 	vector<Character*> characters = *clearing->getCharacters();
 	int chars = characters.size();
-	int charCounterWidth = ((*characterImages)[Amazon])->width() * characterImageScale;
+	int charCounterDiameter = ((*characterImages)[Amazon])->width() * characterImageScale;
 	TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
 	QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
-	int offsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
-		(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterWidth) / 2);
-	int offsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+	int characterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+		(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
+	int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
 		(360 / 6) * ((int)tile->getOrientation()));
+	if (clearing->getDwelling() != 0)
+	{
+		characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
+	}
 	for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
 	{
 
 		QPixmap* charPix = (*characterImages)[(*it)->getType()];
-		QGraphicsPixmapItem* charItem = ((*characterGraphicsItems)[(*it)->getType()]);
+		QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
 		if (charItem != 0)
 		{
 			charItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
-				+ offsetX);
+				+ characterOffsetX);
 			charItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
-				+ offsetY);
+				+ characterOffsetY);
 			charItem->setVisible(true);
-			offsetX += charCounterWidth;
+			characterOffsetX += charCounterDiameter;
+		}
+	}
+}
+
+void GameWindow::placeDwelling(Dwelling* dwelling)
+{
+	Clearing* clearing = dwelling->getLocation();
+	if (clearing != 0)
+	{
+		Tile* tile = clearing->getTile();
+		if (tile != 0)
+		{
+			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
+			QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
+			int offsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation()));
+			int offsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation()));
+			QPixmap* dwellingPix = (*dwellingImages)[dwelling->getType()];
+			QGraphicsPixmapItem* dwellingItem = (*dwellingGraphicsItems)[dwelling->getType()];
+			if (dwellingItem != 0)
+			{
+				dwellingItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (dwellingPix->width() / 2)
+					+ offsetX);
+				dwellingItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (dwellingPix->height() / 2)
+					+ offsetY);
+			}
 		}
 	}
 }

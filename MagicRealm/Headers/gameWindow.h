@@ -28,6 +28,7 @@ public:
 	
 	void loadCharacterImages();
 	void loadTileImages();
+	void loadDwellingImages();
 	errno_t initializeConnection(QString &hostIP);
 	errno_t initializeGame();
 	errno_t initializePlayers();
@@ -46,6 +47,7 @@ public:
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
 	void placeCharacter(Character* character, Tile* tile, Clearing* clearing);
+	void placeDwelling(Dwelling* dwelling);
 	void selectAction(ActionType action);
 	bool moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
@@ -74,13 +76,16 @@ protected:
 
 private:
 	bool gameStarted;
-	QMap<CharacterType, QPixmap*>* characterImages;
 	double characterImageScale;
+	QMap<CharacterType, QPixmap*>* characterImages;
 	QMap<CharacterType, QGraphicsPixmapItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
 	QMap<std::string, QList<QPoint*>*>* tileClearingOffsets;
 	QMap<Tile*, TileGraphicsItem*>* tileGraphicsItems;
 	QMap<Tile*, QPointF>* tileLocations;
+	double dwellingImageScale;
+	QMap<DwellingType, QPixmap*>* dwellingImages;
+	QMap<DwellingType, QGraphicsPixmapItem*>* dwellingGraphicsItems;
 	QMainWindow* window;
 	Ui::MainWindowClass ui;
 	QGraphicsScene* gameScene;
