@@ -49,9 +49,36 @@ GameWindow::~GameWindow()
 		server = 0;
 	}
 
+	if (dwellingGraphicsItems != 0)
+	{
+		//qDeleteAll(*dwellingGraphicsItems);
+		dwellingGraphicsItems->clear();
+		delete dwellingGraphicsItems;
+		dwellingGraphicsItems = 0;
+	}
+	
+	if (dwellingImages != 0)
+	{
+		qDeleteAll(*dwellingImages);
+		dwellingImages->clear();
+		delete dwellingImages;
+		dwellingImages = 0;
+	}
+
 	if (characterGraphicsItems != 0)
 	{
-
+		//qDeleteAll(*characterGraphicsItems);
+		characterGraphicsItems->clear();
+		delete characterGraphicsItems;
+		characterGraphicsItems = 0;
+	}
+	
+	if (characterImages != 0)
+	{
+		qDeleteAll(*characterImages);
+		characterImages->clear();
+		delete characterImages;
+		characterImages = 0;
 	}
 
 	if (tileGraphicsItems != 0)
