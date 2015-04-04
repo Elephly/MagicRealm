@@ -209,7 +209,6 @@ void Server::birdsong() {
 //Determine what monsters are prwoling
 void Server::sunrise() {
 	qDebug() << "sunrise begins";
-	int roll = game.rollDice();
     daylight();
 }
 
@@ -333,6 +332,9 @@ void Server::sunset() {
 //combat?
 void Server::evening() {
 	qDebug() << "evening begins";
+	game.spawnMonsters();
+	//get activemonsters.
+	//send to clients
     midnight();
 }
 
