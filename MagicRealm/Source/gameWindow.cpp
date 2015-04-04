@@ -16,6 +16,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	window = (QMainWindow*)parent;
 	gameStarted = false;
 	characterImages = new QMap<CharacterType, QPixmap*>();
+	characterImageScale = 0.2;
 	loadCharacterImages();
 	characterGraphicsItems = new QMap<CharacterType, QGraphicsPixmapItem*>();
 	tileImages = new QMap<std::string, QPixmap*>();
@@ -636,7 +637,7 @@ errno_t GameWindow::initializeGame()
 		characterGraphicsItems->insert((CharacterType)i, item);
 		item->setZValue(0.2);
 		item->setVisible(false);
-		item->setScale(0.2);
+		item->setScale(characterImageScale);
 		Character* character = game->getPlayer((CharacterType)i);
 		if (character != 0)
 		{
@@ -1020,19 +1021,35 @@ void GameWindow::updateCharacterLocation(Character* character)
 		Tile* currTile = currClearing->getTile();
 		if (currTile != 0)
 		{
-			QGraphicsPixmapItem* charItem = ((*characterGraphicsItems)[character->getType()]);
-			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[currTile]);
-			QPoint *clearingOffset = (*(*tileClearingOffsets)[currTile->getName()])[currClearing->getClearingNum() - 1];
-			int offsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
-				(360 / 6) * ((int)currTile->getOrientation()));
-			int offsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
-				(360 / 6) * ((int)currTile->getOrientation()));
+			placeCharacter(character, currTile, currClearing);
+		}
+	}
+}
 
-			charItem->setX((*tileLocations)[currTile].x() + (tileItem->width() / 2) - (charItem->pixmap().width() / 2)
+void GameWindow::placeCharacter(Character* character, Tile* tile, Clearing* clearing)
+{
+	vector<Character*> characters = *clearing->getCharacters();
+	int chars = characters.size();
+	int charCounterWidth = ((*characterImages)[Amazon])->width() * characterImageScale;
+	TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
+	QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
+	int offsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+		(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterWidth) / 2);
+	int offsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+		(360 / 6) * ((int)tile->getOrientation()));
+	for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
+	{
+
+		QPixmap* charPix = (*characterImages)[(*it)->getType()];
+		QGraphicsPixmapItem* charItem = ((*characterGraphicsItems)[(*it)->getType()]);
+		if (charItem != 0)
+		{
+			charItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
 				+ offsetX);
-			charItem->setY((*tileLocations)[currTile].y() + (tileItem->height() / 2) - (charItem->pixmap().height() / 2)
+			charItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
 				+ offsetY);
 			charItem->setVisible(true);
+			offsetX += charCounterWidth;
 		}
 	}
 }

@@ -83,7 +83,7 @@ void MainWindow::on_menuPlayButton_clicked()
 	 * It's simply magnificent isn't it? Truly innovative. This alone should give me
 	 * 100% on my portion of the assignment. And with that, I leave you. Enjoy.
 	 */
-	//*
+	/*
 	QString hostIP = QInputDialog::getText(ui.centralWidget, "Connect to Host", "Please input the host IP address.");
 	if (!hostIP.isEmpty())
 	{

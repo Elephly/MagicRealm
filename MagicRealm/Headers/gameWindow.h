@@ -45,6 +45,7 @@ public:
 	void updateCharacterInfoPane();
 	void updateTileInfoPane(Tile* tile);
 	void updateCharacterLocation(Character* character);
+	void placeCharacter(Character* character, Tile* tile, Clearing* clearing);
 	void selectAction(ActionType action);
 	bool moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
@@ -74,6 +75,7 @@ protected:
 private:
 	bool gameStarted;
 	QMap<CharacterType, QPixmap*>* characterImages;
+	double characterImageScale;
 	QMap<CharacterType, QGraphicsPixmapItem*>* characterGraphicsItems;
 	QMap<std::string, QPixmap*>* tileImages;
 	QMap<std::string, QList<QPoint*>*>* tileClearingOffsets;
