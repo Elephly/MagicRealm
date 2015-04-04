@@ -445,14 +445,28 @@ void Game::testGame()
 	cout << "IMP id: " << m3.getID() << endl;
 
     cout << "Testing Monster Spawning!!!!" << endl;
+    cout << "Adding a Player" <<endl;
+
+    Character* newPlayer = new Character(Amazon);
+    addPlayer(newPlayer);
 
     vector<Tile*>* tiles = gameBoard->getTiles();
     for(vector<Tile*>::iterator iter = tiles->begin(); iter!= tiles->end(); ++iter)
     {
-        if((*iter)->getWarningChit() == gameBoard->getChitByName("SMOKE M"))
+        if((*iter)->getWarningChit() == gameBoard->getChitByName("SMOKE C"))
         {
+            newPlayer->moveToClearing((*iter)->getClearing(5));
             spawnMonsters(1);
-            cout << "Monsters Spawned" <<endl;
+            int oldSize = activeMonsters->size();
+            if(oldSize > 0)
+                cout << "Monsters Spawned" <<endl;
+            else
+                cout << "Monster Failed to Spawn" << endl;
+            spawnMonsters(1);
+            if( activeMonsters->size() > oldSize)
+                cout << "Second Monster Spawned" << endl;
+            else
+                cout << "Second Monster failed to spawn" << endl;
         }
     }
 	/* NOTE: For demonstrating looting onlys	
@@ -762,7 +776,8 @@ void Game::checkBlocks(Character* currentPlayer)
 {
     Clearing* currentClearing = currentPlayer->getCurrentLocation();
     //checking to see if any monsters are in the current position to block those monsters and the player.
-
+    if(currentPlayer->isHidden())
+        return;
     for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
         if((*iter)->getLocation() == currentClearing){
             (*iter)->setBlock(true);
