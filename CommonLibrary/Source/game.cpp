@@ -437,8 +437,9 @@ Board* Game::getBoard()
 void Game::testGame()
 {
     cout << "Game Run Tests..." << endl;
+    cout << "WARN: This should not be run with a normal GAME, unexpected behaviour" << endl;
 	Monster m1("Heavy Dragon", 'H', 4, 0, 4, 5, 5); 
-	Monster m2("Giant Bat", 'M', 2 , 0, 3, 3, 3); 
+	Monster m2("Giant Bat", 'M', 2 , 0, 3, 3, 3);
 	Monster m3("IMP", 'A', 2, 0, 2, 2, 1); 
 	cout << "Heavy Dragon id: " << m1.getID() << endl;
 	cout << "Giant Bat id: " << m2.getID() << endl;
@@ -469,6 +470,10 @@ void Game::testGame()
                 cout << "Second Monster failed to spawn" << endl;
         }
     }
+    checkBlocks(newPlayer);
+    moveRequest(newPlayer, newPlayer->getCurrentLocation());
+    delete newPlayer;
+    players[0] = NULL;
 	/* NOTE: For demonstrating looting onlys	
 	Chit* myChit = NULL;
 	string name;
@@ -666,7 +671,10 @@ bool Game::moveRequest(Character* player, Clearing* requestedClearing)
         return false;
     }
 
-    //TODO Check if Player Can move!!!!
+    if(player->isBlocked()){
+        cout << "Player is blocked" <<endl;
+        return false;
+    }
     
     //going through possible cases of different types of move
     if(playerLoc == requestedClearing){
