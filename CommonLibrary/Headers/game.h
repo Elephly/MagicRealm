@@ -105,7 +105,7 @@ public:
     *   Rolls the monster die, goes through the list of monsters
     *   Spawns the monsters to the appropriate clearings.
     */
-    void spawnMonsters();
+    void spawnMonsters(int diceUsed);
     //monsters will check their tile see if players are in another clearing and move
     void moveMonsters();
 

@@ -19,19 +19,19 @@ private:
 	class Element
 	{
 	public:
-		Element(vector<Monster*>* monsterArray);
+		Element();
 		vector<Monster*>* spawnMonsters(Clearing* targetClearing);
 		bool getSpawned();
-	private: 
-		Monster* monster;
-		int numMonster;
+        void addMonster(Monster*);
+	private:
 		vector<Monster*>* monsterList; 
 		bool spawned;
 		
 	};
 
 	vector<Monster*>* spawnMonsters(vector<Element*>* elementList, Clearing* targetClearing);
-
+    void blah();
+    Monster* m;
 	vector<Element*>* flutterSmokeM1;
 	vector<Element*>* smokeCSlitherRoarC1;
 	vector<Element*>* hoard1;

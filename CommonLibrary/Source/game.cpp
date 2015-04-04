@@ -443,6 +443,18 @@ void Game::testGame()
 	cout << "Heavy Dragon id: " << m1.getID() << endl;
 	cout << "Giant Bat id: " << m2.getID() << endl;
 	cout << "IMP id: " << m3.getID() << endl;
+
+    cout << "Testing Monster Spawning!!!!" << endl;
+
+    vector<Tile*>* tiles = gameBoard->getTiles();
+    for(vector<Tile*>::iterator iter = tiles->begin(); iter!= tiles->end(); ++iter)
+    {
+        if((*iter)->getWarningChit() == gameBoard->getChitByName("SMOKE M"))
+        {
+            spawnMonsters(1);
+            cout << "Monsters Spawned" <<endl;
+        }
+    }
 	/* NOTE: For demonstrating looting onlys	
 	Chit* myChit = NULL;
 	string name;
@@ -706,12 +718,8 @@ Dwelling* Game::getDwelling(DwellingType dwellingType)
 	return gameBoard->getDwelling(dwellingType);
 }
 
-void Game::spawnMonsters()
+void Game::spawnMonsters(int diceUsed)
 {
-    cout << "Rolling Monster Dice" << endl;
-    int d1 = rollDice();
-    int d2 = rollDice();
-    int diceUsed = (d1>d2) ? d1 : d2;
     MonsterSpawner* lookupTable = gameBoard->getSpawner();
     vector<Monster*>* spawnedMonsters;
     //looping over players to check if any monsters spawned around them.
