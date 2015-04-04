@@ -333,6 +333,18 @@ void Server::sunset() {
 void Server::evening() {
 	qDebug() << "evening begins";
 	game.spawnMonsters();
+	for (vector<Monster*>::iterator iter = game.getActiveMonsters()->begin(); iter != game.getActiveMonsters()->end(); ++iter) 
+	{
+		stringstream s;
+		s << "Monster";
+		s << CLASSDELIM;
+		s << (*iter)->getID();
+		s << VARDELIM;
+		s << (*iter)->getLocation()->getTile();
+		s << VARDELIM;
+		s << (*iter)->getLocation()->getClearingNum();
+		writeMessageAllClients(new string(s.str()));
+	}
 	//get activemonsters.
 	//send to clients
     midnight();
