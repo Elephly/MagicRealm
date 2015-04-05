@@ -63,6 +63,9 @@ public:
     QWidget *tileInfoTab;
     QVBoxLayout *verticalLayout;
     QTextBrowser *gameTileInformationBrowser;
+    QWidget *monsterInfoTab;
+    QVBoxLayout *verticalLayout_6;
+    QTextBrowser *gameMonsterInformationBrowser;
     QComboBox *gamePhaseComboBox;
     QGroupBox *gameEventFeedGroupBox;
     QVBoxLayout *eventFeedLayout;
@@ -295,6 +298,22 @@ public:
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/images/tiles/questionmark.gif"), QSize(), QIcon::Normal, QIcon::Off);
         informationTabWidget->addTab(tileInfoTab, icon5, QString());
+        monsterInfoTab = new QWidget();
+        monsterInfoTab->setObjectName(QStringLiteral("monsterInfoTab"));
+        verticalLayout_6 = new QVBoxLayout(monsterInfoTab);
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        gameMonsterInformationBrowser = new QTextBrowser(monsterInfoTab);
+        gameMonsterInformationBrowser->setObjectName(QStringLiteral("gameMonsterInformationBrowser"));
+        gameMonsterInformationBrowser->setFont(font4);
+
+        verticalLayout_6->addWidget(gameMonsterInformationBrowser);
+
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/monsters1_c/firedrake.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        informationTabWidget->addTab(monsterInfoTab, icon6, QString());
 
         gameInfoPhaseLayout->addWidget(informationTabWidget);
 
@@ -418,8 +437,8 @@ public:
         characterSelectorLayout->addWidget(characterSelectCharacterLabel);
 
         characterListView = new QListWidget(characterSelectWidget);
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
         QFont font10;
         font10.setFamily(QStringLiteral("MS Serif"));
         font10.setPointSize(16);
@@ -427,32 +446,32 @@ public:
         font10.setWeight(75);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(characterListView);
         __qlistwidgetitem->setFont(font10);
-        __qlistwidgetitem->setIcon(icon6);
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(characterListView);
         __qlistwidgetitem1->setFont(font10);
-        __qlistwidgetitem1->setIcon(icon7);
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem1->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(characterListView);
         __qlistwidgetitem2->setFont(font10);
-        __qlistwidgetitem2->setIcon(icon8);
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem2->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(characterListView);
         __qlistwidgetitem3->setFont(font10);
-        __qlistwidgetitem3->setIcon(icon9);
-        QIcon icon10;
-        icon10.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem3->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(characterListView);
         __qlistwidgetitem4->setFont(font10);
-        __qlistwidgetitem4->setIcon(icon10);
-        QIcon icon11;
-        icon11.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem4->setIcon(icon11);
+        QIcon icon12;
+        icon12.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(characterListView);
         __qlistwidgetitem5->setFont(font10);
-        __qlistwidgetitem5->setIcon(icon11);
+        __qlistwidgetitem5->setIcon(icon12);
         characterListView->setObjectName(QStringLiteral("characterListView"));
         characterListView->setFont(font10);
 
@@ -593,6 +612,13 @@ public:
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
         informationTabWidget->setTabText(informationTabWidget->indexOf(tileInfoTab), QString());
         informationTabWidget->setTabToolTip(informationTabWidget->indexOf(tileInfoTab), QApplication::translate("MainWindowClass", "Tile Info", 0));
+        gameMonsterInformationBrowser->setHtml(QApplication::translate("MainWindowClass", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'MS Serif'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", 0));
+        informationTabWidget->setTabText(informationTabWidget->indexOf(monsterInfoTab), QString());
+        informationTabWidget->setTabToolTip(informationTabWidget->indexOf(monsterInfoTab), QApplication::translate("MainWindowClass", "Monster Info", 0));
         gamePhaseComboBox->setCurrentText(QString());
         gameEventFeedGroupBox->setTitle(QApplication::translate("MainWindowClass", "Event Feed", 0));
         loadingLoadingLabel->setText(QApplication::translate("MainWindowClass", "Loading", 0));
