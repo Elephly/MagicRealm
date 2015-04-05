@@ -15,6 +15,9 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 {
 	window = (QMainWindow*)parent;
 	gameStarted = false;
+	destinationCounterImage = new QPixmap(":/images/counters/characters/plan_counter.png");
+	destinationCounter = 0;
+	counterDepth = 0.3;
 	characterImageScale = 0.2;
 	characterImages = new QMap<CharacterType, QPixmap*>();
 	loadCharacterImages();
@@ -26,6 +29,9 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	dwellingImageScale = 0.4;
 	dwellingImages = new QMap<DwellingType, QPixmap*>();
 	loadDwellingImages();
+	monsterImages = new QMap<string, QPixmap*>();
+	monsterGraphicsItems = new QMap<int, QGraphicsPixmapItem*>();
+	loadMonsterImages();
 	dwellingGraphicsItems = new QMap<DwellingType, QGraphicsPixmapItem*>();
 	ui.graphicsView->scale(1.0, 1.0);
 	ui.graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
@@ -47,6 +53,34 @@ GameWindow::~GameWindow()
 	{
 		delete server;
 		server = 0;
+	}
+
+	if (destinationCounter != 0)
+	{
+		delete destinationCounter;
+		destinationCounter = 0;
+	}
+
+	if (destinationCounterImage != 0)
+	{
+		delete destinationCounterImage;
+		destinationCounterImage = 0;
+	}
+
+	if (monsterGraphicsItems != 0)
+	{
+		qDeleteAll(*monsterGraphicsItems);
+		monsterGraphicsItems->clear();
+		delete monsterGraphicsItems;
+		monsterGraphicsItems = 0;
+	}
+
+	if (monsterImages != 0)
+	{
+		qDeleteAll(*monsterImages);
+		monsterImages->clear();
+		delete monsterImages;
+		monsterImages = 0;
 	}
 
 	if (dwellingGraphicsItems != 0)
@@ -155,6 +189,11 @@ void GameWindow::loadDwellingImages()
 	dwellingImages->insert(GUARD, new QPixmap(":/images/counters/dwellings_c/guard.png"));
 	dwellingImages->insert(HOUSE, new QPixmap(":/images/counters/dwellings_c/house.png"));
 	dwellingImages->insert(INN, new QPixmap(":/images/counters/dwellings_c/inn.png"));
+}
+
+void GameWindow::loadMonsterImages()
+{
+	//need to understand luke's shit first
 }
 
 void GameWindow::loadTileImages()
@@ -685,7 +724,7 @@ errno_t GameWindow::initializeGame()
 		QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pxmap);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
 		characterGraphicsItems->insert((CharacterType)i, item);
-		item->setZValue(0.2);
+		item->setZValue(counterDepth);
 		item->setVisible(false);
 		item->setScale(characterImageScale);
 		Character* character = game->getPlayer((CharacterType)i);
@@ -702,7 +741,7 @@ errno_t GameWindow::initializeGame()
 		QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pxmap);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
 		dwellingGraphicsItems->insert((DwellingType)i, item);
-		item->setZValue(0.2);
+		item->setZValue(counterDepth);
 		item->setVisible(true);
 		item->setScale(dwellingImageScale);
 		Dwelling* dwelling = game->getDwelling((DwellingType)i);
@@ -713,10 +752,23 @@ errno_t GameWindow::initializeGame()
 		gameScene->addItem(item);
 	}
 	
+	initializeDestinationCounter();
+	
 	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
 
 	return err;
+}
+
+errno_t GameWindow::initializeDestinationCounter()
+{
+	destinationCounter = new QGraphicsPixmapItem(*destinationCounterImage);
+	destinationCounter->setTransformOriginPoint(destinationCounterImage->width() / 2, destinationCounterImage->height() / 2);
+	destinationCounter->setZValue(counterDepth - 0.1);
+	destinationCounter->setVisible(true);
+	destinationCounter->setScale(characterImageScale * 3);
+	gameScene->addItem(destinationCounter);
+	return 0;
 }
 
 errno_t GameWindow::drawTiles()
@@ -1125,6 +1177,27 @@ void GameWindow::placeCharacter(Character* character, Tile* tile, Clearing* clea
 	}
 }
 
+void GameWindow::placeDestinationCounter()
+{
+	if (destinationClearing != 0 && destinationCounter != 0)
+	{
+		Tile* tile = destinationClearing->getTile();
+		if (tile != 0)
+		{
+			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
+			QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[destinationClearing->getClearingNum() - 1];
+			int offsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation()));
+			int offsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation()));
+			destinationCounter->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) -
+				(destinationCounter->pixmap().width() / 2) + offsetX);
+			destinationCounter->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) -
+				(destinationCounter->pixmap().height() / 2) + offsetY);
+		}
+	}
+}
+
 void GameWindow::placeDwelling(Dwelling* dwelling)
 {
 	Clearing* clearing = dwelling->getLocation();
@@ -1292,6 +1365,7 @@ bool GameWindow::moveAction()
 			payForMountainClimb();
 		}
 		destinationClearing = newDest;
+		placeDestinationCounter();
 	}
 	delete dlg;
 
@@ -1319,6 +1393,7 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 		if (selectedCharacter == character)
 		{
 			destinationClearing = clearing;
+			placeDestinationCounter();
 		}
 		updateCharacterInfoPane();
 		updateTileInfoPane(selectedTile);
