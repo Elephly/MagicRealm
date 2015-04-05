@@ -333,7 +333,7 @@ void Server::sunset() {
 //combat?
 void Server::evening() {
 	qDebug() << "evening begins";
-	game.spawnMonsters();
+	game.spawnMonsters(game.rollDice());
 	game.moveMonsters();
 	for (vector<Monster*>::iterator iter = game.getActiveMonsters()->begin(); iter != game.getActiveMonsters()->end(); ++iter) 
 	{
