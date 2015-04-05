@@ -1,5 +1,31 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/counters/monsters_c/bat.gif</file>
+    <file>images/counters/monsters_c/bird.gif</file>
+    <file>images/counters/monsters_c/club.gif</file>
+    <file>images/counters/monsters_c/demon.gif</file>
+    <file>images/counters/monsters_c/demon_flying.gif</file>
+    <file>images/counters/monsters_c/dragon.gif</file>
+    <file>images/counters/monsters_c/dragon_flying.gif</file>
+    <file>images/counters/monsters_c/dragon_head.gif</file>
+    <file>images/counters/monsters_c/dragon_head_flying.gif</file>
+    <file>images/counters/monsters_c/dragon_transform.gif</file>
+    <file>images/counters/monsters_c/eagle.gif</file>
+    <file>images/counters/monsters_c/frog.gif</file>
+    <file>images/counters/monsters_c/ghost.gif</file>
+    <file>images/counters/monsters_c/giant.gif</file>
+    <file>images/counters/monsters_c/goblin_axe.gif</file>
+    <file>images/counters/monsters_c/goblin_spear.gif</file>
+    <file>images/counters/monsters_c/goblin_sword.gif</file>
+    <file>images/counters/monsters_c/imp.gif</file>
+    <file>images/counters/monsters_c/lion.gif</file>
+    <file>images/counters/monsters_c/mist.gif</file>
+    <file>images/counters/monsters_c/octopus.gif</file>
+    <file>images/counters/monsters_c/serpent.gif</file>
+    <file>images/counters/monsters_c/spider.gif</file>
+    <file>images/counters/monsters_c/squirrel.gif</file>
+    <file>images/counters/monsters_c/troll.gif</file>
+    <file>images/counters/monsters_c/wolf.gif</file>
     <file>images/counters/characters/plan_counter.png</file>
     <file>images/dwellings/chapel.png</file>
     <file>images/dwellings/guard.png</file>

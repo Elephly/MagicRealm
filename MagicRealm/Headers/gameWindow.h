@@ -29,6 +29,7 @@ public:
 	void loadCharacterImages();
 	void loadTileImages();
 	void loadDwellingImages();
+	void loadMonsterImages();
 	errno_t initializeConnection(QString &hostIP);
 	errno_t initializeGame();
 	errno_t initializeDestinationCounter();
@@ -76,25 +77,28 @@ protected:
 	bool eventFilter(QObject *, QEvent *);
 
 private:
-	bool gameStarted;
+	QMainWindow* window;
+	Ui::MainWindowClass ui;
+	QGraphicsScene* gameScene;
+	ServerCommThread* server;
+
+	double counterDepth;
 	QPixmap* destinationCounterImage;
 	QGraphicsPixmapItem* destinationCounter;
-	double counterDepth;
 	double characterImageScale;
 	QMap<CharacterType, QPixmap*>* characterImages;
 	QMap<CharacterType, QGraphicsPixmapItem*>* characterGraphicsItems;
-	QMap<std::string, QPixmap*>* tileImages;
-	QMap<std::string, QList<QPoint*>*>* tileClearingOffsets;
+	QMap<string, QPixmap*>* tileImages;
+	QMap<string, QList<QPoint*>*>* tileClearingOffsets;
 	QMap<Tile*, TileGraphicsItem*>* tileGraphicsItems;
 	QMap<Tile*, QPointF>* tileLocations;
 	double dwellingImageScale;
 	QMap<DwellingType, QPixmap*>* dwellingImages;
 	QMap<DwellingType, QGraphicsPixmapItem*>* dwellingGraphicsItems;
-	QMainWindow* window;
-	Ui::MainWindowClass ui;
-	QGraphicsScene* gameScene;
-	ServerCommThread* server;
-	
+	QMap<string, QPixmap*>* monsterImages;
+	QMap<int, QGraphicsPixmapItem*>* monsterGraphicsItems;
+		
+	bool gameStarted;
 	CharacterType selectedCharacter;
 	DwellingType startLocation;
 	Game* game;

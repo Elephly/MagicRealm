@@ -29,6 +29,9 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	dwellingImageScale = 0.4;
 	dwellingImages = new QMap<DwellingType, QPixmap*>();
 	loadDwellingImages();
+	monsterImages = new QMap<string, QPixmap*>();
+	monsterGraphicsItems = new QMap<int, QGraphicsPixmapItem*>();
+	loadMonsterImages();
 	dwellingGraphicsItems = new QMap<DwellingType, QGraphicsPixmapItem*>();
 	ui.graphicsView->scale(1.0, 1.0);
 	ui.graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
@@ -62,6 +65,22 @@ GameWindow::~GameWindow()
 	{
 		delete destinationCounterImage;
 		destinationCounterImage = 0;
+	}
+
+	if (monsterGraphicsItems != 0)
+	{
+		qDeleteAll(*monsterGraphicsItems);
+		monsterGraphicsItems->clear();
+		delete monsterGraphicsItems;
+		monsterGraphicsItems = 0;
+	}
+
+	if (monsterImages != 0)
+	{
+		qDeleteAll(*monsterImages);
+		monsterImages->clear();
+		delete monsterImages;
+		monsterImages = 0;
 	}
 
 	if (dwellingGraphicsItems != 0)
@@ -170,6 +189,11 @@ void GameWindow::loadDwellingImages()
 	dwellingImages->insert(GUARD, new QPixmap(":/images/counters/dwellings_c/guard.png"));
 	dwellingImages->insert(HOUSE, new QPixmap(":/images/counters/dwellings_c/house.png"));
 	dwellingImages->insert(INN, new QPixmap(":/images/counters/dwellings_c/inn.png"));
+}
+
+void GameWindow::loadMonsterImages()
+{
+	//need to understand luke's shit first
 }
 
 void GameWindow::loadTileImages()
