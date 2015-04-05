@@ -179,7 +179,7 @@ enum COMMONLIBRARY_EXPORT DiscoveryType
 	DISCOVER_CHOICE, //player can choose any
 	DISCOVER_NOTHING
 };
-
+/*
 enum COMMONLIBRARY_EXPORT MonsterType
 {
 	FLYING_DRAGON,
@@ -205,5 +205,5 @@ enum COMMONLIBRARY_EXPORT MonsterSize
 	TREMENDOUS,
 	HEAVY,
 	GIANT
-};
+};*/
 #endif
