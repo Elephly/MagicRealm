@@ -202,3 +202,13 @@ vector<Monster*>* Clearing::getMonsterList()
 {
 	return monsters;
 }
+
+void Clearing::removeMonster(Monster* monster)
+{
+	for (vector<Monster*>::iterator itr = monsters->begin(); itr != monsters->end(); ++ itr) {
+		if (*itr == monster) {
+			monsters->erase(itr);
+			return;
+		}
+	}
+}

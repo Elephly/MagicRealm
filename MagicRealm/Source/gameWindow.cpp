@@ -1850,3 +1850,29 @@ void GameWindow::setupChit(QString& chitString) {
 	}
 
 }
+
+void GameWindow::manageMonsters(QString& monsterString) {
+	//Strip the Chit identifier from the string, string will be 123^TileName^5
+	int pos = monsterString.indexOf(CLASSDELIM);
+	monsterString = monsterString.right(monsterString.size() - (pos + 2));
+
+	//get the monster ID, string will be TileName^5
+	pos = monsterString.indexOf(VARDELIM);
+	QString temp = monsterString.left(pos);
+	monsterString = monsterString.right(monsterString.size() - (pos + 1));
+	int monsterID = temp.toInt();
+
+	Monster* myMonster = game->getBoard()->getSpawner()->getMonsterByID(monsterID);
+
+	//get the tile name
+	pos = monsterString.indexOf(VARDELIM);
+	temp = monsterString.left(pos);
+
+	//get the clearing id
+	monsterString = monsterString.right(monsterString.size() - (pos + 1));
+	int clearingID = monsterString.toInt();
+
+	Clearing* myClearing = game->getBoard()->getTile(string(temp.toUtf8().constData()))->getClearing(clearingID);
+
+	myMonster->move(myClearing);
+}

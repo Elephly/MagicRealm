@@ -37,6 +37,8 @@ int Monster::getID()
 
 void Monster::move(Clearing* loc)
 {
+	if (location != NULL)
+		location->removeMonster(this);
 	location = loc;
 	loc->addMonster(this);
 }

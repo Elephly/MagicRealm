@@ -84,6 +84,7 @@ public:
     ClearingType getClearingType();
 
 	void addMonster(Monster* newMonster);
+	void removeMonster(Monster* monster);
 
 	vector<Monster*>* getMonsterList();
 

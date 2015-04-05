@@ -78,6 +78,7 @@ public:
 	bool isMovingPhase(int phaseIndex);
 	void payForMountainClimb();
 	void setupChit(QString& chitString);
+	void manageMonsters(QString& monsterString);
 
 protected:
 	bool eventFilter(QObject *, QEvent *);

@@ -136,7 +136,7 @@ void ServerCommThread::updateFromServer()
 		}
 		else if (serverData.contains(QRegExp("^Monster")))
 		{
-			//TODO handle incoming monsters
+			windowParent->manageMonsters(serverData);
 		}
 		blocksize = 0;
 	} while(true);
