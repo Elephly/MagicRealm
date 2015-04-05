@@ -59,13 +59,18 @@ void Game::setupGame(bool cm)
 	srand(seed);
     cheatMode = cm;
     cout << "Setting Up Game..." <<endl;
+    
+    //only 1 board tiles can be setup
     setupTiles();
-	dealChits();
+    
+    //chits and dwellings change depending
+    if(cheatMode)
+        customSetup();
+    else
+	    dealChits();
+
+    //dwellings placed on their appropriate chits
     plopDwellings();
-    //placePlayers();
-
-    //TODO PLOP CHARACTERS IN THEIR APPROPRIATE POSITIONS
-
 
     cout << "Finished Setup..." <<endl <<endl;
 }
@@ -408,26 +413,110 @@ void Game::plopDwellings()
     gameBoard->addDwelling(inn);
 }
 
-void Game::placePlayers()
+void Game::customSetup()
 {
-    cout << "Placing Players..." <<endl;
-    for(int i=0; i<MAXPLAYERS; i++){
-        //no more players to loop through.
-        if(!players[i]){
-            break;
-        }
+    cout << "Custom Setup Started...." <<endl;
+    int listCount = 0;
+    int chitIndex = -1;
+    //master list of tiles
+    vector<Tile*> * woodsMasterList = gameBoard->getTileByType(TILE_WOODS);
+    vector<Tile*> * cavesMasterList = gameBoard->getTileByType(TILE_CAVES);
+    vector<Tile*> * mountainMasterList = gameBoard->getTileByType(TILE_MOUNTAIN);
+    vector<Tile*> * valleyMasterList = gameBoard->getTileByType(TILE_VALLEY);
+    
+    //list we will construct to work with.
+    vector<Tile*> woodsList;
+    vector<Tile*> cavesList;
+    vector<Tile*> mountainList;
+    vector<Tile*> valleyList;
 
-        //place player in starting location depending on type
-        switch(players[i]->getType()){
-        case Amazon:
-	    case BlackKnight:
-      	case Captain:
-	    case Dwarf:
-	    case Elf:
-	    case Swordsman:
-            moveRequest(players[i], gameBoard->getTile("Border Land")->getClearing(1));
-        }
+    //list of warning chits
+    //these are constructed and handed to us (not master list) 
+    //therefore we can pop and delete from them.
+    vector<Warning*>* woodsWarningList = gameBoard->getWarningsByType(TILE_WOODS);
+    vector<Warning*>* valleyWarningList = gameBoard->getWarningsByType(TILE_VALLEY);
+    vector<Warning*>* cavesWarningList = gameBoard->getWarningsByType(TILE_CAVES);
+    vector<Warning*>* mountainWarningList = gameBoard->getWarningsByType(TILE_MOUNTAIN);
+
+    //getting site and sound chit and populating a general siteAndSoundList.
+    vector<Site*>* siteList = gameBoard->getSiteChits();
+    vector<Sound*>* soundList = gameBoard->getSoundChits();
+    vector<Chit*> siteAndSoundList;
+
+    Lost* lostCity = (Lost*) gameBoard->getChitByName("Lost City");
+    vector<Chit*>* lostCityList = new vector<Chit*>;
+    Lost* lostCastle = (Lost*)gameBoard->getChitByName("Lost Castle");
+    vector<Chit*>* lostCastleList = new vector<Chit*>;
+
+    //populating our working lists.
+    for(vector<Site*>::iterator iter = siteList->begin(); iter!= siteList->end(); ++iter){
+        siteAndSoundList.push_back(*iter); 
     }
+    for(vector<Sound*>::iterator iter = soundList->begin(); iter!= soundList->end(); ++iter){
+        siteAndSoundList.push_back(*iter);
+    }
+    for(vector<Tile*>::iterator iter = woodsMasterList->begin(); iter!= woodsMasterList->end(); ++iter){
+        woodsList.push_back(*iter);
+    }
+    for(vector<Tile*>::iterator iter = cavesMasterList->begin(); iter!= cavesMasterList->end(); ++iter){
+        cavesList.push_back(*iter);
+    }
+    for(vector<Tile*>::iterator iter = mountainMasterList->begin(); iter!= mountainMasterList->end(); ++iter){
+        mountainList.push_back(*iter);
+    }
+    for(vector<Tile*>::iterator iter = valleyMasterList->begin(); iter!= valleyMasterList->end(); ++iter){
+        valleyList.push_back(*iter);
+    }
+
+    cout << "Setup Lost City" << endl;
+    for(int i=0; i<5; i++){
+        cout << "Please Select an Item from the list to add to the Lost City...." <<endl;
+        //displaying the chits
+        for(vector<Chit*>::iterator iter = siteAndSoundList.begin(); iter!= siteAndSoundList.end(); ++iter){
+            cout << listCount << ": "<< (*iter)->getName() << endl;
+            listCount++;
+        }
+        while(chitIndex >= siteAndSoundList.size() || chitIndex < 0){
+            cout << "Chit you wish to add to Lost City: ";
+            cin >> chitIndex;
+            lostCityList->push_back(siteAndSoundList.at(chitIndex));
+            siteAndSoundList.erase(siteAndSoundList.begin() + chitIndex);
+        }
+        chitIndex = -1;
+        listCount = 0;
+    }
+    lostCity->populateCity(lostCityList);
+
+    cout << "Setup Lost Castle" <<endl;
+    for(int i=0; i<5; i++){
+        cout << "Please Select an Item from the list to add to the Lost Castle...." <<endl;
+        //displaying the chits
+        for(vector<Chit*>::iterator iter = siteAndSoundList.begin(); iter!= siteAndSoundList.end(); ++iter){
+            cout << listCount << ": "<< (*iter)->getName() << endl;
+            listCount++;
+        }
+        while(chitIndex >= siteAndSoundList.size() || chitIndex < 0){
+            cout << "Chit you wish to add to Lost Castle: ";
+            cin >> chitIndex;
+            lostCastleList->push_back(siteAndSoundList.at(chitIndex));
+            siteAndSoundList.erase(siteAndSoundList.begin() + chitIndex);
+        }
+        chitIndex = -1;
+        listCount = 0;
+    }
+    lostCastle->populateCity(lostCastleList);
+    siteAndSoundList.push_back(lostCity);
+    siteAndSoundList.push_back(lostCastle);
+
+    cout << "Setup Mountain Tiles" <<endl;
+
+    cout << "Setup Caves Tiles" <<endl;
+
+    cout << "Setup Woods Tiles" <<endl;
+
+    cout << "Setup Valley Tiles" <<endl;
+
+
 }
 Board* Game::getBoard()
 {

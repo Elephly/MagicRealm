@@ -131,17 +131,13 @@ private:
         CAIRNS,
         STATUE
     };
-
+    //custom chit setup for cheat mode.
+    void customSetup();
     /*
     *   setupTiles
     *   Purpose:    Populates the board with tiles.
     */
     void setupTiles();
-    /*
-    *   placePlayers
-    *   Purpose: Sets the players
-    */
-    void placePlayers();
     /*
     *   plopDwellings
     *   Purpose: place Dwellings
