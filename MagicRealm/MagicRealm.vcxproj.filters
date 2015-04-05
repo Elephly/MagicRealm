@@ -71,6 +71,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_availableMovesDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Headers\mainwindow.h">
