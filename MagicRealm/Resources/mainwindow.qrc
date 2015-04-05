@@ -1,5 +1,30 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/counters/monsters/Demon.png</file>
+    <file>images/counters/monsters/Ghost.png</file>
+    <file>images/counters/monsters/Giant Bat.png</file>
+    <file>images/counters/monsters/Giant Club.png</file>
+    <file>images/counters/monsters/Giant.png</file>
+    <file>images/counters/monsters/Golbin with Axe.png</file>
+    <file>images/counters/monsters/Golbin with GreatSword.png</file>
+    <file>images/counters/monsters/Golbin with Spear.png</file>
+    <file>images/counters/monsters/Heavy Dragon.png</file>
+    <file>images/counters/monsters/Heavy Flying Dragon.png</file>
+    <file>images/counters/monsters/Heavy Serpent.png</file>
+    <file>images/counters/monsters/Heavy Spider.png</file>
+    <file>images/counters/monsters/Heavy Troll.png</file>
+    <file>images/counters/monsters/Imp.png</file>
+    <file>images/counters/monsters/Octopus.png</file>
+    <file>images/counters/monsters/Ogre.png</file>
+    <file>images/counters/monsters/T Dragon Head.png</file>
+    <file>images/counters/monsters/T Flying Dragon Head.png</file>
+    <file>images/counters/monsters/Tremendous Dragon.png</file>
+    <file>images/counters/monsters/Tremendous Flying Dragon.png</file>
+    <file>images/counters/monsters/Tremendous Serpent.png</file>
+    <file>images/counters/monsters/Tremendous Spider.png</file>
+    <file>images/counters/monsters/Tremendous Troll.png</file>
+    <file>images/counters/monsters/Viper.png</file>
+    <file>images/counters/monsters/Winged Demon.png</file>
     <file>images/counters/monsters_c/bat.gif</file>
     <file>images/counters/monsters_c/bird.gif</file>
     <file>images/counters/monsters_c/club.gif</file>
