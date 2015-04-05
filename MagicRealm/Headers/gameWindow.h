@@ -15,10 +15,12 @@
 #include "game.h"
 #include "character.h"
 #include "tileGraphicsItem.h"
+#include "monsterGraphicsItem.h"
 
 //Forward decl
 class ServerCommThread;
 class TileGraphicsItem;
+class MonsterGraphicsItem;
 
 class GameWindow : public QObject
 {
@@ -44,12 +46,14 @@ public:
 	void disableActions();
 	CharacterType getSelectedChar();
 	void selectTile(Tile* tile);
+	void selectMonster(Monster* monster);
 	void updateCharacterInfoPane();
 	void updateTileInfoPane(Tile* tile);
-	void updateCharacterLocation(Character* character);
-	void placeCharacter(Character* character, Tile* tile, Clearing* clearing);
+	void updateMonsterInfoPane(Monster* monster);
+	void placeCharacter(Character* character);
 	void placeDestinationCounter();
 	void placeDwelling(Dwelling* dwelling);
+	void placeMonster(Monster* monster);
 	void selectAction(ActionType action);
 	bool moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
@@ -64,6 +68,8 @@ public:
 	void requestCharacter(CharacterType character, DwellingType startLoc);
 	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
+	void addMonsterToGame(Monster* monster);
+	void removeMonsterFromGame(int id);
 	void doTurn(QString&);
 	void submitTurn();
 	void setCurrentPhaseType(const QString& phaseString);
@@ -95,14 +101,16 @@ private:
 	double dwellingImageScale;
 	QMap<DwellingType, QPixmap*>* dwellingImages;
 	QMap<DwellingType, QGraphicsPixmapItem*>* dwellingGraphicsItems;
+	double monsterImageScale;
 	QMap<string, QPixmap*>* monsterImages;
-	QMap<int, QGraphicsPixmapItem*>* monsterGraphicsItems;
+	QMap<int, MonsterGraphicsItem*>* monsterGraphicsItems;
 		
 	bool gameStarted;
 	CharacterType selectedCharacter;
 	DwellingType startLocation;
 	Game* game;
 	Tile* selectedTile;
+	Monster* selectedMonster;
 	Clearing* destinationClearing;
 	ActionType selectedAction;
 	RecordedTurn *myTurn;
