@@ -30,7 +30,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	dwellingImages = new QMap<DwellingType, QPixmap*>();
 	loadDwellingImages();
 	monsterImages = new QMap<string, QPixmap*>();
-	monsterGraphicsItems = new QMap<int, QGraphicsPixmapItem*>();
+	monsterGraphicsItems = new QMap<int, MonsterGraphicsItem*>();
 	loadMonsterImages();
 	dwellingGraphicsItems = new QMap<DwellingType, QGraphicsPixmapItem*>();
 	ui.graphicsView->scale(1.0, 1.0);
@@ -41,6 +41,8 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	selectedCharacter = NullCharacter;
 	game = 0;
 	selectedTile = 0;
+	selectedMonster = 0;
+	updateMonsterInfoPane(selectedMonster);
 	destinationClearing = 0;
 	selectedAction = NoAction;
 	myTurn = 0;
@@ -193,7 +195,31 @@ void GameWindow::loadDwellingImages()
 
 void GameWindow::loadMonsterImages()
 {
-	//need to understand luke's shit first
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Demon.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Ghost.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Giant Bat.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Giant Club.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Giant.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Golbin with Axe.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Golbin with GreatSword.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Golbin with Spear.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Dragon.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Flying Dragon.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Serpent.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Spider.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Troll.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Imp.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Octopus.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Ogre.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/T Dragon Head.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/T Flying Dragon Head.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Dragon.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Flying Dragon.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Serpent.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Spider.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Troll.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Viper.png"));
+	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Winged Demon.png"));
 }
 
 void GameWindow::loadTileImages()
@@ -967,6 +993,12 @@ void GameWindow::selectTile(Tile* tile)
 	selectAction(NoAction);
 }
 
+void GameWindow::selectMonster(Monster* monster)
+{
+	selectedMonster = monster;
+	updateMonsterInfoPane(selectedMonster);
+}
+
 void GameWindow::updateCharacterInfoPane()
 {
 	Character* character = game->getPlayer(selectedCharacter);
@@ -1120,6 +1152,36 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 		}
 	}
 	ui.gameTileInformationBrowser->verticalScrollBar()->setValue(0);
+}
+
+void GameWindow::updateMonsterInfoPane(Monster* monster)
+{
+	QFont font = QFont("MS Serif", 14);
+	if (monster == 0)
+	{
+		ui.gameMonsterInformationBrowser->setCurrentFont(font);
+		ui.gameMonsterInformationBrowser->setText("No monster currently selected");
+	}
+	else
+	{
+		font.setPointSize(26);
+		font.setBold(true);
+		font.setUnderline(true);
+		ui.gameMonsterInformationBrowser->setCurrentFont(font);
+		ui.gameMonsterInformationBrowser->setText(monster->getName().c_str());
+		
+		font.setPointSize(14);
+		font.setUnderline(false);
+		ui.gameMonsterInformationBrowser->setCurrentFont(font);
+
+		QString monsterInfo;
+		Clearing* loc = monster->getLocation();
+		monsterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
+		ui.gameCharacterInformationBrowser->append(monsterInfo);
+	
+		monsterInfo.sprintf("\nBounty:\n  - %d fame\n  - %d notoriety", monster->getFame(), monster->getNotoriety());
+		ui.gameCharacterInformationBrowser->append(monsterInfo);
+	}
 }
 
 int GameWindow::getXRelationalOffsetWithRotation(int x, int y, int rotation)

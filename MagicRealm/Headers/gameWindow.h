@@ -15,10 +15,12 @@
 #include "game.h"
 #include "character.h"
 #include "tileGraphicsItem.h"
+#include "monsterGraphicsItem.h"
 
 //Forward decl
 class ServerCommThread;
 class TileGraphicsItem;
+class MonsterGraphicsItem;
 
 class GameWindow : public QObject
 {
@@ -44,8 +46,10 @@ public:
 	void disableActions();
 	CharacterType getSelectedChar();
 	void selectTile(Tile* tile);
+	void selectMonster(Monster* monster);
 	void updateCharacterInfoPane();
 	void updateTileInfoPane(Tile* tile);
+	void updateMonsterInfoPane(Monster* monster);
 	void updateCharacterLocation(Character* character);
 	void placeCharacter(Character* character, Tile* tile, Clearing* clearing);
 	void placeDestinationCounter();
@@ -96,13 +100,14 @@ private:
 	QMap<DwellingType, QPixmap*>* dwellingImages;
 	QMap<DwellingType, QGraphicsPixmapItem*>* dwellingGraphicsItems;
 	QMap<string, QPixmap*>* monsterImages;
-	QMap<int, QGraphicsPixmapItem*>* monsterGraphicsItems;
+	QMap<int, MonsterGraphicsItem*>* monsterGraphicsItems;
 		
 	bool gameStarted;
 	CharacterType selectedCharacter;
 	DwellingType startLocation;
 	Game* game;
 	Tile* selectedTile;
+	Monster* selectedMonster;
 	Clearing* destinationClearing;
 	ActionType selectedAction;
 	RecordedTurn *myTurn;
