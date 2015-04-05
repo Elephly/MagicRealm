@@ -101,6 +101,7 @@ private:
 	double dwellingImageScale;
 	QMap<DwellingType, QPixmap*>* dwellingImages;
 	QMap<DwellingType, QGraphicsPixmapItem*>* dwellingGraphicsItems;
+	double monsterImageScale;
 	QMap<string, QPixmap*>* monsterImages;
 	QMap<int, MonsterGraphicsItem*>* monsterGraphicsItems;
 		

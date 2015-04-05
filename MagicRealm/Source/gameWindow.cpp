@@ -29,6 +29,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	dwellingImageScale = 0.4;
 	dwellingImages = new QMap<DwellingType, QPixmap*>();
 	loadDwellingImages();
+	monsterImageScale = 1.0;
 	monsterImages = new QMap<string, QPixmap*>();
 	monsterGraphicsItems = new QMap<int, MonsterGraphicsItem*>();
 	loadMonsterImages();
@@ -729,7 +730,7 @@ void GameWindow::addCharacterToGame(QString &newCharacter)
 	{
 		updateCharacterInfoPane();
 		updateTileInfoPane(selectedTile);
-		updateCharacterLocation(character);
+		placeCharacter(character);
 	}
 }
 
@@ -742,7 +743,7 @@ void GameWindow::addMonsterToGame(Monster* monster)
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
 		item->setZValue(counterDepth);
 		item->setVisible(true);
-		item->setScale(dwellingImageScale);
+		item->setScale(monsterImageScale);
 		monsterGraphicsItems->insert(monster->getID(), item);
 		placeMonster(monster);
 		gameScene->addItem(item);
@@ -751,7 +752,7 @@ void GameWindow::addMonsterToGame(Monster* monster)
 
 void GameWindow::removeMonsterFromGame(int id)
 {
-
+	//TODO
 }
 
 errno_t GameWindow::initializeGame()
@@ -778,7 +779,7 @@ errno_t GameWindow::initializeGame()
 		Character* character = game->getPlayer((CharacterType)i);
 		if (character != 0)
 		{
-			updateCharacterLocation(character);
+			placeCharacter(character);
 		}
 		gameScene->addItem(item);
 	}
@@ -1226,16 +1227,21 @@ void GameWindow::placeCharacter(Character* character)
 		{
 			vector<Character*> characters = *clearing->getCharacters();
 			int chars = characters.size();
-			int charCounterDiameter = ((*characterImages)[Amazon])->width() * characterImageScale;
+			int charCounterDiameter = ((*characterImages)[Amazon]->width() * characterImageScale);
 			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
 			QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
 			int characterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
 				(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
 			int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
 				(360 / 6) * ((int)tile->getOrientation()));
+			vector<Monster*> monsters = *clearing->getMonsterList();
 			if (clearing->getDwelling() != 0)
 			{
 				characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
+			}
+			else if (monsters.size() > 0)
+			{
+				characterOffsetY -= ((((*monsterImages)["Heavy Serpent"]->width() * monsterImageScale) / 2) + (charCounterDiameter / 2));
 			}
 			for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
 			{
@@ -1311,35 +1317,38 @@ void GameWindow::placeMonster(Monster* monster)
 	{
 		Tile* tile = clearing->getTile();
 		if (tile != 0)
-		{/*
-			vector<Character*> characters = *clearing->getCharacters();
-			int chars = characters.size();
-			int charCounterDiameter = ((*characterImages)[Amazon])->width() * characterImageScale;
+		{
 			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
+			vector<Monster*> monsters = *clearing->getMonsterList();
+			int monsterCounterDiameter = ((*monsterImages)["Heavy Serpent"])->width() * monsterImageScale;
 			QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
-			int characterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
-				(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
-			int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+			int monsterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation())) - (((monsters.size() - 1) * monsterCounterDiameter) / 2);
+			int monsterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
 				(360 / 6) * ((int)tile->getOrientation()));
+			vector<Character*> characters = *clearing->getCharacters();
 			if (clearing->getDwelling() != 0)
 			{
-				characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
+				monsterOffsetY -= ((((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (monsterCounterDiameter / 2));
 			}
-			for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
+			else if (characters.size() > 0)
 			{
-
-				QPixmap* charPix = (*characterImages)[(*it)->getType()];
-				QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
-				if (charItem != 0)
+				monsterOffsetY -= ((((*characterImages)[Amazon]->width() * characterImageScale) / 2) + (monsterCounterDiameter / 2));
+			}
+			for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
+			{
+				QPixmap* charPix = (*monsterImages)[(*it)->getName()];
+				MonsterGraphicsItem* monsterItem = (*monsterGraphicsItems)[(*it)->getID()];
+				if (monsterItem != 0)
 				{
-					charItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
-						+ characterOffsetX);
-					charItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
-						+ characterOffsetY);
-					charItem->setVisible(true);
-					characterOffsetX += charCounterDiameter;
+					monsterItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
+						+ monsterOffsetX);
+					monsterItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
+						+ monsterOffsetY);
+					monsterItem->setVisible(true);
+					monsterOffsetX += monsterCounterDiameter;
 				}
-			}*/
+			}
 		}
 	}
 }
