@@ -721,7 +721,8 @@ void GameWindow::characterRequestAcknowledged(bool accepted)
 	server->writeMessage(&serializedStartLocation);
 }
 
-void GameWindow::addCharacterToGame(QString &newCharacter) {
+void GameWindow::addCharacterToGame(QString &newCharacter)
+{
 	Character* character = new Character(new string(newCharacter.toUtf8().constData()));
 	game->addPlayer(character);
 	if (gameStarted)
@@ -730,6 +731,27 @@ void GameWindow::addCharacterToGame(QString &newCharacter) {
 		updateTileInfoPane(selectedTile);
 		updateCharacterLocation(character);
 	}
+}
+
+void GameWindow::addMonsterToGame(Monster* monster)
+{
+	if (monster != 0)
+	{
+		QPixmap pxmap = *(*monsterImages)[monster->getName()];
+		MonsterGraphicsItem* item = new MonsterGraphicsItem(pxmap, monster, this);
+		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
+		item->setZValue(counterDepth);
+		item->setVisible(true);
+		item->setScale(dwellingImageScale);
+		monsterGraphicsItems->insert(monster->getID(), item);
+		placeMonster(monster);
+		gameScene->addItem(item);
+	}
+}
+
+void GameWindow::removeMonsterFromGame(int id)
+{
+
 }
 
 errno_t GameWindow::initializeGame()
@@ -766,10 +788,10 @@ errno_t GameWindow::initializeGame()
 		QPixmap pxmap = *(*dwellingImages)[(DwellingType)i];
 		QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pxmap);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
-		dwellingGraphicsItems->insert((DwellingType)i, item);
 		item->setZValue(counterDepth);
 		item->setVisible(true);
 		item->setScale(dwellingImageScale);
+		dwellingGraphicsItems->insert((DwellingType)i, item);
 		Dwelling* dwelling = game->getDwelling((DwellingType)i);
 		if (dwelling != 0)
 		{
@@ -1194,47 +1216,42 @@ int GameWindow::getYRelationalOffsetWithRotation(int x, int y, int rotation)
 	return (int)(x * sin(qDegreesToRadians((double)rotation)) + y * cos(qDegreesToRadians((double)rotation))); // for now
 }
 
-void GameWindow::updateCharacterLocation(Character* character)
+void GameWindow::placeCharacter(Character* character)
 {
-	Clearing* currClearing = character->getCurrentLocation();
-	if (currClearing != 0)
+	Clearing* clearing = character->getCurrentLocation();
+	if (clearing != 0)
 	{
-		Tile* currTile = currClearing->getTile();
-		if (currTile != 0)
+		Tile* tile = clearing->getTile();
+		if (tile != 0)
 		{
-			placeCharacter(character, currTile, currClearing);
-		}
-	}
-}
+			vector<Character*> characters = *clearing->getCharacters();
+			int chars = characters.size();
+			int charCounterDiameter = ((*characterImages)[Amazon])->width() * characterImageScale;
+			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
+			QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
+			int characterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
+			int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation()));
+			if (clearing->getDwelling() != 0)
+			{
+				characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
+			}
+			for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
+			{
 
-void GameWindow::placeCharacter(Character* character, Tile* tile, Clearing* clearing)
-{
-	vector<Character*> characters = *clearing->getCharacters();
-	int chars = characters.size();
-	int charCounterDiameter = ((*characterImages)[Amazon])->width() * characterImageScale;
-	TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
-	QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
-	int characterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
-		(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
-	int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
-		(360 / 6) * ((int)tile->getOrientation()));
-	if (clearing->getDwelling() != 0)
-	{
-		characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
-	}
-	for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
-	{
-
-		QPixmap* charPix = (*characterImages)[(*it)->getType()];
-		QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
-		if (charItem != 0)
-		{
-			charItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
-				+ characterOffsetX);
-			charItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
-				+ characterOffsetY);
-			charItem->setVisible(true);
-			characterOffsetX += charCounterDiameter;
+				QPixmap* charPix = (*characterImages)[(*it)->getType()];
+				QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
+				if (charItem != 0)
+				{
+					charItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
+						+ characterOffsetX);
+					charItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
+						+ characterOffsetY);
+					charItem->setVisible(true);
+					characterOffsetX += charCounterDiameter;
+				}
+			}
 		}
 	}
 }
@@ -1283,6 +1300,46 @@ void GameWindow::placeDwelling(Dwelling* dwelling)
 				dwellingItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (dwellingPix->height() / 2)
 					+ offsetY);
 			}
+		}
+	}
+}
+
+void GameWindow::placeMonster(Monster* monster)
+{
+	Clearing* clearing = monster->getLocation();
+	if (clearing != 0)
+	{
+		Tile* tile = clearing->getTile();
+		if (tile != 0)
+		{/*
+			vector<Character*> characters = *clearing->getCharacters();
+			int chars = characters.size();
+			int charCounterDiameter = ((*characterImages)[Amazon])->width() * characterImageScale;
+			TileGraphicsItem* tileItem = ((*tileGraphicsItems)[tile]);
+			QPoint *clearingOffset = (*(*tileClearingOffsets)[tile->getName()])[clearing->getClearingNum() - 1];
+			int characterOffsetX = getXRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
+			int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
+				(360 / 6) * ((int)tile->getOrientation()));
+			if (clearing->getDwelling() != 0)
+			{
+				characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
+			}
+			for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
+			{
+
+				QPixmap* charPix = (*characterImages)[(*it)->getType()];
+				QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
+				if (charItem != 0)
+				{
+					charItem->setX((*tileLocations)[tile].x() + (tileItem->width() / 2) - (charPix->width() / 2)
+						+ characterOffsetX);
+					charItem->setY((*tileLocations)[tile].y() + (tileItem->height() / 2) - (charPix->height() / 2)
+						+ characterOffsetY);
+					charItem->setVisible(true);
+					characterOffsetX += charCounterDiameter;
+				}
+			}*/
 		}
 	}
 }
@@ -1459,7 +1516,7 @@ void GameWindow::moveTo(CharacterType character, QString& clearingString)
 		}
 		updateCharacterInfoPane();
 		updateTileInfoPane(selectedTile);
-		updateCharacterLocation(game->getPlayer((CharacterType)character));
+		placeCharacter(game->getPlayer((CharacterType)character));
 		
 		QString eventString;
 		eventString.sprintf("%s moved to %s clearing %d", Character::getTypeString((CharacterType)character),

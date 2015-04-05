@@ -50,10 +50,10 @@ public:
 	void updateCharacterInfoPane();
 	void updateTileInfoPane(Tile* tile);
 	void updateMonsterInfoPane(Monster* monster);
-	void updateCharacterLocation(Character* character);
-	void placeCharacter(Character* character, Tile* tile, Clearing* clearing);
+	void placeCharacter(Character* character);
 	void placeDestinationCounter();
 	void placeDwelling(Dwelling* dwelling);
+	void placeMonster(Monster* monster);
 	void selectAction(ActionType action);
 	bool moveAction();
 	void moveTo(CharacterType character, QString& clearingString);
@@ -68,6 +68,8 @@ public:
 	void requestCharacter(CharacterType character, DwellingType startLoc);
 	void characterRequestAcknowledged(bool accepted);
 	void addCharacterToGame(QString &newCharacter);
+	void addMonsterToGame(Monster* monster);
+	void removeMonsterFromGame(int id);
 	void doTurn(QString&);
 	void submitTurn();
 	void setCurrentPhaseType(const QString& phaseString);
