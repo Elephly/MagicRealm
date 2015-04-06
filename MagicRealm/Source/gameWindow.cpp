@@ -752,7 +752,7 @@ void GameWindow::addMonsterToGame(Monster* monster)
 
 void GameWindow::removeMonsterFromGame(int id)
 {
-	//TODO
+	gameScene->removeItem((*monsterGraphicsItems)[id]);
 }
 
 errno_t GameWindow::initializeGame()
@@ -802,6 +802,12 @@ errno_t GameWindow::initializeGame()
 	}
 	
 	initializeDestinationCounter();
+
+	vector<Monster*> monsters = *game->getActiveMonsters();
+	for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
+	{
+		addMonsterToGame(*it);
+	}
 	
 	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
@@ -1157,19 +1163,36 @@ void GameWindow::updateTileInfoPane(Tile* tile)
 			ui.gameTileInformationBrowser->append(clearingInfo);
 
 			vector<Character*> chrs = *c->getCharacters();
-			ui.gameTileInformationBrowser->append("Players:");
-			font.setPointSize(12);
-			font.setBold(true);
-			ui.gameTileInformationBrowser->setCurrentFont(font);
-			for (vector<Character*>::iterator chr  = chrs.begin(); chr != chrs.end(); ++chr)
+			if (chrs.size() > 0)
 			{
-				QString charString;
-				charString.sprintf("  - %s", Character::getTypeString((*chr)->getType()));
-				if ((*chr)->isHidden())
+				ui.gameTileInformationBrowser->append("Players:");
+				font.setPointSize(12);
+				font.setBold(true);
+				ui.gameTileInformationBrowser->setCurrentFont(font);
+				for (vector<Character*>::iterator chr  = chrs.begin(); chr != chrs.end(); ++chr)
 				{
-					charString.append(" (hidden)");
+					QString charString;
+					charString.sprintf("  - %s", Character::getTypeString((*chr)->getType()));
+					if ((*chr)->isHidden())
+					{
+						charString.append(" (hidden)");
+					}
+					ui.gameTileInformationBrowser->append(charString);
 				}
-				ui.gameTileInformationBrowser->append(charString);
+			}
+			vector<Monster*> mons = *c->getMonsterList();
+			if (mons.size() > 0)
+			{
+				ui.gameTileInformationBrowser->append("Monsters:");
+				font.setPointSize(12);
+				font.setBold(true);
+				ui.gameTileInformationBrowser->setCurrentFont(font);
+				for (vector<Monster*>::iterator mon  = mons.begin(); mon != mons.end(); ++mon)
+				{
+					QString charString;
+					charString.sprintf("  - %s", (*mon)->getName().c_str());
+					ui.gameTileInformationBrowser->append(charString);
+				}
 			}
 			ui.gameTileInformationBrowser->append("");
 		}
