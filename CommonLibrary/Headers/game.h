@@ -120,6 +120,9 @@ public:
 	*/
 	int rollDice();
 
+	//kills the monster
+	void killMonster(Monster* deadMonster, Character* player);
+
 private:
     enum siteType{
         HOARD,
@@ -164,8 +167,6 @@ private:
     TimeOfDay currentTime;
     bool cheatMode;
 	time_t seed;
-
-    
 };
 
 #endif // GAME_H

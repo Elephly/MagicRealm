@@ -7,6 +7,8 @@ Character::Character(CharacterType type) {
     hidden = false;
     blocked = false;
 	init(type);
+	fame = 0;
+	notoriety = 0;
 	discoveries = new vector<Chit*>;
 }
 
@@ -51,8 +53,29 @@ void Character::init(CharacterType type) {
 	}
 }
 
-int Character::getGold() {
+int Character::getGold() 
+{
 	return gold;
+}
+
+int Character::getFame()
+{
+	return fame;
+}
+
+int Character::getNotoriety()
+{
+	return notoriety;
+}
+
+void Character::addFame(int incr)
+{
+	fame += incr;
+}
+
+void Character::addNotoriety(int incr)
+{
+	notoriety += incr;
 }
 
 Clearing* Character::getCurrentLocation() {

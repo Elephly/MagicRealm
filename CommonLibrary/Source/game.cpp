@@ -986,3 +986,15 @@ void Game::checkBlocks()
 			players[i]->setBlock(false);
 	}
 }
+
+void Game::killMonster(Monster* deadMonster, Character* player)
+{
+	for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter!= activeMonsters->end(); ++iter){
+		if((*iter)->getID() == deadMonster->getID()){
+			activeMonsters->erase(iter);
+			deadMonster->kill();
+			player->addFame(deadMonster->getFame());
+			player->addNotoriety(deadMonster->getNotoriety);
+		}
+	}
+}

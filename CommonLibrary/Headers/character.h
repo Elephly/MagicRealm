@@ -34,6 +34,12 @@ public:
 	CharAdvantages getAdvantage(bool firstAdvantage);
 
 	void addGold(int);
+	void addFame(int);
+	void addNotoriety(int);
+
+	int getGold();
+	int getFame();
+	int getNotoriety();
 
     /*
     *   addPath
@@ -72,6 +78,8 @@ private:
     bool hidden;
     bool blocked;
 	int gold;
+	int fame;
+	int notoriety;
 	Clearing *location;
 	CharAdvantages advantages[2];
 	vector<Equipment *> *equipment;
