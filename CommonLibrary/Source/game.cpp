@@ -72,6 +72,19 @@ void Game::setupGame(bool cm)
     //dwellings placed on their appropriate chits
     plopDwellings();
 
+	cout << "Setting up ghosts" <<endl;
+	vector<Monster*>* ghostList = gameBoard->getSpawner()->getGhosts();
+	vector<Tile*>* tileList = gameBoard->getTileByType(TILE_VALLEY);
+	Clearing * destinationClearing;
+	for(vector<Monster*>::iterator iter = ghostList->begin(); iter != ghostList->end(); ++iter){
+		for(vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it){
+			if((*it)->getWarningChit()->getName() == "BONES V")
+				destinationClearing = (*it)->getClearing(5);
+		}
+		(*iter)->move(destinationClearing);
+		activeMonsters->push_back(*iter);
+	}
+	delete tileList;
     cout << "Finished Setup..." <<endl <<endl;
 }
 
@@ -895,21 +908,36 @@ void Game::spawnMonsters(int diceUsed)
 {
     MonsterSpawner* lookupTable = gameBoard->getSpawner();
     vector<Monster*>* spawnedMonsters;
+	Chit* siteSoundChit = NULL;
+	vector<Chit*>* lostList = NULL;
     //looping over players to check if any monsters spawned around them.
     for(int i=0; i < MAXPLAYERS; i++){
         if(players[i] == NULL) //if there is not a player there dont do anything
             continue;
 
         //getting list of monsters that spawned
-        spawnedMonsters = lookupTable->spawn(players[i]->getCurrentLocation(), diceUsed);
-
-        if(spawnedMonsters == NULL) //if there are no monsters to spawn we can skip
-            continue;
+		siteSoundChit = players[i]->getCurrentLocation()->getTile()->getSiteOrSoundChit();
+		if(siteSoundChit->getType() == CHIT_LOST){
+			lostList = siteSoundChit->getContents();
+			for(vector<Chit*>::iterator iter = lostList->begin(); iter != lostList->end(); ++iter){
+				spawnedMonsters = lookupTable->spawn(players[i]->getCurrentLocation(), *iter, diceUsed);
+				if(spawnedMonsters == NULL) //if there are no monsters to spawn we can skip
+					continue;
+				for(vector<Monster*>::iterator it = spawnedMonsters->begin(); it != spawnedMonsters->end(); ++it){
+					activeMonsters->push_back(*it);
+				}
+			}
+		}
+		else{
+			spawnedMonsters = lookupTable->spawn(players[i]->getCurrentLocation(), siteSoundChit, diceUsed);
+			for(vector<Monster*>::iterator it = spawnedMonsters->begin(); it != spawnedMonsters->end(); ++it){
+				activeMonsters->push_back(*it);
+			}
+		}
+        
 
         //adding our spawned monsters to the active monster list.
-        for(vector<Monster*>::iterator it = spawnedMonsters->begin(); it != spawnedMonsters->end(); ++it){
-            activeMonsters->push_back(*it);
-        }
+        
     }
 }
 

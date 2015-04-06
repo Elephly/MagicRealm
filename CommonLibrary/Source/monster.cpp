@@ -36,6 +36,26 @@ int Monster::getID()
 	return id;
 }
 
+char Monster::getHarm()
+{
+	return harm;
+}
+
+int Monster::getAS()
+{
+	return attackSpeed;
+}
+
+int Monster::getMS()
+{
+	return moveSpeed;
+}
+
+int Monster::getSharp()
+{
+	return sharpness;
+}
+
 void Monster::move(Clearing* loc)
 {
 	if (location != NULL)

@@ -29,7 +29,18 @@ MonsterSpawner::MonsterSpawner()
     masterList = new vector<Monster*>;
 	flutterSmokeM1 = new vector<Element*>;
 	Element* mList = new Element();
-    Monster* m = new Monster("Heavy Flying Dragon", 'H', 4, 0, 4, 5, 5);
+	//setting up ghosts
+	ghosts = new vector<Monster*>;
+	Monster* m = new Monster("Ghost", 'H', 4, 0, 4, 0, 2);
+	ghosts->push_back(m);
+	masterList->push_back(m);
+	m = NULL;
+	m = new Monster("Ghost", 'H', 4, 0, 4, 0, 2);
+	ghosts->push_back(m);
+	masterList->push_back(m);
+	m = NULL;
+
+    m = new Monster("Heavy Flying Dragon", 'H', 4, 0, 4, 5, 5);
 	mList->addMonster(m);
     masterList->push_back(m);
     m = NULL;
@@ -403,12 +414,11 @@ Monster* MonsterSpawner::getMonsterByID(int id)
     return NULL;
 }
 
-vector<Monster*>* MonsterSpawner::spawn(Clearing* targetClearing, int dRoll)
+vector<Monster*>* MonsterSpawner::spawn(Clearing* targetClearing, Chit* siteSoundChit, int dRoll)
 {
 	Tile* targetTile = targetClearing->getTile();
 	string warningName = targetTile->getWarningChit()->getName();
 	string siteSoundName = "";
-	Chit* siteSoundChit = targetClearing->getTile()->getSiteOrSoundChit();
 	if(siteSoundChit)
 		siteSoundName = siteSoundChit->getName();
 	switch(dRoll){
@@ -502,4 +512,9 @@ vector<Monster*>* MonsterSpawner::spawnMonsters(vector<Element*>* elementList, C
 	}
 	//Monsters are all already on the map, therefore nothing left to return.
 	return NULL;
+}
+
+vector<Monster*>* MonsterSpawner::getGhosts()
+{
+	return ghosts;
 }

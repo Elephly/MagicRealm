@@ -16,7 +16,8 @@ public:
     //used to update specific monsters
     Monster* getMonsterByID(int id);
     //used for server
-	vector<Monster*>* spawn(Clearing* targetClearing, int dieRoll);
+	vector<Monster*>* spawn(Clearing* targetClearing, Chit* siteSoundChit, int dieRoll);
+	vector<Monster*>* getGhosts();
 
 private:
 	class Element
@@ -31,7 +32,7 @@ private:
 		bool spawned;
 		
 	};
-
+	vector<Monster*>* ghosts;
 	vector<Monster*>* spawnMonsters(vector<Element*>* elementList, Clearing* targetClearing);
     vector<Monster*>* masterList; 
 	vector<Element*>* flutterSmokeM1;
