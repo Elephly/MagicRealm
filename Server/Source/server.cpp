@@ -215,7 +215,8 @@ void Server::sunrise() {
 
 //play player turns in random order
 void Server::daylight() {
-	
+	game.checkBlocks();
+
 	qDebug() << "unhiding all players";
 	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
 		it != clientThreadList->end(); ++it) {
@@ -255,8 +256,28 @@ void Server::startAction() {
 	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
 	switch ((*currentAction)->getAction()) {
 	case MoveAction: 
+		//check target for other players, if any ask if they wish to block
+		bool waitForBlockResp = false;
+		const vector<Character*>* clearingOccupants = (*currentAction)->getTarget()->getCharacters();
+		if (clearingOccupants->size() > 0) {
+			stringstream s;
+			s << "BlockRequest";
+			s << CLASSDELIM;
+			s << character->getType();
+			waitForBlockResp = true;
+			for (vector<Character*>::const_iterator it = clearingOccupants->begin(); it != clearingOccupants->end(); ++it) {
+				CharacterType t = (*it)->getType();
+				for (vector<ClientCommThread*>::iterator citer = clientThreadList->begin(); citer != clientThreadList->end(); ++citer) {
+					if (t = (*citer)->getMyCharacter()) {
+						(*citer)->writeMessage(new string(s.str()));
+					}
+				}
+			}
+		}
 		moveCharacter(character, (*currentAction)->getTarget());
-		endAction();
+		if (!waitForBlockResp) {
+			endAction();
+		}
 		break;
 	case SearchAction: 
 		s << "SearchTypeReq";
@@ -290,6 +311,7 @@ void Server::endAction() {
 	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
 	switch ((*currentAction)->getAction())
 	{
+	case MoveAction: break;
 	case SearchAction:
 		sType = clientThreadList->at(currentPlayer)->getSearchTypeResult();
 		searchClearing(character, sType, (*currentAction)->getTarget());
