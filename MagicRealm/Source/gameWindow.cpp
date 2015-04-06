@@ -1614,6 +1614,18 @@ void GameWindow::searchTypeRequest(QString& searchTypes)
 	server->writeMessage(&serializedSearchType);
 }
 
+void GameWindow::blockRequest(CharacterType characterType)
+{
+	QString question;
+	question.sprintf("Do you want to block %s?", Character::getTypeString(characterType));
+	int block = QMessageBox::question(ui.centralWidget, "Block", question, "Yes", "No");
+	
+	//0 for yes, 1 for no
+	QString serializedSearchType;
+	serializedSearchType.sprintf("BlockResp%s%d", CLASSDELIM, block);
+	server->writeMessage(&serializedSearchType);
+}
+
 void GameWindow::search(CharacterType character, SearchType searchType)
 {
 	Character* c = game->getPlayer(character);
