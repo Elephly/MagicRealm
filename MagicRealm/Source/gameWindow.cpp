@@ -221,6 +221,8 @@ void GameWindow::loadMonsterImages()
 	monsterImages->insert("Tremendous Troll", new QPixmap(":/images/counters/monsters/Tremendous Troll.png"));
 	monsterImages->insert("Viper", new QPixmap(":/images/counters/monsters/Viper.png"));
 	monsterImages->insert("Winged Demon", new QPixmap(":/images/counters/monsters/Winged Demon.png"));
+	monsterImages->insert("Wolf1", new QPixmap(":/images/counters/monsters/Wolf1.png"));
+	monsterImages->insert("Wolf2", new QPixmap(":/images/counters/monsters/Wolf2.png"));
 }
 
 void GameWindow::loadTileImages()
@@ -738,7 +740,17 @@ void GameWindow::addMonsterToGame(Monster* monster)
 {
 	if (monster != 0)
 	{
-		QPixmap pxmap = *(*monsterImages)[monster->getName()];
+		string monsterName;
+		if (monster->getName() == "Wolf")
+		{
+			//TODO
+			monsterName = "Wolf1";
+		}
+		else
+		{
+			monsterName = monster->getName();
+		}
+		QPixmap pxmap = *(*monsterImages)[monsterName];
 		MonsterGraphicsItem* item = new MonsterGraphicsItem(pxmap, monster, this);
 		item->setTransformOriginPoint(pxmap.width() / 2, pxmap.height() / 2);
 		item->setZValue(counterDepth);
@@ -1611,6 +1623,18 @@ void GameWindow::searchTypeRequest(QString& searchTypes)
 	
 	QString serializedSearchType;
 	serializedSearchType.sprintf("SearchTypeResp%s%d", CLASSDELIM, searchType);
+	server->writeMessage(&serializedSearchType);
+}
+
+void GameWindow::blockRequest(CharacterType characterType)
+{
+	QString question;
+	question.sprintf("Do you want to block %s?", Character::getTypeString(characterType));
+	int block = QMessageBox::question(ui.centralWidget, "Block", question, "Yes", "No");
+	
+	//0 for yes, 1 for no
+	QString serializedSearchType;
+	serializedSearchType.sprintf("BlockResp%s%d", CLASSDELIM, block);
 	server->writeMessage(&serializedSearchType);
 }
 
