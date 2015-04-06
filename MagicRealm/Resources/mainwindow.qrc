@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/counters/monsters/Wolf1.png</file>
+    <file>images/counters/monsters/Wolf2.png</file>
     <file>images/counters/monsters/Demon.png</file>
     <file>images/counters/monsters/Ghost.png</file>
     <file>images/counters/monsters/Giant Bat.png</file>
