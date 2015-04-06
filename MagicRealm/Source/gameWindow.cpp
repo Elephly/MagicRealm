@@ -29,7 +29,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	dwellingImageScale = 0.4;
 	dwellingImages = new QMap<DwellingType, QPixmap*>();
 	loadDwellingImages();
-	monsterImageScale = 1.0;
+	monsterImageScale = 0.75;
 	monsterImages = new QMap<string, QPixmap*>();
 	monsterGraphicsItems = new QMap<int, MonsterGraphicsItem*>();
 	loadMonsterImages();
@@ -1223,10 +1223,10 @@ void GameWindow::updateMonsterInfoPane(Monster* monster)
 		QString monsterInfo;
 		Clearing* loc = monster->getLocation();
 		monsterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
-		ui.gameCharacterInformationBrowser->append(monsterInfo);
+		ui.gameMonsterInformationBrowser->append(monsterInfo);
 	
 		monsterInfo.sprintf("\nBounty:\n  - %d fame\n  - %d notoriety", monster->getFame(), monster->getNotoriety());
-		ui.gameCharacterInformationBrowser->append(monsterInfo);
+		ui.gameMonsterInformationBrowser->append(monsterInfo);
 	}
 }
 
@@ -1257,18 +1257,19 @@ void GameWindow::placeCharacter(Character* character)
 				(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
 			int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
 				(360 / 6) * ((int)tile->getOrientation()));
-			vector<Monster*> monsters = *clearing->getMonsterList();
+			//vector<Monster*> monsters = *clearing->getMonsterList();
 			if (clearing->getDwelling() != 0)
 			{
 				characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
 			}
+			/* since monsters move after players, this should not matter
 			else if (monsters.size() > 0)
 			{
 				characterOffsetY -= ((((*monsterImages)["Heavy Serpent"]->width() * monsterImageScale) / 2) + (charCounterDiameter / 2));
 			}
+			*/
 			for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
 			{
-
 				QPixmap* charPix = (*characterImages)[(*it)->getType()];
 				QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
 				if (charItem != 0)
@@ -1356,7 +1357,18 @@ void GameWindow::placeMonster(Monster* monster)
 			}
 			else if (characters.size() > 0)
 			{
-				monsterOffsetY -= ((((*characterImages)[Amazon]->width() * characterImageScale) / 2) + (monsterCounterDiameter / 2));
+				monsterOffsetY -= monsterCounterDiameter / 2;
+				int characterCounterDiameter = ((*characterImages)[Amazon]->width() * characterImageScale) / 2;
+				for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
+				{
+					QPixmap* charPix = (*characterImages)[(*it)->getType()];
+					QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
+					if (charItem != 0)
+					{
+						int currY = charItem->y();
+						charItem->setY(currY + characterCounterDiameter);
+					}
+				}
 			}
 			for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
 			{
