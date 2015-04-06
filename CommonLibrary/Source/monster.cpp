@@ -13,6 +13,7 @@ Monster::Monster(string n, char harmLetter, int as, int sharp, int ms, int f, in
 	id = currID;
 	++currID;
     blocked = false;
+	location = NULL;
 }
 
 int Monster::getFame()

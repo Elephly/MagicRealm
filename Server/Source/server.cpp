@@ -342,7 +342,7 @@ void Server::evening() {
 		s << CLASSDELIM;
 		s << (*iter)->getID();
 		s << VARDELIM;
-		s << (*iter)->getLocation()->getTile();
+		s << (*iter)->getLocation()->getTile()->getName();
 		s << VARDELIM;
 		s << (*iter)->getLocation()->getClearingNum();
 		writeMessageAllClients(new string(s.str()));

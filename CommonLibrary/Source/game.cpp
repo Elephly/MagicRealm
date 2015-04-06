@@ -440,6 +440,24 @@ void Game::customSetup()
 
     //getting site and sound chit and populating a general siteAndSoundList.
     vector<Site*>* siteList = gameBoard->getSiteChits();
+	vector<Treasure*> largeTreasure;
+	vector<Treasure*> smallTreasure;
+	vector<Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
+
+	//setting up large treasure lists.
+	for(vector<Treasure*>::iterator iter = tempTreasureList->begin(); iter!= tempTreasureList->end(); ++iter){
+		largeTreasure.push_back(*iter);
+	}
+
+	tempTreasureList = gameBoard->getSmallTreasureList();
+	for(vector<Treasure*>::iterator iter = tempTreasureList->begin(); iter!= tempTreasureList->end(); ++iter){
+		smallTreasure.push_back(*iter);
+	}
+	//setting up small treasure lists
+	//setting up site.
+	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
+		setupSite(*it, &largeTreasure, &smallTreasure);
+
     vector<Sound*>* soundList = gameBoard->getSoundChits();
     vector<Chit*> siteAndSoundList;
 
@@ -479,9 +497,9 @@ void Game::customSetup()
         while(chitIndex >= siteAndSoundList.size() || chitIndex < 0){
             cout << "Chit you wish to add to Lost City: ";
             cin >> chitIndex;
-            lostCityList->push_back(siteAndSoundList.at(chitIndex));
-            siteAndSoundList.erase(siteAndSoundList.begin() + chitIndex);
         }
+		lostCityList->push_back(siteAndSoundList.at(chitIndex));
+        siteAndSoundList.erase(siteAndSoundList.begin() + chitIndex);
         chitIndex = -1;
         listCount = 0;
     }
@@ -498,9 +516,9 @@ void Game::customSetup()
         while(chitIndex >= siteAndSoundList.size() || chitIndex < 0){
             cout << "Chit you wish to add to Lost Castle: ";
             cin >> chitIndex;
-            lostCastleList->push_back(siteAndSoundList.at(chitIndex));
-            siteAndSoundList.erase(siteAndSoundList.begin() + chitIndex);
         }
+		lostCastleList->push_back(siteAndSoundList.at(chitIndex));
+        siteAndSoundList.erase(siteAndSoundList.begin() + chitIndex);
         chitIndex = -1;
         listCount = 0;
     }
@@ -509,14 +527,58 @@ void Game::customSetup()
     siteAndSoundList.push_back(lostCastle);
 
     cout << "Setup Mountain Tiles" <<endl;
+	for(vector<Tile*>::iterator iter = mountainList.begin(); iter != mountainList.end(); ++iter)
+		customTileSetup(*iter, mountainWarningList, &siteAndSoundList);
 
     cout << "Setup Caves Tiles" <<endl;
+	for(vector<Tile*>::iterator iter = cavesList.begin(); iter != cavesList.end(); ++iter)
+		customTileSetup(*iter, cavesWarningList, &siteAndSoundList);
 
     cout << "Setup Woods Tiles" <<endl;
+	for(vector<Tile*>::iterator iter = woodsList.begin(); iter != woodsList.end(); ++iter)
+		customTileSetup(*iter, woodsWarningList, NULL);
+	
 
     cout << "Setup Valley Tiles" <<endl;
+	for(vector<Tile*>::iterator iter = valleyList.begin(); iter != valleyList.end(); ++iter)
+		customTileSetup(*iter, valleyWarningList, NULL);
 
+	cout << "Custom Setup Complete" <<endl;
+	
+}
 
+void Game::customTileSetup(Tile* tile, vector<Warning*>* warningList, vector<Chit*>* siteAndSoundList)
+{
+	int count = 0;
+	int index = -1;
+	cout << "Choose a Warning From the List" <<endl;
+	for(vector<Warning*>::iterator iter = warningList->begin(); iter != warningList->end(); ++iter){
+		cout << count << ": " <<(*iter)->getName() << endl;
+		count++;
+	}
+
+	while(index >= warningList->size() || index < 0){
+            cout << "Warning you wish to add to " << tile->getName() <<": ";
+            cin >> index;
+	}
+	tile->addWarningChit(warningList->at(index));
+    warningList->erase(warningList->begin() + index);
+	count = 0;
+	index = -1;
+	//checking to see if its a woods or valley, if it is we can skip siteAndSound setup
+	if(!siteAndSoundList == NULL){
+		cout << "Choose a Warning/sound From the List" <<endl;
+		for(vector<Chit*>::iterator iter = siteAndSoundList->begin(); iter != siteAndSoundList->end(); ++iter){
+			cout << count << ": " <<(*iter)->getName() << endl;
+			count++;
+		}
+		while(index >= siteAndSoundList->size() || index < 0){
+            cout << "Chit you wish to add to " << tile->getName() <<": ";
+            cin >> index;
+			}
+		tile->addSiteOrSoundChit(siteAndSoundList->at(index));
+		siteAndSoundList->erase(siteAndSoundList->begin() + index);
+	}
 }
 Board* Game::getBoard()
 {

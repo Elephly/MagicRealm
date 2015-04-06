@@ -133,6 +133,8 @@ private:
     };
     //custom chit setup for cheat mode.
     void customSetup();
+	//helper function for setting up tiles
+	void customTileSetup(Tile* tile, vector<Warning*>* warningList, vector<Chit*>* siteAndSoundList);
     /*
     *   setupTiles
     *   Purpose:    Populates the board with tiles.
