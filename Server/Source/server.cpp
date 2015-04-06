@@ -324,6 +324,7 @@ void Server::endAction() {
 		} else {
 			if (blockRes) {
 				//end player turn
+				//TODO set player to blocked, and broadcast blocked
 				while(currentAction != recTurns[currentPlayer]->getActions()->end())
 				{
 					delete (*currentAction);
