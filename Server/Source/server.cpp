@@ -259,12 +259,11 @@ void Server::startAction() {
 	stringstream s;
 	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
 	switch ((*currentAction)->getAction()) {
-	case MoveAction: 
+	case MoveAction: {
 		//check target for other players, if any ask if they wish to block
 		bool waitForBlockResp = false;
 		const vector<Character*>* clearingOccupants = (*currentAction)->getTarget()->getCharacters();
 		if (clearingOccupants->size() > 0) {
-			stringstream s;
 			s << "BlockRequest";
 			s << CLASSDELIM;
 			s << character->getType();
@@ -286,6 +285,7 @@ void Server::startAction() {
 			endAction();
 		}
 		break;
+	}
 	case SearchAction: 
 		s << "SearchTypeReq";
 		s << CLASSDELIM;
@@ -322,7 +322,7 @@ void Server::endAction() {
 		if (blockCheckNum > 0) {
 			return;
 		} else {
-			if (blockResp) {
+			if (blockRes) {
 				//end player turn
 				while(currentAction != recTurns[currentPlayer]->getActions()->end())
 				{
