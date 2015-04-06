@@ -324,7 +324,13 @@ void Server::endAction() {
 		} else {
 			if (blockRes) {
 				//end player turn
-				//TODO set player to blocked, and broadcast blocked
+				character->setBlock(true);
+				//TODO setBlock for the player that blocked
+				stringstream s;
+				s << "Blocked";
+				s << CLASSDELIM;
+				s << character->getType();
+				writeMessageAllClients(new string(s.str()));
 				while(currentAction != recTurns[currentPlayer]->getActions()->end())
 				{
 					delete (*currentAction);
