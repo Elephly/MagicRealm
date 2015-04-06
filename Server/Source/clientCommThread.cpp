@@ -48,6 +48,10 @@ void ClientCommThread::readIncomingData() {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			searchTypeRes = (SearchType) clientData.remove(0, pos + 2).toInt();
 			searchTypeReturned();
+		} else if (clientData.contains(QRegExp("^BlockResp"))) {
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			bool temp = (bool) clientData.remove(0, pos + 2).toInt();
+			blockCheckReturn(temp);
 		}
 		blocksize = 0;
 	} while(true);

@@ -25,6 +25,7 @@ public slots:
 	void characterUnavail(CharacterType type, int clientID);
 	void recordedTurn(QString &turn, int clientID);
 	void endAction();
+	void blockResp(bool answer);
 signals:
 	void finished();
 private:
@@ -33,6 +34,8 @@ private:
 	std::vector<ClientCommThread *> *clientThreadList;
 	bool selectedCharacters[MAXPLAYERS];
 	bool receivedRecTurn[MAXPLAYERS];
+	int blockCheckNum;
+	bool blockRes;
 	RecordedTurn *recTurns[MAXPLAYERS];
     Game game;
 

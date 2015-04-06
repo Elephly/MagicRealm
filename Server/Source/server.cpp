@@ -5,6 +5,8 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	std::cout << "port is: " << myPort << std::endl;
 	clientThreadList = new std::vector<ClientCommThread *>;
 	incoming = new QTcpServer(parent);
+	blockRes = false;
+	blockCheckNum = 0;
 
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
@@ -53,6 +55,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(recordedTurn(QString&, int)));
 			connect(newThread, SIGNAL(searchTypeReturned()),
 				this, SLOT(endAction()));
+			connect(newThread, SIGNAL(blockCheckReturn(bool)), 
+				this, SLOT(blockResp(bool)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;
@@ -265,10 +269,13 @@ void Server::startAction() {
 			s << CLASSDELIM;
 			s << character->getType();
 			waitForBlockResp = true;
+			blockCheckNum = 0;
+			blockRes = false;
 			for (vector<Character*>::const_iterator it = clearingOccupants->begin(); it != clearingOccupants->end(); ++it) {
 				CharacterType t = (*it)->getType();
 				for (vector<ClientCommThread*>::iterator citer = clientThreadList->begin(); citer != clientThreadList->end(); ++citer) {
 					if (t = (*citer)->getMyCharacter()) {
+						++blockCheckNum;
 						(*citer)->writeMessage(new string(s.str()));
 					}
 				}
@@ -311,7 +318,21 @@ void Server::endAction() {
 	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
 	switch ((*currentAction)->getAction())
 	{
-	case MoveAction: break;
+	case MoveAction: 
+		if (blockCheckNum > 0) {
+			return;
+		} else {
+			if (blockResp) {
+				//end player turn
+				while(currentAction != recTurns[currentPlayer]->getActions()->end())
+				{
+					delete (*currentAction);
+					++currentAction;
+				}
+				endPlayerTurn();
+			}
+		}
+		break;
 	case SearchAction:
 		sType = clientThreadList->at(currentPlayer)->getSearchTypeResult();
 		searchClearing(character, sType, (*currentAction)->getTarget());
@@ -492,4 +513,12 @@ void Server::sendBoard(ClientCommThread* client) {
 			client->writeMessage(new string(s.str()));
 		}
 	}
+}
+
+void Server::blockResp(bool answer) {
+	if (answer) {
+		blockRes = true;
+	}
+	--blockCheckNum;
+	endAction();
 }

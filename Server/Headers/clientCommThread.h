@@ -25,6 +25,7 @@ signals:
 	void spawnSelected(DwellingType type, int id);
 	void incomingTurn(QString &turn, int id);
 	void searchTypeReturned();
+	void blockCheckReturn(bool asnwer);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;

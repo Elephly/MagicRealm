@@ -138,6 +138,10 @@ void ServerCommThread::updateFromServer()
 		{
 			windowParent->manageMonsters(serverData);
 		}
+		else if (serverData.contains(QRegExp("^BlockRequest")))
+		{
+			//TODO get response from user
+		}
 		blocksize = 0;
 	} while(true);
 }
