@@ -1875,4 +1875,17 @@ void GameWindow::manageMonsters(QString& monsterString) {
 	Clearing* myClearing = game->getBoard()->getTile(string(temp.toUtf8().constData()))->getClearing(clearingID);
 
 	myMonster->move(myClearing);
+
+	//check if monster is already in active list, and if not add it.
+	vector<Monster*>* aMonsters = game->getActiveMonsters();
+	bool exists = false;
+	for (vector<Monster*>::iterator iter = aMonsters->begin(); iter != aMonsters->end(); ++ iter) {
+		if (*iter == myMonster){
+			exists = true;
+			break;
+		}
+	}
+	if (!exists){
+		aMonsters->push_back(myMonster);
+	}
 }
