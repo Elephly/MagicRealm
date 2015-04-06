@@ -196,31 +196,31 @@ void GameWindow::loadDwellingImages()
 
 void GameWindow::loadMonsterImages()
 {
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Demon.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Ghost.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Giant Bat.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Giant Club.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Giant.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Golbin with Axe.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Golbin with GreatSword.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Golbin with Spear.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Dragon.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Flying Dragon.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Serpent.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Spider.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Heavy Troll.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Imp.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Octopus.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Ogre.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/T Dragon Head.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/T Flying Dragon Head.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Dragon.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Flying Dragon.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Serpent.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Spider.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Tremendous Troll.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Viper.png"));
-	monsterImages->insert("", new QPixmap(":/images/counters/monsters/Winged Demon.png"));
+	monsterImages->insert("Demon", new QPixmap(":/images/counters/monsters/Demon.png"));
+	monsterImages->insert("Ghost", new QPixmap(":/images/counters/monsters/Ghost.png"));
+	monsterImages->insert("Giant Bat", new QPixmap(":/images/counters/monsters/Giant Bat.png"));
+	monsterImages->insert("Giant Club", new QPixmap(":/images/counters/monsters/Giant Club.png"));
+	monsterImages->insert("Giant", new QPixmap(":/images/counters/monsters/Giant.png"));
+	monsterImages->insert("Golbin with Axe", new QPixmap(":/images/counters/monsters/Golbin with Axe.png"));
+	monsterImages->insert("Golbin with GreatSword", new QPixmap(":/images/counters/monsters/Golbin with GreatSword.png"));
+	monsterImages->insert("Golbin with Spear", new QPixmap(":/images/counters/monsters/Golbin with Spear.png"));
+	monsterImages->insert("Heavy Dragon", new QPixmap(":/images/counters/monsters/Heavy Dragon.png"));
+	monsterImages->insert("Heavy Flying Dragon", new QPixmap(":/images/counters/monsters/Heavy Flying Dragon.png"));
+	monsterImages->insert("Heavy Serpent", new QPixmap(":/images/counters/monsters/Heavy Serpent.png"));
+	monsterImages->insert("Heavy Spider", new QPixmap(":/images/counters/monsters/Heavy Spider.png"));
+	monsterImages->insert("Heavy Troll", new QPixmap(":/images/counters/monsters/Heavy Troll.png"));
+	monsterImages->insert("Imp", new QPixmap(":/images/counters/monsters/Imp.png"));
+	monsterImages->insert("Octopus", new QPixmap(":/images/counters/monsters/Octopus.png"));
+	monsterImages->insert("Ogre", new QPixmap(":/images/counters/monsters/Ogre.png"));
+	monsterImages->insert("T Dragon Head", new QPixmap(":/images/counters/monsters/T Dragon Head.png"));
+	monsterImages->insert("T Flying Dragon Head", new QPixmap(":/images/counters/monsters/T Flying Dragon Head.png"));
+	monsterImages->insert("Tremendous Dragon", new QPixmap(":/images/counters/monsters/Tremendous Dragon.png"));
+	monsterImages->insert("Tremendous Flying Dragon", new QPixmap(":/images/counters/monsters/Tremendous Flying Dragon.png"));
+	monsterImages->insert("Tremendous Serpent", new QPixmap(":/images/counters/monsters/Tremendous Serpent.png"));
+	monsterImages->insert("Tremendous Spider", new QPixmap(":/images/counters/monsters/Tremendous Spider.png"));
+	monsterImages->insert("Tremendous Troll", new QPixmap(":/images/counters/monsters/Tremendous Troll.png"));
+	monsterImages->insert("Viper", new QPixmap(":/images/counters/monsters/Viper.png"));
+	monsterImages->insert("Winged Demon", new QPixmap(":/images/counters/monsters/Winged Demon.png"));
 }
 
 void GameWindow::loadTileImages()
