@@ -634,7 +634,7 @@ void Game::testGame()
                 cout << "Second Monster failed to spawn" << endl;
         }
     }
-    checkBlocks(newPlayer);
+    checkBlocks();
     moveRequest(newPlayer, newPlayer->getCurrentLocation());
     delete newPlayer;
     players[0] = NULL;
@@ -959,24 +959,30 @@ vector<Monster*>* Game::getActiveMonsters()
     return activeMonsters;
 }
 
-void Game::checkBlocks(Character* currentPlayer)
+void Game::checkBlocks()
 {
-    Clearing* currentClearing = currentPlayer->getCurrentLocation();
-    //checking to see if any monsters are in the current position to block those monsters and the player.
-    if(currentPlayer->isHidden())
-        return;
-    for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
-        if((*iter)->getLocation() == currentClearing){
-            (*iter)->setBlock(true);
-            if(!currentPlayer->isBlocked())
-            currentPlayer->setBlock(true);
-            return;
-        }
-    }
+	Clearing* currentClearing = NULL;
+	for(int i=0; i <MAXPLAYERS; i++){
+		if(players[i] == NULL)
+			continue;
+		Clearing* currentClearing = players[i]->getCurrentLocation();
+		//checking to see if any monsters are in the current position to block those monsters and the player.
+		if(players[i]->isHidden())
+			return;
 
-    //NOTE HANDLE OTHER PLAYER BLOCKING HERE????
+		for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
+			if((*iter)->getLocation() == currentClearing){
+				(*iter)->setBlock(true);
+				if(!players[i]->isBlocked())
+				players[i]->setBlock(true);
+				return;
+			}
+		}
 
-    //did not find a monster anymore, if they are blocked unblock.
-    if(currentPlayer->isBlocked())
-        currentPlayer->setBlock(false);
+		//NOTE HANDLE OTHER PLAYER BLOCKING HERE????
+
+		//did not find a monster anymore, if they are blocked unblock.
+		if(players[i]->isBlocked())
+			players[i]->setBlock(false);
+	}
 }

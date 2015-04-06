@@ -113,7 +113,7 @@ public:
     vector<Monster*>* getActiveMonsters();
 
     //Update the Blocking status of the players.
-    void checkBlocks(Character* currentPlayer);
+    void checkBlocks();
     /*
 	*	rollDice
 	*	Out:	Number you rolled.
