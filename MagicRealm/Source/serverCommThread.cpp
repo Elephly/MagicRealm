@@ -144,6 +144,12 @@ void ServerCommThread::updateFromServer()
 			CharacterType temp = (CharacterType) serverData.remove(0, pos + 2).toInt();
 			windowParent->blockRequest(temp);
 		}
+		else if (serverData.contains(QRegExp("^Blocked")))
+		{
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			CharacterType temp = (CharacterType) serverData.remove(0, pos + 2).toInt();
+			//TODO gamewindow function needed
+		}
 		blocksize = 0;
 	} while(true);
 }
