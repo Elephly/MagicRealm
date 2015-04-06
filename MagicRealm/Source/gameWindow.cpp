@@ -743,8 +743,14 @@ void GameWindow::addMonsterToGame(Monster* monster)
 		string monsterName;
 		if (monster->getName() == "Wolf")
 		{
-			//TODO
-			monsterName = "Wolf1";
+			if (monster->getHarm() == 'L')
+			{
+				monsterName = "Wolf1";
+			}
+			else if (monster->getHarm() == 'M')
+			{
+				monsterName = "Wolf2";
+			}
 		}
 		else
 		{
