@@ -20,7 +20,9 @@ public:
 	int getAS();
 	int getMS();
 	int getSharp();
-
+	
+	void kill();
+	bool isAlive();
 	void move(Clearing* loc);
 
 	//NOTE: if null, has not spawned yet.
@@ -40,7 +42,8 @@ private:
 	string name;
 	int id;
 	Clearing* location;
-
+	
+	bool alive;
     bool blocked;
 
 };

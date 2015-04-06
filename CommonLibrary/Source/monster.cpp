@@ -14,6 +14,7 @@ Monster::Monster(string n, char harmLetter, int as, int sharp, int ms, int f, in
 	++currID;
     blocked = false;
 	location = NULL;
+	alive = true;
 }
 
 int Monster::getFame()
@@ -36,6 +37,16 @@ int Monster::getID()
 	return id;
 }
 
+bool Monster::isAlive()
+{
+	return alive;
+}
+
+void Monster::kill()
+{
+	alive = false;
+	move(NULL);
+}
 char Monster::getHarm()
 {
 	return harm;
@@ -61,7 +72,8 @@ void Monster::move(Clearing* loc)
 	if (location != NULL)
 		location->removeMonster(this);
 	location = loc;
-	loc->addMonster(this);
+	if(loc != NULL)
+		loc->addMonster(this);
 }
 
 Clearing* Monster::getLocation()
