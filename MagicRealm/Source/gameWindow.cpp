@@ -1898,4 +1898,13 @@ void GameWindow::manageMonsters(QString& monsterString) {
 	Clearing* myClearing = game->getBoard()->getTile(string(temp.toUtf8().constData()))->getClearing(clearingID);
 
 	myMonster->move(myClearing);
+
+	if (!monsterGraphicsItems->contains(myMonster->getID()))
+	{
+		addMonsterToGame(myMonster);
+	}
+	else
+	{
+		placeMonster(myMonster);
+	}
 }
