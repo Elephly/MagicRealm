@@ -206,4 +206,11 @@ enum COMMONLIBRARY_EXPORT MonsterSize
 	GIANT
 };
 
+enum COMMONLIBRARY_EXPORT CounterType
+{
+	COUNTER_FIGHT,
+	COUNTER_MOVE,
+	COUNTER_DUCK //only for dwarf
+};
+
 #endif

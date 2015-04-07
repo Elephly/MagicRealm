@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include "chit.h"
+#include "counter.h"
 
 //forward declare
 class Clearing;
@@ -22,6 +23,7 @@ public:
 	Character(string* serialString);
 	int getGold();
 	vector<Equipment *>* getEquipment();
+	vector<Counter *>* getCounters();
 	Clearing* getCurrentLocation();
 	void moveToClearing(Clearing *destination);
 	bool hasAdvantage(CharAdvantages);
@@ -84,6 +86,7 @@ private:
 	vector<Equipment *> *equipment;
     vector<Path *>* knownPaths;
 	vector<Chit* >* discoveries;
+	vector<Counter *>* counters;
 
 	//private functions
 	void init(CharacterType);

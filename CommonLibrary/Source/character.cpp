@@ -37,6 +37,7 @@ void Character::init(CharacterType type) {
     location = NULL;
     knownPaths = new vector <Path*>;
 	equipment = new vector<Equipment*>();
+	counters = new vector<Counter*>;
 	switch (type) {
 	case Amazon: initAmazon();
 		break;
@@ -82,6 +83,10 @@ Clearing* Character::getCurrentLocation() {
 	return location;
 }
 
+vector<Counter*>* Character::getCounters()
+{
+	return counters;
+}
 vector<Equipment *>* Character::getEquipment() {
 	return equipment;
 }
@@ -248,6 +253,19 @@ void Character::initAmazon() {
 	equipment->push_back(new Armor(Helmet, "Helmet"));
 	equipment->push_back(new Armor(Shield, "Shield"));
 	equipment->push_back(new Armor(Breastplate, "Breastplate"));
+
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 0));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 3, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'L', 4, 0));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 5, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 3, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 3, 2));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 4, 2));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 3, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 3, 1));
 }
 
 void Character::initBlackknight() {
@@ -256,6 +274,19 @@ void Character::initBlackknight() {
 	equipment->push_back(new Weapon(Mace, "Mace"));
 	equipment->push_back(new Armor(Shield, "Shield"));
 	equipment->push_back(new Armor(Suit, "Suit"));
+
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 5, 0));
+	counters->push_back(new Counter(COUNTER_MOVE, 'H', 5, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 5, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'H', 6, 0));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 6, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 5, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 3, 2));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 4, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'H', 4, 2));
 }
 
 void Character::initCaptain() {
@@ -265,6 +296,19 @@ void Character::initCaptain() {
 	equipment->push_back(new Armor(Helmet, "Helmet"));
 	equipment->push_back(new Armor(Shield, "Shield"));
 	equipment->push_back(new Armor(Breastplate, "Breastplate"));
+
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 5, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 5, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 5, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 3, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 3, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 5, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 6, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
 }
 
 void Character::initDwarf() {
@@ -272,12 +316,48 @@ void Character::initDwarf() {
 	advantages[1] = CAVEKNOWLEGDE;
 	equipment->push_back(new Weapon(GreatAxe, "Great Axe"));
 	equipment->push_back(new Armor(Helmet, "Helmet"));
+
+	counters->push_back(new Counter(COUNTER_DUCK, 'T', 3, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'H', 6, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 5, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'T', 6, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 6, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'H', 4, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'T', 5, 2));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'T', 5, 2));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'T', 5, 1));
 }
 
 void Character::initElf() {
 	advantages[0] = ELUSIVNESS;
 	advantages[1] = ARCHER;
 	equipment->push_back(new Weapon(LightBow, "Light Bow"));
+
+	counters->push_back(new Counter(COUNTER_MOVE, 'L', 3, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'L', 3, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'L', 2, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 3, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 0));
+}
+
+void Character::initSwordsman() {
+	advantages[0] = BARTER;
+	advantages[1] = CLEAVER;
+	equipment->push_back(new Weapon(ThrustingSword, "Thrusting Sword"));
+
+	counters->push_back(new Counter(COUNTER_MOVE, 'L', 4, 0));
+	counters->push_back(new Counter(COUNTER_MOVE, 'L', 3, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'L', 3, 1));
+	counters->push_back(new Counter(COUNTER_MOVE, 'L', 3, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'L', 2, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'L', 2, 2));
+	counters->push_back(new Counter(COUNTER_MOVE, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 4, 1));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 3, 2));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'L', 4, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'M', 5, 0));
+	counters->push_back(new Counter(COUNTER_FIGHT, 'L', 2, 2));
 }
 
 CharAdvantages Character::getAdvantage(bool firstAdvantage)
@@ -285,9 +365,4 @@ CharAdvantages Character::getAdvantage(bool firstAdvantage)
 	if(firstAdvantage)
 		return advantages[0];
 	return advantages[1];
-}
-void Character::initSwordsman() {
-	advantages[0] = BARTER;
-	advantages[1] = CLEAVER;
-	equipment->push_back(new Weapon(ThrustingSword, "Thrusting Sword"));
 }

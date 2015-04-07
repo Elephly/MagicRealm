@@ -83,6 +83,7 @@
     <ClInclude Include="Headers\chit.h" />
     <ClInclude Include="Headers\clearing.h" />
     <ClInclude Include="Headers\commonlibrary_global.h" />
+    <ClInclude Include="Headers\counter.h" />
     <ClInclude Include="Headers\dwelling.h" />
     <ClInclude Include="Headers\equipment.h" />
     <ClInclude Include="Headers\game.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="Source\character.cpp" />
     <ClCompile Include="Source\chit.cpp" />
     <ClCompile Include="Source\clearing.cpp" />
+    <ClCompile Include="Source\counter.cpp" />
     <ClCompile Include="Source\dwelling.cpp" />
     <ClCompile Include="Source\equipment.cpp" />
     <ClCompile Include="Source\game.cpp" />
