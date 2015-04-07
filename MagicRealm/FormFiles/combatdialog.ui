@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>CombatDialog</class>
  <widget class="QDialog" name="CombatDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +15,9 @@
   </property>
   <property name="windowTitle">
    <string>Combat</string>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
   </property>
   <widget class="QLabel" name="myCharacter">
    <property name="geometry">
@@ -56,6 +62,19 @@
    </property>
    <property name="scaledContents">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="submitButton">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>500</y>
+     <width>220</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

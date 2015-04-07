@@ -77,14 +77,8 @@
     <ClCompile Include="monsterGraphicsItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="combatDialog.cpp">
+    <ClCompile Include="combatdialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_combatDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_combatDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,11 +97,11 @@
     <CustomBuild Include="Headers\availableMovesDialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="combatDialog.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="FormFiles\combatdialog.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="combatdialog.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
 
@@ -25,12 +26,15 @@ public:
     QLabel *myCharacter;
     QLabel *enemyCharacter;
     QLabel *versusImage;
+    QPushButton *submitButton;
 
     void setupUi(QDialog *CombatDialog)
     {
         if (CombatDialog->objectName().isEmpty())
             CombatDialog->setObjectName(QStringLiteral("CombatDialog"));
+        CombatDialog->setWindowModality(Qt::NonModal);
         CombatDialog->resize(800, 600);
+        CombatDialog->setModal(false);
         myCharacter = new QLabel(CombatDialog);
         myCharacter->setObjectName(QStringLiteral("myCharacter"));
         myCharacter->setGeometry(QRect(0, 0, 380, 600));
@@ -42,6 +46,9 @@ public:
         versusImage->setGeometry(QRect(380, 275, 40, 53));
         versusImage->setPixmap(QPixmap(QString::fromUtf8(":/images/combat/versus.png")));
         versusImage->setScaledContents(true);
+        submitButton = new QPushButton(CombatDialog);
+        submitButton->setObjectName(QStringLiteral("submitButton"));
+        submitButton->setGeometry(QRect(80, 500, 220, 40));
 
         retranslateUi(CombatDialog);
 
@@ -54,6 +61,7 @@ public:
         myCharacter->setText(QString());
         enemyCharacter->setText(QString());
         versusImage->setText(QString());
+        submitButton->setText(QString());
     } // retranslateUi
 
 };
