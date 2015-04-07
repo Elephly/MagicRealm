@@ -482,7 +482,7 @@ void Server::subEncounter(CharacterType character, bool run, int counter) {
 	if (combatCounter == 0) {
 		combat->runEncounter();
 		ClientCommThread* p1 = lookupClient(combat->getAttacker()->getType());
-		ClientCommThread* p2 = lookupClient(combat->getAttacker()->getType());
+		ClientCommThread* p2 = lookupClient(combat->getDefender()->getType());
 		if (combat->EncounterVictorRun()) {
 			string* mString = new string("PlayerCombatFlee");
 			p1->writeMessage(mString);
@@ -509,8 +509,13 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 	}
 	combat->submitMelee(player,fightCounter, cfType, moveCounter, cmType, cbType);
 	if (combatCounter == 0) {
+		Character *p1 = NULL, *p2 = NULL;
+		p1 = combat->getAttacker();
+		p2 = combat->getDefender();
+		combat->getResult
 		combat->runMelee();
 		//TODO handle results of Melee
+		combat->
 		endPlayerCombat();
 	}
 }
