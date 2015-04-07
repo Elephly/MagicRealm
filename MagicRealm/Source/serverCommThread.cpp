@@ -118,8 +118,14 @@ void ServerCommThread::updateFromServer()
 			serverData = serverData.remove(0, pos + 2);
 			pos = serverData.indexOf(QString(VARDELIM));
 			int treasureWorth = serverData.left(pos).toInt();
+			serverData = serverData.remove(0, pos + 1);
+			pos = serverData.indexOf(QString(VARDELIM));
+			int fame = serverData.left(pos).toInt();
+			serverData = serverData.remove(0, pos + 1);
+			pos = serverData.indexOf(QString(VARDELIM));
+			int notoriety = serverData.left(pos).toInt();
 			CharacterType type = (CharacterType)serverData.right(serverData.size() - (pos + 1)).toInt();
-			windowParent->treasureFound(type, treasureWorth);
+			windowParent->treasureFound(type, treasureWorth, fame, notoriety);
 		} 
 		else if (serverData.contains(QRegExp("^SiteFound"))) 
 		{
