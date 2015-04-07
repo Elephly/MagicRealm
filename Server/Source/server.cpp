@@ -8,6 +8,7 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	blockRes = false;
 	blockCheckNum = 0;
 	currentDay = 1;
+	combat = NULL;
 
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
@@ -425,7 +426,48 @@ void Server::evening() {
 	}
 	//TODO perform combat stuff
 	if (monsterCombatCount == 0)
-		midnight();
+		startPlayerCombat();
+}
+
+void Server::startPlayerCombat() {
+	//loop through all players, check for other players in same location
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+		Character* p1 = game.getPlayer((*it)->getMyCharacter());
+		Character* p2 = NULL;
+		if (p1->getCurrentLocation()->getCharacters()->size() > 1) {
+			p2 = p1->getCurrentLocation()->getCharacters()->at(0);
+			if (p2 == p1) {
+				p2 = p1->getCurrentLocation()->getCharacters()->at(1);
+			}
+			if (combat != NULL) {
+				delete combat;
+			}
+			ClientCommThread* temp = lookupClient(p1->getType());
+			if (temp != NULL) {
+				stringstream s;
+				s << "PlayerCombat";
+				s << CLASSDELIM;
+				s << p2->getType();
+				temp->writeMessage(new string(s.str()));
+			}
+			temp = lookupClient(p2->getType());
+			if (temp != NULL) {
+				stringstream s;
+				s << "PlayerCombat";
+				s << CLASSDELIM;
+				s << p1->getType();
+				temp->writeMessage(new string(s.str()));
+			}
+			combat = new CombatManager(p1, p2);
+			break;
+		}
+	}
+	if (combat == NULL)
+		endPlayerCombat();
+}
+
+void Server::endPlayerCombat() {
+	midnight();
 }
 
 //reset all face up mapchits
@@ -600,5 +642,13 @@ void Server::monsterCombatResp(int result, int monsterID, CharacterType player) 
 			writeMessageAllClients(new string(s.str()));
 		}
 	}
-	midnight();
+	startPlayerCombat();
+}
+
+ClientCommThread* Server::lookupClient(CharacterType type) {
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+		if ((*it)->getMyCharacter() == type)
+			return (*it);
+	}
+	return NULL;
 }

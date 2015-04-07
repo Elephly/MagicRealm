@@ -41,6 +41,7 @@ private:
 	RecordedTurn *recTurns[MAXPLAYERS];
     Game game;
 	int currentDay;
+	CombatManager* combat;
 
 	//sending game map to client
 	void sendBoard(ClientCommThread* client);
@@ -52,6 +53,8 @@ private:
 	void sunset();
 	void evening();
 	void midnight();
+	void startPlayerCombat();
+	void endPlayerCombat();
 
 	//daylight functions
 	int currentPlayer;
