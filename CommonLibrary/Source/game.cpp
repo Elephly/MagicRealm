@@ -993,6 +993,8 @@ void Game::killMonster(Monster* deadMonster, Character* player)
 		if((*iter)->getID() == deadMonster->getID()){
 			activeMonsters->erase(iter);
 			deadMonster->kill();
+			deadMonster->setBlock(false);
+			player->setBlock(false);
 			player->addFame(deadMonster->getFame());
 			player->addNotoriety(deadMonster->getNotoriety());
 		}
