@@ -63,6 +63,8 @@ private:
 	bool hitScan(CombatFightType firstFight, CombatMoveType secondMove);
 	bool firstMelee;
 
+	int doubleMiss;
+
 	CombatPhaseType currentPhase;
 };
 

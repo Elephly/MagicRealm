@@ -16,6 +16,8 @@ CombatManager::CombatManager(Character* a, Character* d){
 
 	attackerResult = ACTION_MISS;
 	defenderResult = ACTION_MISS;
+
+	doubleMiss = 0;
 }
 
 Character* CombatManager::getAttacker(){
@@ -292,11 +294,23 @@ void CombatManager::runMelee()
 				attackerResult = ACTION_MISS;
 	}
 	//phase is now over result phase kicks in
-	currentPhase = PHASE_RESOLVE;
+	if(attackerResult == ACTION_MISS && defenderResult == ACTION_MISS){
+		doubleMiss++;
+		if(doubleMiss > 1){
+			currentPhase = PHASE_MISSED;
+		}
+		else
+			currentPhase = PHASE_RESOLVE;
+	}
+	else{
+		doubleMiss = 0;
+		currentPhase = PHASE_RESOLVE;
+	}
 }
 
 //TODO runRESOLVE PHASE!!!!!
 //TODO MISSILE COMBAT HANDLING
+//TODO CHIT WOUNDING PAGE 66/67
 
 bool CombatManager::hitScan(CombatFightType firstFight, CombatMoveType secondMove)
 {
