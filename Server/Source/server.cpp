@@ -517,22 +517,40 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		p2 = combat->getDefender();
 		p1Action = combat->getResult(p1);
 		p2Action = combat->getResult(p2);
+		ClientCommThread *client1, *client2;
+		client1 = lookupClient(p1->getType());
+		client2 = lookupClient(p2->getType());
 		switch(p1Action) {
-		case ACTION_DAMAGED: break;
+		case ACTION_DAMAGED: 
+			//send armor updates
+			break;
 		case ACTION_WOUND: break;
-		case ACTION_MISS: break;
-		case ACTION_DEAD: break;
 		}
 		switch(p2Action) {
-		case ACTION_DAMAGED: break;
+		case ACTION_DAMAGED: 
+			//send armor updates
+			break;
 		case ACTION_WOUND: break;
-		case ACTION_MISS: break;
-		case ACTION_DEAD: break;
 		}
-		//TODO handle results of Melee
-		//combat->
-		endPlayerCombat();
+		switch(combat->getCurrentPhase()) {
+		case PHASE_DEAD: 
+			//someone is dead, end combat
+			endPlayerCombat();
+			break;
+		case PHASE_MISSED:
+			endPlayerCombat();
+			break;
+		case PHASE_ENCOUNTER:
+			string* message = new string("PlayerCombat");
+			client1->writeMessage(message);
+			client2->writeMessage(message);
+			break;
+		}
 	}
+}
+
+void Server::playerWounded(CharacterType character, vector<int> stuff) {
+
 }
 
 void Server::endPlayerCombat() {
