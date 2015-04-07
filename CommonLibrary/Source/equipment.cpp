@@ -29,3 +29,8 @@ void Equipment::setDamaged(bool status)
 {
 	cout << "Setting Damage on Equipment does not do anything" << endl;
 }
+
+int Equipment::getLength()
+{
+	return 0;
+}

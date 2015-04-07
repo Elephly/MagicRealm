@@ -9,6 +9,9 @@ public:
 	Weapon(WeaponType type, string n);
 	bool getActive();
 	void setActive(bool);
+	int getLength();
+
+	EquipmentType getType();
 
 private:
 	bool active;

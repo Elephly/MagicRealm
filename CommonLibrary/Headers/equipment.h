@@ -9,10 +9,12 @@ public:
 	Equipment(string n);
 	string getName();
 
-	bool getActive();
-	void setActive(bool act);
-	bool isDamaged();
-	void setDamaged(bool status);
+	virtual bool getActive();
+	virtual void setActive(bool act);
+	virtual bool isDamaged();
+	virtual void setDamaged(bool status);
+	virtual int getLength();
+	virtual EquipmentType getType() = 0;
 
 protected:
 	char weightClass;

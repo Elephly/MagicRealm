@@ -74,7 +74,7 @@ bool CombatManager::EncounterVictorRun()
 	return stageWinAttacker ? attackerFlee : defenderFlee;
 }
 
-void CombatManager::submitMelee(Character* combatant, Counter* fCounter, CombatFightType fType, Counter* mCounter, CombatMoveType mType)
+void CombatManager::submitMelee(Character* combatant, Counter* fCounter, CombatFightType fType, Counter* mCounter, CombatMoveType mType, CombatShieldBlock sBlock)
 {
 	setupFightCounter(combatant, fCounter);
 	setupMoveCounter(combatant, mCounter);
@@ -82,11 +82,13 @@ void CombatManager::submitMelee(Character* combatant, Counter* fCounter, CombatF
 	if(combatant == attacker){
 		attackerMoveType = mType;
 		attackerFightType = fType;
+		attackerBlock = sBlock;
 		return;
 	}
 	if(combatant == defender){
 		defenderMoveType = mType;
 		defenderFightType = fType;
+		defenderBlock = sBlock;
 		return;
 	}
 }
@@ -133,6 +135,89 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 
 void CombatManager::runMelee()
 {
+	Character* combatant = NULL;
+	bool attackerFirst = true;
+	
+	Counter* firstMoveCounter;
+	Counter* secondMoveCounter;
 
+	Counter* firstFightCounter;
+	Counter* secondFightCounter;
+
+	CombatFightType firstFightType;
+	CombatFightType secondFightType;
+
+	CombatMoveType firstMoveType;
+	CombatMoveType secondMoveType;
+
+	CombatShieldBlock firstBlock;
+	CombatShieldBlock secondBlock;
+
+
+	int attackerLength;
+	int defenderLength;
+	vector<Equipment*>* attackerEquipment = attacker->getEquipment();
+	vector<Equipment*>* defenderEquipment = defender->getEquipment();
+	//getting weapon lengths
+	for(vector<Equipment*>::iterator iter = attackerEquipment->begin(); iter != attackerEquipment->end(); ++iter){
+			if((*iter)->getType() == EQUIPMENT_WEAPON){
+				attackerLength = (*iter)->getLength();
+				break;
+			}
+		}
+	for(vector<Equipment*>::iterator iter = defenderEquipment->begin(); iter != defenderEquipment->end(); ++iter){
+			if((*iter)->getType() == EQUIPMENT_WEAPON){
+				defenderLength = (*iter)->getLength();
+				break;
+			}
+		}
+	//determining who attacks first.
+	if(firstMelee){
+		firstMelee = false;
+		if(attackerLength == defenderLength)
+			attackerFirst = (attackerFightCounter->getSpeed() <= defenderFightCounter->getSpeed());
+		else
+			attackerFirst = (attackerLength < defenderLength);
+	}
+	else{
+		if(attackerFightCounter->getSpeed() == defenderFightCounter->getSpeed())
+			attackerFirst = (attackerLength < defenderLength);
+		else
+			attackerFirst = (attackerFightCounter->getSpeed() < defenderFightCounter->getSpeed());
+	}
+
+	//Ordering the attackers
+	if(attackerFirst){
+		firstMoveCounter = attackerMoveCounter;
+		secondMoveCounter = defenderMoveCounter;
+
+		firstFightCounter = attackerFightCounter;
+		secondFightCounter = defenderFightCounter;
+
+		firstFightType = attackerFightType;
+		secondFightType = defenderFightType;
+
+		firstMoveType = attackerMoveType;
+		secondMoveType = defenderMoveType;
+
+		firstBlock = attackerBlock;
+		secondBlock = defenderBlock;
+	}
+	else{
+		firstMoveCounter = defenderMoveCounter;
+		secondMoveCounter = attackerMoveCounter;
+
+		firstFightCounter = defenderFightCounter;
+		secondFightCounter = attackerFightCounter;
+
+		firstFightType = defenderFightType;
+		secondFightType = attackerFightType;
+
+		firstMoveType = defenderMoveType;
+		secondMoveType = attackerMoveType;
+
+		firstBlock = defenderBlock;
+		secondBlock = attackerBlock;
+	}
 }
 

@@ -57,3 +57,13 @@ void Weapon::setActive(bool act)
 {
 	active = act;
 }
+
+int Weapon::getLength()
+{
+	return length;
+}
+
+EquipmentType Weapon::getType()
+{
+	return EQUIPMENT_WEAPON;
+}

@@ -10,6 +10,8 @@ public:
 	bool isDamaged();
 	void setDamaged(bool status);
 
+	EquipmentType getType();
+
 private:
 	ArmorType type;
 	bool damaged;

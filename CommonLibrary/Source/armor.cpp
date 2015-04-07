@@ -22,3 +22,8 @@ void Armor::setDamaged(bool status)
 {
 	damaged = status;
 }
+
+EquipmentType Armor::getType()
+{
+	return EQUIPMENT_ARMOR;
+}
