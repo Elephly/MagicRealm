@@ -51,7 +51,7 @@ void ClientCommThread::readIncomingData() {
 		} else if (clientData.contains(QRegExp("^BlockResp"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			bool temp = (bool) clientData.remove(0, pos + 2).toInt();
-			blockCheckReturn(!temp, myCharacter);
+			blockCheckReturn(temp, myCharacter);
 		} else if (clientData.contains(QRegExp("^MonsterCombatResp"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData.remove(0, pos + 2); //strips the class delim, now = result^monsterID^characterType

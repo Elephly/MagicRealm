@@ -285,7 +285,7 @@ void Server::startAction() {
 			for (vector<Character*>::const_iterator it = clearingOccupants->begin(); it != clearingOccupants->end(); ++it) {
 				CharacterType t = (*it)->getType();
 				for (vector<ClientCommThread*>::iterator citer = clientThreadList->begin(); citer != clientThreadList->end(); ++citer) {
-					if (t = (*citer)->getMyCharacter()) {
+					if (t == (*citer)->getMyCharacter()) {
 						++blockCheckNum;
 						(*citer)->writeMessage(new string(s.str()));
 					}
