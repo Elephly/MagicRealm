@@ -557,9 +557,31 @@ void Server::blockResp(bool answer, CharacterType responder) {
 	endAction();
 }
 
+//result 0 = fought, result 1 = no fight
 void Server::monsterCombatResp(int result, int monsterID, CharacterType player) {
 	--monsterCombatCount;
 	//TODO handle result of monster combat here
 	//if success update player with fame noteriety, kill monster. notify all players
+	if (result == 1) {
+		vector<Monster*>* monsters = game.getActiveMonsters();
+		Monster* myMonster = NULL;
+		for (vector<Monster*>::iterator it = monsters->begin(); it != monsters->end(); ++it){
+			if ((*it)->getID() == monsterID) {
+				myMonster = (*it);
+				break;
+			}
+		}
+		if (myMonster != NULL) {
+			game.killMonster(myMonster, game.getPlayer(player));
+			stringstream s;
+			s << "MonsterKilled";
+			s << CLASSDELIM;
+			s << monsterID;
+			s << VARDELIM;
+			s << player;
+
+			writeMessageAllClients(new string(s.str()));
+		}
+	}
 	midnight();
 }

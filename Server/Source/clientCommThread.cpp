@@ -51,9 +51,20 @@ void ClientCommThread::readIncomingData() {
 		} else if (clientData.contains(QRegExp("^BlockResp"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			bool temp = (bool) clientData.remove(0, pos + 2).toInt();
-			blockCheckReturn(temp, myCharacter);
+			blockCheckReturn(!temp, myCharacter);
 		} else if (clientData.contains(QRegExp("^MonsterCombatResp"))) {
-			//TODO stuff
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			clientData.remove(0, pos + 2); //strips the class delim, now = result^monsterID^characterType
+
+			pos = clientData.indexOf(QString(VARDELIM));
+			int result = clientData.left(pos).toInt();
+			clientData.remove(0, pos +1); //monsterID^characterType
+
+			pos = clientData.indexOf(QString(VARDELIM));
+			int monsterID = clientData.left(pos).toInt();
+			CharacterType type = (CharacterType) clientData.remove(0, pos + 1).toInt();
+			monsterCombatReturned(result, monsterID, type);
+
 		}
 		blocksize = 0;
 	} while(true);

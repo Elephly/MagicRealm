@@ -156,6 +156,16 @@ void ServerCommThread::updateFromServer()
 			int temp = serverData.remove(0, pos + 2).toInt();
 			windowParent->monsterCombatRequest(temp);
 		}
+		else if (serverData.contains(QRegExp("^MonsterKilled")))
+		{
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			serverData.remove(0, pos + 2); //strips the class delim, now = monsterID^characterType
+
+			pos = serverData.indexOf(QString(VARDELIM));
+			int monsterID = serverData.left(pos).toInt();
+			CharacterType type = (CharacterType) serverData.remove(0, pos +1).toInt();
+			//TODO window function to call game->killmonster();
+		}
 		blocksize = 0;
 	} while(true);
 }
