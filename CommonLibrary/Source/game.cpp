@@ -987,6 +987,7 @@ void Game::killMonster(Monster* deadMonster, Character* player)
 			player->setBlock(false);
 			player->addFame(deadMonster->getFame());
 			player->addNotoriety(deadMonster->getNotoriety());
+            return;
 		}
 	}
 }
