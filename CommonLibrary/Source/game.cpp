@@ -930,6 +930,8 @@ void Game::spawnMonsters(int diceUsed)
 		}
 		else{
 			spawnedMonsters = lookupTable->spawn(players[i]->getCurrentLocation(), siteSoundChit, diceUsed);
+				if(spawnedMonsters == NULL) //if there are no monsters to spawn we can skip
+					continue;
 			for(vector<Monster*>::iterator it = spawnedMonsters->begin(); it != spawnedMonsters->end(); ++it){
 				activeMonsters->push_back(*it);
 			}
