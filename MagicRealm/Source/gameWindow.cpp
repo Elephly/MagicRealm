@@ -1715,8 +1715,8 @@ void GameWindow::monsterCombatRequest(int monsterID)
 {
 	QString question;
 	string monsterName;
-	vector<Monster*> monsters = *game->getActiveMonsters();
-	for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
+	vector<Monster*>* monsters = game->getActiveMonsters();
+	for (vector<Monster*>::iterator it = monsters->begin(); it != monsters->end(); ++it)
 	{
 		if ((*it)->getID() == monsterID)
 		{
@@ -1727,12 +1727,12 @@ void GameWindow::monsterCombatRequest(int monsterID)
 	int combat;
 	if (game->getPlayer(selectedCharacter)->isHidden())
 	{
-		question.sprintf("Will you engage in combat with %s?", monsterName);
+        question.sprintf("Will you engage in combat with %s?", monsterName.c_str());
 		combat = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
 	}
 	else
 	{
-		question.sprintf("You are not hidden. You must engage in combat with %s", monsterName);
+		question.sprintf("You are not hidden. You must engage in combat with %s", monsterName.c_str());
 		QMessageBox::information(ui.centralWidget, "Engage Combat", question, "Okay");
 		combat = 1;
 	}
