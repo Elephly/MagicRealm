@@ -917,7 +917,7 @@ void Game::spawnMonsters(int diceUsed)
 
         //getting list of monsters that spawned
 		siteSoundChit = players[i]->getCurrentLocation()->getTile()->getSiteOrSoundChit();
-		if(siteSoundChit->getType() == CHIT_LOST){
+		if(siteSoundChit != NULL && siteSoundChit->getType() == CHIT_LOST){
 			lostList = siteSoundChit->getContents();
 			for(vector<Chit*>::iterator iter = lostList->begin(); iter != lostList->end(); ++iter){
 				spawnedMonsters = lookupTable->spawn(players[i]->getCurrentLocation(), *iter, diceUsed);
