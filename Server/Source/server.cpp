@@ -9,6 +9,7 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	blockCheckNum = 0;
 	currentDay = 1;
 	combat = NULL;
+	combatCounter = 0;
 
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
@@ -458,6 +459,7 @@ void Server::startPlayerCombat() {
 				s << p1->getType();
 				temp->writeMessage(new string(s.str()));
 			}
+			combatCounter = 2;
 			combat = new CombatManager(p1, p2);
 			break;
 		}
@@ -466,7 +468,56 @@ void Server::startPlayerCombat() {
 		endPlayerCombat();
 }
 
+void Server::subEncounter(CharacterType character, bool run, int counter) {
+	--combatCounter;
+	Character* player = game.getPlayer(character);
+	Counter* actionCounter = NULL;
+	for (vector<Counter*>::iterator it = player->getCounters()->begin(); it != player->getCounters()->end(); ++it) {
+		if ((*it)->getID() == counter) {
+			actionCounter = (*it);
+			break;
+		}
+	}
+	combat->submitEncounter(player, run, actionCounter);
+	if (combatCounter == 0) {
+		combat->runEncounter();
+		ClientCommThread* p1 = lookupClient(combat->getAttacker()->getType());
+		ClientCommThread* p2 = lookupClient(combat->getAttacker()->getType());
+		if (combat->EncounterVictorRun()) {
+			string* mString = new string("PlayerCombatFlee");
+			p1->writeMessage(mString);
+			p2->writeMessage(mString);
+			endPlayerCombat();
+		} else {
+			combatCounter = 2;
+			string* mString = new string("PlayerCombatMelee");
+			p1->writeMessage(mString);
+			p2->writeMessage(mString);
+		}
+	}
+}
+
+void Server::subMelee(CharacterType character, int fightC, CombatFightType cfType, int moveC, CombatMoveType cmType, CombatShieldBlock cbType) {
+	--combatCounter;
+	Character* player = game.getPlayer(character);
+	Counter* fightCounter = NULL, *moveCounter = NULL;
+	for (vector<Counter*>::iterator it = player->getCounters()->begin(); it != player->getCounters()->end(); ++it) {
+		if ((*it)->getID() == fightC)
+			fightCounter = (*it);
+		if ((*it)->getID == moveC)
+			moveCounter = (*it);
+	}
+	combat->submitMelee(player,fightCounter, cfType, moveCounter, cmType, cbType);
+	if (combatCounter == 0) {
+		combat->runMelee();
+		//TODO handle results of Melee
+		endPlayerCombat();
+	}
+}
+
 void Server::endPlayerCombat() {
+	if (combat != NULL)
+		delete combat;
 	midnight();
 }
 

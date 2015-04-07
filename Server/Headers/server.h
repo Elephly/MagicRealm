@@ -27,6 +27,8 @@ public slots:
 	void endAction();
 	void blockResp(bool answer, CharacterType responder);
 	void monsterCombatResp(int result, int monsterID, CharacterType player);
+	void subEncounter(CharacterType character, bool run, int counter);
+	void subMelee(CharacterType character,);
 signals:
 	void finished();
 private:
@@ -42,6 +44,7 @@ private:
     Game game;
 	int currentDay;
 	CombatManager* combat;
+	int combatCounter;
 
 	//sending game map to client
 	void sendBoard(ClientCommThread* client);
@@ -53,6 +56,7 @@ private:
 	void sunset();
 	void evening();
 	void midnight();
+
 	void startPlayerCombat();
 	void endPlayerCombat();
 
@@ -63,6 +67,7 @@ private:
 	void startAction();
 	//void endAction(), is located in public slots:
 	void endPlayerTurn();
+	ClientCommThread* lookupClient(CharacterType);
 
 	bool turnExists();
 	void searchClearing(Character*, SearchType, Clearing*);
