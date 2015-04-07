@@ -148,7 +148,7 @@ void ServerCommThread::updateFromServer()
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			CharacterType temp = (CharacterType) serverData.remove(0, pos + 2).toInt();
-			//TODO gamewindow function needed
+			windowParent->blockCharacter(temp);
 		}
 		blocksize = 0;
 	} while(true);
