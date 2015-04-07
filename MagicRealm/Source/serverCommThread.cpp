@@ -164,7 +164,7 @@ void ServerCommThread::updateFromServer()
 			pos = serverData.indexOf(QString(VARDELIM));
 			int monsterID = serverData.left(pos).toInt();
 			CharacterType type = (CharacterType) serverData.remove(0, pos +1).toInt();
-			//TODO window function to call game->killmonster();
+			windowParent->monsterKilledBy(monsterID, type);
 		}
 		blocksize = 0;
 	} while(true);
