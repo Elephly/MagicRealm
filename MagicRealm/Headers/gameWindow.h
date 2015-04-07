@@ -65,6 +65,7 @@ public:
 	void blockRequest(CharacterType characterType);
 	void blockCharacter(CharacterType characterType);
 	void monsterCombatRequest(int id);
+	void characterCombatRequest(CharacterType characterType);
 
 	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);
