@@ -973,7 +973,7 @@ void Game::checkBlocks()
 			return;
 
 		for(vector<Monster*>::iterator iter = activeMonsters->begin(); iter != activeMonsters->end(); ++iter){
-			if((*iter)->getLocation() == currentClearing && !(*iter)->isBlocked){
+			if((*iter)->getLocation() == currentClearing && !(*iter)->isBlocked()){
 				(*iter)->setBlock(true);
 				if(!players[i]->isBlocked())
 				players[i]->setBlock(true);
