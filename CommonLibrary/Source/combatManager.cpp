@@ -296,6 +296,7 @@ void CombatManager::runMelee()
 }
 
 //TODO runRESOLVE PHASE!!!!!
+//TODO MISSILE COMBAT HANDLING
 
 bool CombatManager::hitScan(CombatFightType firstFight, CombatMoveType secondMove)
 {
