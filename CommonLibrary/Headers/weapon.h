@@ -7,6 +7,8 @@
 class COMMONLIBRARY_EXPORT Weapon : public Equipment {
 public:
 	Weapon(WeaponType type, string n);
+	bool getActive();
+	void setActive(bool);
 
 private:
 	bool active;

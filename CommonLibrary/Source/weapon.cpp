@@ -47,3 +47,13 @@ Weapon::Weapon(WeaponType type, string n): Equipment(n)
 	default: break;
 	}
 }
+
+bool Weapon::getActive()
+{
+	return active;
+}
+
+void Weapon::setActive(bool act)
+{
+	active = act;
+}
