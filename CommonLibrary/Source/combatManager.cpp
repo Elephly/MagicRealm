@@ -55,6 +55,10 @@ void CombatManager::runEncounter()
         cout << "ERR: Not in Encounter Phase" << endl;
         return;
     }
+
+	attackerResult = ACTION_MISS;
+	defenderResult = ACTION_MISS;
+
 	if(attackerMoveCounter == NULL){
 		stageWinAttacker = false;
 		return;
@@ -197,7 +201,7 @@ void CombatManager::runMelee()
 		if(attackerLength == defenderLength)
 			attackerFirst = (attackerFightCounter->getSpeed() <= defenderFightCounter->getSpeed());
 		else
-			attackerFirst = (attackerLength < defenderLength);
+			attackerFirst = (attackerLength > defenderLength);
 	}
 	else{
         if(attackerFightCounter == NULL)
@@ -212,6 +216,7 @@ void CombatManager::runMelee()
 
 	//Ordering the attackers
 	if(attackerFirst){
+		cout << "Attacker makes the first move" <<endl;
 		firstMoveCounter = attackerMoveCounter;
 		secondMoveCounter = defenderMoveCounter;
 
@@ -231,6 +236,7 @@ void CombatManager::runMelee()
 		secondEquipment = defenderEquipment;
 	}
 	else{
+		cout << "Defender makes the first move" <<endl;
 		firstMoveCounter = defenderMoveCounter;
 		secondMoveCounter = attackerMoveCounter;
 
@@ -323,29 +329,28 @@ void CombatManager::runMelee()
 			    else
 				    attackerResult = ACTION_MISS;
     }
-	//phase is now over result phase kicks in
-	if(attackerResult == ACTION_MISS && defenderResult == ACTION_MISS){
-		doubleMiss++;
-		if(doubleMiss > 1){
-			currentPhase = PHASE_MISSED;
-		}
-		else
-			currentPhase = PHASE_RESOLVE;
-	}
-	else{
-		doubleMiss = 0;
-		currentPhase = PHASE_RESOLVE;
-	}
 }
 
-int CombatManager::getAttackerWounds()
+int CombatManager::getWounds(Character * c)
 {
-    return attackerWounds;
+	if(c == attacker)
+		return attackerWounds;
+	if(c == defender)
+		return defenderWounds;
+
+	cout << "ERR: CombatManager::getWounds ::: input character does not match combatants" <<endl;
+	return 0;
 }
 
-int CombatManager::getDefenderWounds()
+CombatActionType CombatManager::getResult(Character* c)
 {
-    return defenderWounds;
+	if(c == attacker)
+		return attackerResult;
+	if(c == defender)
+		return defenderResult;
+
+	cout << "ERR: CombatManager::getResult ::: input character does not match combatants" <<endl;
+	return ACTION_MISS; //probably improper
 }
 
 void CombatManager::woundCounter(Counter* aCounter)
@@ -358,7 +363,7 @@ void CombatManager::runResolve()
     int attackerHealth = 0;
     int defenderHealth = 0;
     //note Fight Counters should never be NULL if ACTION_WOUND appears.. i hope
-    if(attackerResult = ACTION_WOUND){
+    if(attackerResult == ACTION_WOUND){
         attackerWounds = getValue(defenderFightCounter->getSize());
         for(vector<Counter*>::iterator iter = attacker->getCounters()->begin(); iter!= attacker->getCounters()->end(); ++iter){
             if((*iter)->isAvailable())
@@ -371,7 +376,7 @@ void CombatManager::runResolve()
     else
         attackerWounds = 0;
 
-    if(defenderResult = ACTION_WOUND){
+    if(defenderResult == ACTION_WOUND){
         defenderWounds = getValue(defenderFightCounter->getSize());
         for(vector<Counter*>::iterator iter = defender->getCounters()->begin(); iter!= defender->getCounters()->end(); ++iter){
             if((*iter)->isAvailable())
@@ -385,10 +390,20 @@ void CombatManager::runResolve()
 
     if(attackerResult != ACTION_DEAD && defenderResult != ACTION_DEAD)
     {
-        attackerResult = ACTION_MISS;
-        defenderResult = ACTION_MISS;
-        currentPhase = PHASE_ENCOUNTER;
+		if(attackerResult == ACTION_MISS && defenderResult == ACTION_MISS){
+			doubleMiss++;
+			if(doubleMiss > 1)
+				currentPhase = PHASE_MISSED;
+			else
+				currentPhase = PHASE_ENCOUNTER;
+		}
+		else{
+			doubleMiss = 0;
+			currentPhase = PHASE_ENCOUNTER;
+		}
     }
+	else
+		currentPhase = PHASE_DEAD;
 }
 
 int CombatManager::getValue(char weight)

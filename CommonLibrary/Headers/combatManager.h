@@ -24,12 +24,14 @@ public:
 	void runMelee();
 	Character* getPhaseWinner();
 	bool EncounterVictorRun();
+	CombatActionType getResult(Character * combatant);
 	void submitEncounter(Character* combatant, bool run,  Counter* counterUsed);
 	void submitMelee(Character* combatant, Counter* fightCounter, CombatFightType fightType, Counter* moveCounter, CombatMoveType moveType, CombatShieldBlock shieldBlock);
 
     void woundCounter(Counter* aCounter);
-    int getAttackerWounds();
-    int getDefenderWounds();
+    int getWounds(Character* combatant);
+
+	void runResolve();
 
 private:
 	Character* attacker;
@@ -63,8 +65,6 @@ private:
 	void fight(Character* combatant);
 
     int getValue(char weight);
-
-    void runResolve();
 
 	bool stageWinAttacker;
 	bool wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType);
