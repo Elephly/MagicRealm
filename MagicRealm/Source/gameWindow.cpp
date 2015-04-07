@@ -1717,8 +1717,18 @@ void GameWindow::monsterCombatRequest(int monsterID)
 			break;
 		}
 	}
-	question.sprintf("Will you engage in combat with %s?", monsterName);
-	int combat = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
+	int combat;
+	if (game->getPlayer(selectedCharacter)->isHidden())
+	{
+		question.sprintf("Will you engage in combat with %s?", monsterName);
+		combat = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
+	}
+	else
+	{
+		question.sprintf("You are not hidden. You must engage in combat with %s", monsterName);
+		QMessageBox::information(ui.centralWidget, "Engage Combat", question, "Okay");
+		combat = 1;
+	}
 	
 	QString serializedCombat;
 	serializedCombat.sprintf("MonsterCombatResp%s%d%s%d%s%d", CLASSDELIM, combat, VARDELIM, monsterID, VARDELIM, (int)selectedCharacter);
@@ -1750,8 +1760,19 @@ void GameWindow::monsterKilledBy(int monsterID, CharacterType characterType)
 void GameWindow::characterCombatRequest(CharacterType characterType)
 {
 	QString question;
-	question.sprintf("Will you engage in combat with %s?", Character::getTypeString(characterType));
-	int combat = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
+	int combat; = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
+	
+	if (game->getPlayer(selectedCharacter)->isHidden())
+	{
+		question.sprintf("Will you engage in combat with %s?", Character::getTypeString(characterType));
+		combat = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
+	}
+	else
+	{
+		question.sprintf("You are not hidden. You must engage in combat with %s", Character::getTypeString(characterType));
+		QMessageBox::information(ui.centralWidget, "Engage Combat", question, "Okay");
+		combat = 1;
+	}
 
 	QString serializeCombat;
 	serializeCombat.sprintf("CharacterCombatResp%s%d%sd%s%d", CLASSDELIM, combat, VARDELIM, (int)characterType, VARDELIM, (int)selectedCharacter);
