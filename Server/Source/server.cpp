@@ -405,7 +405,18 @@ void Server::evening() {
 		s << (*iter)->getLocation()->getClearingNum();
 		writeMessageAllClients(new string(s.str()));
 	}
-
+	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+		vector<Monster*>* monsterList = game.getPlayer((*it)->getMyCharacter())->getCurrentLocation()->getMonsterList();
+		if (monsterList->size() > 0) {
+			for (vector<Monster*>::iterator iter = monsterList->begin(); iter != monsterList->end(); ++iter) {
+				stringstream s;
+				s << "FightMonsterReq";
+				s << CLASSDELIM;
+				s << (*iter)->getID();
+				(*it)->writeMessage(new string(s.str()));
+			}
+		}
+	}
 	//TODO perform combat stuff
     midnight();
 }
