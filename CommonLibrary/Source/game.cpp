@@ -606,7 +606,7 @@ void Game::testGame()
     cout << "WARN: This should not be run with a normal GAME, unexpected behaviour" << endl;
 
     cout << "Testing Combat Manager" <<endl;
-	Character* attacker = new Character(Swordsman);
+	Character* attacker = new Character(Amazon);
     Character* defender = new Character(Elf);
     Counter* attackerMoveCounter = NULL;
     Counter* defenderMoveCounter = NULL;
@@ -637,9 +637,9 @@ void Game::testGame()
     }
 
     	
-	cout << "Testing 2 Misses in a row (Elf hits first round 1, then Swordsman round 2)"  <<endl;
+	cout << "Active Combat Test"  <<endl;
 	for(int i=0; i <2; i++){
-
+		cout << endl <<"=== New Round of Combat Started ===" << endl <<endl;
 		cout << "Testing No One Flees" <<endl;
 		rumble->submitEncounter(attacker, false, attackerMoveCounter);
 		rumble->submitEncounter(defender, false, defenderMoveCounter);
@@ -651,13 +651,34 @@ void Game::testGame()
 			cout << "No one Fled" <<endl;
 		}
 
-		rumble->submitMelee(attacker, attackerFightCounter, FIGHT_SMASH, attackerMoveCounter, MOVE_CHARGE, SHIELD_NONE);
-		rumble->submitMelee(defender, defenderFightCounter, FIGHT_SMASH, defenderMoveCounter, MOVE_CHARGE, SHIELD_NONE);
+		rumble->submitMelee(attacker, attackerFightCounter, FIGHT_SMASH, attackerMoveCounter, MOVE_DUCK , SHIELD_NONE);
+		rumble->submitMelee(defender, defenderFightCounter, FIGHT_SMASH, defenderMoveCounter, MOVE_DUCK, SHIELD_NONE);
 		rumble->runMelee();
 		rumble->runResolve();
 
-		if(rumble->getResult(attacker) == ACTION_MISS && rumble->getResult(defender) == ACTION_MISS)
-			cout << "Both Attacks Missed!!!!" <<endl;
+		if(rumble->getResult(attacker) == ACTION_MISS)
+			cout << "Defender missed on the Attacker" <<endl;
+
+		if(rumble->getResult(defender) == ACTION_MISS)
+			cout << "Attacker missed on the  Defender" <<endl;
+
+		if(rumble->getResult(attacker) == ACTION_DAMAGED)
+			cout << "Defender damages Attacker's armor" <<endl;
+
+		if(rumble->getResult(defender) == ACTION_DAMAGED)
+			cout << "Attacker damages Defender armor" <<endl;
+
+		if(rumble->getResult(attacker) == ACTION_WOUND)
+			cout << "Defender wounds Attacker for: "<<rumble->getWounds(attacker) <<endl;
+
+		if(rumble->getResult(defender) == ACTION_WOUND)
+			cout << "Attacker wounds Defender for: " <<rumble->getWounds(defender) <<endl;
+
+		if(rumble->getResult(attacker) == ACTION_DEAD)
+			cout << "Defender kills Attacker" <<endl;
+
+		if(rumble->getResult(defender) == ACTION_DEAD)
+			cout << "Attacker kils Defender" <<endl;	
 	}
 
 	if(rumble->getCurrentPhase() == PHASE_MISSED){
