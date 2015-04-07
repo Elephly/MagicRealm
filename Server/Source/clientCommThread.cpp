@@ -52,6 +52,8 @@ void ClientCommThread::readIncomingData() {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			bool temp = (bool) clientData.remove(0, pos + 2).toInt();
 			blockCheckReturn(temp, myCharacter);
+		} else if (clientData.contains(QRegExp("^MonsterCombatResp"))) {
+			//TODO stuff
 		}
 		blocksize = 0;
 	} while(true);

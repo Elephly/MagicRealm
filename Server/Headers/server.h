@@ -26,6 +26,7 @@ public slots:
 	void recordedTurn(QString &turn, int clientID);
 	void endAction();
 	void blockResp(bool answer, CharacterType responder);
+	void monsterCombatResp(int result, int monsterID, CharacterType player);
 signals:
 	void finished();
 private:
@@ -36,6 +37,7 @@ private:
 	bool receivedRecTurn[MAXPLAYERS];
 	int blockCheckNum;
 	bool blockRes;
+	int monsterCombatCount;
 	RecordedTurn *recTurns[MAXPLAYERS];
     Game game;
 

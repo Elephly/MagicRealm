@@ -150,6 +150,10 @@ void ServerCommThread::updateFromServer()
 			CharacterType temp = (CharacterType) serverData.remove(0, pos + 2).toInt();
 			windowParent->blockCharacter(temp);
 		}
+		else if (serverData.contains(QRegExp("^FightMonsterReq"))) 
+		{
+			//TODO stuff
+		}
 		blocksize = 0;
 	} while(true);
 }

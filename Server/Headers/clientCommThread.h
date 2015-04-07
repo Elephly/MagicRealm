@@ -26,6 +26,7 @@ signals:
 	void incomingTurn(QString &turn, int id);
 	void searchTypeReturned();
 	void blockCheckReturn(bool answer, CharacterType responder);
+	void monsterCombatReturned(int result, int monsterID, CharacterType responder);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;

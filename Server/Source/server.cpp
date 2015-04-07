@@ -57,6 +57,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(endAction()));
 			connect(newThread, SIGNAL(blockCheckReturn(bool, CharacterType)), 
 				this, SLOT(blockResp(bool, CharacterType)));
+			connect(newThread, SIGNAL(monsterCombatReturned(int, int, CharacterType)),
+				this, SLOT(monsterCombatResp(int, int, CharacterType)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;
@@ -405,10 +407,12 @@ void Server::evening() {
 		s << (*iter)->getLocation()->getClearingNum();
 		writeMessageAllClients(new string(s.str()));
 	}
+	monsterCombatCount = 0;
 	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
 		vector<Monster*>* monsterList = game.getPlayer((*it)->getMyCharacter())->getCurrentLocation()->getMonsterList();
 		if (monsterList->size() > 0) {
 			for (vector<Monster*>::iterator iter = monsterList->begin(); iter != monsterList->end(); ++iter) {
+				++monsterCombatCount;
 				stringstream s;
 				s << "FightMonsterReq";
 				s << CLASSDELIM;
@@ -418,14 +422,17 @@ void Server::evening() {
 		}
 	}
 	//TODO perform combat stuff
-    midnight();
+	if (monsterCombatCount == 0)
+		midnight();
 }
 
 //reset all face up mapchits
 //start new day
 void Server::midnight() {
-	qDebug() << "midnight begins";
-	birdsong();
+	if (monsterCombatCount == 0) {
+		qDebug() << "midnight begins";
+		birdsong();
+	}
 }
 /*
 Searches the players current location
@@ -548,4 +555,11 @@ void Server::blockResp(bool answer, CharacterType responder) {
 	}
 	--blockCheckNum;
 	endAction();
+}
+
+void Server::monsterCombatResp(int result, int monsterID, CharacterType player) {
+	--monsterCombatCount;
+	//TODO handle result of monster combat here
+	//if success update player with fame noteriety, kill monster. notify all players
+	midnight();
 }
