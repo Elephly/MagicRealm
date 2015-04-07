@@ -361,6 +361,13 @@ void CombatManager::runResolve()
     }
     else
         defenderWounds = 0;
+
+    if(attackerResult != ACTION_DEAD && defenderResult != ACTION_DEAD)
+    {
+        attackerResult = ACTION_MISS;
+        defenderResult = ACTION_MISS;
+        currentPhase = PHASE_ENCOUNTER;
+    }
 }
 
 int CombatManager::getValue(char weight)
