@@ -771,6 +771,7 @@ void GameWindow::addMonsterToGame(Monster* monster)
 void GameWindow::removeMonsterFromGame(int id)
 {
 	gameScene->removeItem((*monsterGraphicsItems)[id]);
+	monsterGraphicsItems->remove(id);
 }
 
 errno_t GameWindow::initializeGame()
