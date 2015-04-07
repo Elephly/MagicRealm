@@ -224,6 +224,13 @@ void Server::daylight() {
 	qDebug() << "unhiding all players";
 	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
 		it != clientThreadList->end(); ++it) {
+			if (game.getPlayer((*it)->getMyCharacter())->isBlocked()) {
+				stringstream s;
+				s << "Blocked";
+				s << CLASSDELIM;
+				s << (*it)->getMyCharacter();
+				writeMessageAllClients(new string(s.str()));
+			}
 			if(game.getPlayer((*it)->getMyCharacter())->isHidden()) {
 				game.getPlayer((*it)->getMyCharacter())->toggleHide();
 				stringstream s;
