@@ -1275,17 +1275,10 @@ void GameWindow::placeCharacter(Character* character)
 				(360 / 6) * ((int)tile->getOrientation())) - (((chars - 1) * charCounterDiameter) / 2);
 			int characterOffsetY = getYRelationalOffsetWithRotation(clearingOffset->x(), clearingOffset->y(),
 				(360 / 6) * ((int)tile->getOrientation()));
-			//vector<Monster*> monsters = *clearing->getMonsterList();
 			if (clearing->getDwelling() != 0)
 			{
 				characterOffsetY += (((*dwellingImages)[CHAPEL]->height() * dwellingImageScale) / 2) + (charCounterDiameter / 2);
 			}
-			/* since monsters move after players, this should not matter
-			else if (monsters.size() > 0)
-			{
-				characterOffsetY -= ((((*monsterImages)["Heavy Serpent"]->width() * monsterImageScale) / 2) + (charCounterDiameter / 2));
-			}
-			*/
 			for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
 			{
 				QPixmap* charPix = (*characterImages)[(*it)->getType()];
@@ -1376,15 +1369,18 @@ void GameWindow::placeMonster(Monster* monster)
 			else if (characters.size() > 0)
 			{
 				monsterOffsetY -= monsterCounterDiameter / 2;
-				int characterCounterDiameter = ((*characterImages)[Amazon]->width() * characterImageScale) / 2;
-				for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
+				if (monsters.size() == 0)
 				{
-					QPixmap* charPix = (*characterImages)[(*it)->getType()];
-					QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
-					if (charItem != 0)
+					int characterCounterDiameter = ((*characterImages)[Amazon]->width() * characterImageScale) / 2;
+					for (vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it)
 					{
-						int currY = charItem->y();
-						charItem->setY(currY + characterCounterDiameter);
+						QPixmap* charPix = (*characterImages)[(*it)->getType()];
+						QGraphicsPixmapItem* charItem = (*characterGraphicsItems)[(*it)->getType()];
+						if (charItem != 0)
+						{
+							int currY = charItem->y();
+							charItem->setY(currY + characterCounterDiameter);
+						}
 					}
 				}
 			}
@@ -1705,6 +1701,19 @@ void GameWindow::siteFound(CharacterType character, QString& siteName)
 	QString eventString;
 	eventString.sprintf("%s found %s!", Character::getTypeString(character), chit->getName().c_str());
 	ui.gameEventFeedBrowser->append(eventString);
+}
+
+void GameWindow::combatRequest()
+{
+	/*
+	QString question;
+	question.sprintf("Do you want to block %s?", Character::getTypeString(characterType));
+	int block = QMessageBox::question(ui.centralWidget, "Block", question, "Yes", "No");
+	
+	QString serializedSearchType;
+	serializedSearchType.sprintf("BlockResp%s%d", CLASSDELIM, block);
+	server->writeMessage(&serializedSearchType);
+	*/
 }
 
 void GameWindow::doTurn(QString &turnString)
