@@ -1634,9 +1634,9 @@ void GameWindow::blockRequest(CharacterType characterType)
 	question.sprintf("Do you want to block %s?", Character::getTypeString(characterType));
 	int block = QMessageBox::question(ui.centralWidget, "Block", question, "Yes", "No");
 	
-	QString serializedSearchType;
-	serializedSearchType.sprintf("BlockResp%s%d", CLASSDELIM, block);
-	server->writeMessage(&serializedSearchType);
+	QString serializedBlock;
+	serializedBlock.sprintf("BlockResp%s%d", CLASSDELIM, block);
+	server->writeMessage(&serializedBlock);
 }
 
 void GameWindow::blockCharacter(CharacterType characterType)
@@ -1703,17 +1703,25 @@ void GameWindow::siteFound(CharacterType character, QString& siteName)
 	ui.gameEventFeedBrowser->append(eventString);
 }
 
-void GameWindow::combatRequest()
+void GameWindow::monsterCombatRequest(int id)
 {
-	/*
 	QString question;
-	question.sprintf("Do you want to block %s?", Character::getTypeString(characterType));
-	int block = QMessageBox::question(ui.centralWidget, "Block", question, "Yes", "No");
+	string monsterName;
+	vector<Monster*> monsters = *game->getActiveMonsters();
+	for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
+	{
+		if ((*it)->getID() == id)
+		{
+			monsterName = (*it)->getName();
+			break;
+		}
+	}
+	question.sprintf("Will you engage in combat with %s?", monsterName);
+	int combat = QMessageBox::question(ui.centralWidget, "Engage Combat", question, "Yes", "No");
 	
 	QString serializedSearchType;
-	serializedSearchType.sprintf("BlockResp%s%d", CLASSDELIM, block);
+	serializedSearchType.sprintf("MonsterCombatResp%s%d", CLASSDELIM, combat);
 	server->writeMessage(&serializedSearchType);
-	*/
 }
 
 void GameWindow::doTurn(QString &turnString)
