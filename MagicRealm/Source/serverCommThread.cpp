@@ -162,7 +162,7 @@ void ServerCommThread::updateFromServer()
 			int temp = serverData.remove(0, pos + 2).toInt();
 			windowParent->monsterCombatRequest(temp);
 		}
-		else if (serverData.contains(QRegExp("^MonsterKilled")))
+		else if (serverData.contains(QRegExp("^KillMonster")))
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData.remove(0, pos + 2); //strips the class delim, now = monsterID^characterType

@@ -224,11 +224,18 @@ void Server::sunrise() {
 
 //play player turns in random order
 void Server::daylight() {
+	game.checkBlocks();
 
 	qDebug() << "unhiding all players";
 	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
 		it != clientThreadList->end(); ++it) {
-			game.getPlayer((*it)->getMyCharacter())->setBlock(false);
+			if (game.getPlayer((*it)->getMyCharacter())->isBlocked()) {
+				stringstream s;
+				s << "Blocked";
+				s << CLASSDELIM;
+				s << (*it)->getMyCharacter();
+				writeMessageAllClients(new string(s.str()));
+			}
 			if(game.getPlayer((*it)->getMyCharacter())->isHidden()) {
 				game.getPlayer((*it)->getMyCharacter())->toggleHide();
 				stringstream s;
@@ -342,7 +349,6 @@ void Server::endAction() {
 					++currentAction;
 				}
 				endPlayerTurn();
-				return;
 			}
 		}
 		break;
@@ -417,7 +423,7 @@ void Server::evening() {
 			}
 		}
 	}
-
+	//TODO perform combat stuff
 	if (monsterCombatCount == 0)
 		midnight();
 }
@@ -571,7 +577,7 @@ void Server::blockResp(bool answer, CharacterType responder) {
 //result 0 = fought, result 1 = no fight
 void Server::monsterCombatResp(int result, int monsterID, CharacterType player) {
 	--monsterCombatCount;
-
+	//TODO handle result of monster combat here
 	//if success update player with fame noteriety, kill monster. notify all players
 	if (result == 1) {
 		vector<Monster*>* monsters = game.getActiveMonsters();
@@ -585,7 +591,7 @@ void Server::monsterCombatResp(int result, int monsterID, CharacterType player) 
 		if (myMonster != NULL) {
 			game.killMonster(myMonster, game.getPlayer(player));
 			stringstream s;
-			s << "MonsterKilled";
+			s << "KillMonster";
 			s << CLASSDELIM;
 			s << monsterID;
 			s << VARDELIM;

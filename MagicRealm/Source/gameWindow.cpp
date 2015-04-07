@@ -1760,7 +1760,10 @@ void GameWindow::monsterKilledBy(int monsterID, CharacterType characterType)
 		eventString.sprintf("%s killed %s!", Character::getTypeString(characterType), myMonster->getName().c_str());
 		ui.gameEventFeedBrowser->append(eventString);
 		removeMonsterFromGame(monsterID);
+		Tile* tile = myMonster->getLocation()->getTile();
 		game->killMonster(myMonster, game->getPlayer(characterType));
+		updateCharacterInfoPane();
+		updateTileInfoPane(tile);
 	}
 }
 
