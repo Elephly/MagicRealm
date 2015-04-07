@@ -1720,7 +1720,7 @@ void GameWindow::monsterCombatRequest(int id)
 	int combat = QMessageBox::question(ui.centralWidget, "Engage Combat", question, "Yes", "No");
 	
 	QString serializedSearchType;
-	serializedSearchType.sprintf("MonsterCombatResp%s%d", CLASSDELIM, combat);
+	serializedSearchType.sprintf("MonsterCombatResp%s%d%s%d%s%d", CLASSDELIM, combat, VARDELIM, id, VARDELIM, (int)selectedCharacter);
 	server->writeMessage(&serializedSearchType);
 }
 
