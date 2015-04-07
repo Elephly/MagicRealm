@@ -153,8 +153,8 @@ void ServerCommThread::updateFromServer()
 		else if (serverData.contains(QRegExp("^FightMonsterReq"))) 
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
-			CharacterType temp = (CharacterType) serverData.remove(0, pos + 2).toInt();
-			windowParent->;
+			int temp = serverData.remove(0, pos + 2).toInt();
+			windowParent->monsterCombatRequest(temp);
 		}
 		blocksize = 0;
 	} while(true);
