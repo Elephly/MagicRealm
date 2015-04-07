@@ -64,7 +64,8 @@ public:
 	void siteFound(CharacterType character, QString& siteName);
 	void blockRequest(CharacterType characterType);
 	void blockCharacter(CharacterType characterType);
-	void monsterCombatRequest(int id);
+	void monsterCombatRequest(int monsterID);
+	void monsterKilledBy(int monsterID, CharacterType characterType);
 	void characterCombatRequest(CharacterType characterType);
 
 	void connectedToServer(time_t);

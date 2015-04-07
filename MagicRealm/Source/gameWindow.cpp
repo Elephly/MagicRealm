@@ -1703,14 +1703,14 @@ void GameWindow::siteFound(CharacterType character, QString& siteName)
 	ui.gameEventFeedBrowser->append(eventString);
 }
 
-void GameWindow::monsterCombatRequest(int id)
+void GameWindow::monsterCombatRequest(int monsterID)
 {
 	QString question;
 	string monsterName;
 	vector<Monster*> monsters = *game->getActiveMonsters();
 	for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
 	{
-		if ((*it)->getID() == id)
+		if ((*it)->getID() == monsterID)
 		{
 			monsterName = (*it)->getName();
 			break;
@@ -1720,8 +1720,30 @@ void GameWindow::monsterCombatRequest(int id)
 	int combat = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
 	
 	QString serializedCombat;
-	serializedCombat.sprintf("MonsterCombatResp%s%d%s%d%s%d", CLASSDELIM, combat, VARDELIM, id, VARDELIM, (int)selectedCharacter);
+	serializedCombat.sprintf("MonsterCombatResp%s%d%s%d%s%d", CLASSDELIM, combat, VARDELIM, monsterID, VARDELIM, (int)selectedCharacter);
 	server->writeMessage(&serializedCombat);
+}
+
+void GameWindow::monsterKilledBy(int monsterID, CharacterType characterType)
+{
+	vector<Monster*> monsters = *game->getActiveMonsters();
+	Monster* myMonster = 0;
+	for (vector<Monster*>::iterator it = monsters.begin(); it != monsters.end(); ++it)
+	{
+		if ((*it)->getID() == monsterID)
+		{
+			myMonster = (*it);
+			break;
+		}
+	}
+	if (myMonster != 0)
+	{
+		QString eventString;
+		eventString.sprintf("%s killed %s!", Character::getTypeString(characterType), myMonster->getName().c_str());
+		ui.gameEventFeedBrowser->append(eventString);
+		removeMonsterFromGame(monsterID);
+		game->killMonster(myMonster, game->getPlayer(characterType));
+	}
 }
 
 void GameWindow::characterCombatRequest(CharacterType characterType)
