@@ -27,6 +27,10 @@ public:
 	void submitEncounter(Character* combatant, bool run,  Counter* counterUsed);
 	void submitMelee(Character* combatant, Counter* fightCounter, CombatFightType fightType, Counter* moveCounter, CombatMoveType moveType, CombatShieldBlock shieldBlock);
 
+    void woundCounter(Counter* aCounter);
+    int getAttackerWounds();
+    int getDefenderWounds();
+
 private:
 	Character* attacker;
 	Character* defender;
@@ -49,12 +53,18 @@ private:
 	CombatActionType attackerResult;
 	CombatActionType defenderResult;
 
+    int attackerWounds;
+    int defenderWounds;
+
 	void setupFightCounter(Character* combatant, Counter* fCounter);
 	void setupMoveCounter(Character* combatant, Counter* mCounter);
 	int getWeaponLength(Weapon* weapon);
 
 	void fight(Character* combatant);
 
+    int getValue(char weight);
+
+    void runResolve();
 
 	bool stageWinAttacker;
 	bool wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType);

@@ -16,6 +16,8 @@ CombatManager::CombatManager(Character* a, Character* d){
 
 	attackerResult = ACTION_MISS;
 	defenderResult = ACTION_MISS;
+    attackerWounds = 0;
+    defenderWounds = 0;
 
 	doubleMiss = 0;
 }
@@ -49,6 +51,10 @@ CombatPhaseType CombatManager::getCurrentPhase()
 }
 void CombatManager::runEncounter()
 {
+    if(currentPhase != PHASE_ENCOUNTER){
+        cout << "ERR: Not in Encounter Phase" << endl;
+        return;
+    }
 	if(attackerMoveCounter == NULL){
 		stageWinAttacker = false;
 		return;
@@ -140,6 +146,10 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 
 void CombatManager::runMelee()
 {
+    if(currentPhase != PHASE_MELEE){
+        cout << "ERR: Not in Melee Phase" <<endl;
+        return;
+    }
 	bool attackerFirst = true;
 
 	bool firstHitSecond = false;
@@ -308,6 +318,61 @@ void CombatManager::runMelee()
 	}
 }
 
+int CombatManager::getAttackerWounds()
+{
+    return attackerWounds;
+}
+
+int CombatManager::getDefenderWounds()
+{
+    return defenderWounds;
+}
+
+void CombatManager::woundCounter(Counter* aCounter)
+{
+    aCounter->wound();
+}
+
+void CombatManager::runResolve()
+{
+    int attackerHealth = 0;
+    int defenderHealth = 0;
+    if(attackerResult = ACTION_WOUND){
+        attackerWounds = getValue(defenderFightCounter->getSize());
+        for(vector<Counter*>::iterator iter = attacker->getCounters()->begin(); iter!= attacker->getCounters()->end(); ++iter){
+            if((*iter)->isAvailable())
+                ++attackerHealth;
+        }
+        if(attackerWounds > attackerHealth){
+            attackerResult = ACTION_DEAD;
+        }
+    }
+    else
+        attackerWounds = 0;
+
+    if(defenderResult = ACTION_WOUND){
+        defenderWounds = getValue(defenderFightCounter->getSize());
+        for(vector<Counter*>::iterator iter = defender->getCounters()->begin(); iter!= defender->getCounters()->end(); ++iter){
+            if((*iter)->isAvailable())
+                ++defenderHealth;
+        }
+        if(defenderWounds > defenderHealth)
+            defenderResult = ACTION_DEAD;
+    }
+    else
+        defenderWounds = 0;
+}
+
+int CombatManager::getValue(char weight)
+{
+    switch(weight){
+    case 'L': return 1;
+    case 'M': return 2;
+    case 'H': return 3;
+    case 'T': return 4;
+    default: return 0;
+    }
+}
 //TODO runRESOLVE PHASE!!!!!
 //TODO MISSILE COMBAT HANDLING
 //TODO CHIT WOUNDING PAGE 66/67
