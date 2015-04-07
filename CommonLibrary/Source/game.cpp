@@ -994,7 +994,7 @@ void Game::killMonster(Monster* deadMonster, Character* player)
 			activeMonsters->erase(iter);
 			deadMonster->kill();
 			player->addFame(deadMonster->getFame());
-			player->addNotoriety(deadMonster->getNotoriety);
+			player->addNotoriety(deadMonster->getNotoriety());
 		}
 	}
 }
