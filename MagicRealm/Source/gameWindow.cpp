@@ -1760,6 +1760,9 @@ void GameWindow::doTurn(QString &turnString)
 		}
 	}
 
+	destinationClearing = game->getPlayer(selectedCharacter)->getCurrentLocation();
+	placeDestinationCounter();
+
 	QString eventString;
 	eventString.sprintf("Plot turn %d:", turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);
