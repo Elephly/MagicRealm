@@ -18,6 +18,7 @@ public:
 	
 	//returns true if attacker won, false if defender won step
 	void runEncounter();
+	void runMelee();
 	Character* getPhaseWinner();
 	bool EncounterVictorRun();
 	void submitEncounter(Character* combatant, bool run,  Counter* counterUsed);
@@ -47,6 +48,8 @@ private:
 
 	bool attackerFlee;
 	bool defenderFlee;
+
+	bool firstMelee;
 
 	CombatPhaseType currentPhase;
 };

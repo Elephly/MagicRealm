@@ -11,7 +11,7 @@ CombatManager::CombatManager(Character* a, Character* d){
 
 	attackerFlee = false;
 	defenderFlee = false;
-
+	firstMelee = true;
 	stageWinAttacker = false;
 }
 
@@ -130,3 +130,9 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 		}
 	}
 }
+
+void CombatManager::runMelee()
+{
+
+}
+

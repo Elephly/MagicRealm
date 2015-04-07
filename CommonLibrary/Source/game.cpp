@@ -397,6 +397,8 @@ void Game::setupTiles()
     p = new Path(badValleyTile->getClearing(2), cavesTile->getClearing(2));
     badValleyTile->addConnectedTile(mountainTile, EDGE_C);
     p = new Path(badValleyTile->getClearing(4), mountainTile->getClearing(5));
+	badValleyTile->addConnectedTile(cavernTile, EDGE_D);
+	p = new Path(badValleyTile->getClearing(4), cavernTile->getClearing(1));
 
     mountainTile->addConnectedTile(pineWoodsTile, EDGE_B);
     p = new Path(mountainTile->getClearing(2), pineWoodsTile->getClearing(4));
