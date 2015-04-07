@@ -29,6 +29,7 @@ public:
 	~GameWindow();
 	
 	void loadCharacterImages();
+	void loadCharacterProfileImages();
 	void loadTileImages();
 	void loadDwellingImages();
 	void loadMonsterImages();
@@ -67,6 +68,7 @@ public:
 	void monsterCombatRequest(int monsterID);
 	void monsterKilledBy(int monsterID, CharacterType characterType);
 	void characterCombatRequest(CharacterType characterType);
+	void beginPlayerCombat(CharacterType characterType);
 
 	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);
@@ -100,6 +102,7 @@ private:
 	double characterImageScale;
 	QMap<CharacterType, QPixmap*>* characterImages;
 	QMap<CharacterType, QGraphicsPixmapItem*>* characterGraphicsItems;
+	QMap<CharacterType, QPixmap*>* characterProfileImages;
 	QMap<string, QPixmap*>* tileImages;
 	QMap<string, QList<QPoint*>*>* tileClearingOffsets;
 	QMap<Tile*, TileGraphicsItem*>* tileGraphicsItems;

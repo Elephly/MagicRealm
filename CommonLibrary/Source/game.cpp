@@ -606,8 +606,8 @@ void Game::testGame()
     cout << "WARN: This should not be run with a normal GAME, unexpected behaviour" << endl;
 
     cout << "Testing Combat Manager" <<endl;
-    Character* attacker = new Character(Dwarf);
-    Character* defender = new Character(BlackKnight);
+	Character* attacker = new Character(Amazon);
+    Character* defender = new Character(Elf);
     Counter* attackerMoveCounter = NULL;
     Counter* defenderMoveCounter = NULL;
     Counter* attackerFightCounter = NULL;
@@ -617,24 +617,75 @@ void Game::testGame()
 
     //getting the desired move chit
     for(vector<Counter*>::iterator iter = attacker->getCounters()->begin(); iter != attacker->getCounters()->end(); ++iter){
-        if((*iter)->getType() == COUNTER_MOVE && (*iter)->getSpeed() == 5)
+        if((*iter)->getType() == COUNTER_MOVE && (*iter)->getSpeed() == 4)
             attackerMoveCounter = *iter;
     }
 
     for(vector<Counter*>::iterator iter = defender->getCounters()->begin(); iter != defender->getCounters()->end(); ++iter){
-        if((*iter)->getType() == COUNTER_MOVE && (*iter)->getSpeed() == 6)
+        if((*iter)->getType() == COUNTER_MOVE && (*iter)->getSpeed() == 3)
             defenderMoveCounter = *iter;
     }
-    cout << "Testing Successful flee by the elf" <<endl;
-    rumble->submitEncounter(attacker, true, attackerMoveCounter);
-    rumble->submitEncounter(defender, true, defenderMoveCounter);
-    rumble->runEncounter();
-    if(rumble->EncounterVictorRun()){
-        cout << "A Combatant Fled" << endl;
+	//getting combat chits
+	for(vector<Counter*>::iterator iter = attacker->getCounters()->begin(); iter != attacker->getCounters()->end(); ++iter){
+        if((*iter)->getType() == COUNTER_FIGHT && (*iter)->getSpeed() == 3)
+            attackerFightCounter = *iter;
     }
-    else{
-        cout << "No one Fled" <<endl;
+
+    for(vector<Counter*>::iterator iter = defender->getCounters()->begin(); iter != defender->getCounters()->end(); ++iter){
+        if((*iter)->getType() == COUNTER_FIGHT && (*iter)->getSpeed() == 4)
+            defenderFightCounter = *iter;
     }
+
+    	
+	cout << "Active Combat Test"  <<endl;
+	for(int i=0; i <2; i++){
+		cout << endl <<"=== New Round of Combat Started ===" << endl <<endl;
+		cout << "Testing No One Flees" <<endl;
+		rumble->submitEncounter(attacker, false, attackerMoveCounter);
+		rumble->submitEncounter(defender, false, defenderMoveCounter);
+		rumble->runEncounter();
+		if(rumble->EncounterVictorRun()){
+			cout << "A Combatant Fled" << endl;
+		}
+		else{
+			cout << "No one Fled" <<endl;
+		}
+
+		rumble->submitMelee(attacker, attackerFightCounter, FIGHT_SMASH, attackerMoveCounter, MOVE_DUCK , SHIELD_NONE);
+		rumble->submitMelee(defender, defenderFightCounter, FIGHT_SMASH, defenderMoveCounter, MOVE_DUCK, SHIELD_NONE);
+		rumble->runMelee();
+		rumble->runResolve();
+
+		if(rumble->getResult(attacker) == ACTION_MISS)
+			cout << "Defender missed on the Attacker" <<endl;
+
+		if(rumble->getResult(defender) == ACTION_MISS)
+			cout << "Attacker missed on the  Defender" <<endl;
+
+		if(rumble->getResult(attacker) == ACTION_DAMAGED)
+			cout << "Defender damages Attacker's armor" <<endl;
+
+		if(rumble->getResult(defender) == ACTION_DAMAGED)
+			cout << "Attacker damages Defender armor" <<endl;
+
+		if(rumble->getResult(attacker) == ACTION_WOUND)
+			cout << "Defender wounds Attacker for: "<<rumble->getWounds(attacker) <<endl;
+
+		if(rumble->getResult(defender) == ACTION_WOUND)
+			cout << "Attacker wounds Defender for: " <<rumble->getWounds(defender) <<endl;
+
+		if(rumble->getResult(attacker) == ACTION_DEAD)
+			cout << "Defender kills Attacker" <<endl;
+
+		if(rumble->getResult(defender) == ACTION_DEAD)
+			cout << "Attacker kils Defender" <<endl;	
+	}
+
+	if(rumble->getCurrentPhase() == PHASE_MISSED){
+		cout << "Combat Ended Since you guys couldnt hit shit" <<endl;
+	}
+
+
     cout << "Combat Manager Tested" << endl;
 
 }
