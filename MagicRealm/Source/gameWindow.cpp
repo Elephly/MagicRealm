@@ -1638,10 +1638,21 @@ void GameWindow::blockRequest(CharacterType characterType)
 	question.sprintf("Do you want to block %s?", Character::getTypeString(characterType));
 	int block = QMessageBox::question(ui.centralWidget, "Block", question, "Yes", "No");
 	
-	//0 for yes, 1 for no
 	QString serializedSearchType;
 	serializedSearchType.sprintf("BlockResp%s%d", CLASSDELIM, block);
 	server->writeMessage(&serializedSearchType);
+}
+
+void blockCharacter(CharacterType characterType)
+{
+	Character* c = game->getPlayer(characterType);
+	if (c != 0)
+	{
+		c->setBlock(true);
+	}
+	QString eventString;
+	eventString.sprintf("%s has been blocked!", Character::getTypeString(characterType));
+	ui.gameEventFeedBrowser->append(eventString);
 }
 
 void GameWindow::search(CharacterType character, SearchType searchType)
@@ -1739,6 +1750,16 @@ void GameWindow::doTurn(QString &turnString)
 			}
 		}
 	}
+
+	for (int i = Amazon; i <= Swordsman; i++)
+	{
+		Character* c = game->getPlayer((CharacterType)i);
+		if (c != 0)
+		{
+			c->setBlock(false);
+		}
+	}
+
 	QString eventString;
 	eventString.sprintf("Plot turn %d:", turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);

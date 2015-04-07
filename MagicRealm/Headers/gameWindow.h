@@ -60,6 +60,7 @@ public:
 	void setCharacterHidden(CharacterType character, bool hidden);
 	void searchTypeRequest(QString& searchTypes);
 	void blockRequest(CharacterType characterType);
+	void blockCharacter(CharacterType characterType);
 	void search(CharacterType character, SearchType searchType);
 	void treasureFound(CharacterType character, int treasureWorth);
 	void siteFound(CharacterType character, QString& siteName);

@@ -37,7 +37,6 @@ public:
 	void addFame(int);
 	void addNotoriety(int);
 
-	int getGold();
 	int getFame();
 	int getNotoriety();
 
