@@ -126,16 +126,17 @@ void Server::setSpawn(DwellingType type, int clientID) {
 }
 
 void Server::moveCharacter(Character *character, Clearing *dest) {
-	game.moveRequest(character, dest);
+	bool result = game.moveRequest(character, dest);
+	if (result) {
+		stringstream s;
 
-	stringstream s;
-
-	s << "MoveCharacter";
-	s << CLASSDELIM;
-	s << character->getType();
-	s << VARDELIM;
-	s << *(dest->toString());
-	writeMessageAllClients(new string(s.str()));
+		s << "MoveCharacter";
+		s << CLASSDELIM;
+		s << character->getType();
+		s << VARDELIM;
+		s << *(dest->toString());
+		writeMessageAllClients(new string(s.str()));
+	}
 }
 
 void Server::writeMessageAllClients(string *message) {
