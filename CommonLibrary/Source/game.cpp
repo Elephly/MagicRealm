@@ -605,10 +605,38 @@ void Game::testGame()
     cout << "Game Run Tests..." << endl;
     cout << "WARN: This should not be run with a normal GAME, unexpected behaviour" << endl;
 
-    //Character* attacker = new Character(Dwarf);
-    //Character* defender = new Character(Elf);
+    cout << "Testing Combat Manager" <<endl;
+    Character* attacker = new Character(Dwarf);
+    Character* defender = new Character(BlackKnight);
+    Counter* attackerMoveCounter = NULL;
+    Counter* defenderMoveCounter = NULL;
+    Counter* attackerFightCounter = NULL;
+    Counter* defenderFightCounter = NULL;
+    CombatManager* rumble = new CombatManager(attacker, defender);
+    
 
-    //CombatManager* rumble = new CombatManager();
+    //getting the desired move chit
+    for(vector<Counter*>::iterator iter = attacker->getCounters()->begin(); iter != attacker->getCounters()->end(); ++iter){
+        if((*iter)->getType() == COUNTER_MOVE && (*iter)->getSpeed() == 5)
+            attackerMoveCounter = *iter;
+    }
+
+    for(vector<Counter*>::iterator iter = defender->getCounters()->begin(); iter != defender->getCounters()->end(); ++iter){
+        if((*iter)->getType() == COUNTER_MOVE && (*iter)->getSpeed() == 6)
+            defenderMoveCounter = *iter;
+    }
+    cout << "Testing Successful flee by the elf" <<endl;
+    rumble->submitEncounter(attacker, true, attackerMoveCounter);
+    rumble->submitEncounter(defender, true, defenderMoveCounter);
+    rumble->runEncounter();
+    if(rumble->EncounterVictorRun()){
+        cout << "A Combatant Fled" << endl;
+    }
+    else{
+        cout << "No one Fled" <<endl;
+    }
+    cout << "Combat Manager Tested" << endl;
+
 }
 
 bool Game::addPlayer(CharacterType newPlayerType)
