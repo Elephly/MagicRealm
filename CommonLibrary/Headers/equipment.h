@@ -9,6 +9,9 @@ public:
 	Equipment(string n);
 	string getName();
 
+	bool getActive();
+	void setActive(bool act);
+
 protected:
 	char weightClass;
 	int value;
