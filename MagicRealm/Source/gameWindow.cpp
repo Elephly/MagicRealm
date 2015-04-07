@@ -1672,13 +1672,19 @@ void GameWindow::search(CharacterType character, SearchType searchType)
 	}
 }
 
-void GameWindow::treasureFound(CharacterType character, int treasureWorth)
+void GameWindow::treasureFound(CharacterType character, int treasureWorth, int fame, int notoriety)
 {
 	Character* c = game->getPlayer(character);
-	c->addGold(treasureWorth);
-	QString eventString;
-	eventString.sprintf("%s found %d gold!", Character::getTypeString(character), treasureWorth);
-	ui.gameEventFeedBrowser->append(eventString);
+	if (c != 0)
+	{
+		c->addGold(treasureWorth);
+		c->addFame(fame);
+		c->addNotoriety(notoriety);
+		QString eventString;
+		eventString.sprintf("%s found a treasure worth %d gold, %d fame, and %d notoriety!", Character::getTypeString(character), 
+			treasureWorth, fame, notoriety);
+		ui.gameEventFeedBrowser->append(eventString);
+	}
 }
 
 void GameWindow::siteFound(CharacterType character, QString& siteName)
