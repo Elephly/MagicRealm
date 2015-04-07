@@ -15,6 +15,11 @@ public:
 	int getSpeed();
 	int getFatigue();
 	int getID();
+	bool isAvailable();
+	void wound();
+	void heal();
+	bool isResting();
+	void setRest(bool rest);
 
 private:
 	static int currID;
@@ -23,6 +28,8 @@ private:
 	int speed;
 	int fatigue;
 	int id;
+	bool wounded;
+	bool resting;
 };
 
 #endif //COUNTER_H

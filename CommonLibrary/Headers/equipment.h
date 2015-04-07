@@ -11,6 +11,8 @@ public:
 
 	bool getActive();
 	void setActive(bool act);
+	bool isDamaged();
+	void setDamaged(bool status);
 
 protected:
 	char weightClass;

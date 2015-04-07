@@ -12,3 +12,13 @@ Armor::Armor(ArmorType type, string n): Equipment(n)
 	default: break;
 	}
 }
+
+bool Armor::isDamaged()
+{
+	return damaged;
+}
+
+void Armor::setDamaged(bool status)
+{
+	damaged = status;
+}

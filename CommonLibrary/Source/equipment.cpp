@@ -19,3 +19,13 @@ void Equipment::setActive(bool act)
 {
 	cout << "Setting Active on Equipment does not do anything" <<endl;
 }
+
+bool Equipment::isDamaged()
+{
+	return false;
+}
+
+void Equipment::setDamaged(bool status)
+{
+	cout << "Setting Damage on Equipment does not do anything" << endl;
+}
