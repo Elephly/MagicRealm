@@ -29,8 +29,9 @@ Character::Character(string* serialString) {
 	first = second.substr(0, pos);
 	second = second.substr(pos + 1);
 	gold = atoi(second.c_str());
+    fame = 0;
+    notoriety = 0;
 }
-
 void Character::init(CharacterType type) {
 	myType = type;
 	gold = 10;

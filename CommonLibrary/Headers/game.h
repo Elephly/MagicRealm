@@ -18,6 +18,7 @@
 #include "lost.h"
 #include "monster.h"
 #include "monsterSpawner.h"
+#include "combatManager.h"
 
 class COMMONLIBRARY_EXPORT Game{
 

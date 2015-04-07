@@ -604,54 +604,11 @@ void Game::testGame()
 {
     cout << "Game Run Tests..." << endl;
     cout << "WARN: This should not be run with a normal GAME, unexpected behaviour" << endl;
-	Monster m1("Heavy Dragon", 'H', 4, 0, 4, 5, 5); 
-	Monster m2("Giant Bat", 'M', 2 , 0, 3, 3, 3);
-	Monster m3("IMP", 'A', 2, 0, 2, 2, 1); 
-	cout << "Heavy Dragon id: " << m1.getID() << endl;
-	cout << "Giant Bat id: " << m2.getID() << endl;
-	cout << "IMP id: " << m3.getID() << endl;
 
-    cout << "Testing Monster Spawning!!!!" << endl;
-    cout << "Adding a Player" <<endl;
+    //Character* attacker = new Character(Dwarf);
+    //Character* defender = new Character(Elf);
 
-    Character* newPlayer = new Character(Amazon);
-    addPlayer(newPlayer);
-
-    vector<Tile*>* tiles = gameBoard->getTiles();
-    for(vector<Tile*>::iterator iter = tiles->begin(); iter!= tiles->end(); ++iter)
-    {
-        if((*iter)->getWarningChit() == gameBoard->getChitByName("SMOKE C"))
-        {
-            newPlayer->moveToClearing((*iter)->getClearing(5));
-            spawnMonsters(1);
-            int oldSize = activeMonsters->size();
-            if(oldSize > 0)
-                cout << "Monsters Spawned" <<endl;
-            else
-                cout << "Monster Failed to Spawn" << endl;
-            spawnMonsters(1);
-            if( activeMonsters->size() > oldSize)
-                cout << "Second Monster Spawned" << endl;
-            else
-                cout << "Second Monster failed to spawn" << endl;
-        }
-    }
-    checkBlocks();
-    moveRequest(newPlayer, newPlayer->getCurrentLocation());
-    delete newPlayer;
-    players[0] = NULL;
-	/* NOTE: For demonstrating looting onlys	
-	Chit* myChit = NULL;
-	string name;
-	Treasure* myTreasure;
-	vector<Tile* >* tiles = gameBoard->getTileByType(TILE_MOUNTAIN);
-	 for(vector<Tile*>::iterator it = tiles->begin(); it != tiles->end(); ++it){
-		 if((*it)->getSiteOrSoundChit()->getType() == CHIT_SITE){
-			 myChit = (*it)->getSiteOrSoundChit();
-			 cout << "Looting " <<myChit->getName() << " FOUND: " << myChit->loot(1)->getName() <<endl;
-        }
-    }
-	*/
+    //CombatManager* rumble = new CombatManager();
 }
 
 bool Game::addPlayer(CharacterType newPlayerType)
