@@ -1760,7 +1760,7 @@ void GameWindow::monsterKilledBy(int monsterID, CharacterType characterType)
 void GameWindow::characterCombatRequest(CharacterType characterType)
 {
 	QString question;
-	int combat; = ((QMessageBox::question(ui.centralWidget, "Engage Combat", question) == QMessageBox::Yes) ? 1 : 0);
+	int combat;
 	
 	if (game->getPlayer(selectedCharacter)->isHidden())
 	{
