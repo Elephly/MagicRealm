@@ -1,4 +1,5 @@
 #include "gameWindow.h"
+#include "ui_combatdialog.h"
 
 #include "availableMovesDialog.h"
 
@@ -22,6 +23,8 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	characterImages = new QMap<CharacterType, QPixmap*>();
 	loadCharacterImages();
 	characterGraphicsItems = new QMap<CharacterType, QGraphicsPixmapItem*>();
+	characterProfileImages = new QMap<CharacterType, QPixmap*>();
+	loadCharacterProfileImages();
 	tileImages = new QMap<std::string, QPixmap*>();
 	tileClearingOffsets = new QMap<std::string, QList<QPoint*>*>();
 	loadTileImages();
@@ -184,6 +187,16 @@ void GameWindow::loadCharacterImages()
 	characterImages->insert(Dwarf, new QPixmap(":/images/counters/characters/dwarf.png"));
 	characterImages->insert(Elf, new QPixmap(":/images/counters/characters/elf.png"));
 	characterImages->insert(Swordsman, new QPixmap(":/images/counters/characters/swordsman.png"));
+}
+
+void GameWindow::loadCharacterProfileImages()
+{
+	characterProfileImages->insert(Amazon, new QPixmap(":/images/characterprofile/amazon.jpg"));
+	characterProfileImages->insert(BlackKnight, new QPixmap(":/images/characterprofile/black_knight.jpg"));
+	characterProfileImages->insert(Captain, new QPixmap(":/images/characterprofile/captain.jpg"));
+	characterProfileImages->insert(Dwarf, new QPixmap(":/images/characterprofile/dwarf.jpg"));
+	characterProfileImages->insert(Elf, new QPixmap(":/images/characterprofile/elf.jpg"));
+	characterProfileImages->insert(Swordsman, new QPixmap(":/images/characterprofile/swordsman.jpg"));
 }
 
 void GameWindow::loadDwellingImages()
@@ -1787,6 +1800,16 @@ void GameWindow::characterCombatRequest(CharacterType characterType)
 	QString serializeCombat;
 	serializeCombat.sprintf("CharacterCombatResp%s%d%sd%s%d", CLASSDELIM, combat, VARDELIM, (int)characterType, VARDELIM, (int)selectedCharacter);
 	server->writeMessage(&serializeCombat);
+}
+
+void GameWindow::beginPlayerCombat(CharacterType characterType)
+{
+	QDialog* dialog = new QDialog(window);
+	Ui::CombatDialog* combatDialog = new Ui::CombatDialog();
+	combatDialog->setupUi(dialog);
+	combatDialog->myCharacter->setPixmap(*(*characterProfileImages)[selectedCharacter]);
+	combatDialog->enemyCharacter->setPixmap(*(*characterProfileImages)[characterType]);
+	dialog->show();
 }
 
 void GameWindow::doTurn(QString &turnString)
