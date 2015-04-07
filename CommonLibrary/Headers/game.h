@@ -100,6 +100,8 @@ public:
 	*/
 	Dwelling* getDwelling(DwellingType dwellingType);
 
+    void restCounter(Counter* aCounter);
+
     /*
     *   spawnMonsters
     *   Rolls the monster die, goes through the list of monsters

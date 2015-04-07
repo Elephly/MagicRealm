@@ -1004,3 +1004,7 @@ void Game::killMonster(Monster* deadMonster, Character* player)
 		}
 	}
 }
+
+void Game::restCounter(Counter* aCounter){
+    aCounter->heal();
+}
