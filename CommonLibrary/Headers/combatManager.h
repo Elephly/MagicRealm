@@ -17,6 +17,8 @@ public:
 private:
 	Character* attacker;
 	Character* defender;
+
+	CombatPhaseType currentPhase;
 };
 
 #endif //COUNTER_H
