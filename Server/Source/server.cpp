@@ -509,13 +509,28 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 	}
 	combat->submitMelee(player,fightCounter, cfType, moveCounter, cmType, cbType);
 	if (combatCounter == 0) {
+		combat->runMelee();
+		combat->runResolve();
 		Character *p1 = NULL, *p2 = NULL;
+		CombatActionType p1Action, p2Action;
 		p1 = combat->getAttacker();
 		p2 = combat->getDefender();
-		combat->getResult
-		combat->runMelee();
+		p1Action = combat->getResult(p1);
+		p2Action = combat->getResult(p2);
+		switch(p1Action) {
+		case ACTION_DAMAGED: break;
+		case ACTION_WOUND: break;
+		case ACTION_MISS: break;
+		case ACTION_DEAD: break;
+		}
+		switch(p2Action) {
+		case ACTION_DAMAGED: break;
+		case ACTION_WOUND: break;
+		case ACTION_MISS: break;
+		case ACTION_DEAD: break;
+		}
 		//TODO handle results of Melee
-		combat->
+		//combat->
 		endPlayerCombat();
 	}
 }
