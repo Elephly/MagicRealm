@@ -46,6 +46,9 @@ private:
 	CombatShieldBlock attackerBlock;
 	CombatShieldBlock defenderBlock;
 
+	CombatActionType attackerResult;
+	CombatActionType defenderResult;
+
 	void setupFightCounter(Character* combatant, Counter* fCounter);
 	void setupMoveCounter(Character* combatant, Counter* mCounter);
 	int getWeaponLength(Weapon* weapon);
@@ -54,10 +57,10 @@ private:
 
 
 	bool stageWinAttacker;
-
+	bool wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType);
 	bool attackerFlee;
 	bool defenderFlee;
-
+	bool hitScan(CombatFightType firstFight, CombatMoveType secondMove);
 	bool firstMelee;
 
 	CombatPhaseType currentPhase;

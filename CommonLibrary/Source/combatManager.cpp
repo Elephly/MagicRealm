@@ -13,6 +13,9 @@ CombatManager::CombatManager(Character* a, Character* d){
 	defenderFlee = false;
 	firstMelee = true;
 	stageWinAttacker = false;
+
+	attackerResult = ACTION_MISS;
+	defenderResult = ACTION_MISS;
 }
 
 Character* CombatManager::getAttacker(){
@@ -135,9 +138,11 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 
 void CombatManager::runMelee()
 {
-	Character* combatant = NULL;
 	bool attackerFirst = true;
-	
+
+	bool firstHitSecond = false;
+	bool secondHitFirst = false;
+
 	Counter* firstMoveCounter;
 	Counter* secondMoveCounter;
 
@@ -152,6 +157,8 @@ void CombatManager::runMelee()
 
 	CombatShieldBlock firstBlock;
 	CombatShieldBlock secondBlock;
+	vector<Equipment*>* firstEquipment;
+	vector<Equipment*>* secondEquipment;
 
 
 	int attackerLength;
@@ -202,6 +209,9 @@ void CombatManager::runMelee()
 
 		firstBlock = attackerBlock;
 		secondBlock = defenderBlock;
+
+		firstEquipment = attackerEquipment;
+		secondEquipment = defenderEquipment;
 	}
 	else{
 		firstMoveCounter = defenderMoveCounter;
@@ -218,6 +228,158 @@ void CombatManager::runMelee()
 
 		firstBlock = defenderBlock;
 		secondBlock = attackerBlock;
+
+		firstEquipment = defenderEquipment;
+		secondEquipment = attackerEquipment;
 	}
+	//now execute the combat
+
+	//executing first person to go
+	firstHitSecond = (firstFightCounter->getSpeed() < secondMoveCounter->getSpeed()); //checking auto hit
+	if(!firstHitSecond) //check lineup
+		firstHitSecond = hitScan(firstFightType, secondMoveType);
+
+	//if hit calculate damage done.
+
+	if(firstHitSecond){
+		if(!wasBlocked(secondEquipment, secondBlock, firstFightType)){
+			if(attackerFirst)
+				defenderResult = ACTION_WOUND;
+			else
+				attackerResult = ACTION_WOUND;
+			cout << "First Player Cut off the Head of Second Player" << endl;
+		}
+		else{
+			if(attackerFirst)
+				defenderResult = ACTION_DAMAGED;
+			else
+				attackerResult = ACTION_DAMAGED;
+		}
+	}
+	else{
+		if(attackerFirst)
+				defenderResult = ACTION_MISS;
+			else
+				attackerResult = ACTION_MISS;
+	}
+	
+	//executing second person to go
+	secondHitFirst = (secondMoveCounter->getSpeed() < firstFightCounter->getSpeed()); //checking auto hit
+	if(!secondHitFirst) //check lineup
+		secondHitFirst = hitScan(secondFightType, firstMoveType);
+
+	//if hit calculate damage done.
+
+	if(secondHitFirst){
+		if(!wasBlocked(firstEquipment, firstBlock, secondFightType)){
+			if(!attackerFirst)
+				defenderResult = ACTION_WOUND;
+			else
+				attackerResult = ACTION_WOUND;
+			cout << "Second Player Cut off the Head of First Player" << endl;
+		}
+		else{
+			if(!attackerFirst)
+				defenderResult = ACTION_DAMAGED;
+			else
+				attackerResult = ACTION_DAMAGED;
+		}
+	}
+	else{
+		if(!attackerFirst)
+				defenderResult = ACTION_MISS;
+			else
+				attackerResult = ACTION_MISS;
+	}
+	//phase is now over result phase kicks in
+	currentPhase = PHASE_RESOLVE;
 }
 
+//TODO runRESOLVE PHASE!!!!!
+
+bool CombatManager::hitScan(CombatFightType firstFight, CombatMoveType secondMove)
+{
+	if(firstFight == FIGHT_THRUST && secondMove == MOVE_CHARGE)
+		return true;
+	if(firstFight == FIGHT_SWING && secondMove == MOVE_DODGE)
+		return true;
+	if(firstFight == FIGHT_SMASH && secondMove == MOVE_DUCK)
+		return true;
+	else
+		return false;
+}
+
+bool CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType)
+{
+	bool hasArmor = false;
+	Equipment* shield = NULL;
+	Equipment* breastplate = NULL;
+	Equipment* helmet = NULL;
+	Equipment* suit = NULL;
+	
+	//checking shield
+	for(vector<Equipment *>::iterator iter = targetEquipment->begin(); iter != targetEquipment->end(); ++iter){
+		if((*iter)->getName() == "Shield"){
+				hasArmor = true;
+				shield = (*iter);
+				break;
+		}
+	}
+	if(hasArmor && !shield->isDamaged()){
+		if((shielded == SHIELD_THRUST && fightType == FIGHT_THRUST)
+			|| (shielded == SHIELD_SWING && fightType == FIGHT_SWING)
+			|| (shielded == SHIELD_SMASH && fightType == FIGHT_SMASH)){
+			shield->setDamaged(true);
+			return true;
+		}
+	}
+	hasArmor = false;
+	//checking breastplate
+	for(vector<Equipment *>::iterator iter = targetEquipment->begin(); iter != targetEquipment->end(); ++iter){
+		if((*iter)->getName() == "Breastplate"){
+				hasArmor = true;
+				breastplate = (*iter);
+				break;
+		}
+	}
+	if(hasArmor && !breastplate->isDamaged()){
+		if(fightType == FIGHT_THRUST || fightType == FIGHT_SWING){
+			breastplate->setDamaged(true);
+			return true;
+		}
+	}
+	hasArmor = false;
+
+	//checking helmet
+	for(vector<Equipment *>::iterator iter = targetEquipment->begin(); iter != targetEquipment->end(); ++iter){
+		if((*iter)->getName() == "Helmet"){
+				hasArmor = true;
+				helmet = (*iter);
+				break;
+		}
+	}
+	if(hasArmor && !helmet->isDamaged()){
+		if(fightType == FIGHT_SMASH){
+			helmet->setDamaged(true);
+			return true;
+		}
+	}
+	hasArmor = false;
+
+	//checking suit of armor
+	for(vector<Equipment *>::iterator iter = targetEquipment->begin(); iter != targetEquipment->end(); ++iter){
+		if((*iter)->getName() == "Suit"){
+				hasArmor = true;
+				helmet = (*iter);
+				break;
+		}
+	}
+	if(hasArmor && !suit->isDamaged()){
+			suit->setDamaged(true);
+			return true;
+	}
+
+	//no armor to protect you son :(
+
+	return false;
+}
