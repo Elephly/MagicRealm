@@ -55,8 +55,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(recordedTurn(QString&, int)));
 			connect(newThread, SIGNAL(searchTypeReturned()),
 				this, SLOT(endAction()));
-			connect(newThread, SIGNAL(blockCheckReturn(bool)), 
-				this, SLOT(blockResp(bool)));
+			connect(newThread, SIGNAL(blockCheckReturn(bool, CharacterType)), 
+				this, SLOT(blockResp(bool, CharacterType)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;
@@ -529,9 +529,10 @@ void Server::sendBoard(ClientCommThread* client) {
 	}
 }
 
-void Server::blockResp(bool answer) {
+void Server::blockResp(bool answer, CharacterType responder) {
 	if (answer) {
 		blockRes = true;
+		game.getPlayer(responder)->setBlock(true);
 	}
 	--blockCheckNum;
 	endAction();

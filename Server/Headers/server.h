@@ -25,7 +25,7 @@ public slots:
 	void characterUnavail(CharacterType type, int clientID);
 	void recordedTurn(QString &turn, int clientID);
 	void endAction();
-	void blockResp(bool answer);
+	void blockResp(bool answer, CharacterType responder);
 signals:
 	void finished();
 private:

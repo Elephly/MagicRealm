@@ -51,7 +51,7 @@ void ClientCommThread::readIncomingData() {
 		} else if (clientData.contains(QRegExp("^BlockResp"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			bool temp = (bool) clientData.remove(0, pos + 2).toInt();
-			blockCheckReturn(temp);
+			blockCheckReturn(temp, myCharacter);
 		}
 		blocksize = 0;
 	} while(true);
