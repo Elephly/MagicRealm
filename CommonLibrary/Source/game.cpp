@@ -735,6 +735,7 @@ DiscoveryType Game::searchLocateRequest() {
 }
 
 Treasure* Game::searchLootRequest(Character* player) {
+    cout << "Dice Rolls for LOOTING: " <<endl;
 	int d1 = rollDice();
 	int d2 = rollDice();
 	int diceUsed = (d1>d2) ? d1 : d2;

@@ -458,13 +458,23 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 	case LOOT: 
 		found = game.searchLootRequest(character);
 		int worth;
+        int fame;
+        int notoriety;
 		if (found != NULL) {
 			worth = found->getWorth();
 			character->addGold(worth);
+            fame = found->getFame();
+            character->addFame(fame);
+            notoriety = found->getNotoriety();
+            character->addNotoriety(notoriety);
 		}
 		s << "TreasureFound";
 		s << CLASSDELIM;
 		s << worth;
+		s << VARDELIM;
+        s << fame;
+		s << VARDELIM;
+        s << notoriety;
 		s << VARDELIM;
 		s << character->getType();
 		break;

@@ -21,6 +21,15 @@ int Treasure::getWorth()
     return goldValue;
 }
 
+int Treasure::getFame()
+{
+    return fameValue;
+}
+
+int Treasure::getNotoriety()
+{
+    return notorietyValue;
+}
 TreasureType Treasure::getType()
 {
     return type;
