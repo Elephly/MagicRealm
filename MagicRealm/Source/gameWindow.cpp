@@ -1064,10 +1064,11 @@ void GameWindow::updateCharacterInfoPane()
 	Clearing* loc = character->getCurrentLocation();
 	characterInfo.sprintf("\nLocation: %s Clearing %d: %s", loc->getTile()->getName().c_str(), loc->getClearingNum(), Clearing::getTypeString(loc->getClearingType()));
 	ui.gameCharacterInformationBrowser->append(characterInfo);
-	
-	characterInfo.sprintf("\nGold: %d", character->getGold());
-	ui.gameCharacterInformationBrowser->append(characterInfo);
 
+	characterInfo.sprintf("\nBounty:\n  - %d Gold\n  - %d Fame\n  - %d Notoriety", character->getGold(),
+		character->getFame(), character->getNotoriety());
+	ui.gameCharacterInformationBrowser->append(characterInfo);
+	
 	ui.gameCharacterInformationBrowser->append("\nEquipment:");
 	vector<Equipment*>* equipment = character->getEquipment();
 	for (vector<Equipment*>::iterator it = equipment->begin(); it != equipment->end(); ++it)
