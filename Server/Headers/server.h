@@ -40,6 +40,7 @@ private:
 	int monsterCombatCount;
 	RecordedTurn *recTurns[MAXPLAYERS];
     Game game;
+	int currentDay;
 
 	//sending game map to client
 	void sendBoard(ClientCommThread* client);

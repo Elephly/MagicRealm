@@ -7,6 +7,7 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	incoming = new QTcpServer(parent);
 	blockRes = false;
 	blockCheckNum = 0;
+	currentDay = 1;
 
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
@@ -207,6 +208,7 @@ void Server::calculatePlayerTurnPhases(ClientCommThread *client) {
 
 void Server::birdsong() {
 	qDebug() << "birdsong begins";
+	qDebug() << "start of day: " << currentDay;
 	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin();
 		it != clientThreadList->end(); ++it)
 	{
@@ -431,7 +433,12 @@ void Server::evening() {
 void Server::midnight() {
 	if (monsterCombatCount == 0) {
 		qDebug() << "midnight begins";
-		birdsong();
+		++currentDay;
+		if (currentDay > 28) {
+			//TODO end of game
+		} else {
+			birdsong();
+		}
 	}
 }
 /*
