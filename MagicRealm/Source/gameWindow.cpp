@@ -2023,4 +2023,16 @@ void GameWindow::manageMonsters(QString& monsterString) {
 	{
 		placeMonster(myMonster);
 	}
+
+	vector<Monster*>* aMonsters = game->getActiveMonsters();
+	bool exists = false;
+	for (vector<Monster*>::iterator iter = aMonsters->begin(); iter != aMonsters->end(); ++iter) {
+		if ((*iter) == myMonster) {
+			exists = true;
+			break;
+		}
+	}
+	if (!exists) {
+		aMonsters->push_back(myMonster);
+	}
 }
