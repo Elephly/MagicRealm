@@ -289,7 +289,7 @@ void CombatManager::runMelee()
 	
 	//executing second person to go
     if(secondFightCounter != NULL){
-	    secondHitFirst = (firstMoveCounter = NULL || (secondFightCounter->getSpeed() < firstMoveCounter->getSpeed())); //checking auto hit
+	    secondHitFirst = (firstMoveCounter == NULL || (secondFightCounter->getSpeed() < firstMoveCounter->getSpeed())); //checking auto hit
 	    if(!secondHitFirst) //check lineup
 		    secondHitFirst = hitScan(secondFightType, firstMoveType);
 
