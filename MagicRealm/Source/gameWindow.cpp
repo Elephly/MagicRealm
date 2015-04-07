@@ -1643,7 +1643,7 @@ void GameWindow::blockRequest(CharacterType characterType)
 	server->writeMessage(&serializedSearchType);
 }
 
-void blockCharacter(CharacterType characterType)
+void GameWindow::blockCharacter(CharacterType characterType)
 {
 	Character* c = game->getPlayer(characterType);
 	if (c != 0)
