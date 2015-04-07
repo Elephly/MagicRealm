@@ -116,6 +116,7 @@ void CombatManager::setupMoveCounter(Character* combatant, Counter* counterUsed)
 	if(counterUsed == NULL || counterUsed->getType() != COUNTER_MOVE){
 		cout << "Attacker used invalid counter for Encounter Step" <<endl;
 		isAttacker? attackerMoveCounter = NULL : defenderMoveCounter = NULL;
+        return;
 	}
 	for(vector<Counter*>::iterator iter = characterCounters->begin(); iter != characterCounters->end(); ++iter){
 		if((*iter)->getID() == counterUsed->getID() && counterUsed->isAvailable()){
@@ -199,7 +200,11 @@ void CombatManager::runMelee()
 			attackerFirst = (attackerLength < defenderLength);
 	}
 	else{
-		if(attackerFightCounter->getSpeed() == defenderFightCounter->getSpeed())
+        if(attackerFightCounter == NULL)
+            attackerFirst = false;
+        else if(defenderFightCounter == NULL)
+            attackerFirst = true;
+		else if(attackerFightCounter->getSpeed() == defenderFightCounter->getSpeed())
 			attackerFirst = (attackerLength < defenderLength);
 		else
 			attackerFirst = (attackerFightCounter->getSpeed() < defenderFightCounter->getSpeed());
@@ -245,64 +250,79 @@ void CombatManager::runMelee()
 		secondEquipment = attackerEquipment;
 	}
 	//now execute the combat
+    if(firstMoveCounter != NULL){
+	    //executing first person to go
+	    firstHitSecond = (secondMoveCounter == NULL || (firstFightCounter->getSpeed() < secondMoveCounter->getSpeed())); //checking auto hit
+	    if(!firstHitSecond) //check lineup
+		    firstHitSecond = hitScan(firstFightType, secondMoveType);
 
-	//executing first person to go
-	firstHitSecond = (firstFightCounter->getSpeed() < secondMoveCounter->getSpeed()); //checking auto hit
-	if(!firstHitSecond) //check lineup
-		firstHitSecond = hitScan(firstFightType, secondMoveType);
+	    //if hit calculate damage done.
 
-	//if hit calculate damage done.
-
-	if(firstHitSecond){
-		if(!wasBlocked(secondEquipment, secondBlock, firstFightType)){
-			if(attackerFirst)
-				defenderResult = ACTION_WOUND;
-			else
-				attackerResult = ACTION_WOUND;
-			cout << "First Player Cut off the Head of Second Player" << endl;
-		}
-		else{
-			if(attackerFirst)
-				defenderResult = ACTION_DAMAGED;
-			else
-				attackerResult = ACTION_DAMAGED;
-		}
-	}
-	else{
-		if(attackerFirst)
-				defenderResult = ACTION_MISS;
-			else
-				attackerResult = ACTION_MISS;
-	}
+	    if(firstHitSecond){
+		    if(!wasBlocked(secondEquipment, secondBlock, firstFightType)){
+			    if(attackerFirst)
+				    defenderResult = ACTION_WOUND;
+			    else
+				    attackerResult = ACTION_WOUND;
+			    cout << "First Player Cut off the Head of Second Player" << endl;
+		    }
+		    else{
+			    if(attackerFirst)
+				    defenderResult = ACTION_DAMAGED;
+			    else
+				    attackerResult = ACTION_DAMAGED;
+		    }
+	    }
+	    else{
+		    if(attackerFirst)
+				    defenderResult = ACTION_MISS;
+			    else
+				    attackerResult = ACTION_MISS;
+	    }
+    }
+    else{
+        if(attackerFirst)
+	        defenderResult = ACTION_MISS;
+		 else
+		    attackerResult = ACTION_MISS;
+    }
 	
 	//executing second person to go
-	secondHitFirst = (secondMoveCounter->getSpeed() < firstFightCounter->getSpeed()); //checking auto hit
-	if(!secondHitFirst) //check lineup
-		secondHitFirst = hitScan(secondFightType, firstMoveType);
+    if(secondFightCounter != NULL){
+	    secondHitFirst = (firstMoveCounter = NULL || (secondFightCounter->getSpeed() < firstMoveCounter->getSpeed())); //checking auto hit
+	    if(!secondHitFirst) //check lineup
+		    secondHitFirst = hitScan(secondFightType, firstMoveType);
 
-	//if hit calculate damage done.
+	    //if hit calculate damage done.
 
-	if(secondHitFirst){
-		if(!wasBlocked(firstEquipment, firstBlock, secondFightType)){
-			if(!attackerFirst)
-				defenderResult = ACTION_WOUND;
-			else
-				attackerResult = ACTION_WOUND;
-			cout << "Second Player Cut off the Head of First Player" << endl;
-		}
-		else{
-			if(!attackerFirst)
-				defenderResult = ACTION_DAMAGED;
-			else
-				attackerResult = ACTION_DAMAGED;
-		}
-	}
-	else{
-		if(!attackerFirst)
-				defenderResult = ACTION_MISS;
-			else
-				attackerResult = ACTION_MISS;
-	}
+	    if(secondHitFirst){
+		    if(!wasBlocked(firstEquipment, firstBlock, secondFightType)){
+			    if(!attackerFirst)
+				    defenderResult = ACTION_WOUND;
+			    else
+				    attackerResult = ACTION_WOUND;
+			    cout << "Second Player Cut off the Head of First Player" << endl;
+		    }
+		    else{
+			    if(!attackerFirst)
+				    defenderResult = ACTION_DAMAGED;
+			    else
+				    attackerResult = ACTION_DAMAGED;
+		    }
+	    }
+	    else{
+		    if(!attackerFirst)
+				    defenderResult = ACTION_MISS;
+			    else
+				    attackerResult = ACTION_MISS;
+	    }
+    }
+    else{
+        if(!attackerFirst)
+				    defenderResult = ACTION_MISS;
+			    else
+				    attackerResult = ACTION_MISS;
+    }
 	//phase is now over result phase kicks in
 	if(attackerResult == ACTION_MISS && defenderResult == ACTION_MISS){
 		doubleMiss++;
@@ -337,6 +357,7 @@ void CombatManager::runResolve()
 {
     int attackerHealth = 0;
     int defenderHealth = 0;
+    //note Fight Counters should never be NULL if ACTION_WOUND appears.. i hope
     if(attackerResult = ACTION_WOUND){
         attackerWounds = getValue(defenderFightCounter->getSize());
         for(vector<Counter*>::iterator iter = attacker->getCounters()->begin(); iter!= attacker->getCounters()->end(); ++iter){
