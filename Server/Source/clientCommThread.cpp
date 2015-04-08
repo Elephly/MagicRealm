@@ -76,6 +76,7 @@ void ClientCommThread::readIncomingData() {
 			bool run = (bool) clientData.left(pos).toInt();
 			int counter = clientData.remove(0, pos + 1).toInt();
 
+			subEncounter(type, run, counter);
 		} else if (clientData.contains("^SubMelee")) {
 
 		} else if (clientData.contains("^PlayerWounded")) {

@@ -209,6 +209,10 @@ void ServerCommThread::updateFromServer()
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
 			int counterID = serverData.remove(0, pos + 1).toInt();
 		}
+		else if (serverData.contains(QRegExp("^GameOver"))) 
+		{
+
+		}
 		blocksize = 0;
 	} while(true);
 }
