@@ -189,7 +189,7 @@ void ServerCommThread::updateFromServer()
 		else if (serverData.contains(QRegExp("^DamagedEquipment")))
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
-			serverData.remove(0, pos + 2).toInt(); 
+			serverData.remove(0, pos + 2).toInt();
 
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
