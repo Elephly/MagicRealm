@@ -64,6 +64,7 @@ public:
 	void treasureFound(CharacterType character, int treasureWorth, int fame, int notoriety);
 	void siteFound(CharacterType character, QString& siteName);
 	void restCounterRequest();
+	void restCounter(CharacterType characterType, int counter);
 	void blockRequest(CharacterType characterType);
 	void blockCharacter(CharacterType characterType);
 	void monsterCombatRequest(int monsterID);
@@ -73,6 +74,8 @@ public:
 	void combatMelee();
 	void combatFlee();
 	void woundCounters(int numCounters);
+
+	void killMeNow();
 
 	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);
