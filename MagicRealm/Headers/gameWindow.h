@@ -74,6 +74,8 @@ public:
 	void combatMelee();
 	void combatFlee();
 	void woundCounters(int numCounters);
+	void woundPlayerCounter(CharacterType characterType, int counter);
+	void damageEquipment(CharacterType characterType, EquipmentType counter);
 
 	void killMeNow();
 

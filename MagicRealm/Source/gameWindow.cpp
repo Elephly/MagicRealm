@@ -1767,6 +1767,7 @@ void GameWindow::restCounter(CharacterType characterType, int counter)
 		for (vector<Counter*>::iterator it = character->getCounters()->begin(); it != character->getCounters()->end(); ++it) {
 			if ((*it)->getID() == counter) {
 				c = (*it);
+				break;
 			}
 		}
 
@@ -1909,6 +1910,66 @@ void GameWindow::woundCounters(int numCounters)
 	server->writeMessage(&serializedBlock);
 }
 
+void GameWindow::woundPlayerCounter(CharacterType characterType, int counter)
+{
+	Character* character = game->getPlayer(characterType);
+	if (character != 0)
+	{
+		Counter* c = 0;
+		vector<Counter*>* counters = character->getCounters();
+		for (vector<Counter*>::iterator it = counters->begin(); it != counters->end(); ++it)
+		{
+			if ((*it)->getID() == counter)
+			{
+				c = *it;
+				break;
+			}
+		}
+		if (c != 0)
+		{
+			QString eventString;
+			eventString.sprintf("%s's %c%d", Character::getTypeString(characterType), c->getSize(), c->getSpeed());
+			for (int i = 0; i < c->getFatigue(); i++)
+			{
+				eventString.append("*");
+			}
+			eventString.append(" counter has been wounded!");
+			ui.gameEventFeedBrowser->append(eventString);
+		}
+	}
+}
+
+void GameWindow::damageEquipment(CharacterType characterType, EquipmentType counter)
+{
+	Character* character = game->getPlayer(characterType);
+	if (character != 0)
+	{
+		/*
+		Equipment* e = 0;
+		vector<Counter*>* counters = character->getCounters();
+		for (vector<Counter*>::iterator it = counters->begin(); it != counters->end(); ++it)
+		{
+			if ((*it)->getID() == counter)
+			{
+				c = *it;
+				break;
+			}
+		}
+		if (c != 0)
+		{
+			QString eventString;
+			eventString.sprintf("%s's %c%d", Character::getTypeString(characterType), c->getSize(), c->getSpeed());
+			for (int i = 0; i < c->getFatigue(); i++)
+			{
+				eventString.append("*");
+			}
+			eventString.append(" counter has been wounded!");
+			ui.gameEventFeedBrowser->append(eventString);
+		}
+		*/
+	}
+}
+
 void GameWindow::killMeNow()
 {
 	// kill player somehow
@@ -1973,7 +2034,7 @@ void GameWindow::doTurn(QString &turnString)
 	currentOpponent = NullCharacter;
 
 	QString eventString;
-	eventString.sprintf("Plot turn %d:", turnNumber);
+	eventString.sprintf("Day %d\nPlot events for day %d:", turnNumber, turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);
 	caveCheck();
 	ui.gameSubmitTurnButton->setEnabled(true);
@@ -1986,7 +2047,7 @@ void GameWindow::submitTurn()
 	ui.gamePhaseComboBox->setDisabled(true);
 	ui.gameSubmitTurnButton->setDisabled(true);
 	QString eventString;
-	eventString.sprintf("Turn %d submitted.", turnNumber);
+	eventString.sprintf("Day %d plan submitted.", turnNumber);
 	ui.gameEventFeedBrowser->append(eventString);
 	turnNumber++;
 }

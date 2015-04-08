@@ -194,7 +194,7 @@ void ServerCommThread::updateFromServer()
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
 			EquipmentType counterID = (EquipmentType) serverData.remove(0, pos + 1).toInt();
-			//broadcast
+			windowParent->damageEquipment(playerType, counterID);
 		}
 		else if (serverData.contains(QRegExp("^Wounds"))) 
 		{
@@ -210,7 +210,7 @@ void ServerCommThread::updateFromServer()
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
 			int counterID = serverData.remove(0, pos + 1).toInt();
-			//broadcast
+			windowParent->woundPlayerCounter(playerType, counterID);
 		}
 		else if (serverData.contains(QRegExp("^GameOver"))) 
 		{
