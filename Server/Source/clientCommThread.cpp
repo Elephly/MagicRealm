@@ -64,6 +64,11 @@ void ClientCommThread::readIncomingData() {
 			int monsterID = clientData.left(pos).toInt();
 			CharacterType type = (CharacterType) clientData.remove(0, pos + 1).toInt();
 			monsterCombatReturned(result, monsterID, type);
+		} else if (clientData.contains()) {
+
+		} else if (clientData.contains()) {
+
+		} else if (clientData.contains()) {
 
 		}
 		blocksize = 0;

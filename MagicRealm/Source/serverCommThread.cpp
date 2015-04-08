@@ -172,6 +172,30 @@ void ServerCommThread::updateFromServer()
 			CharacterType type = (CharacterType) serverData.remove(0, pos +1).toInt();
 			windowParent->monsterKilledBy(monsterID, type);
 		}
+		else if (serverData.contains(QRegExp("^PlayerCombatMelee")))
+		{
+
+		}
+		else if (serverData.contains(QRegExp("^PlayerCombatFlee")))
+		{
+
+		}
+		else if (serverData.contains(QRegExp("^PlayerCombat")))
+		{
+
+		}
+		else if (serverData.contains(QRegExp("^DamagedEquipment")))
+		{
+
+		}
+		else if (serverData.contains(QRegExp("^Wounds")))
+		{
+
+		}
+		else if (serverData.contains(QRegExp("^woundedPlayer")))
+		{
+
+		}
 		blocksize = 0;
 	} while(true);
 }
