@@ -828,5 +828,22 @@ ClientCommThread* Server::lookupClient(CharacterType type) {
 }
 
 void Server::restResponse(CharacterType character, int counterId) {
+	Character* player = game.getPlayer(character);
+	Counter *repairThis = NULL;
+	for (vector<Counter*>::iterator it = player->getCounters()->begin(); it != player->getCounters()->end(); ++it) {
+		if ((*it)->getID() == counterId) {
+			repairThis = (*it);
+		}
+	}
 
+	if (repairThis != NULL) {
+		game.restCounter(repairThis);
+		stringstream s;
+		s << "RestCounter";
+		s << CLASSDELIM;
+		s << character;
+		s << VARDELIM;
+		s << counterId;
+		writeMessageAllClients(new string(s.str()));
+	}
 }

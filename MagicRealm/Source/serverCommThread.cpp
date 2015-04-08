@@ -221,6 +221,15 @@ void ServerCommThread::updateFromServer()
 		{
 			windowParent->restCounterRequest();
 		}
+		else if (serverData.contains(QRegExp("^RestCounter"))) //this is called when a counter has been rested on the server.
+		{
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			serverData.remove(0, pos + 2).toInt(); 
+
+			pos = serverData.indexOf(QString(VARDELIM));
+			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
+			int counterID = serverData.remove(0, pos + 1).toInt();
+		}
 		blocksize = 0;
 	} while(true);
 }
