@@ -1475,6 +1475,14 @@ void GameWindow::selectAction(ActionType action)
 			ui.gameEventFeedBrowser->append(eventString);
 		}
 	}
+	else if (action == RestAction)
+	{
+		actionCompleted = true;
+		if (actionCompleted)
+		{
+			ui.gameEventFeedBrowser->append("  - Rest");
+		}
+	}
 
 	if (actionCompleted)
 	{
@@ -1732,6 +1740,11 @@ void GameWindow::siteFound(CharacterType character, QString& siteName)
 	QString eventString;
 	eventString.sprintf("%s found %s!", Character::getTypeString(character), chit->getName().c_str());
 	ui.gameEventFeedBrowser->append(eventString);
+}
+
+void GameWindow::restCounterRequest()
+{
+
 }
 
 void GameWindow::monsterCombatRequest(int monsterID)

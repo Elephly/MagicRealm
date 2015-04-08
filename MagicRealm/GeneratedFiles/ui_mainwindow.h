@@ -53,6 +53,7 @@ public:
     QPushButton *gameSearchActionButton;
     QPushButton *gameTradeActionButton;
     QPushButton *gameHideActionButton;
+    QPushButton *gameRestActionButton;
     QPushButton *gameSubmitTurnButton;
     QPushButton *gameQuitButton;
     QVBoxLayout *gameInfoPhaseLayout;
@@ -225,6 +226,15 @@ public:
 
         actionsLayout->addWidget(gameHideActionButton);
 
+        gameRestActionButton = new QPushButton(gameActionsGroupBox);
+        gameRestActionButton->setObjectName(QStringLiteral("gameRestActionButton"));
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/images/actions/rest.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        gameRestActionButton->setIcon(icon4);
+        gameRestActionButton->setIconSize(QSize(32, 32));
+
+        actionsLayout->addWidget(gameRestActionButton);
+
         gameSubmitTurnButton = new QPushButton(gameActionsGroupBox);
         gameSubmitTurnButton->setObjectName(QStringLiteral("gameSubmitTurnButton"));
         QFont font3;
@@ -248,6 +258,7 @@ public:
         gameQuitButton->raise();
         gameSearchActionButton->raise();
         gameTradeActionButton->raise();
+        gameRestActionButton->raise();
 
         gameViewLayout->addWidget(gameActionsGroupBox);
 
@@ -276,9 +287,9 @@ public:
 
         verticalLayout_3->addWidget(gameCharacterInformationBrowser);
 
-        QIcon icon4;
-        icon4.addFile(QStringLiteral(":/images/tab/record.gif"), QSize(), QIcon::Normal, QIcon::Off);
-        informationTabWidget->addTab(characterInfoTab, icon4, QString());
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/images/tab/record.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        informationTabWidget->addTab(characterInfoTab, icon5, QString());
         tileInfoTab = new QWidget();
         tileInfoTab->setObjectName(QStringLiteral("tileInfoTab"));
         verticalLayout = new QVBoxLayout(tileInfoTab);
@@ -295,9 +306,9 @@ public:
 
         verticalLayout->addWidget(gameTileInformationBrowser);
 
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/images/tiles/questionmark.gif"), QSize(), QIcon::Normal, QIcon::Off);
-        informationTabWidget->addTab(tileInfoTab, icon5, QString());
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/tiles/questionmark.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        informationTabWidget->addTab(tileInfoTab, icon6, QString());
         monsterInfoTab = new QWidget();
         monsterInfoTab->setObjectName(QStringLiteral("monsterInfoTab"));
         verticalLayout_6 = new QVBoxLayout(monsterInfoTab);
@@ -311,9 +322,9 @@ public:
 
         verticalLayout_6->addWidget(gameMonsterInformationBrowser);
 
-        QIcon icon6;
-        icon6.addFile(QStringLiteral(":/images/monsters1_c/firedrake.gif"), QSize(), QIcon::Normal, QIcon::Off);
-        informationTabWidget->addTab(monsterInfoTab, icon6, QString());
+        QIcon icon7;
+        icon7.addFile(QStringLiteral(":/images/monsters1_c/firedrake.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        informationTabWidget->addTab(monsterInfoTab, icon7, QString());
 
         gameInfoPhaseLayout->addWidget(informationTabWidget);
 
@@ -437,8 +448,8 @@ public:
         characterSelectorLayout->addWidget(characterSelectCharacterLabel);
 
         characterListView = new QListWidget(characterSelectWidget);
-        QIcon icon7;
-        icon7.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        QIcon icon8;
+        icon8.addFile(QStringLiteral(":/images/characters/amazon.png"), QSize(), QIcon::Normal, QIcon::Off);
         QFont font10;
         font10.setFamily(QStringLiteral("MS Serif"));
         font10.setPointSize(16);
@@ -446,32 +457,32 @@ public:
         font10.setWeight(75);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(characterListView);
         __qlistwidgetitem->setFont(font10);
-        __qlistwidgetitem->setIcon(icon7);
-        QIcon icon8;
-        icon8.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral(":/images/characters/black_knight.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(characterListView);
         __qlistwidgetitem1->setFont(font10);
-        __qlistwidgetitem1->setIcon(icon8);
-        QIcon icon9;
-        icon9.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem1->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral(":/images/characters/captain.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(characterListView);
         __qlistwidgetitem2->setFont(font10);
-        __qlistwidgetitem2->setIcon(icon9);
-        QIcon icon10;
-        icon10.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem2->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QStringLiteral(":/images/characters/dwarf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(characterListView);
         __qlistwidgetitem3->setFont(font10);
-        __qlistwidgetitem3->setIcon(icon10);
-        QIcon icon11;
-        icon11.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem3->setIcon(icon11);
+        QIcon icon12;
+        icon12.addFile(QStringLiteral(":/images/characters/elf.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem4 = new QListWidgetItem(characterListView);
         __qlistwidgetitem4->setFont(font10);
-        __qlistwidgetitem4->setIcon(icon11);
-        QIcon icon12;
-        icon12.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
+        __qlistwidgetitem4->setIcon(icon12);
+        QIcon icon13;
+        icon13.addFile(QStringLiteral(":/images/characters/swordsman.png"), QSize(), QIcon::Normal, QIcon::Off);
         QListWidgetItem *__qlistwidgetitem5 = new QListWidgetItem(characterListView);
         __qlistwidgetitem5->setFont(font10);
-        __qlistwidgetitem5->setIcon(icon12);
+        __qlistwidgetitem5->setIcon(icon13);
         characterListView->setObjectName(QStringLiteral("characterListView"));
         characterListView->setFont(font10);
 
@@ -595,6 +606,10 @@ public:
         gameHideActionButton->setToolTip(QApplication::translate("MainWindowClass", "Hide", 0));
 #endif // QT_NO_TOOLTIP
         gameHideActionButton->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        gameRestActionButton->setToolTip(QApplication::translate("MainWindowClass", "Search", 0));
+#endif // QT_NO_TOOLTIP
+        gameRestActionButton->setText(QString());
         gameSubmitTurnButton->setText(QApplication::translate("MainWindowClass", "Submit", 0));
         gameQuitButton->setText(QApplication::translate("MainWindowClass", "Quit", 0));
 #ifndef QT_NO_TOOLTIP

@@ -5,6 +5,8 @@
 CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myPix, QPixmap* enemyPix,
 						   CombatState state, ServerCommThread* serv, QWidget* parentWindow)
 {
+	setWindowFlags(Qt::FramelessWindowHint);
+	this->setWindowFlags(Qt::WindowTitleHint | Qt::MSWindowsFixedSizeDialogHint);
 	myCharacter = myChar;
 	enemyCharacter = enemyChar;
 	server = serv;

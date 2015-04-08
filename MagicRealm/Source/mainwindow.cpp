@@ -181,6 +181,14 @@ void MainWindow::on_gameHideActionButton_clicked()
 	ui.gameHideActionButton->setStyleSheet("");
 }
 
+void MainWindow::on_gameRestActionButton_clicked()
+{
+	resetActionStyles();
+	ui.gameRestActionButton->setStyleSheet("background-color:rgb(250, 255, 187);");
+	gameWindow->selectAction(RestAction);
+	ui.gameRestActionButton->setStyleSheet("");
+}
+
 void MainWindow::on_gameSubmitTurnButton_clicked()
 {
 	gameWindow->submitTurn();
