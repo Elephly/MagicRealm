@@ -10,6 +10,7 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	currentDay = 1;
 	combat = NULL;
 	combatCounter = 0;
+	monsterCombatCount = 0;
 
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
@@ -629,28 +630,26 @@ void Server::endPlayerCombat() {
 //reset all face up mapchits
 //start new day
 void Server::midnight() {
-	if (monsterCombatCount == 0) {
-		qDebug() << "midnight begins";
-		++currentDay;
-		if (currentDay > 28) {
-			//TODO calculate winner gold+ 2*fame + 2*noter
-			Character* highscore = NULL;
-			for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
-				Character* temp = game.getPlayer((*it)->getMyCharacter());
-				if (highscore == NULL)
-					highscore = temp;
-				else if ((temp->getGold() + 2*temp->getFame() + 2*temp->getNotoriety()) > (highscore->getGold() +
-					2*highscore->getFame() + 2*highscore->getNotoriety()))
-					highscore = temp;
-			}
-			stringstream s;
-			s << "GameOver";
-			s << CLASSDELIM;
-			s << highscore->getType();
-			writeMessageAllClients(new string(s.str()));
-		} else {
-			birdsong();
+	qDebug() << "midnight begins";
+	++currentDay;
+	if (currentDay > 28) {
+		//TODO calculate winner gold+ 2*fame + 2*noter
+		Character* highscore = NULL;
+		for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+			Character* temp = game.getPlayer((*it)->getMyCharacter());
+			if (highscore == NULL)
+				highscore = temp;
+			else if ((temp->getGold() + 2*temp->getFame() + 2*temp->getNotoriety()) > (highscore->getGold() +
+				2*highscore->getFame() + 2*highscore->getNotoriety()))
+				highscore = temp;
 		}
+		stringstream s;
+		s << "GameOver";
+		s << CLASSDELIM;
+		s << highscore->getType();
+		writeMessageAllClients(new string(s.str()));
+	} else {
+		birdsong();
 	}
 }
 /*
@@ -812,7 +811,8 @@ void Server::monsterCombatResp(int result, int monsterID, CharacterType player) 
 			writeMessageAllClients(new string(s.str()));
 		}
 	}
-	startPlayerCombat();
+	if (monsterCombatCount == 0)
+		startPlayerCombat();
 }
 
 ClientCommThread* Server::lookupClient(CharacterType type) {
