@@ -699,9 +699,9 @@ void Server::searchClearing(Character *character, SearchType type, Clearing *tar
 		break;
 	case LOOT: 
 		found = game.searchLootRequest(character);
-		int worth;
-        int fame;
-        int notoriety;
+		int worth = 0;
+        int fame = 0;
+        int notoriety = 0;
 		if (found != NULL) {
 			worth = found->getWorth();
 			character->addGold(worth);
