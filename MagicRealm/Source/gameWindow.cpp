@@ -1964,6 +1964,21 @@ void GameWindow::damageEquipment(CharacterType characterType, QString counter)
 	}
 }
 
+void GameWindow::endGame(CharacterType winner)
+{
+	disableActions();
+	Character* character = game->getPlayer(winner);
+	if (character != 0)
+	{
+		QString eventString;
+		eventString.sprintf("\n%s has won!!!\n\n%s Bounty:\n - %d Gold\n - %d Fame\n - %d Notoriety",
+			Character::getTypeString(winner), Character::getTypeString(winner), character->getGold(), character->getFame(),
+			character->getNotoriety());
+		ui.gameEventFeedBrowser->append(eventString);
+	}
+	QMessageBox::information(ui.centralWidget, "Game Over", "You can view your end of game standings in the Character Info panel.");
+}
+
 void GameWindow::killMeNow()
 {
 	// kill player somehow

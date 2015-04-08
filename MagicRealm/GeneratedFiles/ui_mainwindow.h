@@ -607,7 +607,7 @@ public:
 #endif // QT_NO_TOOLTIP
         gameHideActionButton->setText(QString());
 #ifndef QT_NO_TOOLTIP
-        gameRestActionButton->setToolTip(QApplication::translate("MainWindowClass", "Search", 0));
+        gameRestActionButton->setToolTip(QApplication::translate("MainWindowClass", "Rest", 0));
 #endif // QT_NO_TOOLTIP
         gameRestActionButton->setText(QString());
         gameSubmitTurnButton->setText(QApplication::translate("MainWindowClass", "Submit", 0));

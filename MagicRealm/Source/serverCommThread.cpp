@@ -215,7 +215,8 @@ void ServerCommThread::updateFromServer()
 		else if (serverData.contains(QRegExp("^GameOver"))) 
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
-			CharacterType type = (CharacterType) serverData.remove(0, pos + 2).toInt(); 
+			CharacterType type = (CharacterType) serverData.remove(0, pos + 2).toInt();
+			windowParent->endGame(type);
 		}
 		else if (serverData.contains(QRegExp("^RestRequest")))
 		{
