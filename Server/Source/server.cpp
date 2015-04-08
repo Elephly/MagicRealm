@@ -622,7 +622,9 @@ void Server::midnight() {
 		qDebug() << "midnight begins";
 		++currentDay;
 		if (currentDay > 28) {
-			//TODO end of game
+			stringstream s;
+			s << "GameOver";
+			writeMessageAllClients(new string(s.str()));
 		} else {
 			birdsong();
 		}
