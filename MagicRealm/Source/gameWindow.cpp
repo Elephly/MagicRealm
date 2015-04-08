@@ -1,7 +1,7 @@
 #include "gameWindow.h"
-#include "ui_combatdialog.h"
 
 #include "availableMovesDialog.h"
+#include "combatdialog.h"
 
 #include <QMessageBox>
 #include <QScrollBar>
@@ -986,6 +986,8 @@ void GameWindow::changeScreenState(QWidget* screen)
 	if (screen == ui.gameWidget)
 	{
 		window->showFullScreen();
+		CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(selectedCharacter),
+			(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[selectedCharacter], ui.centralWidget);
 	}
 	else
 	{
@@ -1544,6 +1546,7 @@ bool GameWindow::moveAction()
 		dlg->addOption(option, ((noMountainClimb || (movingPhases > 1)) && noSunlightIntoCaves));
 	}
 	int destIndex = dlg->exec();
+	qDebug() << "\n\nDESTINATION: " << destIndex << "\n\n";
 
 	bool moveConfirmed = false;
 
@@ -1804,12 +1807,8 @@ void GameWindow::characterCombatRequest(CharacterType characterType)
 
 void GameWindow::beginPlayerCombat(CharacterType characterType)
 {
-	QDialog* dialog = new QDialog(window);
-	Ui::CombatDialog* combatDialog = new Ui::CombatDialog();
-	combatDialog->setupUi(dialog);
-	combatDialog->myCharacter->setPixmap(*(*characterProfileImages)[selectedCharacter]);
-	combatDialog->enemyCharacter->setPixmap(*(*characterProfileImages)[characterType]);
-	dialog->show();
+	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
+		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], ui.centralWidget);
 }
 
 void GameWindow::doTurn(QString &turnString)

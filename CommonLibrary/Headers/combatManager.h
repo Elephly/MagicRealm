@@ -31,6 +31,7 @@ public:
     void woundCounter(Counter* aCounter);
     int getWounds(Character* combatant);
 
+	Equipment* getDamaged(Character* combatant);
 	void runResolve();
 
 private:
@@ -39,6 +40,9 @@ private:
 
 	Counter* attackerMoveCounter;
 	Counter* defenderMoveCounter;
+
+	Equipment* attackerDamagedArmor;
+	Equipment* defenderDamagedArmor;
 
 	Counter* attackerFightCounter;
 	Counter* defenderFightCounter;
@@ -67,7 +71,7 @@ private:
     int getValue(char weight);
 
 	bool stageWinAttacker;
-	bool wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType);
+	Equipment* wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType);
 	bool attackerFlee;
 	bool defenderFlee;
 	bool hitScan(CombatFightType firstFight, CombatMoveType secondMove);

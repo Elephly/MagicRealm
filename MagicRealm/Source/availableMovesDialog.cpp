@@ -5,6 +5,9 @@
 
 AvailableMovesDialog::AvailableMovesDialog(QWidget* parent)
 {
+	setWindowFlags(Qt::FramelessWindowHint);
+	setWindowFlags(Qt::WindowTitleHint);
+
 	label = new QLabel("Available clearings");
 
 	options = new QList<QRadioButton*>();
