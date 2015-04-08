@@ -619,6 +619,7 @@ void Server::playerWounded(CharacterType character, vector<int> stuff) {
 				s << character;
 				s << VARDELIM;
 				s << (*it);
+				writeMessageAllClients(new string(s.str()));
 			}
 		}
 	}
