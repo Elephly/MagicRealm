@@ -184,6 +184,7 @@ void ServerCommThread::updateFromServer()
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			CharacterType playerType = (CharacterType) serverData.remove(0, pos + 2).toInt(); 
+			windowParent->combatEncounter(playerType);
 		}
 		else if (serverData.contains(QRegExp("^DamagedEquipment")))
 		{

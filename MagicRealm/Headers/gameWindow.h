@@ -68,7 +68,8 @@ public:
 	void monsterCombatRequest(int monsterID);
 	void monsterKilledBy(int monsterID, CharacterType characterType);
 	void characterCombatRequest(CharacterType characterType);
-	void beginPlayerCombat(CharacterType characterType);
+	void combatEncounter(CharacterType characterType);
+	void combatMelee(CharacterType characterType);
 
 	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);

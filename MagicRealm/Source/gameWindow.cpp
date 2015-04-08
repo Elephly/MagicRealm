@@ -1811,10 +1811,17 @@ void GameWindow::characterCombatRequest(CharacterType characterType)
 	server->writeMessage(&serializeCombat);
 }
 
-void GameWindow::beginPlayerCombat(CharacterType characterType)
+void GameWindow::combatEncounter(CharacterType characterType)
 {
 	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
-		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], server, ui.centralWidget);
+		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], ENCOUNTER, server, ui.centralWidget);
+	combatDialog->exec();
+}
+
+void GameWindow::combatMelee(CharacterType characterType)
+{
+	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
+		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], MELEE, server, ui.centralWidget);
 	combatDialog->exec();
 }
 
