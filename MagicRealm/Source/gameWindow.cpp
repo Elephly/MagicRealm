@@ -1742,6 +1742,11 @@ void GameWindow::siteFound(CharacterType character, QString& siteName)
 	ui.gameEventFeedBrowser->append(eventString);
 }
 
+void GameWindow::restCounterRequest()
+{
+
+}
+
 void GameWindow::monsterCombatRequest(int monsterID)
 {
 	QString question;

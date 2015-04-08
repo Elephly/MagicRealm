@@ -63,7 +63,7 @@ public:
 	void search(CharacterType character, SearchType searchType);
 	void treasureFound(CharacterType character, int treasureWorth, int fame, int notoriety);
 	void siteFound(CharacterType character, QString& siteName);
-	void restCounterRequest()
+	void restCounterRequest();
 	void blockRequest(CharacterType characterType);
 	void blockCharacter(CharacterType characterType);
 	void monsterCombatRequest(int monsterID);
