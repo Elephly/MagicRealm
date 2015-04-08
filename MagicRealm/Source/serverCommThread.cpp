@@ -211,7 +211,8 @@ void ServerCommThread::updateFromServer()
 		}
 		else if (serverData.contains(QRegExp("^GameOver"))) 
 		{
-
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			CharacterType type = (CharacterType) serverData.remove(0, pos + 2).toInt(); 
 		}
 		blocksize = 0;
 	} while(true);

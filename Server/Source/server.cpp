@@ -622,8 +622,20 @@ void Server::midnight() {
 		qDebug() << "midnight begins";
 		++currentDay;
 		if (currentDay > 28) {
+			//TODO calculate winner gold+ 2*fame + 2*noter
+			Character* highscore = NULL;
+			for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+				Character* temp = game.getPlayer((*it)->getMyCharacter());
+				if (highscore == NULL)
+					highscore = temp;
+				else if ((temp->getGold() + 2*temp->getFame() + 2*temp->getNotoriety()) > (highscore->getGold() +
+					2*highscore->getFame() + 2*highscore->getNotoriety()))
+					highscore = temp;
+			}
 			stringstream s;
 			s << "GameOver";
+			s << CLASSDELIM;
+			s << highscore->getType();
 			writeMessageAllClients(new string(s.str()));
 		} else {
 			birdsong();
