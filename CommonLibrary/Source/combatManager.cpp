@@ -122,7 +122,7 @@ void CombatManager::setupMoveCounter(Character* combatant, Counter* counterUsed)
 		isAttacker = false;
 
 	if(counterUsed == NULL || counterUsed->getType() != COUNTER_MOVE){
-		cout << "Attacker used invalid counter for Encounter Step" <<endl;
+		cout << "Combatant used invalid counter for moveCounter" <<endl;
 		isAttacker? attackerMoveCounter = NULL : defenderMoveCounter = NULL;
         return;
 	}
@@ -143,7 +143,7 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 		isAttacker = false;
 
 	if(counterUsed == NULL || counterUsed->getType() != COUNTER_FIGHT){
-		cout << "Attacker used invalid counter for Encounter Step" <<endl;
+		cout << "Combatant used invalid counter for fightCounter" <<endl;
 		isAttacker? attackerFightCounter = NULL : defenderFightCounter = NULL;
 	}
 	for(vector<Counter*>::iterator iter = characterCounters->begin(); iter != characterCounters->end(); ++iter){
@@ -320,7 +320,6 @@ void CombatManager::runMelee()
 				    defenderResult = ACTION_WOUND;
 			    else
 				    attackerResult = ACTION_WOUND;
-			    cout << "Second Player Cut off the Head of First Player" << endl;
 		    }
 		    else{
 			    if(!attackerFirst){
@@ -388,6 +387,7 @@ void CombatManager::runResolve()
         }
         if(attackerWounds > attackerHealth){
             attackerResult = ACTION_DEAD;
+			cout << "Defender Player Cut off the Head of Attacking Player" << endl;
         }
     }
     else
@@ -399,8 +399,10 @@ void CombatManager::runResolve()
             if((*iter)->isAvailable())
                 ++defenderHealth;
         }
-        if(defenderWounds > defenderHealth)
+        if(defenderWounds > defenderHealth){
+			cout << "First Player Cut off the Head of Second Player" << endl;
             defenderResult = ACTION_DEAD;
+		}
     }
     else
         defenderWounds = 0;
