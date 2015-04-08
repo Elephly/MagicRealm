@@ -32,6 +32,7 @@ private slots:
 	void on_gameSearchActionButton_clicked();
 	void on_gameTradeActionButton_clicked();
 	void on_gameHideActionButton_clicked();
+	void on_gameRestActionButton_clicked();
 	void on_gameSubmitTurnButton_clicked();
 	void on_gameQuitButton_clicked();
 	void on_gamePhaseComboBox_currentIndexChanged(const QString& text);

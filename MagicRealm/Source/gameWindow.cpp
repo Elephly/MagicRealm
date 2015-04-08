@@ -995,8 +995,6 @@ void GameWindow::changeScreenState(QWidget* screen)
 	if (screen == ui.gameWidget)
 	{
 		window->showFullScreen();
-		currentOpponent = selectedCharacter;
-		combatMelee();
 	}
 	else
 	{
@@ -1475,6 +1473,14 @@ void GameWindow::selectAction(ActionType action)
 			eventString.sprintf(" - Hide at %s clearing %d", destinationClearing->getTile()->getName().c_str(),
 				destinationClearing->getClearingNum());
 			ui.gameEventFeedBrowser->append(eventString);
+		}
+	}
+	else if (action == RestAction)
+	{
+		actionCompleted = true;
+		if (actionCompleted)
+		{
+			ui.gameEventFeedBrowser->append("  - Rest");
 		}
 	}
 
