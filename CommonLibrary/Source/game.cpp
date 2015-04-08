@@ -771,6 +771,7 @@ Character* Game::getPlayer(CharacterType charType)
 
 bool Game::hideRequest(Character* player)
 {
+	cout << "Rolling Hide Request" <<endl;
     int d1 = rollDice();
     int d2 = rollDice();
     int diceUsed = (d1>d2) ? d1 : d2;
@@ -785,6 +786,7 @@ bool Game::hideRequest(Character* player)
 }
 
 DiscoveryType Game::searchPeerRequest() {
+	cout << "Rolling Peer Request" <<endl;
 	int d1 = rollDice();
 	int d2 = rollDice();
 	int diceUsed = (d1>d2) ? d1 : d2;
@@ -800,6 +802,7 @@ DiscoveryType Game::searchPeerRequest() {
 }
 
 DiscoveryType Game::searchLocateRequest() {
+	cout << "Rolling LOCATE" <<endl;
 	int d1 = rollDice();
 	int d2 = rollDice();
 	int diceUsed = (d1>d2) ? d1 : d2;
@@ -814,7 +817,7 @@ DiscoveryType Game::searchLocateRequest() {
 }
 
 Treasure* Game::searchLootRequest(Character* player) {
-    cout << "Dice Rolls for LOOTING: " <<endl;
+    cout << "Rolling Loot Request: " <<endl;
 	int d1 = rollDice();
 	int d2 = rollDice();
 	int diceUsed = (d1>d2) ? d1 : d2;
@@ -930,7 +933,7 @@ int Game::rollDice()
 		num = rand() % 6 + 1;
 	else{
 		while(num < 1 || num > 6){
-			cout << "Game::rollDice CHEATMODE Enter Roll (1-6)" << endl;
+			cout << "Game::rollDice CHEATMODE Enter Roll (1-6)";
 			cin >> num;
 		}
 	}

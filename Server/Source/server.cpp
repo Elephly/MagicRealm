@@ -264,6 +264,7 @@ void Server::daylight() {
 void Server::startPlayerTurn() {
 	currentPlayer = 0;
 	do {
+		cout << "Rolling Player Turns" <<endl;
 		currentPlayer = game.rollDice() -1;
 		qDebug() << "rolled: " << currentPlayer;
 		qDebug() << "array value: " << recTurns[currentPlayer];
@@ -412,6 +413,7 @@ void Server::sunset() {
 //combat?
 void Server::evening() {
 	qDebug() << "evening begins";
+	cout <<"Rolling Monster Roll" <<endl;
 	game.spawnMonsters(game.rollDice());
 	game.moveMonsters();
 	for (vector<Monster*>::iterator iter = game.getActiveMonsters()->begin(); iter != game.getActiveMonsters()->end(); ++iter) 
