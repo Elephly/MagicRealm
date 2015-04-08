@@ -787,6 +787,9 @@ void Server::sendBoard(ClientCommThread* client) {
 			client->writeMessage(new string(s.str()));
 		}
 	}
+
+	client->writeMessage(new string("GameReady"));
+
 }
 
 void Server::blockResp(bool answer, CharacterType responder) {
