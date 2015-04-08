@@ -1020,6 +1020,7 @@ void GameWindow::disableActions()
 	ui.gameSearchActionButton->setDisabled(true);
 	ui.gameTradeActionButton->setDisabled(true);
 	ui.gameHideActionButton->setDisabled(true);
+	ui.gameRestActionButton->setDisabled(true);
 }
 
 CharacterType GameWindow::getSelectedChar()
