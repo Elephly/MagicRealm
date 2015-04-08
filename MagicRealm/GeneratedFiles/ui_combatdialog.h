@@ -32,11 +32,11 @@ public:
     QLabel *enemyCharacter;
     QLabel *versusImage;
     QPushButton *submitButton;
-    QGroupBox *runGroupBox;
+    QGroupBox *encounter_runGroupBox;
     QVBoxLayout *verticalLayout;
     QRadioButton *yesRun;
     QRadioButton *noRun;
-    QGroupBox *moveGroupBox;
+    QGroupBox *encounter_moveGroupBox;
     QHBoxLayout *horizontalLayout;
     QListWidget *moveCounterList;
 
@@ -71,41 +71,41 @@ public:
         font.setWeight(75);
         submitButton->setFont(font);
         submitButton->setDefault(false);
-        runGroupBox = new QGroupBox(CombatDialog);
-        runGroupBox->setObjectName(QStringLiteral("runGroupBox"));
-        runGroupBox->setGeometry(QRect(340, 380, 120, 80));
+        encounter_runGroupBox = new QGroupBox(CombatDialog);
+        encounter_runGroupBox->setObjectName(QStringLiteral("encounter_runGroupBox"));
+        encounter_runGroupBox->setGeometry(QRect(340, 380, 120, 80));
         QFont font1;
         font1.setFamily(QStringLiteral("MS Serif"));
         font1.setPointSize(12);
         font1.setBold(true);
         font1.setWeight(75);
-        runGroupBox->setFont(font1);
-        runGroupBox->setStyleSheet(QStringLiteral("background-color : white;"));
-        runGroupBox->setAlignment(Qt::AlignCenter);
-        verticalLayout = new QVBoxLayout(runGroupBox);
+        encounter_runGroupBox->setFont(font1);
+        encounter_runGroupBox->setStyleSheet(QStringLiteral("background-color : white;"));
+        encounter_runGroupBox->setAlignment(Qt::AlignCenter);
+        verticalLayout = new QVBoxLayout(encounter_runGroupBox);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        yesRun = new QRadioButton(runGroupBox);
+        yesRun = new QRadioButton(encounter_runGroupBox);
         yesRun->setObjectName(QStringLiteral("yesRun"));
         yesRun->setLayoutDirection(Qt::LeftToRight);
 
         verticalLayout->addWidget(yesRun);
 
-        noRun = new QRadioButton(runGroupBox);
+        noRun = new QRadioButton(encounter_runGroupBox);
         noRun->setObjectName(QStringLiteral("noRun"));
         noRun->setChecked(true);
 
         verticalLayout->addWidget(noRun);
 
-        moveGroupBox = new QGroupBox(CombatDialog);
-        moveGroupBox->setObjectName(QStringLiteral("moveGroupBox"));
-        moveGroupBox->setGeometry(QRect(300, 140, 200, 200));
-        moveGroupBox->setFont(font);
-        moveGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
-        moveGroupBox->setAlignment(Qt::AlignCenter);
-        horizontalLayout = new QHBoxLayout(moveGroupBox);
+        encounter_moveGroupBox = new QGroupBox(CombatDialog);
+        encounter_moveGroupBox->setObjectName(QStringLiteral("encounter_moveGroupBox"));
+        encounter_moveGroupBox->setGeometry(QRect(300, 140, 200, 200));
+        encounter_moveGroupBox->setFont(font);
+        encounter_moveGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
+        encounter_moveGroupBox->setAlignment(Qt::AlignCenter);
+        horizontalLayout = new QHBoxLayout(encounter_moveGroupBox);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        moveCounterList = new QListWidget(moveGroupBox);
+        moveCounterList = new QListWidget(encounter_moveGroupBox);
         moveCounterList->setObjectName(QStringLiteral("moveCounterList"));
         QFont font2;
         font2.setFamily(QStringLiteral("MS Serif"));
@@ -127,10 +127,10 @@ public:
         enemyCharacter->setText(QString());
         versusImage->setText(QString());
         submitButton->setText(QApplication::translate("CombatDialog", "Submit Encounter Decisions", 0));
-        runGroupBox->setTitle(QApplication::translate("CombatDialog", "Run Away?", 0));
+        encounter_runGroupBox->setTitle(QApplication::translate("CombatDialog", "Run Away?", 0));
         yesRun->setText(QApplication::translate("CombatDialog", "Yes", 0));
         noRun->setText(QApplication::translate("CombatDialog", "No", 0));
-        moveGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Move Counter", 0));
+        encounter_moveGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Move Counter", 0));
     } // retranslateUi
 
 };

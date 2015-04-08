@@ -34,8 +34,8 @@ CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myP
 				ui.moveCounterList->addItem(item);
 			}
 		}
-		ui.moveCounterList_runGroupBox->setEnabled(true);
-		ui.moveCounterList_runGroupBox->setVisible(true);
+		ui.encounter_runGroupBox->setEnabled(true);
+		ui.encounter_runGroupBox->setVisible(true);
 		ui.submitButton->setText("Submit Encounter Decisions");
 	}
 	else if (combatState == MELEE)
