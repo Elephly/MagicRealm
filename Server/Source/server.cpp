@@ -322,7 +322,7 @@ void Server::startAction() {
 		qDebug() << "wating for response from client";
 		break;
 	case TradeAction: break; //Not implemented yet
-	case HideAction: 
+	case HideAction: {
 		bool result = game.hideRequest(character);
 		s << "Hidden";
 		s << CLASSDELIM;
@@ -332,6 +332,7 @@ void Server::startAction() {
 		writeMessageAllClients(new string(s.str()));
 		endAction();
 		break;
+					 }
 	case RestAction:
 		clientThreadList->at(currentPlayer)->writeMessage(new string("RestRequest"));
 	}
