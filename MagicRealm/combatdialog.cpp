@@ -197,7 +197,7 @@ void CombatDialog::subMelee(CharacterType character ,int fightCounter, CombatFig
 							CombatMoveType moveType, CombatShieldBlock blockType)
 {
 	QString serializedCombat;
-	serializedCombat.sprintf("SubMelee%s%d%s%d%s%d", CLASSDELIM, (int)character, VARDELIM, fightCounter, VARDELIM, fightType,
+	serializedCombat.sprintf("SubMelee%s%d%s%d%s%d%s%d%s%d%s%d", CLASSDELIM, (int)character, VARDELIM, fightCounter, VARDELIM, fightType,
 		VARDELIM, moveCounter, VARDELIM, moveType, VARDELIM, blockType);
 	server->writeMessage(&serializedCombat);
 	done(1);

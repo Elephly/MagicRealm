@@ -286,6 +286,7 @@ void Server::startAction() {
 	switch ((*currentAction)->getAction()) {
 	case MoveAction: {
 		//check target for other players, if any ask if they wish to block
+		blockRes = false;
 		bool waitForBlockResp = false;
 		const vector<Character*>* clearingOccupants = (*currentAction)->getTarget()->getCharacters();
 		if (clearingOccupants->size() > 0) {
@@ -294,7 +295,6 @@ void Server::startAction() {
 			s << character->getType();
 			waitForBlockResp = true;
 			blockCheckNum = 0;
-			blockRes = false;
 			for (vector<Character*>::const_iterator it = clearingOccupants->begin(); it != clearingOccupants->end(); ++it) {
 				CharacterType t = (*it)->getType();
 				for (vector<ClientCommThread*>::iterator citer = clientThreadList->begin(); citer != clientThreadList->end(); ++citer) {
@@ -306,6 +306,15 @@ void Server::startAction() {
 			}
 		}
 		moveCharacter(character, (*currentAction)->getTarget());
+		game.checkBlocks();
+		if (character->isBlocked()) {
+			blockRes = true;
+			stringstream s;
+			s << "Blocked";
+			s << CLASSDELIM;
+			s << character->getType();
+			writeMessageAllClients(new string());
+		}
 		if (!waitForBlockResp) {
 			endAction();
 		}
@@ -449,6 +458,10 @@ void Server::evening() {
 }
 
 void Server::startPlayerCombat() {
+	if (combat != NULL) {
+		delete combat;
+		combat = NULL;
+	}
 	//loop through all players, check for other players in same location
 	for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
 		Character* p1 = game.getPlayer((*it)->getMyCharacter());
@@ -458,8 +471,12 @@ void Server::startPlayerCombat() {
 			if (p2 == p1) {
 				p2 = p1->getCurrentLocation()->getCharacters()->at(1);
 			}
+			if (p1->isHidden() || p2->isHidden()) {
+				break;
+			}
 			if (combat != NULL) {
 				delete combat;
+				combat = NULL;
 			}
 			ClientCommThread* temp = lookupClient(p1->getType());
 			if (temp != NULL) {
