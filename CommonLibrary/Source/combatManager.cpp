@@ -20,6 +20,8 @@ CombatManager::CombatManager(Character* a, Character* d){
     defenderWounds = 0;
 
 	doubleMiss = 0;
+	attackerDamagedArmor = NULL;
+	defenderDamagedArmor = NULL;
 }
 
 Character* CombatManager::getAttacker(){
@@ -58,6 +60,8 @@ void CombatManager::runEncounter()
 
 	attackerResult = ACTION_MISS;
 	defenderResult = ACTION_MISS;
+	attackerDamagedArmor = NULL;
+	defenderDamagedArmor = NULL;
 
 	if(attackerMoveCounter == NULL){
 		stageWinAttacker = false;
@@ -177,6 +181,8 @@ void CombatManager::runMelee()
 	vector<Equipment*>* firstEquipment;
 	vector<Equipment*>* secondEquipment;
 
+	Equipment* damagedArmor;
+
 
 	int attackerLength;
 	int defenderLength;
@@ -265,7 +271,8 @@ void CombatManager::runMelee()
 	    //if hit calculate damage done.
 
 	    if(firstHitSecond){
-		    if(!wasBlocked(secondEquipment, secondBlock, firstFightType)){
+			damagedArmor = wasBlocked(secondEquipment, secondBlock, firstFightType);
+		    if(damagedArmor == NULL){
 			    if(attackerFirst)
 				    defenderResult = ACTION_WOUND;
 			    else
@@ -273,10 +280,14 @@ void CombatManager::runMelee()
 			    cout << "First Player Cut off the Head of Second Player" << endl;
 		    }
 		    else{
-			    if(attackerFirst)
+			    if(attackerFirst){
+					defenderDamagedArmor = damagedArmor;
 				    defenderResult = ACTION_DAMAGED;
-			    else
+				}
+			    else{
+					attackerDamagedArmor = damagedArmor;
 				    attackerResult = ACTION_DAMAGED;
+				}
 		    }
 	    }
 	    else{
@@ -293,6 +304,7 @@ void CombatManager::runMelee()
 		    attackerResult = ACTION_MISS;
     }
 	
+	damagedArmor = NULL;
 	//executing second person to go
     if(secondFightCounter != NULL){
 	    secondHitFirst = (firstMoveCounter == NULL || (secondFightCounter->getSpeed() < firstMoveCounter->getSpeed())); //checking auto hit
@@ -302,7 +314,8 @@ void CombatManager::runMelee()
 	    //if hit calculate damage done.
 
 	    if(secondHitFirst){
-		    if(!wasBlocked(firstEquipment, firstBlock, secondFightType)){
+			damagedArmor = wasBlocked(firstEquipment, firstBlock, secondFightType);
+		    if(damagedArmor == NULL){
 			    if(!attackerFirst)
 				    defenderResult = ACTION_WOUND;
 			    else
@@ -310,10 +323,14 @@ void CombatManager::runMelee()
 			    cout << "Second Player Cut off the Head of First Player" << endl;
 		    }
 		    else{
-			    if(!attackerFirst)
+			    if(!attackerFirst){
+					defenderDamagedArmor = damagedArmor;
 				    defenderResult = ACTION_DAMAGED;
-			    else
+				}
+			    else{
+					attackerDamagedArmor = damagedArmor;
 				    attackerResult = ACTION_DAMAGED;
+				}
 		    }
 	    }
 	    else{
@@ -432,7 +449,7 @@ bool CombatManager::hitScan(CombatFightType firstFight, CombatMoveType secondMov
 		return false;
 }
 
-bool CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType)
+Equipment* CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShieldBlock shielded, CombatFightType fightType)
 {
 	bool hasArmor = false;
 	Equipment* shield = NULL;
@@ -453,7 +470,7 @@ bool CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShield
 			|| (shielded == SHIELD_SWING && fightType == FIGHT_SWING)
 			|| (shielded == SHIELD_SMASH && fightType == FIGHT_SMASH)){
 			shield->setDamaged(true);
-			return true;
+			return (Armor*) shield;
 		}
 	}
 	hasArmor = false;
@@ -468,7 +485,7 @@ bool CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShield
 	if(hasArmor && !breastplate->isDamaged()){
 		if(fightType == FIGHT_THRUST || fightType == FIGHT_SWING){
 			breastplate->setDamaged(true);
-			return true;
+			return breastplate;
 		}
 	}
 	hasArmor = false;
@@ -484,7 +501,7 @@ bool CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShield
 	if(hasArmor && !helmet->isDamaged()){
 		if(fightType == FIGHT_SMASH){
 			helmet->setDamaged(true);
-			return true;
+			return helmet;
 		}
 	}
 	hasArmor = false;
@@ -499,10 +516,21 @@ bool CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, CombatShield
 	}
 	if(hasArmor && !suit->isDamaged()){
 			suit->setDamaged(true);
-			return true;
+			return suit;
 	}
 
 	//no armor to protect you son :(
 
-	return false;
+	return NULL;
+}
+
+Equipment* CombatManager::getDamaged(Character* c)
+{
+	if(c == attacker)
+		return attackerDamagedArmor;
+	if(c == defender)
+		return defenderDamagedArmor;
+
+	cout << "ERR: CombatManager::getDamaged ::: input character does not match combatants" <<endl;
+	return NULL;
 }
