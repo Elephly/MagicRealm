@@ -994,7 +994,6 @@ void GameWindow::changeScreenState(QWidget* screen)
 	if (screen == ui.gameWidget)
 	{
 		window->showFullScreen();
-		combatMelee(selectedCharacter);
 	}
 	else
 	{

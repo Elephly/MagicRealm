@@ -72,7 +72,7 @@
   </widget>
   <widget class="QPushButton" name="submitButton">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -237,13 +237,220 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QListWidget" name="moveCounterList_2">
+     <widget class="QListWidget" name="fightCounterList">
       <property name="font">
        <font>
         <family>MS Serif</family>
         <pointsize>12</pointsize>
        </font>
       </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="melee_moveTypeGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>375</y>
+     <width>180</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color : white</string>
+   </property>
+   <property name="title">
+    <string>Select Combat Move</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="moveTypeList">
+      <property name="font">
+       <font>
+        <family>MS Serif</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="currentRow">
+       <number>0</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Charge</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dodge</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Duck</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="melee_blockTypeGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>325</y>
+     <width>180</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color : white</string>
+   </property>
+   <property name="title">
+    <string>Select Shield Block</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="blockTypeList">
+      <property name="font">
+       <font>
+        <family>MS Serif</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="currentRow">
+       <number>-1</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Thrust</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Swing</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Smash</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="melee_fightTypeGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>375</y>
+     <width>180</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color : white</string>
+   </property>
+   <property name="title">
+    <string>Select Fight Move</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="fightTypeList">
+      <property name="font">
+       <font>
+        <family>MS Serif</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="currentRow">
+       <number>0</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Thrust</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Swing</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Smash</string>
+       </property>
+      </item>
      </widget>
     </item>
    </layout>
