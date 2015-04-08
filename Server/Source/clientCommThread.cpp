@@ -78,7 +78,30 @@ void ClientCommThread::readIncomingData() {
 
 			subEncounter(type, run, counter);
 		} else if (clientData.contains(QRegExp("^SubMelee"))) {
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			clientData.remove(0, pos + 2); //
 
+			pos = clientData.indexOf(QString(VARDELIM));
+			CharacterType type = (CharacterType) clientData.left(pos).toInt();
+			clientData.remove(0, pos +1); //
+
+			pos = clientData.indexOf(QString(VARDELIM));
+			int fID = clientData.left(pos).toInt();
+			clientData.remove(0, pos + 1);
+
+			pos = clientData.indexOf(QString(VARDELIM));
+			CombatFightType fType = (CombatFightType) clientData.left(pos).toInt();
+			clientData.remove(0, pos + 1);
+
+			pos = clientData.indexOf(QString(VARDELIM));
+			int mID = clientData.left(pos).toInt();
+			clientData.remove(0, pos + 1);
+
+			pos = clientData.indexOf(QString(VARDELIM));
+			CombatMoveType mType = (CombatMoveType) clientData.left(pos).toInt();
+			CombatShieldBlock sType = (CombatShieldBlock) clientData.remove(0, pos + 1).toInt();
+
+			subMelee(type, fID, fType, mID, mType, sType);
 		} else if (clientData.contains(QRegExp("^PlayerWounded"))) {
 
 		} else if (clientData.contains(QRegExp("^RestResp"))) {
