@@ -504,7 +504,7 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 	for (vector<Counter*>::iterator it = player->getCounters()->begin(); it != player->getCounters()->end(); ++it) {
 		if ((*it)->getID() == fightC)
 			fightCounter = (*it);
-		if ((*it)->getID == moveC)
+		if ((*it)->getID() == moveC)
 			moveCounter = (*it);
 	}
 	combat->submitMelee(player,fightCounter, cfType, moveCounter, cmType, cbType);
@@ -521,16 +521,47 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		client1 = lookupClient(p1->getType());
 		client2 = lookupClient(p2->getType());
 		switch(p1Action) {
-		case ACTION_DAMAGED: 
-			//send armor updates
+		case ACTION_DAMAGED: {
+			Equipment* damaged = combat->getDamaged(p1);
+			stringstream s;
+			s << "DamagedEquipment";
+			s << CLASSDELIM;
+			s << p1->getType();
+			s << VARDELIM;
+			s << damaged->getType();
+			writeMessageAllClients(new string(s.str()));
 			break;
-		case ACTION_WOUND: break;
+							 }
+		case ACTION_WOUND: {
+			int wounds = combat->getWounds(p1);
+			stringstream s;
+			s << "Wounds";
+			s << CLASSDELIM;
+			s << wounds;
+			client1->writeMessage(new string(s.str()));
+			break;
+						   }
 		}
 		switch(p2Action) {
-		case ACTION_DAMAGED: 
-			//send armor updates
+		case ACTION_DAMAGED: {
+			Equipment* damaged = combat->getDamaged(p2);
+			stringstream s;
+			s << CLASSDELIM;
+			s << p2->getType();
+			s << VARDELIM;
+			s << damaged->getType();
+			writeMessageAllClients(new string(s.str()));
 			break;
-		case ACTION_WOUND: break;
+							 }
+		case ACTION_WOUND: {
+			int wounds = combat->getWounds(p2);
+			stringstream s;
+			s << "Wounds";
+			s << CLASSDELIM;
+			s << wounds;
+			client2->writeMessage(new string(s.str()));
+			break;
+						   }
 		}
 		switch(combat->getCurrentPhase()) {
 		case PHASE_DEAD: 
@@ -550,12 +581,27 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 }
 
 void Server::playerWounded(CharacterType character, vector<int> stuff) {
-
+	Character* player = game.getPlayer(character);
+	vector<Counter*>* counters = player->getCounters();
+	lookupClient(character);
+	for (vector<Counter*>::iterator iter = counters->begin(); iter != counters->end(); ++iter) {
+		for (vector<int>::iterator it = stuff.begin(); it != stuff.end(); ++it) {
+			if ((*iter)->getID == (*it)) {
+				combat->woundCounter((*iter));
+				stringstream s;
+				s << "WoundedPlayer";
+				s << CLASSDELIM;
+				s << character;
+				s << VARDELIM;
+				s << (*it);
+			}
+		}
+	}
 }
 
 void Server::endPlayerCombat() {
-	if (combat != NULL)
-		delete combat;
+	//if (combat != NULL) //can't do this since the playerwounded stuff will probably come in after
+	//	delete combat;
 	midnight();
 }
 

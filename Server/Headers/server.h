@@ -27,6 +27,7 @@ public slots:
 	void endAction();
 	void blockResp(bool answer, CharacterType responder);
 	void monsterCombatResp(int result, int monsterID, CharacterType player);
+
 	void subEncounter(CharacterType character, bool run, int counter);
 	void subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock);
 	void playerWounded(CharacterType, vector<int>);
