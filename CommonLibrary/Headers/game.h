@@ -126,6 +126,28 @@ public:
 	//kills the monster
 	void killMonster(Monster* deadMonster, Character* player);
 
+	//custom chit setup for cheat mode.
+    void customSetup();
+
+	/*
+    *   setupTiles
+    *   Purpose:    Populates the board with tiles.
+    */
+    void setupTiles();
+    /*
+    *   plopDwellings
+    *   Purpose: place Dwellings
+    */
+    void setupValleyStuff();
+    /*
+    *   dealChits
+    *   goes through and deals all the chits
+    */
+    void dealChits();
+
+	//randomly assigns treasures to sites
+	void assignTreasures();
+
 private:
     enum siteType{
         HOARD,
@@ -137,25 +159,8 @@ private:
         CAIRNS,
         STATUE
     };
-    //custom chit setup for cheat mode.
-    void customSetup();
 	//helper function for setting up tiles
 	void customTileSetup(Tile* tile, vector<Warning*>* warningList, vector<Chit*>* siteAndSoundList);
-    /*
-    *   setupTiles
-    *   Purpose:    Populates the board with tiles.
-    */
-    void setupTiles();
-    /*
-    *   plopDwellings
-    *   Purpose: place Dwellings
-    */
-    void plopDwellings();
-    /*
-    *   dealChits
-    *   goes through and deals all the chits
-    */
-    void dealChits();
     /*
     *   setupSite
     *   sets up the sites and returns it
