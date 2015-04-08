@@ -63,13 +63,13 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(blockResp(bool, CharacterType)));
 			connect(newThread, SIGNAL(monsterCombatReturned(int, int, CharacterType)),
 				this, SLOT(monsterCombatResp(int, int, CharacterType)));
-			connect(newThread, SIGNAL(subEncounter(CharacterType, bool, int)),
+			connect(newThread, SIGNAL(subEncounterC(CharacterType, bool, int)),
 				this, SLOT(subEncounter(CharacterType, bool, int)));
-			connect(newThread, SIGNAL(subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)),
+			connect(newThread, SIGNAL(subMeleeC(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)),
 				this, SLOT(subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)));
-			connect(newThread, SIGNAL(playerWounded(CharacterType, vector<int>)),
+			connect(newThread, SIGNAL(playerWoundedC(CharacterType, vector<int>)),
 				this, SLOT(playerWounded(CharacterType, vector<int>)));
-			connect(newThread, SIGNAL(restResponse(CharacterType, int)),
+			connect(newThread, SIGNAL(restResponseC(CharacterType, int)),
 				this, SLOT(restResponse(CharacterType, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
@@ -484,7 +484,9 @@ void Server::startPlayerCombat() {
 }
 
 void Server::subEncounter(CharacterType character, bool run, int counter) {
+	qDebug() << "combatCounter = " << combatCounter;
 	--combatCounter;
+	qDebug() << "combatCounter = " << combatCounter;
 	Character* player = game.getPlayer(character);
 	Counter* actionCounter = NULL;
 	for (vector<Counter*>::iterator it = player->getCounters()->begin(); it != player->getCounters()->end(); ++it) {

@@ -64,7 +64,8 @@ void ClientCommThread::readIncomingData() {
 			int monsterID = clientData.left(pos).toInt();
 			CharacterType type = (CharacterType) clientData.remove(0, pos + 1).toInt();
 			monsterCombatReturned(result, monsterID, type);
-		} else if (clientData.contains("^SubEncounter")) {
+		} else if (clientData.contains(QRegExp("^SubEncounter"))) {
+			qDebug() << "hello world, from happy land";
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData.remove(0, pos + 2); //
 
@@ -76,7 +77,7 @@ void ClientCommThread::readIncomingData() {
 			bool run = (bool) clientData.left(pos).toInt();
 			int counter = clientData.remove(0, pos + 1).toInt();
 
-			subEncounter(type, run, counter);
+			subEncounterC(type, run, counter);
 		} else if (clientData.contains(QRegExp("^SubMelee"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData.remove(0, pos + 2); //
@@ -101,7 +102,7 @@ void ClientCommThread::readIncomingData() {
 			CombatMoveType mType = (CombatMoveType) clientData.left(pos).toInt();
 			CombatShieldBlock sType = (CombatShieldBlock) clientData.remove(0, pos + 1).toInt();
 
-			subMelee(type, fID, fType, mID, mType, sType);
+			subMeleeC(type, fID, fType, mID, mType, sType);
 		} else if (clientData.contains(QRegExp("^PlayerWounded"))) {
 
 		} else if (clientData.contains(QRegExp("^RestResp"))) {
@@ -111,7 +112,7 @@ void ClientCommThread::readIncomingData() {
 			pos = clientData.indexOf(QString(VARDELIM));
 			CharacterType type = (CharacterType) clientData.left(pos).toInt();
 			int id = clientData.remove(0, pos +1).toInt();
-			restResponse(type, id);
+			restResponseC(type, id);
 		}
 		blocksize = 0;
 	} while(true);
