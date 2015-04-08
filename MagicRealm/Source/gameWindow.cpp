@@ -704,7 +704,6 @@ void GameWindow::connectedToServer(time_t time)
 			break;
 		}
 	}
-	changeScreenState(ui.characterSelectWidget);
 }
 
 void GameWindow::updateAvailableCharacters(int removeCharacter)
@@ -799,6 +798,8 @@ void GameWindow::removeMonsterFromGame(int id)
 
 errno_t GameWindow::initializeGame()
 {
+	ui.loadingMessageLabel->setText("--Loading board--");
+	changeScreenState(ui.loadingWidget);
 	errno_t err = 0;
 
 	gameScene = new QGraphicsScene();
@@ -853,7 +854,6 @@ errno_t GameWindow::initializeGame()
 	
 	ui.graphicsView->setScene(gameScene);
 	changeScreenState(ui.gameWidget);
-
 	return err;
 }
 
@@ -2270,5 +2270,5 @@ void GameWindow::manageMonsters(QString& monsterString) {
 void GameWindow::gameReady()
 {
 	game->setupValleyStuff();
-
+	changeScreenState(ui.characterSelectWidget);
 }
