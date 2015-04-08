@@ -180,7 +180,7 @@ void ServerCommThread::updateFromServer()
 		{
 			//nothing to do, players have fled from battle
 		}
-		else if (serverData.contains(QRegExp("^PlayerCombat"))) //nothing extra
+		else if (serverData.contains(QRegExp("^PlayerCombatEncounter"))) //nothing extra
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			CharacterType playerType = (CharacterType) serverData.remove(0, pos + 2).toInt(); 
@@ -213,6 +213,11 @@ void ServerCommThread::updateFromServer()
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			CharacterType type = (CharacterType) serverData.remove(0, pos + 2).toInt(); 
+		}
+		else if (serverData.contains(QRegExp("^RestRequest")))
+		{
+			//TODO nothing to parse, respond with the ID of Counter to heal
+			//RestResp**playerid^counterID
 		}
 		blocksize = 0;
 	} while(true);

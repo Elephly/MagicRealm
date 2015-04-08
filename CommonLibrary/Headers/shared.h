@@ -92,7 +92,8 @@ enum COMMONLIBRARY_EXPORT ActionType
 	MoveAction=0,
 	SearchAction,
 	TradeAction,
-	HideAction
+	HideAction,
+	RestAction
 };
 
 enum COMMONLIBRARY_EXPORT PhaseType

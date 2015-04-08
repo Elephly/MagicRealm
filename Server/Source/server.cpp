@@ -68,6 +68,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)));
 			connect(newThread, SIGNAL(playerWounded(CharacterType, vector<int>)),
 				this, SLOT(playerWounded(CharacterType, vector<int>)));
+			connect(newThread, SIGNAL(restResponse(CharacterType, int)),
+				this, SLOT(restResponse(CharacterType, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;
@@ -330,6 +332,8 @@ void Server::startAction() {
 		writeMessageAllClients(new string(s.str()));
 		endAction();
 		break;
+	case RestAction:
+		clientThreadList->at(currentPlayer)->writeMessage(new string("RestRequest"));
 	}
 }
 
@@ -363,6 +367,8 @@ void Server::endAction() {
 	case SearchAction:
 		sType = clientThreadList->at(currentPlayer)->getSearchTypeResult();
 		searchClearing(character, sType, (*currentAction)->getTarget());
+		break;
+	case RestAction: //TODO do stuff with response
 		break;
 	}
 
@@ -452,7 +458,7 @@ void Server::startPlayerCombat() {
 			ClientCommThread* temp = lookupClient(p1->getType());
 			if (temp != NULL) {
 				stringstream s;
-				s << "PlayerCombat";
+				s << "PlayerCombatEncounter";
 				s << CLASSDELIM;
 				s << p2->getType();
 				temp->writeMessage(new string(s.str()));
@@ -460,7 +466,7 @@ void Server::startPlayerCombat() {
 			temp = lookupClient(p2->getType());
 			if (temp != NULL) {
 				stringstream s;
-				s << "PlayerCombat";
+				s << "PlayerCombatEncounter";
 				s << CLASSDELIM;
 				s << p1->getType();
 				temp->writeMessage(new string(s.str()));
@@ -580,12 +586,12 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		case PHASE_ENCOUNTER:
 			combatCounter = 2;
 			stringstream s;
-			s << "PlayerCombat";
+			s << "PlayerCombatEncounter";
 			s << CLASSDELIM;
 			s << client2->getMyCharacter();
 			client1->writeMessage(new string(s.str()));
 			stringstream s2;
-			s2 << "PlayerCombat";
+			s2 << "PlayerCombatEncounter";
 			s2 << CLASSDELIM;
 			s2 << client1->getMyCharacter();
 			client2->writeMessage(new string(s2.str()));
@@ -814,4 +820,8 @@ ClientCommThread* Server::lookupClient(CharacterType type) {
 			return (*it);
 	}
 	return NULL;
+}
+
+void Server::restResponse(CharacterType character, int counterId) {
+
 }

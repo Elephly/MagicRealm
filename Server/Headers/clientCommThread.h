@@ -30,6 +30,7 @@ signals:
 	void subEncounter(CharacterType, bool, int);
 	void subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock);
 	void playerWounded(CharacterType, vector<int>);
+	void restResponse(CharacterType, int);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;

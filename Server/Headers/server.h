@@ -31,6 +31,7 @@ public slots:
 	void subEncounter(CharacterType character, bool run, int counter);
 	void subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock);
 	void playerWounded(CharacterType, vector<int>);
+	void restResponse(CharacterType, int);
 signals:
 	void finished();
 private:
