@@ -2,6 +2,7 @@
 
 #include "availableMovesDialog.h"
 #include "combatdialog.h"
+#include "restwounddialog.h"
 
 #include <QMessageBox>
 #include <QScrollBar>
@@ -1480,7 +1481,8 @@ void GameWindow::selectAction(ActionType action)
 		actionCompleted = true;
 		if (actionCompleted)
 		{
-			ui.gameEventFeedBrowser->append("  - Rest");
+			eventString.sprintf("  - Rest");
+			ui.gameEventFeedBrowser->append(eventString);
 		}
 	}
 
@@ -1744,7 +1746,14 @@ void GameWindow::siteFound(CharacterType character, QString& siteName)
 
 void GameWindow::restCounterRequest()
 {
-
+	RestWoundDialog* restDialog = new RestWoundDialog(game->getPlayer(selectedCharacter),
+		(*characterProfileImages)[selectedCharacter], RESTWOUND_REST);
+	int counter = restDialog->exec();
+	delete restDialog;
+	
+	QString serializedBlock;
+	serializedBlock.sprintf("RestResp%s%d%s%d", CLASSDELIM, selectedCharacter, VARDELIM, counter);
+	server->writeMessage(&serializedBlock);
 }
 
 void GameWindow::monsterCombatRequest(int monsterID)
@@ -1831,6 +1840,7 @@ void GameWindow::combatEncounter(CharacterType characterType)
 	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
 		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], ENCOUNTER, server, ui.centralWidget);
 	combatDialog->exec();
+	delete combatDialog;
 }
 
 void GameWindow::combatMelee()
@@ -1840,6 +1850,7 @@ void GameWindow::combatMelee()
 		CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(currentOpponent),
 			(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[currentOpponent], MELEE, server, ui.centralWidget);
 		combatDialog->exec();
+		delete combatDialog;
 	}
 }
 

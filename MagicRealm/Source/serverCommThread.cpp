@@ -216,8 +216,7 @@ void ServerCommThread::updateFromServer()
 		}
 		else if (serverData.contains(QRegExp("^RestRequest")))
 		{
-			//TODO nothing to parse, respond with the ID of Counter to heal
-			//RestResp**playerid^counterID
+			windowParent->restCounterRequest();
 		}
 		blocksize = 0;
 	} while(true);
