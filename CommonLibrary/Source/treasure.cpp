@@ -4,6 +4,9 @@ Treasure::Treasure(string n, TreasureType t)
 {
     name = n;
     type = t;
+	goldValue = 0;
+	fameValue = 0;
+	notorietyValue = 0;
 
 	//getting the random values assigned
 	generateGold();
