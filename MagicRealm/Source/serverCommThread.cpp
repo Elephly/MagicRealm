@@ -229,6 +229,8 @@ void ServerCommThread::updateFromServer()
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
 			int counterID = serverData.remove(0, pos + 1).toInt();
+
+			windowParent->restCounter(playerType, counterID);
 		}
 		blocksize = 0;
 	} while(true);

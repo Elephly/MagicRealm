@@ -1758,6 +1758,27 @@ void GameWindow::restCounterRequest()
 	server->writeMessage(&serializedBlock);
 }
 
+void GameWindow::restCounter(CharacterType characterType, int counter)
+{
+	Character* character = game->getPlayer(characterType);
+	if (character != 0)
+	{
+		Counter *c = 0;
+		for (vector<Counter*>::iterator it = character->getCounters()->begin(); it != character->getCounters()->end(); ++it) {
+			if ((*it)->getID() == counter) {
+				c = (*it);
+			}
+		}
+
+		if (c != 0) {
+			game->restCounter(c);
+			QString eventString;
+			eventString.sprintf("%s rested.", Character::getTypeString(characterType));
+			ui.gameEventFeedBrowser->append(eventString);
+		}
+	}
+}
+
 void GameWindow::monsterCombatRequest(int monsterID)
 {
 	QString question;
@@ -1856,6 +1877,15 @@ void GameWindow::combatMelee()
 	}
 }
 
+void GameWindow::combatFlee()
+{
+	QString eventString;
+	eventString.sprintf("%s and %s have disengaged from combat.", selectedCharacter, currentOpponent);
+	ui.gameEventFeedBrowser->append(eventString);
+	// HOPE THIS DOESN'T BREAK ANYTHING!!!
+	currentOpponent = NullCharacter;
+}
+
 void GameWindow::woundCounters(int numCounters)
 {	
 	QString serializedBlock;
@@ -1868,6 +1898,10 @@ void GameWindow::woundCounters(int numCounters)
 			(*characterProfileImages)[selectedCharacter], RESTWOUND_WOUND);
 		int counter = restDialog->exec();
 		delete restDialog;
+		if (counter == -2)
+		{
+			killMeNow();
+		}
 		s.sprintf("%s%d", VARDELIM, counter);
 		serializedBlock.append(s);
 	}
@@ -1875,13 +1909,9 @@ void GameWindow::woundCounters(int numCounters)
 	server->writeMessage(&serializedBlock);
 }
 
-void GameWindow::combatFlee()
+void killMeNow()
 {
-	QString eventString;
-	eventString.sprintf("%s and %s have disengaged from combat.", selectedCharacter, currentOpponent);
-	ui.gameEventFeedBrowser->append(eventString);
-	// HOPE THIS DOESN'T BREAK ANYTHING!!!
-	currentOpponent = NullCharacter;
+	// kill player somehow
 }
 
 void GameWindow::doTurn(QString &turnString)
