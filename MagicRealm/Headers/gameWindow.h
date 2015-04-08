@@ -41,7 +41,7 @@ public:
 
 	int getXRelationalOffsetWithRotation(int x, int y, int rotation);
 	int getYRelationalOffsetWithRotation(int x, int y, int rotation);
-
+	void gameReady();
 	void changeScreenState(QWidget* screen);
 	void enableActions();
 	void disableActions();

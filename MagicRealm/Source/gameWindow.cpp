@@ -2266,3 +2266,9 @@ void GameWindow::manageMonsters(QString& monsterString) {
 		aMonsters->push_back(myMonster);
 	}
 }
+
+void GameWindow::gameReady()
+{
+	game->setupValleyStuff();
+
+}

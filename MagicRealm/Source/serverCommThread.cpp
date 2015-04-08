@@ -222,6 +222,10 @@ void ServerCommThread::updateFromServer()
 		{
 			windowParent->restCounterRequest();
 		}
+		else if (serverData.contains(QRegExp("^GameReady")))
+		{
+			windowParent->gameReady();
+		}
 		else if (serverData.contains(QRegExp("^RestCounter"))) //this is called when a counter has been rested on the server.
 		{
 			int pos = serverData.indexOf(QString(CLASSDELIM));
