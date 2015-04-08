@@ -524,6 +524,7 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		if ((*it)->getID() == moveC)
 			moveCounter = (*it);
 	}
+	//FIXME -1 COUNTERS CAUSE ERROR I THINK!!
 	combat->submitMelee(player,fightCounter, cfType, moveCounter, cmType, cbType);
 	if (combatCounter == 0) {
 		combat->runMelee();

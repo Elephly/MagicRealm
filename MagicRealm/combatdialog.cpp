@@ -21,7 +21,8 @@ CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myP
 	ui.setupUi(this);
 	ui.myCharacter->setPixmap(*myPix);
 	ui.enemyCharacter->setPixmap(*enemyPix);
-
+	
+	ui.submitButton->setEnabled(true);
 	ui.moveGroupBox->setEnabled(true);
 	ui.moveGroupBox->setVisible(true);
 	vector<Counter*>* counters = myCharacter->getCounters();
@@ -46,9 +47,8 @@ CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myP
 	if (formsToFill[0] == 1)
 	{
 		defaultMoveCounter = true;
+		ui.moveGroupBox->setTitle("No move counters");
 	}
-	
-	ui.submitButton->setEnabled(false);
 
 	if (combatState == ENCOUNTER)
 	{
