@@ -72,6 +72,7 @@ public:
 	void combatEncounter(CharacterType characterType);
 	void combatMelee();
 	void combatFlee();
+	void woundCounters(int numCounters);
 
 	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);

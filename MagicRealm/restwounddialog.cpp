@@ -9,8 +9,10 @@ RestWoundDialog::RestWoundDialog(Character* character, QPixmap* myPix, RestWound
 	formsToFill = 1;
 	defaultCounter = false;
 	dead = false;
+	myCharacter = character;
 
-	vector<Counter*>* counters = character->getCounters();
+	ui.myCharacter->setPixmap(*myPix);
+	vector<Counter*>* counters = myCharacter->getCounters();
 	if (actionType == RESTWOUND_REST)
 	{
 		setWindowTitle("Rest up!");
@@ -79,6 +81,15 @@ void RestWoundDialog::on_submitButton_clicked()
 	int counter;
 	if (defaultCounter) counter = -1;
 	else counter = ui.counterList->currentItem()->data(Qt::UserRole).toInt();
+	
+	vector<Counter*>* counters = myCharacter->getCounters();
+	for (vector<Counter*>::iterator it = counters->begin(); it != counters->end(); ++it)
+	{
+		if ((*it)->getID() == counter)
+		{
+			(*it)->wound();
+		}
+	}
 
 	done(counter);
 }
@@ -94,5 +105,5 @@ int RestWoundDialog::exec()
 	{
 		return -2;
 	}
-	QDialog::exec();
+	return QDialog::exec();
 }

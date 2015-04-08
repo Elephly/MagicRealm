@@ -26,6 +26,7 @@ private:
 	int formsToFill;
 	bool defaultCounter;
 	bool dead;
+	Character* myCharacter;
 };
 
 #endif // RESTWOUNDDIALOG_H

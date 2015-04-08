@@ -1856,6 +1856,25 @@ void GameWindow::combatMelee()
 	}
 }
 
+void GameWindow::woundCounters(int numCounters)
+{	
+	QString serializedBlock;
+	serializedBlock.sprintf("PlayerWounded%s", CLASSDELIM, selectedCharacter);
+	
+	for (int i = 0; i < numCounters; i++)
+	{
+		QString s;
+		RestWoundDialog* restDialog = new RestWoundDialog(game->getPlayer(selectedCharacter),
+			(*characterProfileImages)[selectedCharacter], RESTWOUND_WOUND);
+		int counter = restDialog->exec();
+		delete restDialog;
+		s.sprintf("%s%d", VARDELIM, counter);
+		serializedBlock.append(s);
+	}
+	qDebug() << serializedBlock;
+	server->writeMessage(&serializedBlock);
+}
+
 void GameWindow::combatFlee()
 {
 	QString eventString;
