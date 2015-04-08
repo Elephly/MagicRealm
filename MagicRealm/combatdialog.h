@@ -16,9 +16,6 @@ public:
 	CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myPix, QPixmap* enemyPix, ServerCommThread* serv, QWidget* parent = 0);
 	~CombatDialog();
 
-protected:
-	bool eventFilter(QObject *, QEvent *);
-
 private slots:
 	void on_submitButton_clicked();
 	void on_moveCounterList_currentRowChanged(int row);
