@@ -406,29 +406,34 @@ void Game::setupTiles()
 
 void Game::setupValleyStuff()
 {
-    cout << "Placing Dwellings.." <<endl;
-    Dwelling* chapel = gameBoard->getTile("Awful Valley")->getClearing(5)->buildDwelling(CHAPEL);
-    gameBoard->addDwelling(chapel);
-	Dwelling* guard = gameBoard->getTile("Dark Valley")->getClearing(5)->buildDwelling(GUARD);
-    gameBoard->addDwelling(guard);
-	Dwelling* house = gameBoard->getTile("Curst Valley")->getClearing(5)->buildDwelling(HOUSE);
-    gameBoard->addDwelling(house);
-	Dwelling* inn = gameBoard->getTile("Bad Valley")->getClearing(5)->buildDwelling(INN);
-    gameBoard->addDwelling(inn);
+    
+	vector<Tile*>* tileList = gameBoard->getTileByType(TILE_VALLEY);
+	Clearing * destinationClearing = NULL;
+	cout << "Placing Dwellings.." <<endl;
+	for(vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it){
+		if((*it)->getWarningChit()->getName() == "BONES V") //mark as spot to place ghosts
+			destinationClearing = (*it)->getClearing(5);
+		else if((*it)->getWarningChit()->getName() == "RUINS V")
+			gameBoard->addDwelling((*it)->getClearing(5)->buildDwelling(GUARD));
+		else if((*it)->getWarningChit()->getName() == "DANK V")
+			gameBoard->addDwelling((*it)->getClearing(5)->buildDwelling(CHAPEL));
+		else if((*it)->getWarningChit()->getName() == "SMOKE V")
+			gameBoard->addDwelling((*it)->getClearing(5)->buildDwelling(HOUSE));
+		else if((*it)->getWarningChit()->getName() == "STINK V")
+			gameBoard->addDwelling((*it)->getClearing(5)->buildDwelling(INN));
+	}
+	if(destinationClearing == NULL){
+		cout << "ERR:: setupValleyStuff: Ghosts cannot find tile to spawn in BREAKING!!!" <<endl;
+		return;
+	}
 
 	cout << "Setting up ghosts" <<endl;
 	vector<Monster*>* ghostList = gameBoard->getSpawner()->getGhosts();
-	vector<Tile*>* tileList = gameBoard->getTileByType(TILE_VALLEY);
-	Clearing * destinationClearing;
 	for(vector<Monster*>::iterator iter = ghostList->begin(); iter != ghostList->end(); ++iter){
-		for(vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it){
-			if((*it)->getWarningChit()->getName() == "BONES V")
-				destinationClearing = (*it)->getClearing(5);
-		}
 		(*iter)->move(destinationClearing);
 		activeMonsters->push_back(*iter);
 	}
-	delete tileList;
+	delete tileList;	
 }
 
 void Game::customSetup()
