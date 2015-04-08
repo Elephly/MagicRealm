@@ -182,7 +182,8 @@ void ServerCommThread::updateFromServer()
 		}
 		else if (serverData.contains(QRegExp("^PlayerCombat"))) //nothing extra
 		{
-			//respond to the server with the SubEncounter stuff
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			CharacterType playerType = (CharacterType) serverData.remove(0, pos + 2).toInt(); 
 		}
 		else if (serverData.contains(QRegExp("^DamagedEquipment")))
 		{

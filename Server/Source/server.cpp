@@ -573,9 +573,16 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 			break;
 		case PHASE_ENCOUNTER:
 			combatCounter = 2;
-			string* message = new string("PlayerCombat");
-			client1->writeMessage(message);
-			client2->writeMessage(message);
+			stringstream s;
+			s << "PlayerCombat";
+			s << CLASSDELIM;
+			s << client2->getMyCharacter();
+			client1->writeMessage(new string(s.str()));
+			stringstream s;
+			s << "PlayerCombat";
+			s << CLASSDELIM;
+			s << client1->getMyCharacter();
+			client2->writeMessage(new string(s.str()));
 			break;
 		}
 	}
