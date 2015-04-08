@@ -8,12 +8,15 @@
 #include "character.h"
 #include "serverCommThread.h"
 
+enum CombatState { ENCOUNTER, MELEE };
+
 class CombatDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myPix, QPixmap* enemyPix, ServerCommThread* serv, QWidget* parent = 0);
+	CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myPix, QPixmap* enemyPix, CombatState state,
+		ServerCommThread* serv, QWidget* parent = 0);
 	~CombatDialog();
 
 private slots:
@@ -25,7 +28,7 @@ private:
 	Character* myCharacter;
 	Character* enemyCharacter;
 	ServerCommThread* server;
-	int state;
+	CombatState combatState;
 
 	void subEncounter(CharacterType character, bool run, int counter);
 	void subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock);

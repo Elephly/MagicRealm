@@ -97,7 +97,7 @@
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QGroupBox" name="runGroupBox">
+  <widget class="QGroupBox" name="encounter_runGroupBox">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -146,7 +146,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QGroupBox" name="moveGroupBox">
+  <widget class="QGroupBox" name="encounter_moveGroupBox">
    <property name="geometry">
     <rect>
      <x>300</x>
