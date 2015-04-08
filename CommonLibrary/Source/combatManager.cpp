@@ -473,6 +473,7 @@ Equipment* CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, Combat
 			|| (shielded == SHIELD_SWING && fightType == FIGHT_SWING)
 			|| (shielded == SHIELD_SMASH && fightType == FIGHT_SMASH)){
 			shield->setDamaged(true);
+			cout << "Shield has been damaged" << endl;
 			return (Armor*) shield;
 		}
 	}
@@ -488,6 +489,7 @@ Equipment* CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, Combat
 	if(hasArmor && !breastplate->isDamaged()){
 		if(fightType == FIGHT_THRUST || fightType == FIGHT_SWING){
 			breastplate->setDamaged(true);
+			cout << "Breastplate has been damaged" << endl;
 			return breastplate;
 		}
 	}
@@ -504,6 +506,7 @@ Equipment* CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, Combat
 	if(hasArmor && !helmet->isDamaged()){
 		if(fightType == FIGHT_SMASH){
 			helmet->setDamaged(true);
+			cout << "Helmet has been damaged" << endl;
 			return helmet;
 		}
 	}
@@ -519,6 +522,7 @@ Equipment* CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, Combat
 	}
 	if(hasArmor && !suit->isDamaged()){
 			suit->setDamaged(true);
+			cout << "SuitOfArmor has been damaged" << endl;
 			return suit;
 	}
 
