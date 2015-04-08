@@ -276,7 +276,7 @@
           <item>
            <widget class="QPushButton" name="gameRestActionButton">
             <property name="toolTip">
-             <string>Search</string>
+             <string>Rest</string>
             </property>
             <property name="text">
              <string/>
