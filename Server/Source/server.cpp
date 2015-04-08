@@ -606,20 +606,26 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 }
 
 void Server::playerWounded(CharacterType character, vector<int> stuff) {
-	Character* player = game.getPlayer(character);
-	vector<Counter*>* counters = player->getCounters();
-	lookupClient(character);
-	for (vector<Counter*>::iterator iter = counters->begin(); iter != counters->end(); ++iter) {
-		for (vector<int>::iterator it = stuff.begin(); it != stuff.end(); ++it) {
-			if ((*iter)->getID() == (*it)) {
-				combat->woundCounter((*iter));
-				stringstream s;
-				s << "WoundedPlayer";
-				s << CLASSDELIM;
-				s << character;
-				s << VARDELIM;
-				s << (*it);
-				writeMessageAllClients(new string(s.str()));
+	if (character != NullCharacter)
+	{
+		Character* player = game.getPlayer(character);
+		if (player != 0)
+		{
+			vector<Counter*>* counters = player->getCounters();
+			lookupClient(character);
+			for (vector<Counter*>::iterator iter = counters->begin(); iter != counters->end(); ++iter) {
+				for (vector<int>::iterator it = stuff.begin(); it != stuff.end(); ++it) {
+					if ((*iter)->getID() == (*it)) {
+						combat->woundCounter((*iter));
+						stringstream s;
+						s << "WoundedPlayer";
+						s << CLASSDELIM;
+						s << character;
+						s << VARDELIM;
+						s << (*it);
+						writeMessageAllClients(new string(s.str()));
+					}
+				}
 			}
 		}
 	}

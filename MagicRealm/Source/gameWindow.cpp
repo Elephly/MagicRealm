@@ -1881,7 +1881,8 @@ void GameWindow::combatMelee()
 void GameWindow::combatFlee()
 {
 	QString eventString;
-	eventString.sprintf("%s and %s have disengaged from combat.", selectedCharacter, currentOpponent);
+	eventString.sprintf("%s and %s have disengaged from combat.", Character::getTypeString(selectedCharacter),
+		Character::getTypeString(currentOpponent));
 	ui.gameEventFeedBrowser->append(eventString);
 	// HOPE THIS DOESN'T BREAK ANYTHING!!!
 	currentOpponent = NullCharacter;
@@ -1890,7 +1891,7 @@ void GameWindow::combatFlee()
 void GameWindow::woundCounters(int numCounters)
 {	
 	QString serializedBlock;
-	serializedBlock.sprintf("PlayerWounded%s", CLASSDELIM, selectedCharacter);
+	serializedBlock.sprintf("PlayerWounded%s%d", CLASSDELIM, (int)selectedCharacter);
 	
 	for (int i = 0; i < numCounters; i++)
 	{
@@ -1906,7 +1907,6 @@ void GameWindow::woundCounters(int numCounters)
 		s.sprintf("%s%d", VARDELIM, counter);
 		serializedBlock.append(s);
 	}
-	qDebug() << serializedBlock;
 	server->writeMessage(&serializedBlock);
 }
 
@@ -1957,6 +1957,7 @@ void GameWindow::damageEquipment(CharacterType characterType, QString counter)
 		}
 		if (e != 0)
 		{
+			e->setDamaged(true);
 			QString eventString;
 			eventString.sprintf("%s's %s has been damaged!", Character::getTypeString(characterType), counter);
 			ui.gameEventFeedBrowser->append(eventString);
