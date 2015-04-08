@@ -145,6 +145,7 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 	if(counterUsed == NULL || counterUsed->getType() != COUNTER_FIGHT){
 		cout << "Combatant used invalid counter for fightCounter" <<endl;
 		isAttacker? attackerFightCounter = NULL : defenderFightCounter = NULL;
+		return;
 	}
 	for(vector<Counter*>::iterator iter = characterCounters->begin(); iter != characterCounters->end(); ++iter){
 		if((*iter)->getID() == counterUsed->getID() && counterUsed->isAvailable()){
