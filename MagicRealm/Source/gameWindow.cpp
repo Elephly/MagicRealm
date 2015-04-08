@@ -994,9 +994,6 @@ void GameWindow::changeScreenState(QWidget* screen)
 	if (screen == ui.gameWidget)
 	{
 		window->showFullScreen();
-		CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(selectedCharacter),
-			(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[selectedCharacter], server, ui.centralWidget);
-		combatDialog->exec();
 	}
 	else
 	{
