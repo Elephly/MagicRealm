@@ -36,9 +36,12 @@ public:
     QVBoxLayout *verticalLayout;
     QRadioButton *yesRun;
     QRadioButton *noRun;
-    QGroupBox *encounter_moveGroupBox;
+    QGroupBox *moveGroupBox;
     QHBoxLayout *horizontalLayout;
     QListWidget *moveCounterList;
+    QGroupBox *melee_fightGroupBox;
+    QHBoxLayout *horizontalLayout_2;
+    QListWidget *moveCounterList_2;
 
     void setupUi(QDialog *CombatDialog)
     {
@@ -96,16 +99,16 @@ public:
 
         verticalLayout->addWidget(noRun);
 
-        encounter_moveGroupBox = new QGroupBox(CombatDialog);
-        encounter_moveGroupBox->setObjectName(QStringLiteral("encounter_moveGroupBox"));
-        encounter_moveGroupBox->setGeometry(QRect(300, 140, 200, 200));
-        encounter_moveGroupBox->setFont(font);
-        encounter_moveGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
-        encounter_moveGroupBox->setAlignment(Qt::AlignCenter);
-        horizontalLayout = new QHBoxLayout(encounter_moveGroupBox);
+        moveGroupBox = new QGroupBox(CombatDialog);
+        moveGroupBox->setObjectName(QStringLiteral("moveGroupBox"));
+        moveGroupBox->setGeometry(QRect(300, 140, 200, 200));
+        moveGroupBox->setFont(font);
+        moveGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
+        moveGroupBox->setAlignment(Qt::AlignCenter);
+        horizontalLayout = new QHBoxLayout(moveGroupBox);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        moveCounterList = new QListWidget(encounter_moveGroupBox);
+        moveCounterList = new QListWidget(moveGroupBox);
         moveCounterList->setObjectName(QStringLiteral("moveCounterList"));
         QFont font2;
         font2.setFamily(QStringLiteral("MS Serif"));
@@ -113,6 +116,21 @@ public:
         moveCounterList->setFont(font2);
 
         horizontalLayout->addWidget(moveCounterList);
+
+        melee_fightGroupBox = new QGroupBox(CombatDialog);
+        melee_fightGroupBox->setObjectName(QStringLiteral("melee_fightGroupBox"));
+        melee_fightGroupBox->setGeometry(QRect(550, 140, 200, 200));
+        melee_fightGroupBox->setFont(font);
+        melee_fightGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
+        melee_fightGroupBox->setAlignment(Qt::AlignCenter);
+        horizontalLayout_2 = new QHBoxLayout(melee_fightGroupBox);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        moveCounterList_2 = new QListWidget(melee_fightGroupBox);
+        moveCounterList_2->setObjectName(QStringLiteral("moveCounterList_2"));
+        moveCounterList_2->setFont(font2);
+
+        horizontalLayout_2->addWidget(moveCounterList_2);
 
 
         retranslateUi(CombatDialog);
@@ -130,7 +148,8 @@ public:
         encounter_runGroupBox->setTitle(QApplication::translate("CombatDialog", "Run Away?", 0));
         yesRun->setText(QApplication::translate("CombatDialog", "Yes", 0));
         noRun->setText(QApplication::translate("CombatDialog", "No", 0));
-        encounter_moveGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Move Counter", 0));
+        moveGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Move Counter", 0));
+        melee_fightGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Fight Counter", 0));
     } // retranslateUi
 
 };

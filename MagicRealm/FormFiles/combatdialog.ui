@@ -146,7 +146,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QGroupBox" name="encounter_moveGroupBox">
+  <widget class="QGroupBox" name="moveGroupBox">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -187,6 +187,57 @@
     </property>
     <item>
      <widget class="QListWidget" name="moveCounterList">
+      <property name="font">
+       <font>
+        <family>MS Serif</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="melee_fightGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>140</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color : white</string>
+   </property>
+   <property name="title">
+    <string>Select Fight Counter</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="moveCounterList_2">
       <property name="font">
        <font>
         <family>MS Serif</family>
