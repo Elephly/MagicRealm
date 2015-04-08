@@ -62,36 +62,38 @@ void Game::setupGame(bool cm)
     
     //only 1 board tiles can be setup
     setupTiles();
-    
+    assignTreasures();
     //chits and dwellings change depending
     if(cheatMode)
         customSetup();
     else
 	    dealChits();
 
-    //dwellings placed on their appropriate chits
-    plopDwellings();
-
-	cout << "Setting up ghosts" <<endl;
-	vector<Monster*>* ghostList = gameBoard->getSpawner()->getGhosts();
-	vector<Tile*>* tileList = gameBoard->getTileByType(TILE_VALLEY);
-	Clearing * destinationClearing;
-	for(vector<Monster*>::iterator iter = ghostList->begin(); iter != ghostList->end(); ++iter){
-		for(vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it){
-			if((*it)->getWarningChit()->getName() == "BONES V")
-				destinationClearing = (*it)->getClearing(5);
-		}
-		(*iter)->move(destinationClearing);
-		activeMonsters->push_back(*iter);
-	}
-	delete tileList;
     cout << "Finished Setup..." <<endl <<endl;
 }
 
+void Game::assignTreasures()
+{
+	vector<Site*>* siteList = gameBoard->getSiteChits();
+	vector<Treasure*> largeTreasure;
+	vector<Treasure*> smallTreasure;
+	vector<Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
+
+	//setting up large treasure lists.
+	for(vector<Treasure*>::iterator iter = tempTreasureList->begin(); iter!= tempTreasureList->end(); ++iter){
+		largeTreasure.push_back(*iter);
+	}
+	//setting up small treasure lists
+	tempTreasureList = gameBoard->getSmallTreasureList();
+	for(vector<Treasure*>::iterator iter = tempTreasureList->begin(); iter!= tempTreasureList->end(); ++iter){
+		smallTreasure.push_back(*iter);
+	}
+	//setting up site.
+	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
+		setupSite(*it, &largeTreasure, &smallTreasure);
+}
 void Game::dealChits()
 {
-	vector <Treasure*> largeTreasure; 
-    vector <Treasure*> smallTreasure;
 	vector <Chit *> siteAndSoundList;
 	vector<Chit *> mountainList;
 	vector<Chit *> cavesList;
@@ -101,7 +103,6 @@ void Game::dealChits()
 	vector<Warning *>* mountainWarningList = gameBoard->getWarningsByType(TILE_MOUNTAIN);
     vector<Warning *>* cavesWarningList = gameBoard->getWarningsByType(TILE_CAVES);
     vector<Warning *>* woodsList = gameBoard->getWarningsByType(TILE_WOODS);
-	vector <Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
 
 	Lost* lostCity = (Lost*) gameBoard->getChitByName("Lost City");
 	Lost* lostCastle = (Lost*) gameBoard->getChitByName("Lost Castle");
@@ -109,18 +110,6 @@ void Game::dealChits()
 	vector<Chit *>* lostCityList = new vector<Chit*>;
 	vector<Chit *>* lostCastleList = new vector<Chit*>;
 	int random = 0;
-
-	for(vector <Treasure*>::iterator it = tempTreasureList->begin(); it !=tempTreasureList->end(); ++it)
-		largeTreasure.push_back((*it));
-
-	
-	tempTreasureList = gameBoard->getSmallTreasureList();
-	for(vector <Treasure*>::iterator it = tempTreasureList->begin(); it !=tempTreasureList->end(); ++it)
-		smallTreasure.push_back((*it));
-
-	//setting up site.
-	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
-		setupSite(*it, &largeTreasure, &smallTreasure);
 
 	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
 		siteAndSoundList.push_back(*it);
@@ -415,7 +404,7 @@ void Game::setupTiles()
     p = new Path(awfulValleyTile->getClearing(2), lindenWoodsTile->getClearing(5));
 }
 
-void Game::plopDwellings()
+void Game::setupValleyStuff()
 {
     cout << "Placing Dwellings.." <<endl;
     Dwelling* chapel = gameBoard->getTile("Awful Valley")->getClearing(5)->buildDwelling(CHAPEL);
@@ -426,6 +415,20 @@ void Game::plopDwellings()
     gameBoard->addDwelling(house);
 	Dwelling* inn = gameBoard->getTile("Bad Valley")->getClearing(5)->buildDwelling(INN);
     gameBoard->addDwelling(inn);
+
+	cout << "Setting up ghosts" <<endl;
+	vector<Monster*>* ghostList = gameBoard->getSpawner()->getGhosts();
+	vector<Tile*>* tileList = gameBoard->getTileByType(TILE_VALLEY);
+	Clearing * destinationClearing;
+	for(vector<Monster*>::iterator iter = ghostList->begin(); iter != ghostList->end(); ++iter){
+		for(vector<Tile*>::iterator it = tileList->begin(); it != tileList->end(); ++it){
+			if((*it)->getWarningChit()->getName() == "BONES V")
+				destinationClearing = (*it)->getClearing(5);
+		}
+		(*iter)->move(destinationClearing);
+		activeMonsters->push_back(*iter);
+	}
+	delete tileList;
 }
 
 void Game::customSetup()
@@ -455,23 +458,6 @@ void Game::customSetup()
 
     //getting site and sound chit and populating a general siteAndSoundList.
     vector<Site*>* siteList = gameBoard->getSiteChits();
-	vector<Treasure*> largeTreasure;
-	vector<Treasure*> smallTreasure;
-	vector<Treasure*>* tempTreasureList = gameBoard->getLargeTreasureList();
-
-	//setting up large treasure lists.
-	for(vector<Treasure*>::iterator iter = tempTreasureList->begin(); iter!= tempTreasureList->end(); ++iter){
-		largeTreasure.push_back(*iter);
-	}
-
-	tempTreasureList = gameBoard->getSmallTreasureList();
-	for(vector<Treasure*>::iterator iter = tempTreasureList->begin(); iter!= tempTreasureList->end(); ++iter){
-		smallTreasure.push_back(*iter);
-	}
-	//setting up small treasure lists
-	//setting up site.
-	for(vector<Site*>::iterator it = siteList->begin(); it != siteList->end(); ++it)
-		setupSite(*it, &largeTreasure, &smallTreasure);
 
     vector<Sound*>* soundList = gameBoard->getSoundChits();
     vector<Chit*> siteAndSoundList;
