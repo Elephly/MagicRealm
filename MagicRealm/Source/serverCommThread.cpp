@@ -190,7 +190,7 @@ void ServerCommThread::updateFromServer()
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData.remove(0, pos + 2).toInt(); 
 
-			int pos = serverData.indexOf(QString(VARDELIM));
+			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
 			EquipmentType counterID = (EquipmentType) serverData.remove(0, pos + 1).toInt();
 		}
@@ -204,7 +204,7 @@ void ServerCommThread::updateFromServer()
 			int pos = serverData.indexOf(QString(CLASSDELIM));
 			serverData.remove(0, pos + 2).toInt(); 
 
-			int pos = serverData.indexOf(QString(VARDELIM));
+			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
 			int counterID = serverData.remove(0, pos + 1).toInt();
 		}

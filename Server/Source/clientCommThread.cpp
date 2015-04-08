@@ -64,11 +64,21 @@ void ClientCommThread::readIncomingData() {
 			int monsterID = clientData.left(pos).toInt();
 			CharacterType type = (CharacterType) clientData.remove(0, pos + 1).toInt();
 			monsterCombatReturned(result, monsterID, type);
-		} else if (clientData.contains()) {
+		} else if (clientData.contains("^SubEncounter")) {
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			clientData.remove(0, pos + 2); //strips the class delim, now = result^monsterID^characterType
 
-		} else if (clientData.contains()) {
+			pos = clientData.indexOf(QString(VARDELIM));
+			CharacterType type = (CharacterType) clientData.left(pos).toInt();
+			clientData.remove(0, pos +1); //monsterID^characterType
 
-		} else if (clientData.contains()) {
+			pos = clientData.indexOf(QString(VARDELIM));
+			bool run = (bool) clientData.left(pos).toInt();
+			int counter = clientData.remove(0, pos + 1).toInt();
+
+		} else if (clientData.contains("^SubMelee")) {
+
+		} else if (clientData.contains("^PlayerWounded")) {
 
 		}
 		blocksize = 0;

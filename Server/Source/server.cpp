@@ -62,6 +62,8 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(blockResp(bool, CharacterType)));
 			connect(newThread, SIGNAL(monsterCombatReturned(int, int, CharacterType)),
 				this, SLOT(monsterCombatResp(int, int, CharacterType)));
+			connect(newThread, SIGNAL(subEncounter(CharacterType, bool, int)),
+				this, SLOT(subEncounter(CharacterType, bool, int)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;
@@ -578,11 +580,11 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 			s << CLASSDELIM;
 			s << client2->getMyCharacter();
 			client1->writeMessage(new string(s.str()));
-			stringstream s;
-			s << "PlayerCombat";
-			s << CLASSDELIM;
-			s << client1->getMyCharacter();
-			client2->writeMessage(new string(s.str()));
+			stringstream s2;
+			s2 << "PlayerCombat";
+			s2 << CLASSDELIM;
+			s2 << client1->getMyCharacter();
+			client2->writeMessage(new string(s2.str()));
 			break;
 		}
 	}
@@ -594,7 +596,7 @@ void Server::playerWounded(CharacterType character, vector<int> stuff) {
 	lookupClient(character);
 	for (vector<Counter*>::iterator iter = counters->begin(); iter != counters->end(); ++iter) {
 		for (vector<int>::iterator it = stuff.begin(); it != stuff.end(); ++it) {
-			if ((*iter)->getID == (*it)) {
+			if ((*iter)->getID() == (*it)) {
 				combat->woundCounter((*iter));
 				stringstream s;
 				s << "WoundedPlayer";
