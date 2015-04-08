@@ -104,7 +104,19 @@ void ClientCommThread::readIncomingData() {
 
 			subMeleeC(type, fID, fType, mID, mType, sType);
 		} else if (clientData.contains(QRegExp("^PlayerWounded"))) {
+			int pos = clientData.indexOf(QString(CLASSDELIM));
+			clientData.remove(0, pos + 2);
 
+			pos = clientData.indexOf(QString(VARDELIM));
+			CharacterType type = (CharacterType) clientData.left(pos).toInt();
+			vector<int> ids;
+			while ((pos = clientData.indexOf(QString(VARDELIM))) != -1) {
+				ids.push_back(clientData.left(pos).toInt());
+				clientData.remove(0, pos + 1);
+			}
+			
+			ids.push_back(clientData.remove(0, pos +1).toInt());
+			playerWoundedC(type, ids);
 		} else if (clientData.contains(QRegExp("^RestResp"))) {
 			int pos = clientData.indexOf(QString(CLASSDELIM));
 			clientData.remove(0, pos + 2);
