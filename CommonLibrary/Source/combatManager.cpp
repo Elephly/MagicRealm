@@ -122,7 +122,7 @@ void CombatManager::setupMoveCounter(Character* combatant, Counter* counterUsed)
 		isAttacker = false;
 
 	if(counterUsed == NULL || counterUsed->getType() != COUNTER_MOVE){
-		cout << "Attacker used invalid counter for Encounter Step" <<endl;
+		cout << "Combatant used invalid counter for moveCounter" <<endl;
 		isAttacker? attackerMoveCounter = NULL : defenderMoveCounter = NULL;
         return;
 	}
@@ -143,7 +143,7 @@ void CombatManager::setupFightCounter(Character* combatant, Counter* counterUsed
 		isAttacker = false;
 
 	if(counterUsed == NULL || counterUsed->getType() != COUNTER_FIGHT){
-		cout << "Attacker used invalid counter for Fight Step" <<endl;
+		cout << "Combatant used invalid counter for fightCounter" <<endl;
 		isAttacker? attackerFightCounter = NULL : defenderFightCounter = NULL;
 	}
 	for(vector<Counter*>::iterator iter = characterCounters->begin(); iter != characterCounters->end(); ++iter){
