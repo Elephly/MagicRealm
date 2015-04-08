@@ -1520,6 +1520,10 @@ void GameWindow::selectAction(ActionType action)
 			}
 			sunlightPhases = 0;
 		}
+		if (ui.gamePhaseComboBox->count() > 0)
+		{
+			setCurrentPhaseType(ui.gamePhaseComboBox->itemText(ui.gamePhaseComboBox->currentIndex()));;
+		}
 	}
 
 	selectedAction = NoAction;
