@@ -41,7 +41,16 @@ public:
     QListWidget *moveCounterList;
     QGroupBox *melee_fightGroupBox;
     QHBoxLayout *horizontalLayout_2;
-    QListWidget *moveCounterList_2;
+    QListWidget *fightCounterList;
+    QGroupBox *melee_moveTypeGroupBox;
+    QHBoxLayout *horizontalLayout_3;
+    QListWidget *moveTypeList;
+    QGroupBox *melee_blockTypeGroupBox;
+    QHBoxLayout *horizontalLayout_4;
+    QListWidget *blockTypeList;
+    QGroupBox *melee_fightTypeGroupBox;
+    QHBoxLayout *horizontalLayout_5;
+    QListWidget *fightTypeList;
 
     void setupUi(QDialog *CombatDialog)
     {
@@ -65,7 +74,7 @@ public:
         versusImage->setScaledContents(true);
         submitButton = new QPushButton(CombatDialog);
         submitButton->setObjectName(QStringLiteral("submitButton"));
-        submitButton->setEnabled(false);
+        submitButton->setEnabled(true);
         submitButton->setGeometry(QRect(270, 500, 260, 60));
         QFont font;
         font.setFamily(QStringLiteral("MS Serif"));
@@ -126,14 +135,73 @@ public:
         horizontalLayout_2 = new QHBoxLayout(melee_fightGroupBox);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        moveCounterList_2 = new QListWidget(melee_fightGroupBox);
-        moveCounterList_2->setObjectName(QStringLiteral("moveCounterList_2"));
-        moveCounterList_2->setFont(font2);
+        fightCounterList = new QListWidget(melee_fightGroupBox);
+        fightCounterList->setObjectName(QStringLiteral("fightCounterList"));
+        fightCounterList->setFont(font2);
 
-        horizontalLayout_2->addWidget(moveCounterList_2);
+        horizontalLayout_2->addWidget(fightCounterList);
+
+        melee_moveTypeGroupBox = new QGroupBox(CombatDialog);
+        melee_moveTypeGroupBox->setObjectName(QStringLiteral("melee_moveTypeGroupBox"));
+        melee_moveTypeGroupBox->setGeometry(QRect(100, 375, 180, 100));
+        melee_moveTypeGroupBox->setFont(font1);
+        melee_moveTypeGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
+        melee_moveTypeGroupBox->setAlignment(Qt::AlignCenter);
+        horizontalLayout_3 = new QHBoxLayout(melee_moveTypeGroupBox);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        moveTypeList = new QListWidget(melee_moveTypeGroupBox);
+        new QListWidgetItem(moveTypeList);
+        new QListWidgetItem(moveTypeList);
+        new QListWidgetItem(moveTypeList);
+        moveTypeList->setObjectName(QStringLiteral("moveTypeList"));
+        moveTypeList->setFont(font2);
+
+        horizontalLayout_3->addWidget(moveTypeList);
+
+        melee_blockTypeGroupBox = new QGroupBox(CombatDialog);
+        melee_blockTypeGroupBox->setObjectName(QStringLiteral("melee_blockTypeGroupBox"));
+        melee_blockTypeGroupBox->setGeometry(QRect(310, 325, 180, 100));
+        melee_blockTypeGroupBox->setFont(font1);
+        melee_blockTypeGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
+        melee_blockTypeGroupBox->setAlignment(Qt::AlignCenter);
+        horizontalLayout_4 = new QHBoxLayout(melee_blockTypeGroupBox);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        blockTypeList = new QListWidget(melee_blockTypeGroupBox);
+        new QListWidgetItem(blockTypeList);
+        new QListWidgetItem(blockTypeList);
+        new QListWidgetItem(blockTypeList);
+        blockTypeList->setObjectName(QStringLiteral("blockTypeList"));
+        blockTypeList->setFont(font2);
+
+        horizontalLayout_4->addWidget(blockTypeList);
+
+        melee_fightTypeGroupBox = new QGroupBox(CombatDialog);
+        melee_fightTypeGroupBox->setObjectName(QStringLiteral("melee_fightTypeGroupBox"));
+        melee_fightTypeGroupBox->setGeometry(QRect(520, 375, 180, 100));
+        melee_fightTypeGroupBox->setFont(font1);
+        melee_fightTypeGroupBox->setStyleSheet(QStringLiteral("background-color : white"));
+        melee_fightTypeGroupBox->setAlignment(Qt::AlignCenter);
+        horizontalLayout_5 = new QHBoxLayout(melee_fightTypeGroupBox);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        fightTypeList = new QListWidget(melee_fightTypeGroupBox);
+        new QListWidgetItem(fightTypeList);
+        new QListWidgetItem(fightTypeList);
+        new QListWidgetItem(fightTypeList);
+        fightTypeList->setObjectName(QStringLiteral("fightTypeList"));
+        fightTypeList->setFont(font2);
+
+        horizontalLayout_5->addWidget(fightTypeList);
 
 
         retranslateUi(CombatDialog);
+
+        moveTypeList->setCurrentRow(0);
+        blockTypeList->setCurrentRow(-1);
+        fightTypeList->setCurrentRow(0);
+
 
         QMetaObject::connectSlotsByName(CombatDialog);
     } // setupUi
@@ -150,6 +218,42 @@ public:
         noRun->setText(QApplication::translate("CombatDialog", "No", 0));
         moveGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Move Counter", 0));
         melee_fightGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Fight Counter", 0));
+        melee_moveTypeGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Combat Move", 0));
+
+        const bool __sortingEnabled = moveTypeList->isSortingEnabled();
+        moveTypeList->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem = moveTypeList->item(0);
+        ___qlistwidgetitem->setText(QApplication::translate("CombatDialog", "Charge", 0));
+        QListWidgetItem *___qlistwidgetitem1 = moveTypeList->item(1);
+        ___qlistwidgetitem1->setText(QApplication::translate("CombatDialog", "Dodge", 0));
+        QListWidgetItem *___qlistwidgetitem2 = moveTypeList->item(2);
+        ___qlistwidgetitem2->setText(QApplication::translate("CombatDialog", "Duck", 0));
+        moveTypeList->setSortingEnabled(__sortingEnabled);
+
+        melee_blockTypeGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Shield Block", 0));
+
+        const bool __sortingEnabled1 = blockTypeList->isSortingEnabled();
+        blockTypeList->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem3 = blockTypeList->item(0);
+        ___qlistwidgetitem3->setText(QApplication::translate("CombatDialog", "Thrust", 0));
+        QListWidgetItem *___qlistwidgetitem4 = blockTypeList->item(1);
+        ___qlistwidgetitem4->setText(QApplication::translate("CombatDialog", "Swing", 0));
+        QListWidgetItem *___qlistwidgetitem5 = blockTypeList->item(2);
+        ___qlistwidgetitem5->setText(QApplication::translate("CombatDialog", "Smash", 0));
+        blockTypeList->setSortingEnabled(__sortingEnabled1);
+
+        melee_fightTypeGroupBox->setTitle(QApplication::translate("CombatDialog", "Select Fight Move", 0));
+
+        const bool __sortingEnabled2 = fightTypeList->isSortingEnabled();
+        fightTypeList->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem6 = fightTypeList->item(0);
+        ___qlistwidgetitem6->setText(QApplication::translate("CombatDialog", "Thrust", 0));
+        QListWidgetItem *___qlistwidgetitem7 = fightTypeList->item(1);
+        ___qlistwidgetitem7->setText(QApplication::translate("CombatDialog", "Swing", 0));
+        QListWidgetItem *___qlistwidgetitem8 = fightTypeList->item(2);
+        ___qlistwidgetitem8->setText(QApplication::translate("CombatDialog", "Smash", 0));
+        fightTypeList->setSortingEnabled(__sortingEnabled2);
+
     } // retranslateUi
 
 };

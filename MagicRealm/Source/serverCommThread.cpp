@@ -174,11 +174,11 @@ void ServerCommThread::updateFromServer()
 		}
 		else if (serverData.contains(QRegExp("^PlayerCombatMelee"))) //nothing extra
 		{
-			//respond to server with subMelee stuff
+			windowParent->combatMelee();
 		}
 		else if (serverData.contains(QRegExp("^PlayerCombatFlee"))) //nothing extra
 		{
-			//nothing to do, players have fled from battle
+			windowParent->combatFlee();
 		}
 		else if (serverData.contains(QRegExp("^PlayerCombatEncounter"))) //nothing extra
 		{

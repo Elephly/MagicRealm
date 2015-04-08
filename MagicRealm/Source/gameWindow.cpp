@@ -51,6 +51,7 @@ GameWindow::GameWindow(QObject* parent, Ui::MainWindowClass mainWindow)
 	selectedAction = NoAction;
 	myTurn = 0;
 	turnNumber = 1;
+	currentOpponent = NullCharacter;
 }
 
 GameWindow::~GameWindow()
@@ -994,7 +995,6 @@ void GameWindow::changeScreenState(QWidget* screen)
 	if (screen == ui.gameWidget)
 	{
 		window->showFullScreen();
-		combatMelee(selectedCharacter);
 	}
 	else
 	{
@@ -1814,16 +1814,29 @@ void GameWindow::characterCombatRequest(CharacterType characterType)
 
 void GameWindow::combatEncounter(CharacterType characterType)
 {
+	currentOpponent = characterType;
 	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
 		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], ENCOUNTER, server, ui.centralWidget);
 	combatDialog->exec();
 }
 
-void GameWindow::combatMelee(CharacterType characterType)
+void GameWindow::combatMelee()
 {
-	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
-		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], MELEE, server, ui.centralWidget);
-	combatDialog->exec();
+	if (currentOpponent != NullCharacter)
+	{
+		CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(currentOpponent),
+			(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[currentOpponent], MELEE, server, ui.centralWidget);
+		combatDialog->exec();
+	}
+}
+
+void GameWindow::combatFlee()
+{
+	QString eventString;
+	eventString.sprintf("%s and %s have disengaged from combat.", selectedCharacter, currentOpponent);
+	ui.gameEventFeedBrowser->append(eventString);
+	// HOPE THIS DOESN'T BREAK ANYTHING!!!
+	currentOpponent = NullCharacter;
 }
 
 void GameWindow::doTurn(QString &turnString)
@@ -1881,6 +1894,8 @@ void GameWindow::doTurn(QString &turnString)
 
 	destinationClearing = game->getPlayer(selectedCharacter)->getCurrentLocation();
 	placeDestinationCounter();
+
+	currentOpponent = NullCharacter;
 
 	QString eventString;
 	eventString.sprintf("Plot turn %d:", turnNumber);

@@ -69,7 +69,8 @@ public:
 	void monsterKilledBy(int monsterID, CharacterType characterType);
 	void characterCombatRequest(CharacterType characterType);
 	void combatEncounter(CharacterType characterType);
-	void combatMelee(CharacterType characterType);
+	void combatMelee();
+	void combatFlee();
 
 	void connectedToServer(time_t);
 	void updateAvailableCharacters(int removeCharacter);
@@ -127,6 +128,7 @@ private:
 	int turnNumber;
 	PhaseType currentPhase;
 	int sunlightPhases;
+	CharacterType currentOpponent;
 };
 
 #endif // GAMEWINDOW_H
