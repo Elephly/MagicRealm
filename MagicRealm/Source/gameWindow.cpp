@@ -1909,7 +1909,7 @@ void GameWindow::woundCounters(int numCounters)
 	server->writeMessage(&serializedBlock);
 }
 
-void killMeNow()
+void GameWindow::killMeNow()
 {
 	// kill player somehow
 }
