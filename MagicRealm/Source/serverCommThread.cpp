@@ -172,29 +172,40 @@ void ServerCommThread::updateFromServer()
 			CharacterType type = (CharacterType) serverData.remove(0, pos +1).toInt();
 			windowParent->monsterKilledBy(monsterID, type);
 		}
-		else if (serverData.contains(QRegExp("^PlayerCombatMelee")))
+		else if (serverData.contains(QRegExp("^PlayerCombatMelee"))) //nothing extra
 		{
-
+			//respond to server with subMelee stuff
 		}
-		else if (serverData.contains(QRegExp("^PlayerCombatFlee")))
+		else if (serverData.contains(QRegExp("^PlayerCombatFlee"))) //nothing extra
 		{
-
+			//nothing to do, players have fled from battle
 		}
-		else if (serverData.contains(QRegExp("^PlayerCombat")))
+		else if (serverData.contains(QRegExp("^PlayerCombat"))) //nothing extra
 		{
-
+			//respond to the server with the SubEncounter stuff
 		}
 		else if (serverData.contains(QRegExp("^DamagedEquipment")))
 		{
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			serverData.remove(0, pos + 2).toInt(); 
 
+			int pos = serverData.indexOf(QString(VARDELIM));
+			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
+			EquipmentType counterID = (EquipmentType) serverData.remove(0, pos + 1).toInt();
 		}
-		else if (serverData.contains(QRegExp("^Wounds")))
+		else if (serverData.contains(QRegExp("^Wounds"))) 
 		{
-
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			int woundCount = serverData.remove(0, pos + 2).toInt(); 
 		}
 		else if (serverData.contains(QRegExp("^woundedPlayer")))
 		{
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			serverData.remove(0, pos + 2).toInt(); 
 
+			int pos = serverData.indexOf(QString(VARDELIM));
+			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
+			int counterID = serverData.remove(0, pos + 1).toInt();
 		}
 		blocksize = 0;
 	} while(true);

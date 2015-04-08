@@ -572,6 +572,7 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 			endPlayerCombat();
 			break;
 		case PHASE_ENCOUNTER:
+			combatCounter = 2;
 			string* message = new string("PlayerCombat");
 			client1->writeMessage(message);
 			client2->writeMessage(message);
