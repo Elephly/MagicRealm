@@ -1939,34 +1939,28 @@ void GameWindow::woundPlayerCounter(CharacterType characterType, int counter)
 	}
 }
 
-void GameWindow::damageEquipment(CharacterType characterType, EquipmentType counter)
+void GameWindow::damageEquipment(CharacterType characterType, QString counter)
 {
 	Character* character = game->getPlayer(characterType);
 	if (character != 0)
 	{
-		/*
 		Equipment* e = 0;
-		vector<Counter*>* counters = character->getCounters();
-		for (vector<Counter*>::iterator it = counters->begin(); it != counters->end(); ++it)
+		vector<Equipment*>* equipment = character->getEquipment();
+		for (vector<Equipment*>::iterator it = equipment->begin(); it != equipment->end(); ++it)
 		{
-			if ((*it)->getID() == counter)
+			QString name((*it)->getName().c_str());
+			if (name == counter)
 			{
-				c = *it;
+				e = *it;
 				break;
 			}
 		}
-		if (c != 0)
+		if (e != 0)
 		{
 			QString eventString;
-			eventString.sprintf("%s's %c%d", Character::getTypeString(characterType), c->getSize(), c->getSpeed());
-			for (int i = 0; i < c->getFatigue(); i++)
-			{
-				eventString.append("*");
-			}
-			eventString.append(" counter has been wounded!");
+			eventString.sprintf("%s's %s has been damaged!", Character::getTypeString(characterType), counter);
 			ui.gameEventFeedBrowser->append(eventString);
 		}
-		*/
 	}
 }
 

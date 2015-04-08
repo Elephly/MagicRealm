@@ -193,13 +193,8 @@ void ServerCommThread::updateFromServer()
 
 			pos = serverData.indexOf(QString(VARDELIM));
 			CharacterType playerType = (CharacterType) serverData.left(pos).toInt();
-<<<<<<< HEAD
-			EquipmentType counterID = (EquipmentType) serverData.remove(0, pos + 1).toInt();
-			windowParent->damageEquipment(playerType, counterID);
-=======
 			QString counterID = serverData.remove(0, pos + 1);
-			//broadcast
->>>>>>> origin/master
+			windowParent->damageEquipment(playerType, counterID);
 		}
 		else if (serverData.contains(QRegExp("^Wounds"))) 
 		{
