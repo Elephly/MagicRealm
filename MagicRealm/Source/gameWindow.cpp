@@ -121,6 +121,14 @@ GameWindow::~GameWindow()
 		characterImages = 0;
 	}
 
+	if (characterProfileImages != 0)
+	{
+		qDeleteAll(*characterProfileImages);
+		characterProfileImages->clear();
+		delete characterProfileImages;
+		characterProfileImages = 0;
+	}
+
 	if (tileGraphicsItems != 0)
 	{
 		tileGraphicsItems->clear();
@@ -987,7 +995,8 @@ void GameWindow::changeScreenState(QWidget* screen)
 	{
 		window->showFullScreen();
 		CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(selectedCharacter),
-			(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[selectedCharacter], ui.centralWidget);
+			(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[selectedCharacter], server, ui.centralWidget);
+		combatDialog->exec();
 	}
 	else
 	{
@@ -1808,7 +1817,8 @@ void GameWindow::characterCombatRequest(CharacterType characterType)
 void GameWindow::beginPlayerCombat(CharacterType characterType)
 {
 	CombatDialog* combatDialog = new CombatDialog(game->getPlayer(selectedCharacter), game->getPlayer(characterType),
-		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], ui.centralWidget);
+		(*characterProfileImages)[selectedCharacter], (*characterProfileImages)[characterType], server, ui.centralWidget);
+	combatDialog->exec();
 }
 
 void GameWindow::doTurn(QString &turnString)
