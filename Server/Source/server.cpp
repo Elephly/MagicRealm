@@ -64,6 +64,10 @@ void Server::handleIncomingUsers()  {
 				this, SLOT(monsterCombatResp(int, int, CharacterType)));
 			connect(newThread, SIGNAL(subEncounter(CharacterType, bool, int)),
 				this, SLOT(subEncounter(CharacterType, bool, int)));
+			connect(newThread, SIGNAL(subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)),
+				this, SLOT(subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)));
+			connect(newThread, SIGNAL(playerWounded(CharacterType, vector<int>)),
+				this, SLOT(playerWounded(CharacterType, vector<int>)));
 			clientThreadList->push_back(newThread);
 			std::cout << "new user has been accepted" << std::endl;
 			stringstream s;

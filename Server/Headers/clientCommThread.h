@@ -28,6 +28,8 @@ signals:
 	void blockCheckReturn(bool answer, CharacterType responder);
 	void monsterCombatReturned(int result, int monsterID, CharacterType responder);
 	void subEncounter(CharacterType, bool, int);
+	void subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock);
+	void playerWounded(CharacterType, vector<int>);
 private:
 	QTcpSocket *clientConnection;
 	Server *parent;
