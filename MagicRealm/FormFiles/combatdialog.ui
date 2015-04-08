@@ -31,6 +31,9 @@
    <property name="text">
     <string/>
    </property>
+   <property name="pixmap">
+    <pixmap resource="../Resources/mainwindow.qrc">:/images/characterprofile/black_knight.jpg</pixmap>
+   </property>
   </widget>
   <widget class="QLabel" name="enemyCharacter">
    <property name="geometry">
@@ -44,14 +47,17 @@
    <property name="text">
     <string/>
    </property>
+   <property name="pixmap">
+    <pixmap resource="../Resources/mainwindow.qrc">:/images/characterprofile/dwarf.jpg</pixmap>
+   </property>
   </widget>
   <widget class="QLabel" name="versusImage">
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>275</y>
+     <y>30</y>
      <width>40</width>
-     <height>53</height>
+     <height>75</height>
     </rect>
    </property>
    <property name="text">
@@ -65,17 +71,131 @@
    </property>
   </widget>
   <widget class="QPushButton" name="submitButton">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>270</x>
      <y>500</y>
-     <width>220</width>
-     <height>40</height>
+     <width>260</width>
+     <height>60</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
+   <property name="text">
+    <string>Submit Encounter Decisions</string>
+   </property>
+   <property name="default">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="runGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>380</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color : white;</string>
+   </property>
+   <property name="title">
+    <string>Run Away?</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QRadioButton" name="yesRun">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Yes</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="noRun">
+      <property name="text">
+       <string>No</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="moveGroupBox">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>140</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Serif</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color : white</string>
+   </property>
+   <property name="title">
+    <string>Select Move Counter</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="moveCounterList">
+      <property name="font">
+       <font>
+        <family>MS Serif</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>
