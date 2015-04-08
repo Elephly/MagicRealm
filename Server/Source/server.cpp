@@ -362,6 +362,7 @@ void Server::endAction() {
 					++currentAction;
 				}
 				endPlayerTurn();
+				return;
 			}
 		}
 		break;
