@@ -1012,6 +1012,7 @@ void GameWindow::enableActions()
 	ui.gameSearchActionButton->setEnabled(true);
 	ui.gameTradeActionButton->setEnabled(true);
 	ui.gameHideActionButton->setEnabled(true);
+	ui.gameRestActionButton->setEnabled(true);
 }
 
 void GameWindow::disableActions()
