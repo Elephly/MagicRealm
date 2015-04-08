@@ -14,34 +14,44 @@ CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myP
 	ui.myCharacter->setPixmap(*myPix);
 	ui.enemyCharacter->setPixmap(*enemyPix);
 
+	ui.moveGroupBox->setEnabled(true);
+	ui.moveGroupBox->setVisible(true);
+	vector<Counter*>* counters = myCharacter->getCounters();
+	for (vector<Counter*>::iterator it = counters->begin(); it != counters->end(); ++it)
+	{
+		if ((*it)->getType() == COUNTER_MOVE && (*it)->isAvailable())
+		{
+			QString cntr;
+			cntr.sprintf("%c%d", (*it)->getSize(), (*it)->getSpeed());
+			for (int i = 0; i < (*it)->getFatigue(); i++)
+			{
+				cntr.append("*");
+			}
+			QListWidgetItem* item = new QListWidgetItem(cntr);
+			item->setData(Qt::UserRole, (*it)->getID());
+			ui.moveCounterList->addItem(item);
+		}
+	}
+
 	if (combatState == ENCOUNTER)
 	{
-		ui.encounter_moveGroupBox->setEnabled(true);
-		ui.encounter_moveGroupBox->setVisible(true);
-		vector<Counter*>* counters = myCharacter->getCounters();
-		for (vector<Counter*>::iterator it = counters->begin(); it != counters->end(); ++it)
-		{
-			if ((*it)->getType() == COUNTER_MOVE && (*it)->isAvailable())
-			{
-				QString cntr;
-				cntr.sprintf("%c%d", (*it)->getSize(), (*it)->getSpeed());
-				for (int i = 0; i < (*it)->getFatigue(); i++)
-				{
-					cntr.append("*");
-				}
-				QListWidgetItem* item = new QListWidgetItem(cntr);
-				item->setData(Qt::UserRole, (*it)->getID());
-				ui.moveCounterList->addItem(item);
-			}
-		}
 		ui.encounter_runGroupBox->setEnabled(true);
 		ui.encounter_runGroupBox->setVisible(true);
 		ui.submitButton->setText("Submit Encounter Decisions");
+
+		ui.melee_fightGroupBox->setEnabled(false);
+		ui.melee_fightGroupBox->setVisible(false);
 	}
 	else if (combatState == MELEE)
 	{
-		
+		QRect geo = ui.moveGroupBox->geometry();
+		ui.moveGroupBox->setGeometry(50, geo.y(), geo.width(), geo.height());
+		ui.melee_fightGroupBox->setEnabled(true);
+		ui.melee_fightGroupBox->setVisible(true);
 		ui.submitButton->setText("Submit Melee Decisions");
+		
+		ui.encounter_runGroupBox->setEnabled(false);
+		ui.encounter_runGroupBox->setVisible(false);
 	}
 }
 
