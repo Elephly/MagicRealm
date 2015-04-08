@@ -37,21 +37,6 @@ CombatDialog::~CombatDialog()
 {
 }
 
-bool CombatDialog::eventFilter(QObject *obj, QEvent *event)
-{
-	if (event->type() == QEvent::MouseButtonRelease)
-	{
-		if (obj == ui.submitButton)
-		{
-		}
-		return true;
-	}
-	else
-	{
-		return QObject::eventFilter(obj, event);
-	}
-}
-
 void CombatDialog::on_submitButton_clicked()
 {
 	if (state == 1)
@@ -68,7 +53,10 @@ void CombatDialog::on_moveCounterList_currentRowChanged(int row)
 
 void CombatDialog::subEncounter(CharacterType character, bool run, int counter)
 {
-	ui.submitButton->setText("OKAY!");
+	ui.submitButton->setEnabled(false);
+	QString serializedCombat;
+	serializedCombat.sprintf("SubEncounter%s%d%s%d%s%d", CLASSDELIM, (int)character, VARDELIM, (int)run, VARDELIM, counter);
+	server->writeMessage(&serializedCombat);
 }
 
 void CombatDialog::subMelee(CharacterType,int, CombatFightType, int, CombatMoveType, CombatShieldBlock)
