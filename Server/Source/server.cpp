@@ -585,7 +585,7 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 			s << CLASSDELIM;
 			s << p2->getType();
 			s << VARDELIM;
-			s << damaged->getType();
+			s << damaged->getName();
 			writeMessageAllClients(new string(s.str()));
 			break;
 							 }
@@ -903,4 +903,6 @@ void Server::restResponse(CharacterType character, int counterId) {
 		s << counterId;
 		writeMessageAllClients(new string(s.str()));
 	}
+
+	endAction();
 }
