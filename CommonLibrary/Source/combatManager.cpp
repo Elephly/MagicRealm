@@ -65,10 +65,12 @@ void CombatManager::runEncounter()
 
 	if(attackerMoveCounter == NULL){
 		stageWinAttacker = false;
+		currentPhase - PHASE_MELEE;
 		return;
 	}
 	else if(defenderMoveCounter == NULL){
 		stageWinAttacker = true;
+		currentPhase - PHASE_MELEE;
 		return;
 	}
 
@@ -395,7 +397,7 @@ void CombatManager::runResolve()
         attackerWounds = 0;
 
     if(defenderResult == ACTION_WOUND){
-        defenderWounds = getValue(defenderFightCounter->getSize());
+        defenderWounds = getValue(attackerFightCounter->getSize());
         for(vector<Counter*>::iterator iter = defender->getCounters()->begin(); iter!= defender->getCounters()->end(); ++iter){
             if((*iter)->isAvailable())
                 ++defenderHealth;
@@ -516,7 +518,7 @@ Equipment* CombatManager::wasBlocked(vector<Equipment*>* targetEquipment, Combat
 	for(vector<Equipment *>::iterator iter = targetEquipment->begin(); iter != targetEquipment->end(); ++iter){
 		if((*iter)->getName() == "Suit"){
 				hasArmor = true;
-				helmet = (*iter);
+				suit = (*iter);
 				break;
 		}
 	}
