@@ -11,10 +11,9 @@ Server::Server(int port, QObject *parent = 0) : QObject(parent) {
 	combat = NULL;
 	combatCounter = 0;
 	monsterCombatCount = 0;
-
+	
 	for (int i = 0; i < MAXPLAYERS; ++i) {
 		selectedCharacters[i] = false;
-		recTurns[i] = NULL;
 	}
 
 	QObject::connect(incoming,
@@ -172,13 +171,8 @@ We have received a recorded turn for the given client
 void Server::recordedTurn(QString &turn, int clientID) {
 	string *s = new string(turn.toUtf8().constData());
 	RecordedTurn *recTurn = new RecordedTurn(s, game.getBoard());
-	recTurns[clientID] = recTurn;
-	int count = 0;
-	for (int i = 0; i < MAXPLAYERS; ++i) {
-		if (recTurns[i] != NULL)
-			++count;
-	}
-	if (count == clientThreadList->size()) {
+	recTurns.push_back(recTurn);
+	if (recTurns.size() == clientThreadList->size()) {
 		//stop accepting connections
 		incoming->pauseAccepting();
 		qDebug() << "no longer accepting connections";
@@ -267,9 +261,8 @@ void Server::startPlayerTurn() {
 	do {
 		cout << "Rolling Player Turns" <<endl;
 		currentPlayer = game.rollDice() -1;
-		qDebug() << "rolled: " << currentPlayer;
-		qDebug() << "array value: " << recTurns[currentPlayer];
-	} while(recTurns[currentPlayer] == NULL);
+		qDebug() << "rolled: " << currentPlayer; 
+	} while(currentPlayer >= recTurns.size());
 	qDebug() << "selected player: " << currentPlayer;
 	currentAction = recTurns[currentPlayer]->getActions()->begin();
 	if (currentAction != recTurns[currentPlayer]->getActions()->end()) {
@@ -396,7 +389,7 @@ void Server::endAction() {
 
 void Server::endPlayerTurn() {
 	delete recTurns[currentPlayer];
-	recTurns[currentPlayer] = NULL;
+	recTurns.erase(recTurns.begin() + currentPlayer);
 	if (turnExists()) {
 		startPlayerTurn();
 	} else {
@@ -405,10 +398,8 @@ void Server::endPlayerTurn() {
 }
 
 bool Server::turnExists() {
-	for (int i = 0; i < MAXPLAYERS; ++i) {
-		if (recTurns[i] != NULL)
-			return true;
-	}
+	if(recTurns.size() > 0)
+		return true;
 	return false;
 }
 
