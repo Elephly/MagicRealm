@@ -78,6 +78,7 @@ public:
 	void damageEquipment(CharacterType characterType, QString counter);
 	void endGame(CharacterType winner);
 
+	void killPlayer(CharacterType characterType);
 	void killMeNow();
 
 	void connectedToServer(time_t);

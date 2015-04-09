@@ -1757,9 +1757,9 @@ void GameWindow::restCounterRequest()
 	int counter = restDialog->exec();
 	delete restDialog;
 	
-	QString serializedBlock;
-	serializedBlock.sprintf("RestResp%s%d%s%d", CLASSDELIM, selectedCharacter, VARDELIM, counter);
-	server->writeMessage(&serializedBlock);
+	QString serializedCounter;
+	serializedCounter.sprintf("RestResp%s%d%s%d", CLASSDELIM, selectedCharacter, VARDELIM, counter);
+	server->writeMessage(&serializedCounter);
 }
 
 void GameWindow::restCounter(CharacterType characterType, int counter)
@@ -1894,8 +1894,8 @@ void GameWindow::combatFlee()
 
 void GameWindow::woundCounters(int numCounters)
 {	
-	QString serializedBlock;
-	serializedBlock.sprintf("PlayerWounded%s%d", CLASSDELIM, (int)selectedCharacter);
+	QString serializedCounter;
+	serializedCounter.sprintf("PlayerWounded%s%d", CLASSDELIM, (int)selectedCharacter);
 	
 	for (int i = 0; i < numCounters; i++)
 	{
@@ -1909,9 +1909,9 @@ void GameWindow::woundCounters(int numCounters)
 			killMeNow();
 		}
 		s.sprintf("%s%d", VARDELIM, counter);
-		serializedBlock.append(s);
+		serializedCounter.append(s);
 	}
-	server->writeMessage(&serializedBlock);
+	server->writeMessage(&serializedCounter);
 }
 
 void GameWindow::woundPlayerCounter(CharacterType characterType, int counter)
@@ -1984,9 +1984,30 @@ void GameWindow::endGame(CharacterType winner)
 	QMessageBox::information(ui.centralWidget, "Game Over", "You can view your end of game standings in the Character Info panel.");
 }
 
+void GameWindow::killPlayer(CharacterType characterType)
+{
+	if (characterType != NullCharacter)
+	{
+		Character* c = game->getPlayer(characterType);
+		if (c != 0)
+		{
+			game->removePlayer(characterType);
+			QString eventString;
+			eventString.sprintf("%s has died!", Character::getTypeString(characterType));
+			ui.gameEventFeedBrowser->append(eventString);
+			//dunno if this will break anything, shouldn't though.
+			gameScene->removeItem((*characterGraphicsItems)[characterType]);
+		}
+	}
+}
+
 void GameWindow::killMeNow()
 {
-	// kill player somehow
+	disableActions();
+	QMessageBox::information(ui.centralWidget, "Game Over", "You have died!");
+	QString serializedCharacter;
+	serializedCharacter.sprintf("KillPlayer%s%d", CLASSDELIM, (int)selectedCharacter);
+	server->writeMessage(&serializedCharacter);
 }
 
 void GameWindow::doTurn(QString &turnString)
