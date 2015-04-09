@@ -1993,11 +1993,10 @@ void GameWindow::killPlayer(CharacterType characterType)
 		Character* c = game->getPlayer(characterType);
 		if (c != 0)
 		{
-			game->removePlayer(characterType);
 			QString eventString;
 			eventString.sprintf("%s has died!", Character::getTypeString(characterType));
 			ui.gameEventFeedBrowser->append(eventString);
-			//dunno if this will break anything, shouldn't though.
+
 			if (characterType == selectedCharacter)
 			{
 				disableActions();
@@ -2005,6 +2004,7 @@ void GameWindow::killPlayer(CharacterType characterType)
 			}
 			else
 			{
+				game->removePlayer(characterType);
 				gameScene->removeItem((*characterGraphicsItems)[characterType]);
 			}
 		}
