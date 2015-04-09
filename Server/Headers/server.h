@@ -48,6 +48,8 @@ private:
 	CombatManager* combat;
 	int combatCounter;
 
+	RecordedTurn* getRecordedTurnByID(int);
+
 	//sending game map to client
 	void sendBoard(ClientCommThread* client);
 

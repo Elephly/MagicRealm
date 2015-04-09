@@ -7,10 +7,10 @@ RecordedTurn::RecordedTurn() {
 	availablePhases = new map<PhaseType, int>();
 }
 
-RecordedTurn::RecordedTurn(string* serializedString, Board* gameBoard) {
+RecordedTurn::RecordedTurn(string* serializedString, Board* gameBoard, int ci) {
 	actions = new vector<Action*>();
 	availablePhases = new map<PhaseType, int>();
-
+	clientID = ci;
 	int pos = serializedString->find(CLASSDELIM);
 
 	string second = serializedString->substr(pos + 2);
@@ -45,6 +45,10 @@ RecordedTurn::RecordedTurn(string* serializedString, Board* gameBoard) {
 	} while(second.at(0) != '*');
 }
 
+int RecordedTurn::getClientID()
+{
+	return clientID;
+}
 RecordedTurn::RecordedTurn(string* serializedString) {
 	actions = new vector<Action*>();
 	availablePhases = new map<PhaseType, int>();

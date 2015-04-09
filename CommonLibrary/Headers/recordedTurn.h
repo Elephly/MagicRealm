@@ -12,7 +12,7 @@ class COMMONLIBRARY_EXPORT RecordedTurn : public Serializer {
 public:
 	RecordedTurn();
 	RecordedTurn(string*);
-	RecordedTurn(string*, Board*);
+	RecordedTurn(string*, Board*, int);
 	~RecordedTurn();
 
 
@@ -24,7 +24,9 @@ public:
 	bool addAction(Action*, PhaseType);
 	void addPhase(PhaseType, int count = 1);
 	virtual string* serialize();
+	int getClientID();
 private:
+	int clientID;
 	vector<Action*> *actions;
 	map<PhaseType, int> *availablePhases;
 };
