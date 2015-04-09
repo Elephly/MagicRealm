@@ -581,6 +581,7 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		case ACTION_DAMAGED: {
 			Equipment* damaged = combat->getDamaged(p2);
 			stringstream s;
+			s << "DamagedEquipment";
 			s << CLASSDELIM;
 			s << p2->getType();
 			s << VARDELIM;
