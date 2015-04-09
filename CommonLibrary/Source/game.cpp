@@ -737,6 +737,7 @@ void Game::removePlayer(CharacterType oldPlayerType)
     }
     //player is found, and its not the last player in the array.
     else{
+		players[playerIndex]->getCurrentLocation()->removeCharacter(players[playerIndex]);
         delete players[playerIndex];
         //setting the last player to the old players location
         players[playerIndex] = players[lastIndex];
