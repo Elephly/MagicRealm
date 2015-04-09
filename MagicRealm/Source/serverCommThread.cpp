@@ -237,6 +237,12 @@ void ServerCommThread::updateFromServer()
 
 			windowParent->restCounter(playerType, counterID);
 		}
+		else if (serverData.contains(QRegExp("^DeadPlayer")))
+		{
+			int pos = serverData.indexOf(QString(CLASSDELIM));
+			CharacterType type = (CharacterType) serverData.remove(0, pos + 2).toInt();
+			windowParent->killPlayer(type);
+		}
 		blocksize = 0;
 	} while(true);
 }
