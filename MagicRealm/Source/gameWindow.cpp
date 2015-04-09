@@ -1965,7 +1965,7 @@ void GameWindow::damageEquipment(CharacterType characterType, QString counter)
 		{
 			e->setDamaged(true);
 			QString eventString;
-			eventString.sprintf("%s's %s has been damaged!", Character::getTypeString(characterType), counter);
+			eventString.sprintf("%s's %s has been damaged!", Character::getTypeString(characterType), counter.toUtf8().constData());
 			ui.gameEventFeedBrowser->append(eventString);
 		}
 	}
