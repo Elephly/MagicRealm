@@ -1904,10 +1904,12 @@ void GameWindow::woundCounters(int numCounters)
 			(*characterProfileImages)[selectedCharacter], RESTWOUND_WOUND);
 		int counter = restDialog->exec();
 		delete restDialog;
+		/*
 		if (counter == -2)
 		{
 			killMeNow();
 		}
+		*/
 		s.sprintf("%s%d", VARDELIM, counter);
 		serializedCounter.append(s);
 	}
@@ -1996,7 +1998,15 @@ void GameWindow::killPlayer(CharacterType characterType)
 			eventString.sprintf("%s has died!", Character::getTypeString(characterType));
 			ui.gameEventFeedBrowser->append(eventString);
 			//dunno if this will break anything, shouldn't though.
-			gameScene->removeItem((*characterGraphicsItems)[characterType]);
+			if (characterType == selectedCharacter)
+			{
+				disableActions();
+				QMessageBox::information(ui.centralWidget, "Game Over", "You have died!");
+			}
+			else
+			{
+				gameScene->removeItem((*characterGraphicsItems)[characterType]);
+			}
 		}
 	}
 }
