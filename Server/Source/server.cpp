@@ -170,7 +170,7 @@ We have received a recorded turn for the given client
 */
 void Server::recordedTurn(QString &turn, int clientID) {
 	string *s = new string(turn.toUtf8().constData());
-	RecordedTurn *recTurn = new RecordedTurn(s, game.getBoard());
+	RecordedTurn *recTurn = new RecordedTurn(s, game.getBoard(), clientID);
 	recTurns.push_back(recTurn);
 	if (recTurns.size() == clientThreadList->size()) {
 		//stop accepting connections
@@ -275,7 +275,7 @@ void Server::startPlayerTurn() {
 void Server::startAction() {
 	qDebug() << "performing action";
 	stringstream s;
-	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
+	Character *character = game.getPlayer(clientThreadList->at(recTurns.at(currentPlayer)->getClientID())->getMyCharacter());
 	switch ((*currentAction)->getAction()) {
 	case MoveAction: {
 		//check target for other players, if any ask if they wish to block
@@ -345,7 +345,7 @@ void Server::startAction() {
 
 void Server::endAction() {
 	SearchType sType;
-	Character *character = game.getPlayer(clientThreadList->at(currentPlayer)->getMyCharacter());
+	Character *character = game.getPlayer(clientThreadList->at(recTurns.at(currentPlayer)->getClientID())->getMyCharacter());
 	switch ((*currentAction)->getAction())
 	{
 	case MoveAction: 
