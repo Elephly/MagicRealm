@@ -129,20 +129,20 @@ CombatDialog::~CombatDialog()
 
 void CombatDialog::on_submitButton_clicked()
 {
+	int moveCounter;
+	if (defaultMoveCounter) moveCounter = -1;
+	else moveCounter = ui.moveCounterList->currentItem()->data(Qt::UserRole).toInt();
+
 	if (combatState == ENCOUNTER)
 	{
-		subEncounter(myCharacter->getType(), ui.yesRun->isChecked(), ui.moveCounterList->currentItem()->data(Qt::UserRole).toInt());
+		subEncounter(myCharacter->getType(), ui.yesRun->isChecked(), moveCounter);
 	}
 	else if (combatState == MELEE)
 	{
-		int moveCounter;
 		CombatMoveType moveType;
 		int fightCounter;
 		CombatFightType fightType;
 		CombatShieldBlock blockType;
-
-		if (defaultMoveCounter) moveCounter = -1;
-		else moveCounter = ui.moveCounterList->currentItem()->data(Qt::UserRole).toInt();
 
 		moveType = (CombatMoveType)ui.moveTypeList->currentRow();
 
