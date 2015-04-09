@@ -102,7 +102,7 @@ CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myP
 		vector<Equipment*>* equpmnt = myCharacter->getEquipment();
 		for (vector<Equipment*>::iterator it = equpmnt->begin(); it != equpmnt->end(); ++it)
 		{
-			if ((*it)->getName() == "Shield")
+			if ((*it)->getName() == "Shield" && !(*it)->isDamaged())
 			{
 				formsToFill[2] = 0;
 				ui.submitButton->setEnabled(false);
