@@ -39,11 +39,10 @@ private:
 	QTcpServer *incoming;
 	std::vector<ClientCommThread *> *clientThreadList;
 	bool selectedCharacters[MAXPLAYERS];
-	bool receivedRecTurn[MAXPLAYERS];
 	int blockCheckNum;
 	bool blockRes;
 	int monsterCombatCount;
-	RecordedTurn *recTurns[MAXPLAYERS];
+	vector<RecordedTurn*> recTurns;
     Game game;
 	int currentDay;
 	CombatManager* combat;
