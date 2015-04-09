@@ -1723,6 +1723,7 @@ void GameWindow::treasureFound(CharacterType character, int treasureWorth, int f
 		eventString.sprintf("%s found a treasure worth %d gold, %d fame, and %d notoriety!", Character::getTypeString(character), 
 			treasureWorth, fame, notoriety);
 		ui.gameEventFeedBrowser->append(eventString);
+		updateCharacterInfoPane();
 	}
 }
 
