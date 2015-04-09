@@ -903,4 +903,6 @@ void Server::restResponse(CharacterType character, int counterId) {
 		s << counterId;
 		writeMessageAllClients(new string(s.str()));
 	}
+
+	endAction();
 }
