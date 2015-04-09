@@ -362,7 +362,6 @@ void Server::endAction() {
 			if (blockRes) {
 				//end player turn
 				character->setBlock(true);
-				//TODO setBlock for the player that blocked
 				stringstream s;
 				s << "Blocked";
 				s << CLASSDELIM;
@@ -382,7 +381,7 @@ void Server::endAction() {
 		sType = clientThreadList->at(currentPlayer)->getSearchTypeResult();
 		searchClearing(character, sType, (*currentAction)->getTarget());
 		break;
-	case RestAction: //TODO do stuff with response
+	case RestAction: //TODO do stuff with response, do nothing?
 		break;
 	}
 
@@ -452,7 +451,6 @@ void Server::evening() {
 			}
 		}
 	}
-	//TODO perform combat stuff
 	if (monsterCombatCount == 0)
 		startPlayerCombat();
 }
@@ -544,7 +542,6 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		if ((*it)->getID() == moveC)
 			moveCounter = (*it);
 	}
-	//FIXME -1 COUNTERS CAUSE ERROR I THINK!!
 	combat->submitMelee(player,fightCounter, cfType, moveCounter, cmType, cbType);
 	if (combatCounter == 0) {
 		combat->runMelee();
@@ -604,6 +601,35 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 		switch(combat->getCurrentPhase()) {
 		case PHASE_DEAD: 
 			//someone is dead, end combat
+			//TODO
+			if (combat->getResult(p1) == ACTION_DEAD) {
+				stringstream s;
+				s << "DeadPlayer";
+				s << CLASSDELIM;
+				s << p1->getType();
+				writeMessageAllClients(new string(s.str()));
+				game.removePlayer(p1->getType());
+				for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+					if ((*it)->getMyCharacter() == p1->getType()) {
+						delete (*it);
+						clientThreadList->erase(it);
+					}
+				}
+			}
+			if (combat->getResult(p2) == ACTION_DEAD) {
+				stringstream s;
+				s << "DeadPlayer";
+				s << CLASSDELIM;
+				s << p2->getType();
+				writeMessageAllClients(new string(s.str()));
+				game.removePlayer(p2->getType());
+				for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
+					if ((*it)->getMyCharacter() == p2->getType()) {
+						delete (*it);
+						clientThreadList->erase(it);
+					}
+				}
+			}
 			endPlayerCombat();
 			break;
 		case PHASE_MISSED:
