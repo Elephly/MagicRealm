@@ -65,12 +65,12 @@ void CombatManager::runEncounter()
 
 	if(attackerMoveCounter == NULL){
 		stageWinAttacker = false;
-		currentPhase - PHASE_MELEE;
+		currentPhase = PHASE_MELEE;
 		return;
 	}
 	else if(defenderMoveCounter == NULL){
 		stageWinAttacker = true;
-		currentPhase - PHASE_MELEE;
+		currentPhase = PHASE_MELEE;
 		return;
 	}
 

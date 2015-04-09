@@ -609,13 +609,13 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 				s << CLASSDELIM;
 				s << p1->getType();
 				writeMessageAllClients(new string(s.str()));
-				game.removePlayer(p1->getType());
 				for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
 					if ((*it)->getMyCharacter() == p1->getType()) {
-						delete (*it);
 						clientThreadList->erase(it);
+						break;
 					}
 				}
+				game.removePlayer(p1->getType());
 			}
 			if (combat->getResult(p2) == ACTION_DEAD) {
 				stringstream s;
@@ -623,13 +623,13 @@ void Server::subMelee(CharacterType character, int fightC, CombatFightType cfTyp
 				s << CLASSDELIM;
 				s << p2->getType();
 				writeMessageAllClients(new string(s.str()));
-				game.removePlayer(p2->getType());
 				for (vector<ClientCommThread*>::iterator it = clientThreadList->begin(); it != clientThreadList->end(); ++it) {
 					if ((*it)->getMyCharacter() == p2->getType()) {
-						delete (*it);
 						clientThreadList->erase(it);
+						break;
 					}
 				}
+				game.removePlayer(p2->getType());
 			}
 			endPlayerCombat();
 			break;
