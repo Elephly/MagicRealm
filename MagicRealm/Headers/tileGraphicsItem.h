@@ -14,6 +14,7 @@ public:
 	~TileGraphicsItem();
 	int width();
 	int height();
+	Tile* getTile();
 
 protected:
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);

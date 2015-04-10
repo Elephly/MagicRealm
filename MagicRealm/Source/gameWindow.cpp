@@ -884,6 +884,7 @@ errno_t GameWindow::drawTiles()
 		item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
 		
 		gameScene->addItem(item);
+		tileGraphicsItems->insert(currTile, item);
 
 		unordered_set<Tile*> visitedTiles;
 		visitedTiles.insert(currTile);
@@ -900,7 +901,6 @@ errno_t GameWindow::drawTiles()
 
 		while (!incompleteTiles.empty())
 		{
-			tileGraphicsItems->insert(currTile, item);
 			currTile = incompleteTiles.front();
 			incompleteTiles.pop();
 			for (int i = 0; i < CONNECTED_LENGTH; i++)
@@ -943,12 +943,13 @@ errno_t GameWindow::drawTiles()
 					item->setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
 
 					gameScene->addItem(item);
+					tileGraphicsItems->insert(newTile, item);
 
 					incompleteTiles.push(newTile);
 					visitedTiles.insert(newTile);
 					tileLocations->insert(newTile, pos);
 				}
-			}		
+			}
 		}
 		return 0;
 	}
