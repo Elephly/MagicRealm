@@ -63,8 +63,3 @@ int TileGraphicsItem::height()
 {
 	return myHeight;
 }
-
-Tile* TileGraphicsItem::getTile()
-{
-	return myTile;
-}
