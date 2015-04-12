@@ -24,7 +24,22 @@ RestWoundDialog::RestWoundDialog(Character* character, QPixmap* myPix, RestWound
 				formsToFill = 0;
 				ui.submitButton->setEnabled(false);
 				QString cntr;
-				cntr.sprintf("%c%d", (*it)->getSize(), (*it)->getSpeed());
+				if ((*it)->getType() == COUNTER_FIGHT)
+				{
+					cntr.sprintf("Fight: %c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
+				else if ((*it)->getType() == COUNTER_MOVE)
+				{
+					cntr.sprintf("Move: %c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
+				else if ((*it)->getType() == COUNTER_DUCK)
+				{
+					cntr.sprintf("Duck:%c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
+				else
+				{
+					cntr.sprintf("%c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
 				for (int i = 0; i < (*it)->getFatigue(); i++)
 				{
 					cntr.append("*");
@@ -52,7 +67,22 @@ RestWoundDialog::RestWoundDialog(Character* character, QPixmap* myPix, RestWound
 				formsToFill = 0;
 				ui.submitButton->setEnabled(false);
 				QString cntr;
-				cntr.sprintf("%c%d", (*it)->getSize(), (*it)->getSpeed());
+				if ((*it)->getType() == COUNTER_FIGHT)
+				{
+					cntr.sprintf("Fight: %c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
+				else if ((*it)->getType() == COUNTER_MOVE)
+				{
+					cntr.sprintf("Move: %c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
+				else if ((*it)->getType() == COUNTER_DUCK)
+				{
+					cntr.sprintf("Duck:%c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
+				else
+				{
+					cntr.sprintf("%c%d", (*it)->getSize(), (*it)->getSpeed());
+				}
 				for (int i = 0; i < (*it)->getFatigue(); i++)
 				{
 					cntr.append("*");
