@@ -1,5 +1,4 @@
 #include "combatdialog.h"
-#include <QDebug>
 #include <QtNetwork>
 
 CombatDialog::CombatDialog(Character* myChar, Character* enemyChar, QPixmap* myPix, QPixmap* enemyPix,
